@@ -773,7 +773,22 @@ def generate_html_report(
       min(season_log, key=lambda x: x["margin"]) if season_log else None
   )
 
+  b_winner = blowout_game['winner_team'] if blowout_game else 'None'
+  b_margin = f"+{blowout_game['margin']:.2f}" if blowout_game else '0.00'
+  b_loser = blowout_game['loser_team'] if blowout_game else 'None'
+  b_wscore = f"{blowout_game['winner_score']:.2f}" if blowout_game else '0.00'
+  b_lscore = f"{blowout_game['loser_score']:.2f}" if blowout_game else '0.00'
+  b_week = blowout_game['week'] if blowout_game else '0'
+
+  h_margin = f"{heartbreaker_game['margin']:.2f}" if heartbreaker_game else '0.00'
+  h_winner = heartbreaker_game['winner_team'] if heartbreaker_game else 'None'
+  h_wscore = f"{heartbreaker_game['winner_score']:.2f}" if heartbreaker_game else '0.00'
+  h_loser = heartbreaker_game['loser_team'] if heartbreaker_game else 'None'
+  h_lscore = f"{heartbreaker_game['loser_score']:.2f}" if heartbreaker_game else '0.00'
+  h_week = heartbreaker_game['week'] if heartbreaker_game else '0'
+
   serialized_reigning = json.dumps(reigning)
+  active_meta = json.dumps({"year": str(active_year), "week": str(latest_week_num)})
 
   html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -925,6 +940,10 @@ def generate_html_report(
 
 <script id="reigning-badges-data" type="application/json">
 {serialized_reigning}
+</script>
+
+<script id="active-meta-data" type="application/json">
+{active_meta}
 </script>
 
 <div class="wrapper">
@@ -1133,8 +1152,8 @@ def generate_html_report(
       <div class="award-card red">
         <div>
           <div class="award-tag" style="color: var(--red);">🔨 The Gavel (Largest Blowout)</div>
-          <div class="award-title">{blowout_game['winner_team'] if blowout_game else 'None'} (+{blowout_game['margin']:.2f} pts)</div>
-          <div class="award-desc">Demolished {blowout_game['loser_team'] if blowout_game else 'None'} ({blowout_game['winner_score']:.2f} to {blowout_game['loser_score']:.2f}) in Week {blowout_game['week'] if blowout_game else '0'}.</div>
+          <div class="award-title">{b_winner} ({b_margin} pts)</div>
+          <div class="award-desc">Demolished {b_loser} ({b_wscore} to {b_lscore}) in Week {b_week}.</div>
         </div>
         <div style="margin-top: 8px;"><span class="badge badge-unlucky">Biggest Massacre</span></div>
       </div>
@@ -1142,8 +1161,8 @@ def generate_html_report(
       <div class="award-card green">
         <div>
           <div class="award-tag" style="color: var(--green);">🪙 The Coin Flip (Closest Finish)</div>
-          <div class="award-title">Decided by {heartbreaker_game['margin']:.2f} pts</div>
-          <div class="award-desc">{heartbreaker_game['winner_team'] if heartbreaker_game else 'None'} ({heartbreaker_game['winner_score']:.2f}) survived against {heartbreaker_game['loser_team'] if heartbreaker_game else 'None'} ({heartbreaker_game['loser_score']:.2f}) in Week {heartbreaker_game['week'] if heartbreaker_game else '0'}.</div>
+          <div class="award-title">Decided by {h_margin} pts</div>
+          <div class="award-desc">{h_winner} ({h_wscore}) survived against {h_loser} ({h_lscore}) in Week {h_week}.</div>
         </div>
         <div style="margin-top: 8px;"><span class="badge badge-lucky">Nail Biter of the Year</span></div>
       </div>
@@ -1317,9 +1336,10 @@ def generate_html_report(
 <script>
   var seasonsData = {};
   var reigningBadges = JSON.parse(document.getElementById('reigning-badges-data').textContent || '{}');
+  var activeMeta = JSON.parse(document.getElementById('active-meta-data').textContent || '{"year": "2026", "week": "1"}');
 
-  var currentYear = '{active_year}';
-  var currentWeek = '{latest_week_num}';
+  var currentYear = activeMeta.year;
+  var currentWeek = activeMeta.week;
 
   var h2hScope = 'current';
   var hofScope = 'current';
@@ -1709,8 +1729,6 @@ if __name__ == "__main__":
     print(f"Syncing historical season weeks for {current_year}...")
     season_data = sync_historical_season_weeks(current_year)
 
-    # Safe pre-season fallback: if the requested year has no weeks ingested yet,
-    # default to 2025 so your dashboard has rich data to render during manual workflow runs.
     if not season_data.get("weeks") and current_year == 2026:
         print("Current season has no completed weeks yet. Falling back to 2025 for data structure preview...")
         current_year = 2025
