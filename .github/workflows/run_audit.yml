@@ -4,15 +4,15 @@ on:
   workflow_dispatch:
     inputs:
       week:
-        description: 'NFL Week Number to Audit'
-        required: true
-        default: '1'
+        description: 'NFL Week Number (leave blank for automatic latest completed week)'
+        required: false
+        default: ''
       year:
-        description: 'Season Year'
-        required: true
-        default: '2026'
+        description: 'Season Year (leave blank for current season)'
+        required: false
+        default: ''
   schedule:
-    # Runs every Tuesday at 7:00 AM Central Time (12:00 UTC)
+    # Runs every Tuesday at 12:00 UTC (7:00 AM CDT / 8:00 AM EDT)
     - cron: '0 12 * * 2'
 
 permissions:
@@ -40,12 +40,12 @@ jobs:
           LEAGUE_ID: ${{ secrets.LEAGUE_ID }}
           SWID: ${{ secrets.SWID }}
           ESPN_S2: ${{ secrets.ESPN_S2 }}
-          YEAR: ${{ github.event.inputs.year || '2026' }}
-          WEEK: ${{ github.event.inputs.week || '1' }}
+          YEAR: ${{ github.event.inputs.year }}
+          WEEK: ${{ github.event.inputs.week }}
         run: |
           python audit.py
 
-     - name: Commit and Save History + Webpage
+      - name: Commit and Save History + Webpage
         run: |
           git config --global user.name "FantasyBot"
           git config --global user.email "bot@fantasy.internal"
