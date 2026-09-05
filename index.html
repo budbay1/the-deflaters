@@ -106,6 +106,8 @@
     .badge-champ { background: var(--gold-bg); color: var(--gold); border: 1px solid rgba(251, 191, 36, 0.4); font-size: 10px; padding: 2px 6px; }
     .badge-silver { background: var(--silver-bg); color: var(--silver); border: 1px solid rgba(203, 213, 225, 0.4); font-size: 10px; padding: 2px 6px; }
     .badge-bronze { background: var(--bronze-bg); color: var(--bronze); border: 1px solid rgba(217, 119, 6, 0.4); font-size: 10px; padding: 2px 6px; }
+    .badge-bitch { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); font-size: 10px; padding: 2px 6px; }
+    body.light-mode .badge-bitch { background: rgba(220, 38, 38, 0.15); color: #b91c1c; border: 1px solid rgba(220, 38, 38, 0.4); }
 
     .podium-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; padding: 16px; }
     .podium-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }
@@ -149,8 +151,8 @@
     <div class="award-card gold">
       <div>
         <div class="award-tag" style="color: var(--gold);">💰 Week 1 Team Bounty</div>
-        <div class="award-title">Make Fantasy Great Again (jeremy bayless)</div>
-        <div class="award-desc">Paced the entire league with <b>0.0 pts</b> to take down the weekly cash payout!</div>
+        <div class="award-title">Make Fantasy Great Again (jeremy bayless) <span class="badge badge-bitch" title="2025 League Bitch (Last Place)">💩 '25 League Bitch</span></div>
+        <div class="award-desc">Paced the entire league with <b>0.00 pts</b> to take down the weekly cash payout!</div>
       </div>
       <div style="margin-top: 8px;"><span class="badge badge-gold">Weekly Bounty Winner</span></div>
     </div>
@@ -158,8 +160,8 @@
     <div class="award-card red">
       <div>
         <div class="award-tag" style="color: var(--red);">💀 The Buzzsaw Victim</div>
-        <div class="award-title">Make Fantasy Great Again (jeremy bayless)</div>
-        <div class="award-desc">Dropped 0.0 pts (0–0 All-Play), but took an L to Team Bakesmode (Ron Baker) (0.0 pts).</div>
+        <div class="award-title">Make Fantasy Great Again (jeremy bayless) <span class="badge badge-bitch" title="2025 League Bitch (Last Place)">💩 '25 League Bitch</span></div>
+        <div class="award-desc">Dropped 0.00 pts (0–0 All-Play), but took an L to Team Bakesmode (Ron Baker) (0.00 pts).</div>
       </div>
       <div style="margin-top: 8px;"><span class="badge badge-unlucky">Luck Δ: +0.000</span></div>
     </div>
@@ -167,8 +169,8 @@
     <div class="award-card green">
       <div>
         <div class="award-tag" style="color: var(--green);">🍀 Grand Theft Victory</div>
-        <div class="award-title">Make Fantasy Great Again (jeremy bayless)</div>
-        <div class="award-desc">Squeaked by with 0.0 pts (0–0 All-Play) thanks to opponent meltdown.</div>
+        <div class="award-title">Make Fantasy Great Again (jeremy bayless) <span class="badge badge-bitch" title="2025 League Bitch (Last Place)">💩 '25 League Bitch</span></div>
+        <div class="award-desc">Squeaked by with 0.00 pts (0–0 All-Play) thanks to opponent meltdown.</div>
       </div>
       <div style="margin-top: 8px;"><span class="badge badge-lucky">Luck Δ: +0.000</span></div>
     </div>
@@ -176,8 +178,8 @@
     <div class="award-card blue">
       <div>
         <div class="award-tag" style="color: var(--accent);">🧠 Master Tactician</div>
-        <div class="award-title">Make Fantasy Great Again (jeremy bayless)</div>
-        <div class="award-desc">Optimal starting execution of <b>100.0%</b> (0.0 of 0.0 optimal pts).</div>
+        <div class="award-title">Make Fantasy Great Again (jeremy bayless) <span class="badge badge-bitch" title="2025 League Bitch (Last Place)">💩 '25 League Bitch</span></div>
+        <div class="award-desc">Optimal starting execution of <b>100.0%</b> (0.00 of 0.00 optimal pts).</div>
       </div>
       <div style="margin-top: 8px;"><span class="badge badge-neutral">Lineup Mastery</span></div>
     </div>
@@ -209,10 +211,10 @@
       </thead>
       <tbody>
         <tr>
-          <td class="team-cell"><span class="rank-num">#1</span> Make Fantasy Great Again (jeremy bayless)</td>
+          <td class="team-cell"><span class="rank-num">#1</span> Make Fantasy Great Again (jeremy bayless) <span class="badge badge-bitch" title="2025 League Bitch (Last Place)">💩 '25 League Bitch</span></td>
           <td data-label="Result"><span class="badge badge-loss">T</span></td>
-          <td data-label="Score"><b>0.0</b> <span style="font-size: 11px; color: var(--dim);">(-129.8)</span></td>
-          <td data-label="Opponent">Team Bakesmode (Ron Baker) <span style="color: var(--muted); font-size: 11px;">(0.0)</span></td>
+          <td data-label="Score"><b>0.00</b> <span style="font-size: 11px; color: var(--dim);">(-129.84)</span></td>
+          <td data-label="Opponent">Team Bakesmode (Ron Baker) <span style="color: var(--muted); font-size: 11px;">(0.00)</span></td>
           <td data-label="All-Play"><b>0</b>–0</td>
           <td data-label="Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
           <td data-label="Coaching Eff"><b>100.0%</b></td>
@@ -220,8 +222,8 @@
         <tr>
           <td class="team-cell"><span class="rank-num">#2</span> Team Bakesmode (Ron Baker)</td>
           <td data-label="Result"><span class="badge badge-loss">T</span></td>
-          <td data-label="Score"><b>0.0</b> <span style="font-size: 11px; color: var(--dim);">(-133.9)</span></td>
-          <td data-label="Opponent">Make Fantasy Great Again (jeremy bayless) <span style="color: var(--muted); font-size: 11px;">(0.0)</span></td>
+          <td data-label="Score"><b>0.00</b> <span style="font-size: 11px; color: var(--dim);">(-133.88)</span></td>
+          <td data-label="Opponent">Make Fantasy Great Again (jeremy bayless) <span style="color: var(--muted); font-size: 11px;">(0.00)</span></td>
           <td data-label="All-Play"><b>0</b>–0</td>
           <td data-label="Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
           <td data-label="Coaching Eff"><b>100.0%</b></td>
@@ -229,8 +231,8 @@
         <tr>
           <td class="team-cell"><span class="rank-num">#3</span> Flock Around and Find Out (Jared Schneider)</td>
           <td data-label="Result"><span class="badge badge-loss">T</span></td>
-          <td data-label="Score"><b>0.0</b> <span style="font-size: 11px; color: var(--dim);">(-122.4)</span></td>
-          <td data-label="Opponent">Team Kendall (Robert Kendall) <span style="color: var(--muted); font-size: 11px;">(0.0)</span></td>
+          <td data-label="Score"><b>0.00</b> <span style="font-size: 11px; color: var(--dim);">(-122.44)</span></td>
+          <td data-label="Opponent">Team Kendall (Robert Kendall) <span style="color: var(--muted); font-size: 11px;">(0.00)</span></td>
           <td data-label="All-Play"><b>0</b>–0</td>
           <td data-label="Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
           <td data-label="Coaching Eff"><b>100.0%</b></td>
@@ -238,8 +240,8 @@
         <tr>
           <td class="team-cell"><span class="rank-num">#4</span> Team Kendall (Robert Kendall)</td>
           <td data-label="Result"><span class="badge badge-loss">T</span></td>
-          <td data-label="Score"><b>0.0</b> <span style="font-size: 11px; color: var(--dim);">(-135.0)</span></td>
-          <td data-label="Opponent">Flock Around and Find Out (Jared Schneider) <span style="color: var(--muted); font-size: 11px;">(0.0)</span></td>
+          <td data-label="Score"><b>0.00</b> <span style="font-size: 11px; color: var(--dim);">(-135.03)</span></td>
+          <td data-label="Opponent">Flock Around and Find Out (Jared Schneider) <span style="color: var(--muted); font-size: 11px;">(0.00)</span></td>
           <td data-label="All-Play"><b>0</b>–0</td>
           <td data-label="Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
           <td data-label="Coaching Eff"><b>100.0%</b></td>
@@ -247,8 +249,8 @@
         <tr>
           <td class="team-cell"><span class="rank-num">#5</span> Blue Medical Tent (Billy Haid)</td>
           <td data-label="Result"><span class="badge badge-loss">T</span></td>
-          <td data-label="Score"><b>0.0</b> <span style="font-size: 11px; color: var(--dim);">(-127.3)</span></td>
-          <td data-label="Opponent">THE G-MEN (TRAVIS GIBSON) <span style="color: var(--muted); font-size: 11px;">(0.0)</span></td>
+          <td data-label="Score"><b>0.00</b> <span style="font-size: 11px; color: var(--dim);">(-127.33)</span></td>
+          <td data-label="Opponent">THE G-MEN (TRAVIS GIBSON) <span style="color: var(--muted); font-size: 11px;">(0.00)</span></td>
           <td data-label="All-Play"><b>0</b>–0</td>
           <td data-label="Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
           <td data-label="Coaching Eff"><b>100.0%</b></td>
@@ -256,8 +258,8 @@
         <tr>
           <td class="team-cell"><span class="rank-num">#6</span> THE G-MEN (TRAVIS GIBSON)</td>
           <td data-label="Result"><span class="badge badge-loss">T</span></td>
-          <td data-label="Score"><b>0.0</b> <span style="font-size: 11px; color: var(--dim);">(-123.2)</span></td>
-          <td data-label="Opponent">Blue Medical Tent (Billy Haid) <span style="color: var(--muted); font-size: 11px;">(0.0)</span></td>
+          <td data-label="Score"><b>0.00</b> <span style="font-size: 11px; color: var(--dim);">(-123.15)</span></td>
+          <td data-label="Opponent">Blue Medical Tent (Billy Haid) <span style="color: var(--muted); font-size: 11px;">(0.00)</span></td>
           <td data-label="All-Play"><b>0</b>–0</td>
           <td data-label="Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
           <td data-label="Coaching Eff"><b>100.0%</b></td>
@@ -265,8 +267,8 @@
         <tr>
           <td class="team-cell"><span class="rank-num">#7</span> 55 TDs 55 Punts 55 FGs 55 INTs (Eric King)</td>
           <td data-label="Result"><span class="badge badge-loss">T</span></td>
-          <td data-label="Score"><b>0.0</b> <span style="font-size: 11px; color: var(--dim);">(-134.2)</span></td>
-          <td data-label="Opponent">The American Dream (Miles Spainhower) <span style="color: var(--muted); font-size: 11px;">(0.0)</span></td>
+          <td data-label="Score"><b>0.00</b> <span style="font-size: 11px; color: var(--dim);">(-134.21)</span></td>
+          <td data-label="Opponent">The American Dream (Miles Spainhower) <span style="color: var(--muted); font-size: 11px;">(0.00)</span></td>
           <td data-label="All-Play"><b>0</b>–0</td>
           <td data-label="Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
           <td data-label="Coaching Eff"><b>100.0%</b></td>
@@ -274,8 +276,8 @@
         <tr>
           <td class="team-cell"><span class="rank-num">#8</span> The American Dream (Miles Spainhower) <span class="badge badge-champ" title="2025 Champion">🥇 '25 Champ</span></td>
           <td data-label="Result"><span class="badge badge-loss">T</span></td>
-          <td data-label="Score"><b>0.0</b> <span style="font-size: 11px; color: var(--dim);">(-117.9)</span></td>
-          <td data-label="Opponent">55 TDs 55 Punts 55 FGs 55 INTs (Eric King) <span style="color: var(--muted); font-size: 11px;">(0.0)</span></td>
+          <td data-label="Score"><b>0.00</b> <span style="font-size: 11px; color: var(--dim);">(-117.86)</span></td>
+          <td data-label="Opponent">55 TDs 55 Punts 55 FGs 55 INTs (Eric King) <span style="color: var(--muted); font-size: 11px;">(0.00)</span></td>
           <td data-label="All-Play"><b>0</b>–0</td>
           <td data-label="Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
           <td data-label="Coaching Eff"><b>100.0%</b></td>
@@ -283,8 +285,8 @@
         <tr>
           <td class="team-cell"><span class="rank-num">#9</span> Team Draft order (Wes Colson)</td>
           <td data-label="Result"><span class="badge badge-loss">T</span></td>
-          <td data-label="Score"><b>0.0</b> <span style="font-size: 11px; color: var(--dim);">(-140.1)</span></td>
-          <td data-label="Opponent">Skatteboo boo (Kurt Claycomb) <span style="color: var(--muted); font-size: 11px;">(0.0)</span></td>
+          <td data-label="Score"><b>0.00</b> <span style="font-size: 11px; color: var(--dim);">(-140.05)</span></td>
+          <td data-label="Opponent">Skatteboo boo (Kurt Claycomb) <span style="color: var(--muted); font-size: 11px;">(0.00)</span></td>
           <td data-label="All-Play"><b>0</b>–0</td>
           <td data-label="Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
           <td data-label="Coaching Eff"><b>100.0%</b></td>
@@ -292,8 +294,8 @@
         <tr>
           <td class="team-cell"><span class="rank-num">#10</span> Skatteboo boo (Kurt Claycomb) <span class="badge badge-bronze" title="2025 3rd Place">🥉 '25 3rd Pl</span></td>
           <td data-label="Result"><span class="badge badge-loss">T</span></td>
-          <td data-label="Score"><b>0.0</b> <span style="font-size: 11px; color: var(--dim);">(-123.2)</span></td>
-          <td data-label="Opponent">Team Draft order (Wes Colson) <span style="color: var(--muted); font-size: 11px;">(0.0)</span></td>
+          <td data-label="Score"><b>0.00</b> <span style="font-size: 11px; color: var(--dim);">(-123.22)</span></td>
+          <td data-label="Opponent">Team Draft order (Wes Colson) <span style="color: var(--muted); font-size: 11px;">(0.00)</span></td>
           <td data-label="All-Play"><b>0</b>–0</td>
           <td data-label="Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
           <td data-label="Coaching Eff"><b>100.0%</b></td>
@@ -301,8 +303,8 @@
         <tr>
           <td class="team-cell"><span class="rank-num">#11</span> Team Freedom (Roman Bayless)</td>
           <td data-label="Result"><span class="badge badge-loss">T</span></td>
-          <td data-label="Score"><b>0.0</b> <span style="font-size: 11px; color: var(--dim);">(-137.0)</span></td>
-          <td data-label="Opponent">Puka Time (trentan busey) <span style="color: var(--muted); font-size: 11px;">(0.0)</span></td>
+          <td data-label="Score"><b>0.00</b> <span style="font-size: 11px; color: var(--dim);">(-137.04)</span></td>
+          <td data-label="Opponent">Puka Time (trentan busey) <span style="color: var(--muted); font-size: 11px;">(0.00)</span></td>
           <td data-label="All-Play"><b>0</b>–0</td>
           <td data-label="Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
           <td data-label="Coaching Eff"><b>100.0%</b></td>
@@ -310,8 +312,8 @@
         <tr>
           <td class="team-cell"><span class="rank-num">#12</span> Puka Time (trentan busey) <span class="badge badge-silver" title="2025 Runner-Up">🥈 '25 Runner-Up</span></td>
           <td data-label="Result"><span class="badge badge-loss">T</span></td>
-          <td data-label="Score"><b>0.0</b> <span style="font-size: 11px; color: var(--dim);">(-135.8)</span></td>
-          <td data-label="Opponent">Team Freedom (Roman Bayless) <span style="color: var(--muted); font-size: 11px;">(0.0)</span></td>
+          <td data-label="Score"><b>0.00</b> <span style="font-size: 11px; color: var(--dim);">(-135.79)</span></td>
+          <td data-label="Opponent">Team Freedom (Roman Bayless) <span style="color: var(--muted); font-size: 11px;">(0.00)</span></td>
           <td data-label="All-Play"><b>0</b>–0</td>
           <td data-label="Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
           <td data-label="Coaching Eff"><b>100.0%</b></td>
@@ -337,14 +339,14 @@
       </thead>
       <tbody>
         <tr>
-          <td class="team-cell"><span class="rank-num">#1</span> Make Fantasy Great Again (jeremy bayless)</td>
+          <td class="team-cell"><span class="rank-num">#1</span> Make Fantasy Great Again (jeremy bayless) <span class="badge badge-bitch" title="2025 League Bitch (Last Place)">💩 '25 League Bitch</span></td>
           <td data-label="Actual W-L"><b>0–0</b></td>
           <td data-label="All-Play">0–0</td>
           <td data-label="All-Play %"><b>0.000</b></td>
           <td data-label="Season Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
-          <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.0 pts</td>
+          <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.00 pts</td>
           <td data-label="Opp Surges">0/1 wks (0 st)</td>
-          <td data-label="Avg Opp PA"><b>0.0</b></td>
+          <td data-label="Avg Opp PA"><b>0.00</b></td>
         </tr>
         <tr>
           <td class="team-cell"><span class="rank-num">#2</span> Team Bakesmode (Ron Baker)</td>
@@ -352,9 +354,9 @@
           <td data-label="All-Play">0–0</td>
           <td data-label="All-Play %"><b>0.000</b></td>
           <td data-label="Season Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
-          <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.0 pts</td>
+          <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.00 pts</td>
           <td data-label="Opp Surges">0/1 wks (0 st)</td>
-          <td data-label="Avg Opp PA"><b>0.0</b></td>
+          <td data-label="Avg Opp PA"><b>0.00</b></td>
         </tr>
         <tr>
           <td class="team-cell"><span class="rank-num">#3</span> Flock Around and Find Out (Jared Schneider)</td>
@@ -362,9 +364,9 @@
           <td data-label="All-Play">0–0</td>
           <td data-label="All-Play %"><b>0.000</b></td>
           <td data-label="Season Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
-          <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.0 pts</td>
+          <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.00 pts</td>
           <td data-label="Opp Surges">0/1 wks (0 st)</td>
-          <td data-label="Avg Opp PA"><b>0.0</b></td>
+          <td data-label="Avg Opp PA"><b>0.00</b></td>
         </tr>
         <tr>
           <td class="team-cell"><span class="rank-num">#4</span> Team Kendall (Robert Kendall)</td>
@@ -372,9 +374,9 @@
           <td data-label="All-Play">0–0</td>
           <td data-label="All-Play %"><b>0.000</b></td>
           <td data-label="Season Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
-          <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.0 pts</td>
+          <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.00 pts</td>
           <td data-label="Opp Surges">0/1 wks (0 st)</td>
-          <td data-label="Avg Opp PA"><b>0.0</b></td>
+          <td data-label="Avg Opp PA"><b>0.00</b></td>
         </tr>
         <tr>
           <td class="team-cell"><span class="rank-num">#5</span> Blue Medical Tent (Billy Haid)</td>
@@ -382,9 +384,9 @@
           <td data-label="All-Play">0–0</td>
           <td data-label="All-Play %"><b>0.000</b></td>
           <td data-label="Season Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
-          <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.0 pts</td>
+          <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.00 pts</td>
           <td data-label="Opp Surges">0/1 wks (0 st)</td>
-          <td data-label="Avg Opp PA"><b>0.0</b></td>
+          <td data-label="Avg Opp PA"><b>0.00</b></td>
         </tr>
         <tr>
           <td class="team-cell"><span class="rank-num">#6</span> THE G-MEN (TRAVIS GIBSON)</td>
@@ -392,9 +394,9 @@
           <td data-label="All-Play">0–0</td>
           <td data-label="All-Play %"><b>0.000</b></td>
           <td data-label="Season Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
-          <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.0 pts</td>
+          <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.00 pts</td>
           <td data-label="Opp Surges">0/1 wks (0 st)</td>
-          <td data-label="Avg Opp PA"><b>0.0</b></td>
+          <td data-label="Avg Opp PA"><b>0.00</b></td>
         </tr>
         <tr>
           <td class="team-cell"><span class="rank-num">#7</span> 55 TDs 55 Punts 55 FGs 55 INTs (Eric King)</td>
@@ -402,9 +404,9 @@
           <td data-label="All-Play">0–0</td>
           <td data-label="All-Play %"><b>0.000</b></td>
           <td data-label="Season Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
-          <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.0 pts</td>
+          <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.00 pts</td>
           <td data-label="Opp Surges">0/1 wks (0 st)</td>
-          <td data-label="Avg Opp PA"><b>0.0</b></td>
+          <td data-label="Avg Opp PA"><b>0.00</b></td>
         </tr>
         <tr>
           <td class="team-cell"><span class="rank-num">#8</span> The American Dream (Miles Spainhower) <span class="badge badge-champ" title="2025 Champion">🥇 '25 Champ</span></td>
@@ -412,9 +414,9 @@
           <td data-label="All-Play">0–0</td>
           <td data-label="All-Play %"><b>0.000</b></td>
           <td data-label="Season Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
-          <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.0 pts</td>
+          <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.00 pts</td>
           <td data-label="Opp Surges">0/1 wks (0 st)</td>
-          <td data-label="Avg Opp PA"><b>0.0</b></td>
+          <td data-label="Avg Opp PA"><b>0.00</b></td>
         </tr>
         <tr>
           <td class="team-cell"><span class="rank-num">#9</span> Team Draft order (Wes Colson)</td>
@@ -422,9 +424,9 @@
           <td data-label="All-Play">0–0</td>
           <td data-label="All-Play %"><b>0.000</b></td>
           <td data-label="Season Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
-          <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.0 pts</td>
+          <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.00 pts</td>
           <td data-label="Opp Surges">0/1 wks (0 st)</td>
-          <td data-label="Avg Opp PA"><b>0.0</b></td>
+          <td data-label="Avg Opp PA"><b>0.00</b></td>
         </tr>
         <tr>
           <td class="team-cell"><span class="rank-num">#10</span> Skatteboo boo (Kurt Claycomb) <span class="badge badge-bronze" title="2025 3rd Place">🥉 '25 3rd Pl</span></td>
@@ -432,9 +434,9 @@
           <td data-label="All-Play">0–0</td>
           <td data-label="All-Play %"><b>0.000</b></td>
           <td data-label="Season Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
-          <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.0 pts</td>
+          <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.00 pts</td>
           <td data-label="Opp Surges">0/1 wks (0 st)</td>
-          <td data-label="Avg Opp PA"><b>0.0</b></td>
+          <td data-label="Avg Opp PA"><b>0.00</b></td>
         </tr>
         <tr>
           <td class="team-cell"><span class="rank-num">#11</span> Team Freedom (Roman Bayless)</td>
@@ -442,9 +444,9 @@
           <td data-label="All-Play">0–0</td>
           <td data-label="All-Play %"><b>0.000</b></td>
           <td data-label="Season Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
-          <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.0 pts</td>
+          <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.00 pts</td>
           <td data-label="Opp Surges">0/1 wks (0 st)</td>
-          <td data-label="Avg Opp PA"><b>0.0</b></td>
+          <td data-label="Avg Opp PA"><b>0.00</b></td>
         </tr>
         <tr>
           <td class="team-cell"><span class="rank-num">#12</span> Puka Time (trentan busey) <span class="badge badge-silver" title="2025 Runner-Up">🥈 '25 Runner-Up</span></td>
@@ -452,9 +454,9 @@
           <td data-label="All-Play">0–0</td>
           <td data-label="All-Play %"><b>0.000</b></td>
           <td data-label="Season Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
-          <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.0 pts</td>
+          <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.00 pts</td>
           <td data-label="Opp Surges">0/1 wks (0 st)</td>
-          <td data-label="Avg Opp PA"><b>0.0</b></td>
+          <td data-label="Avg Opp PA"><b>0.00</b></td>
         </tr>
       </tbody>
     </table>
@@ -465,10 +467,10 @@
     
     <div class="table-container">
       <div class="filter-header">
-        <div style="font-size: 14px; font-weight: 800; color: var(--text);">⚔️ All-Time Manager Rivalry Records</div>
+        <div style="font-size: 14px; font-weight: 800; color: var(--text);">⚔️ All-Time Manager Rivalry Records (2023–Present)</div>
         <div class="filter-control">
           <select id="mgrFilter" class="select-dropdown" onchange="filterRivalries(this.value)">
-            <option value="ALL">Show All Rivalries</option><option value="Billy Haid">Billy Haid</option><option value="Eric King">Eric King</option><option value="Jared Schneider">Jared Schneider</option><option value="Kurt Claycomb">Kurt Claycomb</option><option value="Miles Spainhower">Miles Spainhower</option><option value="Robert Kendall">Robert Kendall</option><option value="Roman Bayless">Roman Bayless</option><option value="Ron Baker">Ron Baker</option><option value="TRAVIS GIBSON">TRAVIS GIBSON</option><option value="Wes Colson">Wes Colson</option><option value="jeremy bayless">jeremy bayless</option><option value="trentan busey">trentan busey</option>
+            <option value="ALL">Show All Rivalries</option><option value="Billy Haid">Billy Haid</option><option value="Curtis Thornton">Curtis Thornton</option><option value="Eric King">Eric King</option><option value="Jared Schneider">Jared Schneider</option><option value="Kurt Claycomb">Kurt Claycomb</option><option value="Miles Spainhower">Miles Spainhower</option><option value="Robert Kendall">Robert Kendall</option><option value="Roman Bayless">Roman Bayless</option><option value="Ron Baker">Ron Baker</option><option value="TRAVIS GIBSON">TRAVIS GIBSON</option><option value="Wes Colson">Wes Colson</option><option value="jeremy bayless">jeremy bayless</option><option value="trentan busey">trentan busey</option>
           </select>
         </div>
       </div>
@@ -485,465 +487,542 @@
         <tbody>
           <tr class="rivalry-row" data-m1="Ron Baker" data-m2="jeremy bayless">
             <td class="team-cell">Ron Baker vs jeremy bayless</td>
-            <td data-label="All-Time Series"><b>1–0</b></td>
+            <td data-label="All-Time Series"><b>3–0</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">125.5 – 104.2</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2026 Wk 1: jeremy bayless (0.0) vs Ron Baker (0.0)</td>
+            <td data-label="PF vs PA">359.84 – 271.46</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 1: jeremy bayless (63.06) vs Ron Baker (125.32)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Jared Schneider" data-m2="Robert Kendall">
             <td class="team-cell">Jared Schneider vs Robert Kendall</td>
-            <td data-label="All-Time Series"><b>1–0</b></td>
+            <td data-label="All-Time Series"><b>3–3</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">117.8 – 114.5</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2026 Wk 1: Jared Schneider (0.0) vs Robert Kendall (0.0)</td>
+            <td data-label="PF vs PA">699.84 – 620.26</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 18: Jared Schneider (96.02) vs Robert Kendall (103.44)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Billy Haid" data-m2="TRAVIS GIBSON">
             <td class="team-cell">Billy Haid vs TRAVIS GIBSON</td>
             <td data-label="All-Time Series"><b>1–0</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">134.6 – 92.5</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2026 Wk 1: Billy Haid (0.0) vs TRAVIS GIBSON (0.0)</td>
+            <td data-label="PF vs PA">134.56 – 92.50</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2026 Wk 1: Billy Haid (0.00) vs TRAVIS GIBSON (0.00)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Eric King" data-m2="Miles Spainhower">
             <td class="team-cell">Eric King vs Miles Spainhower</td>
-            <td data-label="All-Time Series"><b>1–0</b></td>
+            <td data-label="All-Time Series"><b>2–1</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">100.0 – 98.7</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2026 Wk 1: Eric King (0.0) vs Miles Spainhower (0.0)</td>
+            <td data-label="PF vs PA">317.56 – 295.10</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 1: Eric King (98.48) vs Miles Spainhower (116.32)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Kurt Claycomb" data-m2="Wes Colson">
             <td class="team-cell">Kurt Claycomb vs Wes Colson</td>
-            <td data-label="All-Time Series"><b>1–0</b></td>
+            <td data-label="All-Time Series"><b>2–1</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">150.4 – 125.4</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2026 Wk 1: Wes Colson (0.0) vs Kurt Claycomb (0.0)</td>
+            <td data-label="PF vs PA">330.26 – 324.86</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 1: Wes Colson (118.38) vs Kurt Claycomb (97.08)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Roman Bayless" data-m2="trentan busey">
             <td class="team-cell">Roman Bayless vs trentan busey</td>
-            <td data-label="All-Time Series"><b>0–1</b></td>
+            <td data-label="All-Time Series"><b>1–2</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">58.4 – 81.6</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2026 Wk 1: Roman Bayless (0.0) vs trentan busey (0.0)</td>
+            <td data-label="PF vs PA">232.26 – 274.78</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 1: Roman Bayless (90.26) vs trentan busey (113.12)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Robert Kendall" data-m2="Ron Baker">
             <td class="team-cell">Robert Kendall vs Ron Baker</td>
-            <td data-label="All-Time Series"><b>0–1</b></td>
+            <td data-label="All-Time Series"><b>1–3</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">106.0 – 164.0</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 2: Ron Baker (163.98) vs Robert Kendall (105.98)</td>
+            <td data-label="PF vs PA">460.00 – 558.36</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 16: Ron Baker (128.02) vs Robert Kendall (138.12)</td>
           </tr>
           <tr class="rivalry-row" data-m1="TRAVIS GIBSON" data-m2="jeremy bayless">
             <td class="team-cell">TRAVIS GIBSON vs jeremy bayless</td>
-            <td data-label="All-Time Series"><b>1–0</b></td>
+            <td data-label="All-Time Series"><b>2–1</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">131.7 – 124.5</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 2: TRAVIS GIBSON (131.66) vs jeremy bayless (124.5)</td>
+            <td data-label="PF vs PA">343.60 – 347.10</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 2: TRAVIS GIBSON (118.70) vs jeremy bayless (108.72)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Billy Haid" data-m2="Jared Schneider">
             <td class="team-cell">Billy Haid vs Jared Schneider</td>
             <td data-label="All-Time Series"><b>1–0</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">131.6 – 75.6</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 2: Billy Haid (131.6) vs Jared Schneider (75.6)</td>
+            <td data-label="PF vs PA">131.60 – 75.60</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 2: Billy Haid (131.60) vs Jared Schneider (75.60)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Kurt Claycomb" data-m2="Miles Spainhower">
             <td class="team-cell">Kurt Claycomb vs Miles Spainhower</td>
-            <td data-label="All-Time Series"><b>1–0</b></td>
+            <td data-label="All-Time Series"><b>1–3</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">157.4 – 66.3</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 2: Miles Spainhower (66.34) vs Kurt Claycomb (157.44)</td>
+            <td data-label="PF vs PA">473.20 – 445.36</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 16: Kurt Claycomb (111.30) vs Miles Spainhower (150.38)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Eric King" data-m2="trentan busey">
             <td class="team-cell">Eric King vs trentan busey</td>
-            <td data-label="All-Time Series"><b>0–1</b></td>
+            <td data-label="All-Time Series"><b>2–1</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">94.9 – 104.2</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 2: trentan busey (104.24) vs Eric King (94.94)</td>
+            <td data-label="PF vs PA">316.70 – 294.76</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 2: trentan busey (87.42) vs Eric King (110.04)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Roman Bayless" data-m2="Wes Colson">
             <td class="team-cell">Roman Bayless vs Wes Colson</td>
-            <td data-label="All-Time Series"><b>1–0</b></td>
+            <td data-label="All-Time Series"><b>3–5</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">163.0 – 113.3</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 2: Roman Bayless (163.02) vs Wes Colson (113.34)</td>
+            <td data-label="PF vs PA">893.14 – 972.20</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 18: Roman Bayless (99.50) vs Wes Colson (107.82)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Ron Baker" data-m2="TRAVIS GIBSON">
             <td class="team-cell">Ron Baker vs TRAVIS GIBSON</td>
-            <td data-label="All-Time Series"><b>1–0</b></td>
+            <td data-label="All-Time Series"><b>2–1</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">107.5 – 75.0</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 3: TRAVIS GIBSON (74.98) vs Ron Baker (107.52)</td>
+            <td data-label="PF vs PA">297.96 – 287.32</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 3: TRAVIS GIBSON (77.90) vs Ron Baker (118.28)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Billy Haid" data-m2="Robert Kendall">
             <td class="team-cell">Billy Haid vs Robert Kendall</td>
             <td data-label="All-Time Series"><b>1–0</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">131.7 – 115.4</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 3: Robert Kendall (115.4) vs Billy Haid (131.72)</td>
+            <td data-label="PF vs PA">131.72 – 115.40</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 3: Robert Kendall (115.40) vs Billy Haid (131.72)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Jared Schneider" data-m2="jeremy bayless">
             <td class="team-cell">Jared Schneider vs jeremy bayless</td>
-            <td data-label="All-Time Series"><b>0–1</b></td>
+            <td data-label="All-Time Series"><b>3–2</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">101.6 – 108.5</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 3: jeremy bayless (108.46) vs Jared Schneider (101.64)</td>
+            <td data-label="PF vs PA">567.76 – 495.74</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 3: jeremy bayless (124.16) vs Jared Schneider (118.16)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Miles Spainhower" data-m2="trentan busey">
             <td class="team-cell">Miles Spainhower vs trentan busey</td>
-            <td data-label="All-Time Series"><b>0–1</b></td>
+            <td data-label="All-Time Series"><b>3–3</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">92.1 – 116.3</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 3: trentan busey (116.34) vs Miles Spainhower (92.08)</td>
+            <td data-label="PF vs PA">654.40 – 765.52</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 18: trentan busey (133.92) vs Miles Spainhower (135.86)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Kurt Claycomb" data-m2="Roman Bayless">
             <td class="team-cell">Kurt Claycomb vs Roman Bayless</td>
-            <td data-label="All-Time Series"><b>0–1</b></td>
+            <td data-label="All-Time Series"><b>2–2</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">127.8 – 158.4</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 3: Kurt Claycomb (127.84) vs Roman Bayless (158.42)</td>
+            <td data-label="PF vs PA">479.62 – 522.00</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 3: Kurt Claycomb (136.72) vs Roman Bayless (116.46)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Eric King" data-m2="Wes Colson">
             <td class="team-cell">Eric King vs Wes Colson</td>
-            <td data-label="All-Time Series"><b>1–0</b></td>
+            <td data-label="All-Time Series"><b>1–3</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">135.6 – 113.9</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 3: Eric King (135.64) vs Wes Colson (113.86)</td>
+            <td data-label="PF vs PA">420.28 – 508.02</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 3: Eric King (94.82) vs Wes Colson (117.98)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Billy Haid" data-m2="Ron Baker">
             <td class="team-cell">Billy Haid vs Ron Baker</td>
-            <td data-label="All-Time Series"><b>1–0</b></td>
+            <td data-label="All-Time Series"><b>1–2</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">142.6 – 91.4</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 4: Ron Baker (91.38) vs Billy Haid (142.58)</td>
+            <td data-label="PF vs PA">317.98 – 296.06</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 18: Billy Haid (87.70) vs Ron Baker (102.34)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Jared Schneider" data-m2="TRAVIS GIBSON">
             <td class="team-cell">Jared Schneider vs TRAVIS GIBSON</td>
-            <td data-label="All-Time Series"><b>0–1</b></td>
+            <td data-label="All-Time Series"><b>1–4</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">119.2 – 122.4</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 4: Jared Schneider (119.18) vs TRAVIS GIBSON (122.42)</td>
+            <td data-label="PF vs PA">490.38 – 558.16</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 16: TRAVIS GIBSON (146.44) vs Jared Schneider (118.08)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Robert Kendall" data-m2="jeremy bayless">
             <td class="team-cell">Robert Kendall vs jeremy bayless</td>
-            <td data-label="All-Time Series"><b>1–0</b></td>
+            <td data-label="All-Time Series"><b>2–2</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">134.1 – 133.9</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 4: jeremy bayless (133.92) vs Robert Kendall (134.1)</td>
+            <td data-label="PF vs PA">499.58 – 459.48</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 16: jeremy bayless (86.82) vs Robert Kendall (160.10)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Miles Spainhower" data-m2="Roman Bayless">
             <td class="team-cell">Miles Spainhower vs Roman Bayless</td>
-            <td data-label="All-Time Series"><b>1–0</b></td>
+            <td data-label="All-Time Series"><b>2–1</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">132.4 – 107.7</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 4: Miles Spainhower (132.36) vs Roman Bayless (107.68)</td>
+            <td data-label="PF vs PA">378.02 – 318.38</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 4: Miles Spainhower (87.52) vs Roman Bayless (92.92)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Wes Colson" data-m2="trentan busey">
             <td class="team-cell">Wes Colson vs trentan busey</td>
-            <td data-label="All-Time Series"><b>1–0</b></td>
+            <td data-label="All-Time Series"><b>3–1</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">129.8 – 111.9</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 4: Wes Colson (129.76) vs trentan busey (111.9)</td>
+            <td data-label="PF vs PA">472.98 – 442.72</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 15: trentan busey (142.10) vs Wes Colson (116.76)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Eric King" data-m2="Kurt Claycomb">
             <td class="team-cell">Eric King vs Kurt Claycomb</td>
-            <td data-label="All-Time Series"><b>0–1</b></td>
+            <td data-label="All-Time Series"><b>1–7</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">114.5 – 147.3</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 4: Eric King (114.5) vs Kurt Claycomb (147.26)</td>
+            <td data-label="PF vs PA">735.92 – 978.02</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 18: Kurt Claycomb (120.68) vs Eric King (60.98)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Jared Schneider" data-m2="Ron Baker">
             <td class="team-cell">Jared Schneider vs Ron Baker</td>
-            <td data-label="All-Time Series"><b>1–0</b></td>
+            <td data-label="All-Time Series"><b>3–0</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">116.7 – 109.7</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 5: Jared Schneider (116.7) vs Ron Baker (109.72)</td>
+            <td data-label="PF vs PA">356.94 – 292.32</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 5: Jared Schneider (158.58) vs Ron Baker (101.38)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Billy Haid" data-m2="jeremy bayless">
             <td class="team-cell">Billy Haid vs jeremy bayless</td>
             <td data-label="All-Time Series"><b>1–0</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">154.0 – 138.4</td>
+            <td data-label="PF vs PA">154.02 – 138.44</td>
             <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 5: Billy Haid (154.02) vs jeremy bayless (138.44)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Robert Kendall" data-m2="TRAVIS GIBSON">
             <td class="team-cell">Robert Kendall vs TRAVIS GIBSON</td>
-            <td data-label="All-Time Series"><b>0–1</b></td>
+            <td data-label="All-Time Series"><b>2–2</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">84.8 – 119.8</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 5: TRAVIS GIBSON (119.82) vs Robert Kendall (84.84)</td>
+            <td data-label="PF vs PA">469.14 – 463.76</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 15: TRAVIS GIBSON (109.14) vs Robert Kendall (129.32)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Miles Spainhower" data-m2="Wes Colson">
             <td class="team-cell">Miles Spainhower vs Wes Colson</td>
-            <td data-label="All-Time Series"><b>1–0</b></td>
+            <td data-label="All-Time Series"><b>2–2</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">124.8 – 94.0</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 5: Wes Colson (94.0) vs Miles Spainhower (124.82)</td>
+            <td data-label="PF vs PA">446.36 – 413.46</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 15: Wes Colson (102.50) vs Miles Spainhower (144.08)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Eric King" data-m2="Roman Bayless">
             <td class="team-cell">Eric King vs Roman Bayless</td>
-            <td data-label="All-Time Series"><b>0–1</b></td>
+            <td data-label="All-Time Series"><b>1–2</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">59.5 – 134.2</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 5: Roman Bayless (134.2) vs Eric King (59.5)</td>
+            <td data-label="PF vs PA">235.88 – 296.56</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 5: Roman Bayless (85.42) vs Eric King (103.86)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Kurt Claycomb" data-m2="trentan busey">
             <td class="team-cell">Kurt Claycomb vs trentan busey</td>
-            <td data-label="All-Time Series"><b>0–1</b></td>
+            <td data-label="All-Time Series"><b>2–1</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">140.3 – 185.1</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 5: trentan busey (185.08) vs Kurt Claycomb (140.32)</td>
+            <td data-label="PF vs PA">357.22 – 362.36</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 5: trentan busey (86.54) vs Kurt Claycomb (102.14)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Miles Spainhower" data-m2="Ron Baker">
             <td class="team-cell">Miles Spainhower vs Ron Baker</td>
-            <td data-label="All-Time Series"><b>0–2</b></td>
+            <td data-label="All-Time Series"><b>4–3</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">199.0 – 311.1</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 12: Miles Spainhower (113.72) vs Ron Baker (129.46)</td>
+            <td data-label="PF vs PA">843.98 – 871.76</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 12: Miles Spainhower (143.68) vs Ron Baker (110.96)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Eric King" data-m2="jeremy bayless">
             <td class="team-cell">Eric King vs jeremy bayless</td>
-            <td data-label="All-Time Series"><b>1–1</b></td>
+            <td data-label="All-Time Series"><b>5–5</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">227.9 – 230.7</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 12: Eric King (138.86) vs jeremy bayless (134.68)</td>
+            <td data-label="PF vs PA">1015.10 – 1021.56</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 18: Eric King (84.98) vs jeremy bayless (79.70)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Kurt Claycomb" data-m2="Robert Kendall">
             <td class="team-cell">Kurt Claycomb vs Robert Kendall</td>
-            <td data-label="All-Time Series"><b>1–1</b></td>
+            <td data-label="All-Time Series"><b>4–2</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">216.6 – 239.3</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 12: Kurt Claycomb (75.26) vs Robert Kendall (138.3)</td>
+            <td data-label="PF vs PA">714.36 – 709.82</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 12: Kurt Claycomb (114.56) vs Robert Kendall (97.46)</td>
           </tr>
           <tr class="rivalry-row" data-m1="TRAVIS GIBSON" data-m2="trentan busey">
             <td class="team-cell">TRAVIS GIBSON vs trentan busey</td>
-            <td data-label="All-Time Series"><b>0–2</b></td>
+            <td data-label="All-Time Series"><b>2–5</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">207.2 – 252.2</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 12: trentan busey (121.44) vs TRAVIS GIBSON (93.26)</td>
+            <td data-label="PF vs PA">752.08 – 842.84</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 16: trentan busey (164.70) vs TRAVIS GIBSON (114.86)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Billy Haid" data-m2="Roman Bayless">
             <td class="team-cell">Billy Haid vs Roman Bayless</td>
-            <td data-label="All-Time Series"><b>1–1</b></td>
+            <td data-label="All-Time Series"><b>1–2</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">209.3 – 201.1</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 12: Roman Bayless (128.78) vs Billy Haid (118.82)</td>
+            <td data-label="PF vs PA">296.76 – 291.24</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 16: Billy Haid (87.44) vs Roman Bayless (90.10)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Jared Schneider" data-m2="Wes Colson">
             <td class="team-cell">Jared Schneider vs Wes Colson</td>
-            <td data-label="All-Time Series"><b>0–2</b></td>
+            <td data-label="All-Time Series"><b>4–4</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">179.5 – 253.4</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 12: Wes Colson (137.4) vs Jared Schneider (98.6)</td>
+            <td data-label="PF vs PA">850.88 – 887.48</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 18: Jared Schneider (112.98) vs Wes Colson (99.96)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Miles Spainhower" data-m2="jeremy bayless">
             <td class="team-cell">Miles Spainhower vs jeremy bayless</td>
-            <td data-label="All-Time Series"><b>2–0</b></td>
+            <td data-label="All-Time Series"><b>4–2</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">256.9 – 172.8</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 13: jeremy bayless (91.42) vs Miles Spainhower (117.62)</td>
+            <td data-label="PF vs PA">727.40 – 574.00</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 13: jeremy bayless (88.18) vs Miles Spainhower (166.36)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Eric King" data-m2="Robert Kendall">
             <td class="team-cell">Eric King vs Robert Kendall</td>
-            <td data-label="All-Time Series"><b>2–0</b></td>
+            <td data-label="All-Time Series"><b>3–3</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">226.4 – 214.7</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 13: Robert Kendall (84.28) vs Eric King (95.6)</td>
+            <td data-label="PF vs PA">622.76 – 699.20</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 13: Robert Kendall (110.10) vs Eric King (69.80)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Kurt Claycomb" data-m2="TRAVIS GIBSON">
             <td class="team-cell">Kurt Claycomb vs TRAVIS GIBSON</td>
-            <td data-label="All-Time Series"><b>1–1</b></td>
+            <td data-label="All-Time Series"><b>5–3</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">288.2 – 279.5</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 13: TRAVIS GIBSON (142.64) vs Kurt Claycomb (141.68)</td>
+            <td data-label="PF vs PA">1090.02 – 915.42</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 18: Kurt Claycomb (150.94) vs TRAVIS GIBSON (123.68)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Billy Haid" data-m2="trentan busey">
             <td class="team-cell">Billy Haid vs trentan busey</td>
             <td data-label="All-Time Series"><b>1–1</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">236.9 – 235.8</td>
+            <td data-label="PF vs PA">236.92 – 235.80</td>
             <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 13: Billy Haid (78.24) vs trentan busey (108.14)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Jared Schneider" data-m2="Roman Bayless">
             <td class="team-cell">Jared Schneider vs Roman Bayless</td>
-            <td data-label="All-Time Series"><b>0–2</b></td>
+            <td data-label="All-Time Series"><b>1–5</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">197.2 – 266.9</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 13: Jared Schneider (91.74) vs Roman Bayless (124.14)</td>
+            <td data-label="PF vs PA">568.50 – 695.48</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 13: Jared Schneider (83.30) vs Roman Bayless (139.54)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Ron Baker" data-m2="Wes Colson">
             <td class="team-cell">Ron Baker vs Wes Colson</td>
-            <td data-label="All-Time Series"><b>0–2</b></td>
+            <td data-label="All-Time Series"><b>1–6</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">189.4 – 230.4</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 13: Ron Baker (98.94) vs Wes Colson (125.58)</td>
+            <td data-label="PF vs PA">706.46 – 858.28</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 16: Ron Baker (114.20) vs Wes Colson (148.08)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Miles Spainhower" data-m2="Robert Kendall">
             <td class="team-cell">Miles Spainhower vs Robert Kendall</td>
-            <td data-label="All-Time Series"><b>2–0</b></td>
+            <td data-label="All-Time Series"><b>8–3</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">275.7 – 226.6</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 14: Miles Spainhower (122.14) vs Robert Kendall (97.02)</td>
+            <td data-label="PF vs PA">1390.14 – 1329.86</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 18: Miles Spainhower (135.48) vs Robert Kendall (123.56)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Eric King" data-m2="TRAVIS GIBSON">
             <td class="team-cell">Eric King vs TRAVIS GIBSON</td>
-            <td data-label="All-Time Series"><b>0–2</b></td>
+            <td data-label="All-Time Series"><b>2–4</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">215.3 – 245.5</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 14: Eric King (99.8) vs TRAVIS GIBSON (116.26)</td>
+            <td data-label="PF vs PA">753.00 – 698.22</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 14: Eric King (144.84) vs TRAVIS GIBSON (151.08)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Billy Haid" data-m2="Kurt Claycomb">
             <td class="team-cell">Billy Haid vs Kurt Claycomb</td>
             <td data-label="All-Time Series"><b>0–2</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">204.4 – 300.7</td>
+            <td data-label="PF vs PA">204.38 – 300.74</td>
             <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 14: Kurt Claycomb (143.52) vs Billy Haid (98.06)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Jared Schneider" data-m2="trentan busey">
             <td class="team-cell">Jared Schneider vs trentan busey</td>
-            <td data-label="All-Time Series"><b>0–2</b></td>
+            <td data-label="All-Time Series"><b>3–4</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">125.8 – 243.3</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 14: trentan busey (155.12) vs Jared Schneider (38.04)</td>
+            <td data-label="PF vs PA">687.74 – 770.06</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 15: Jared Schneider (96.94) vs trentan busey (113.30)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Roman Bayless" data-m2="Ron Baker">
             <td class="team-cell">Roman Bayless vs Ron Baker</td>
-            <td data-label="All-Time Series"><b>1–1</b></td>
+            <td data-label="All-Time Series"><b>4–3</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">212.7 – 256.3</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 14: Roman Bayless (133.98) vs Ron Baker (133.66)</td>
+            <td data-label="PF vs PA">793.28 – 767.98</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 15: Ron Baker (132.68) vs Roman Bayless (105.64)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Wes Colson" data-m2="jeremy bayless">
             <td class="team-cell">Wes Colson vs jeremy bayless</td>
-            <td data-label="All-Time Series"><b>0–2</b></td>
+            <td data-label="All-Time Series"><b>3–3</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">197.9 – 234.6</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 14: Wes Colson (91.32) vs jeremy bayless (118.8)</td>
+            <td data-label="PF vs PA">663.76 – 598.30</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 14: Wes Colson (116.26) vs jeremy bayless (83.12)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Miles Spainhower" data-m2="TRAVIS GIBSON">
             <td class="team-cell">Miles Spainhower vs TRAVIS GIBSON</td>
-            <td data-label="All-Time Series"><b>0–1</b></td>
+            <td data-label="All-Time Series"><b>0–3</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">128.2 – 134.8</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 9: Miles Spainhower (128.2) vs TRAVIS GIBSON (134.82)</td>
+            <td data-label="PF vs PA">330.46 – 429.40</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 9: Miles Spainhower (122.98) vs TRAVIS GIBSON (163.20)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Billy Haid" data-m2="Eric King">
             <td class="team-cell">Billy Haid vs Eric King</td>
             <td data-label="All-Time Series"><b>1–0</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">158.1 – 111.1</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 9: Eric King (111.1) vs Billy Haid (158.06)</td>
+            <td data-label="PF vs PA">158.06 – 111.10</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 9: Eric King (111.10) vs Billy Haid (158.06)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Jared Schneider" data-m2="Kurt Claycomb">
             <td class="team-cell">Jared Schneider vs Kurt Claycomb</td>
-            <td data-label="All-Time Series"><b>1–0</b></td>
+            <td data-label="All-Time Series"><b>2–2</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">115.5 – 96.3</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 9: Kurt Claycomb (96.26) vs Jared Schneider (115.48)</td>
+            <td data-label="PF vs PA">384.50 – 425.84</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 9: Kurt Claycomb (108.26) vs Jared Schneider (118.44)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Ron Baker" data-m2="trentan busey">
             <td class="team-cell">Ron Baker vs trentan busey</td>
-            <td data-label="All-Time Series"><b>0–1</b></td>
+            <td data-label="All-Time Series"><b>2–6</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">97.8 – 124.8</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 9: trentan busey (124.8) vs Ron Baker (97.8)</td>
+            <td data-label="PF vs PA">742.60 – 721.02</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 18: Ron Baker (135.02) vs trentan busey (74.20)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Roman Bayless" data-m2="jeremy bayless">
             <td class="team-cell">Roman Bayless vs jeremy bayless</td>
-            <td data-label="All-Time Series"><b>1–0</b></td>
+            <td data-label="All-Time Series"><b>4–0</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">113.6 – 91.2</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 9: Roman Bayless (113.62) vs jeremy bayless (91.22)</td>
+            <td data-label="PF vs PA">481.04 – 360.86</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 9: Roman Bayless (115.56) vs jeremy bayless (85.38)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Robert Kendall" data-m2="Wes Colson">
             <td class="team-cell">Robert Kendall vs Wes Colson</td>
-            <td data-label="All-Time Series"><b>1–0</b></td>
+            <td data-label="All-Time Series"><b>1–2</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">181.6 – 95.3</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 9: Wes Colson (95.28) vs Robert Kendall (181.58)</td>
+            <td data-label="PF vs PA">364.06 – 316.78</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 9: Wes Colson (107.06) vs Robert Kendall (102.00)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Billy Haid" data-m2="Miles Spainhower">
             <td class="team-cell">Billy Haid vs Miles Spainhower</td>
-            <td data-label="All-Time Series"><b>0–1</b></td>
+            <td data-label="All-Time Series"><b>0–2</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">107.8 – 125.4</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 10: Billy Haid (107.84) vs Miles Spainhower (125.4)</td>
+            <td data-label="PF vs PA">198.22 – 245.62</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 15: Billy Haid (90.38) vs Miles Spainhower (120.22)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Eric King" data-m2="Jared Schneider">
             <td class="team-cell">Eric King vs Jared Schneider</td>
-            <td data-label="All-Time Series"><b>0–1</b></td>
+            <td data-label="All-Time Series"><b>0–4</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">101.3 – 113.7</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 10: Jared Schneider (113.7) vs Eric King (101.32)</td>
+            <td data-label="PF vs PA">356.78 – 506.64</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 16: Eric King (94.50) vs Jared Schneider (121.86)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Kurt Claycomb" data-m2="Ron Baker">
             <td class="team-cell">Kurt Claycomb vs Ron Baker</td>
-            <td data-label="All-Time Series"><b>1–0</b></td>
+            <td data-label="All-Time Series"><b>3–1</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">179.0 – 116.7</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 10: Ron Baker (116.72) vs Kurt Claycomb (179.02)</td>
+            <td data-label="PF vs PA">512.20 – 482.94</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 15: Kurt Claycomb (143.52) vs Ron Baker (142.60)</td>
           </tr>
           <tr class="rivalry-row" data-m1="jeremy bayless" data-m2="trentan busey">
             <td class="team-cell">jeremy bayless vs trentan busey</td>
-            <td data-label="All-Time Series"><b>0–1</b></td>
+            <td data-label="All-Time Series"><b>1–2</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">115.0 – 136.8</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 10: jeremy bayless (115.02) vs trentan busey (136.82)</td>
+            <td data-label="PF vs PA">324.84 – 324.92</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 10: jeremy bayless (86.94) vs trentan busey (105.98)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Robert Kendall" data-m2="Roman Bayless">
             <td class="team-cell">Robert Kendall vs Roman Bayless</td>
-            <td data-label="All-Time Series"><b>0–1</b></td>
+            <td data-label="All-Time Series"><b>1–2</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">75.0 – 99.9</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 10: Robert Kendall (75.0) vs Roman Bayless (99.9)</td>
+            <td data-label="PF vs PA">312.60 – 351.62</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 10: Robert Kendall (96.34) vs Roman Bayless (123.70)</td>
           </tr>
           <tr class="rivalry-row" data-m1="TRAVIS GIBSON" data-m2="Wes Colson">
             <td class="team-cell">TRAVIS GIBSON vs Wes Colson</td>
-            <td data-label="All-Time Series"><b>1–0</b></td>
+            <td data-label="All-Time Series"><b>1–3</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">140.2 – 125.3</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 10: TRAVIS GIBSON (140.2) vs Wes Colson (125.3)</td>
+            <td data-label="PF vs PA">404.26 – 446.84</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 10: TRAVIS GIBSON (72.74) vs Wes Colson (99.84)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Jared Schneider" data-m2="Miles Spainhower">
             <td class="team-cell">Jared Schneider vs Miles Spainhower</td>
-            <td data-label="All-Time Series"><b>0–1</b></td>
+            <td data-label="All-Time Series"><b>2–1</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">113.1 – 118.9</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 11: Miles Spainhower (118.9) vs Jared Schneider (113.1)</td>
+            <td data-label="PF vs PA">356.88 – 308.02</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 11: Miles Spainhower (88.06) vs Jared Schneider (130.74)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Eric King" data-m2="Ron Baker">
             <td class="team-cell">Eric King vs Ron Baker</td>
-            <td data-label="All-Time Series"><b>0–1</b></td>
+            <td data-label="All-Time Series"><b>1–2</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">90.2 – 108.8</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 11: Eric King (90.2) vs Ron Baker (108.82)</td>
+            <td data-label="PF vs PA">316.66 – 294.24</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 11: Eric King (93.66) vs Ron Baker (110.18)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Kurt Claycomb" data-m2="jeremy bayless">
             <td class="team-cell">Kurt Claycomb vs jeremy bayless</td>
-            <td data-label="All-Time Series"><b>1–0</b></td>
+            <td data-label="All-Time Series"><b>2–1</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">126.2 – 89.1</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 11: Kurt Claycomb (126.18) vs jeremy bayless (89.14)</td>
+            <td data-label="PF vs PA">336.06 – 298.46</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 11: Kurt Claycomb (119.82) vs jeremy bayless (107.28)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Robert Kendall" data-m2="trentan busey">
             <td class="team-cell">Robert Kendall vs trentan busey</td>
-            <td data-label="All-Time Series"><b>0–1</b></td>
+            <td data-label="All-Time Series"><b>3–1</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">101.2 – 123.1</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 11: trentan busey (123.12) vs Robert Kendall (101.24)</td>
+            <td data-label="PF vs PA">436.18 – 342.04</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 11: trentan busey (100.34) vs Robert Kendall (132.10)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Roman Bayless" data-m2="TRAVIS GIBSON">
             <td class="team-cell">Roman Bayless vs TRAVIS GIBSON</td>
-            <td data-label="All-Time Series"><b>0–1</b></td>
+            <td data-label="All-Time Series"><b>1–5</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">80.1 – 101.4</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 11: Roman Bayless (80.1) vs TRAVIS GIBSON (101.4)</td>
+            <td data-label="PF vs PA">675.96 – 845.70</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 15: TRAVIS GIBSON (156.92) vs Roman Bayless (152.00)</td>
           </tr>
           <tr class="rivalry-row" data-m1="Billy Haid" data-m2="Wes Colson">
             <td class="team-cell">Billy Haid vs Wes Colson</td>
             <td data-label="All-Time Series"><b>1–0</b></td>
             <td data-label="Season Series">0–0</td>
-            <td data-label="PF vs PA">92.7 – 92.2</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 11: Wes Colson (92.2) vs Billy Haid (92.72)</td>
+            <td data-label="PF vs PA">92.72 – 92.20</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2025 Wk 11: Wes Colson (92.20) vs Billy Haid (92.72)</td>
+          </tr>
+          <tr class="rivalry-row" data-m1="Curtis Thornton" data-m2="TRAVIS GIBSON">
+            <td class="team-cell">Curtis Thornton vs TRAVIS GIBSON</td>
+            <td data-label="All-Time Series"><b>2–2</b></td>
+            <td data-label="Season Series">0–0</td>
+            <td data-label="PF vs PA">409.46 – 430.72</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 1: Curtis Thornton (104.36) vs TRAVIS GIBSON (169.76)</td>
+          </tr>
+          <tr class="rivalry-row" data-m1="Curtis Thornton" data-m2="Jared Schneider">
+            <td class="team-cell">Curtis Thornton vs Jared Schneider</td>
+            <td data-label="All-Time Series"><b>1–1</b></td>
+            <td data-label="Season Series">0–0</td>
+            <td data-label="PF vs PA">191.00 – 209.60</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 2: Curtis Thornton (88.22) vs Jared Schneider (111.32)</td>
+          </tr>
+          <tr class="rivalry-row" data-m1="Curtis Thornton" data-m2="Robert Kendall">
+            <td class="team-cell">Curtis Thornton vs Robert Kendall</td>
+            <td data-label="All-Time Series"><b>2–0</b></td>
+            <td data-label="Season Series">0–0</td>
+            <td data-label="PF vs PA">226.22 – 182.90</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 3: Robert Kendall (85.82) vs Curtis Thornton (109.38)</td>
+          </tr>
+          <tr class="rivalry-row" data-m1="Curtis Thornton" data-m2="Ron Baker">
+            <td class="team-cell">Curtis Thornton vs Ron Baker</td>
+            <td data-label="All-Time Series"><b>1–1</b></td>
+            <td data-label="Season Series">0–0</td>
+            <td data-label="PF vs PA">242.24 – 251.98</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 4: Ron Baker (137.94) vs Curtis Thornton (97.38)</td>
+          </tr>
+          <tr class="rivalry-row" data-m1="Curtis Thornton" data-m2="jeremy bayless">
+            <td class="team-cell">Curtis Thornton vs jeremy bayless</td>
+            <td data-label="All-Time Series"><b>5–1</b></td>
+            <td data-label="Season Series">0–0</td>
+            <td data-label="PF vs PA">738.06 – 626.18</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 18: jeremy bayless (102.24) vs Curtis Thornton (123.50)</td>
+          </tr>
+          <tr class="rivalry-row" data-m1="Curtis Thornton" data-m2="Roman Bayless">
+            <td class="team-cell">Curtis Thornton vs Roman Bayless</td>
+            <td data-label="All-Time Series"><b>0–4</b></td>
+            <td data-label="Season Series">0–0</td>
+            <td data-label="PF vs PA">345.28 – 484.06</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 12: Roman Bayless (126.24) vs Curtis Thornton (94.76)</td>
+          </tr>
+          <tr class="rivalry-row" data-m1="Curtis Thornton" data-m2="trentan busey">
+            <td class="team-cell">Curtis Thornton vs trentan busey</td>
+            <td data-label="All-Time Series"><b>2–2</b></td>
+            <td data-label="Season Series">0–0</td>
+            <td data-label="PF vs PA">388.74 – 444.20</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 13: Curtis Thornton (112.04) vs trentan busey (108.22)</td>
+          </tr>
+          <tr class="rivalry-row" data-m1="Curtis Thornton" data-m2="Kurt Claycomb">
+            <td class="team-cell">Curtis Thornton vs Kurt Claycomb</td>
+            <td data-label="All-Time Series"><b>2–3</b></td>
+            <td data-label="Season Series">0–0</td>
+            <td data-label="PF vs PA">534.96 – 570.68</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 16: Kurt Claycomb (79.96) vs Curtis Thornton (110.20)</td>
+          </tr>
+          <tr class="rivalry-row" data-m1="Curtis Thornton" data-m2="Eric King">
+            <td class="team-cell">Curtis Thornton vs Eric King</td>
+            <td data-label="All-Time Series"><b>0–3</b></td>
+            <td data-label="Season Series">0–0</td>
+            <td data-label="PF vs PA">250.64 – 357.64</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 9: Eric King (137.74) vs Curtis Thornton (86.80)</td>
+          </tr>
+          <tr class="rivalry-row" data-m1="Curtis Thornton" data-m2="Miles Spainhower">
+            <td class="team-cell">Curtis Thornton vs Miles Spainhower</td>
+            <td data-label="All-Time Series"><b>1–1</b></td>
+            <td data-label="Season Series">0–0</td>
+            <td data-label="PF vs PA">170.36 – 210.34</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 10: Curtis Thornton (51.84) vs Miles Spainhower (103.52)</td>
+          </tr>
+          <tr class="rivalry-row" data-m1="Curtis Thornton" data-m2="Wes Colson">
+            <td class="team-cell">Curtis Thornton vs Wes Colson</td>
+            <td data-label="All-Time Series"><b>1–1</b></td>
+            <td data-label="Season Series">0–0</td>
+            <td data-label="PF vs PA">222.34 – 232.40</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">2024 Wk 11: Wes Colson (98.08) vs Curtis Thornton (61.24)</td>
           </tr>
         </tbody>
       </table>
@@ -968,44 +1047,44 @@
           <tr>
             <td class="team-cell" style="color: var(--accent);">Week 1 Matchup</td>
             <td data-label="Winner" style="font-weight: 700; color: var(--text);">Make Fantasy Great Again (jeremy bayless)</td>
-            <td data-label="Score" style="font-weight: 700; color: var(--green);">0.0 – 0.0</td>
+            <td data-label="Score" style="font-weight: 700; color: var(--green);">0.00 – 0.00</td>
             <td data-label="Loser" style="color: var(--muted);">Team Bakesmode (Ron Baker)</td>
-            <td data-label="Margin" style="font-weight: 700; color: var(--accent);">+0.0 pts</td>
+            <td data-label="Margin" style="font-weight: 700; color: var(--accent);">+0.00 pts</td>
           </tr>
           <tr>
             <td class="team-cell" style="color: var(--accent);">Week 1 Matchup</td>
             <td data-label="Winner" style="font-weight: 700; color: var(--text);">Flock Around and Find Out (Jared Schneider)</td>
-            <td data-label="Score" style="font-weight: 700; color: var(--green);">0.0 – 0.0</td>
+            <td data-label="Score" style="font-weight: 700; color: var(--green);">0.00 – 0.00</td>
             <td data-label="Loser" style="color: var(--muted);">Team Kendall (Robert Kendall)</td>
-            <td data-label="Margin" style="font-weight: 700; color: var(--accent);">+0.0 pts</td>
+            <td data-label="Margin" style="font-weight: 700; color: var(--accent);">+0.00 pts</td>
           </tr>
           <tr>
             <td class="team-cell" style="color: var(--accent);">Week 1 Matchup</td>
             <td data-label="Winner" style="font-weight: 700; color: var(--text);">Blue Medical Tent (Billy Haid)</td>
-            <td data-label="Score" style="font-weight: 700; color: var(--green);">0.0 – 0.0</td>
+            <td data-label="Score" style="font-weight: 700; color: var(--green);">0.00 – 0.00</td>
             <td data-label="Loser" style="color: var(--muted);">THE G-MEN (TRAVIS GIBSON)</td>
-            <td data-label="Margin" style="font-weight: 700; color: var(--accent);">+0.0 pts</td>
+            <td data-label="Margin" style="font-weight: 700; color: var(--accent);">+0.00 pts</td>
           </tr>
           <tr>
             <td class="team-cell" style="color: var(--accent);">Week 1 Matchup</td>
             <td data-label="Winner" style="font-weight: 700; color: var(--text);">55 TDs 55 Punts 55 FGs 55 INTs (Eric King)</td>
-            <td data-label="Score" style="font-weight: 700; color: var(--green);">0.0 – 0.0</td>
+            <td data-label="Score" style="font-weight: 700; color: var(--green);">0.00 – 0.00</td>
             <td data-label="Loser" style="color: var(--muted);">The American Dream (Miles Spainhower)</td>
-            <td data-label="Margin" style="font-weight: 700; color: var(--accent);">+0.0 pts</td>
+            <td data-label="Margin" style="font-weight: 700; color: var(--accent);">+0.00 pts</td>
           </tr>
           <tr>
             <td class="team-cell" style="color: var(--accent);">Week 1 Matchup</td>
             <td data-label="Winner" style="font-weight: 700; color: var(--text);">Team Draft order (Wes Colson)</td>
-            <td data-label="Score" style="font-weight: 700; color: var(--green);">0.0 – 0.0</td>
+            <td data-label="Score" style="font-weight: 700; color: var(--green);">0.00 – 0.00</td>
             <td data-label="Loser" style="color: var(--muted);">Skatteboo boo (Kurt Claycomb)</td>
-            <td data-label="Margin" style="font-weight: 700; color: var(--accent);">+0.0 pts</td>
+            <td data-label="Margin" style="font-weight: 700; color: var(--accent);">+0.00 pts</td>
           </tr>
           <tr>
             <td class="team-cell" style="color: var(--accent);">Week 1 Matchup</td>
             <td data-label="Winner" style="font-weight: 700; color: var(--text);">Team Freedom (Roman Bayless)</td>
-            <td data-label="Score" style="font-weight: 700; color: var(--green);">0.0 – 0.0</td>
+            <td data-label="Score" style="font-weight: 700; color: var(--green);">0.00 – 0.00</td>
             <td data-label="Loser" style="color: var(--muted);">Puka Time (trentan busey)</td>
-            <td data-label="Margin" style="font-weight: 700; color: var(--accent);">+0.0 pts</td>
+            <td data-label="Margin" style="font-weight: 700; color: var(--accent);">+0.00 pts</td>
           </tr>
         </tbody>
       </table>
@@ -1022,8 +1101,8 @@
       <div class="award-card gold">
         <div>
           <div class="award-tag" style="color: var(--gold);">👑 Season Points Leader (Total PF)</div>
-          <div class="award-title">Make Fantasy Great Again (jeremy bayless)</div>
-          <div class="award-desc">Pacing the entire season with <b>0.0 Total PF</b> to lead the overall scoring payout!</div>
+          <div class="award-title">Make Fantasy Great Again (jeremy bayless) <span class="badge badge-bitch" title="2025 League Bitch (Last Place)">💩 '25 League Bitch</span></div>
+          <div class="award-desc">Pacing the entire season with <b>0.00 Total PF</b> to lead the overall scoring payout!</div>
         </div>
         <div style="margin-top: 8px;"><span class="badge badge-gold">Season PF Crown</span></div>
       </div>
@@ -1031,8 +1110,8 @@
       <div class="award-card blue">
         <div>
           <div class="award-tag" style="color: var(--accent);">⚡ Single-Game Team Record</div>
-          <div class="award-title">Make Fantasy Great Again (jeremy bayless)</div>
-          <div class="award-desc">Hung <b>0.0 pts</b> in Week 1 for the single highest team score of the year.</div>
+          <div class="award-title">Make Fantasy Great Again (jeremy bayless) <span class="badge badge-bitch" title="2025 League Bitch (Last Place)">💩 '25 League Bitch</span></div>
+          <div class="award-desc">Hung <b>0.00 pts</b> in Week 1 for the single highest team score of the year.</div>
         </div>
         <div style="margin-top: 8px;"><span class="badge badge-neutral">Single-Week High</span></div>
       </div>
@@ -1041,7 +1120,7 @@
         <div>
           <div class="award-tag" style="color: var(--green);">🌟 Single-Game Starter Record</div>
           <div class="award-title">Jaxon Smith-Njigba (WR)</div>
-          <div class="award-desc">Erupted for <b>0 pts</b> in Week 1 for Make Fantasy Great Again (jeremy bayless).</div>
+          <div class="award-desc">Erupted for <b>0.00 pts</b> in Week 1 for Make Fantasy Great Again (jeremy bayless).</div>
         </div>
         <div style="margin-top: 8px;"><span class="badge badge-lucky">Season Player High</span></div>
       </div>
@@ -1065,10 +1144,10 @@
         <tbody>
           <tr>
             <td class="team-cell" style="color: var(--accent);">Week 1 Payouts</td>
-            <td data-label="Team High Winner"><b>Make Fantasy Great Again (jeremy bayless)</b></td>
-            <td data-label="Team Score" style="font-weight: 800; color: var(--gold);">0.0 pts</td>
+            <td data-label="Team High Winner"><b>Make Fantasy Great Again (jeremy bayless) <span class="badge badge-bitch" title="2025 League Bitch (Last Place)">💩 '25 League Bitch</span></b></td>
+            <td data-label="Team Score" style="font-weight: 800; color: var(--gold);">0.00 pts</td>
             <td data-label="Starter High Winner"><b>Jaxon Smith-Njigba (WR) - Make Fantasy Great Again (jeremy bayless)</b></td>
-            <td data-label="Player Score" style="font-weight: 800; color: var(--green);">0 pts</td>
+            <td data-label="Player Score" style="font-weight: 800; color: var(--green);">0.00 pts</td>
           </tr>
         </tbody>
       </table>
@@ -1079,32 +1158,32 @@
     <div class="records-grid">
       <div class="record-card">
         <div class="record-pos">QB Record</div>
-        <div class="record-pts">0</div>
+        <div class="record-pts">0.00</div>
         <div class="record-holder">Caleb Williams<br><span style="color: var(--dim);">Make Fantasy Great Again (jeremy bayless) (Wk 1)</span></div>
       </div>
       <div class="record-card">
         <div class="record-pos">RB Record</div>
-        <div class="record-pts">0</div>
+        <div class="record-pts">0.00</div>
         <div class="record-holder">Breece Hall<br><span style="color: var(--dim);">Make Fantasy Great Again (jeremy bayless) (Wk 1)</span></div>
       </div>
       <div class="record-card">
         <div class="record-pos">WR Record</div>
-        <div class="record-pts">0</div>
+        <div class="record-pts">0.00</div>
         <div class="record-holder">Jaxon Smith-Njigba<br><span style="color: var(--dim);">Make Fantasy Great Again (jeremy bayless) (Wk 1)</span></div>
       </div>
       <div class="record-card">
         <div class="record-pos">TE Record</div>
-        <div class="record-pts">0</div>
+        <div class="record-pts">0.00</div>
         <div class="record-holder">Brenton Strange<br><span style="color: var(--dim);">Make Fantasy Great Again (jeremy bayless) (Wk 1)</span></div>
       </div>
       <div class="record-card">
         <div class="record-pos">K Record</div>
-        <div class="record-pts">0</div>
+        <div class="record-pts">0.00</div>
         <div class="record-holder">Will Reichard<br><span style="color: var(--dim);">Make Fantasy Great Again (jeremy bayless) (Wk 1)</span></div>
       </div>
       <div class="record-card">
         <div class="record-pos">D/ST Record</div>
-        <div class="record-pts">0</div>
+        <div class="record-pts">0.00</div>
         <div class="record-holder">Seahawks D/ST<br><span style="color: var(--dim);">Make Fantasy Great Again (jeremy bayless) (Wk 1)</span></div>
       </div>
     </div>
@@ -1112,24 +1191,152 @@
   </div>
 
   <!-- TAB 5: HALL OF CHAMPIONS -->
-  <div id="view-halloffame" class="table-container" style="display: none;">
-    <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 14px;">🏆 Historical Podium (Gold, Silver, Bronze)</div>
-    <div class="podium-grid">
-        <div class="podium-card">
-          <div class="podium-year">2026 Season</div>
-          <div class="podium-row">
-            <span>🥇 <b>Gold (Champion)</b></span>
-            <span style="color: var(--gold); font-weight: 700;">Team Freedom (Roman Bayless)</span>
-          </div>
-          <div class="podium-row">
-            <span>🥈 <b>Silver (Runner-Up)</b></span>
-            <span style="color: var(--silver); font-weight: 700;">Team Kendall (Robert Kendall)</span>
-          </div>
-          <div class="podium-row">
-            <span>🥉 <b>Bronze (3rd Place)</b></span>
-            <span style="color: var(--bronze); font-weight: 700;">Team Draft order (Wes Colson)</span>
-          </div>
-        </div>
+  <div id="view-halloffame" style="display: none; display: flex; flex-direction: column; gap: 20px;">
+    
+    <!-- ALL-TIME FRANCHISE PLACEMENT & SHAME TABLE -->
+    <div class="table-container">
+      <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
+        🏛️ All-Time Franchise Trophy & Shame Ledger (2023–Present)
+      </div>
+      <table class="responsive-table">
+        <thead>
+          <tr>
+            <th>Manager / Franchise</th>
+            <th>🥇 1st (Gold)</th>
+            <th>🥈 2nd (Silver)</th>
+            <th>🥉 3rd (Bronze)</th>
+            <th>💩 League Bitch</th>
+            <th>Total Podiums</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="team-cell">
+              <div>
+                <b>Miles Spainhower</b>
+                <div style="font-size: 11px; color: var(--muted); font-weight: normal; margin-top: 2px;">Most Recent: 🥇 Gold (2025)</div>
+              </div>
+            </td>
+            <td data-label="🥇 1st (Gold)"><b>2</b></td>
+            <td data-label="🥈 2nd (Silver)"><b>0</b></td>
+            <td data-label="🥉 3rd (Bronze)"><b>0</b></td>
+            <td data-label="💩 League Bitch" style="color: #ef4444; font-weight: 700;">0</td>
+            <td data-label="Total Podiums"><span class="badge badge-neutral"><b>2</b></span></td>
+          </tr>
+          <tr>
+            <td class="team-cell">
+              <div>
+                <b>Wes Colson</b>
+                <div style="font-size: 11px; color: var(--muted); font-weight: normal; margin-top: 2px;">Most Recent: 🥇 Gold (2023)</div>
+              </div>
+            </td>
+            <td data-label="🥇 1st (Gold)"><b>1</b></td>
+            <td data-label="🥈 2nd (Silver)"><b>0</b></td>
+            <td data-label="🥉 3rd (Bronze)"><b>0</b></td>
+            <td data-label="💩 League Bitch" style="color: #ef4444; font-weight: 700;">0</td>
+            <td data-label="Total Podiums"><span class="badge badge-neutral"><b>1</b></span></td>
+          </tr>
+          <tr>
+            <td class="team-cell">
+              <div>
+                <b>Robert Kendall</b>
+                <div style="font-size: 11px; color: var(--muted); font-weight: normal; margin-top: 2px;">Most Recent: 🥈 Silver (2024)</div>
+              </div>
+            </td>
+            <td data-label="🥇 1st (Gold)"><b>0</b></td>
+            <td data-label="🥈 2nd (Silver)"><b>1</b></td>
+            <td data-label="🥉 3rd (Bronze)"><b>0</b></td>
+            <td data-label="💩 League Bitch" style="color: #ef4444; font-weight: 700;">0</td>
+            <td data-label="Total Podiums"><span class="badge badge-neutral"><b>1</b></span></td>
+          </tr>
+          <tr>
+            <td class="team-cell">
+              <div>
+                <b>Roman Bayless</b>
+                <div style="font-size: 11px; color: var(--muted); font-weight: normal; margin-top: 2px;">Most Recent: 🥈 Silver (2023)</div>
+              </div>
+            </td>
+            <td data-label="🥇 1st (Gold)"><b>0</b></td>
+            <td data-label="🥈 2nd (Silver)"><b>1</b></td>
+            <td data-label="🥉 3rd (Bronze)"><b>0</b></td>
+            <td data-label="💩 League Bitch" style="color: #ef4444; font-weight: 700;">0</td>
+            <td data-label="Total Podiums"><span class="badge badge-neutral"><b>1</b></span></td>
+          </tr>
+          <tr>
+            <td class="team-cell">
+              <div>
+                <b>trentan busey</b>
+                <div style="font-size: 11px; color: var(--muted); font-weight: normal; margin-top: 2px;">Most Recent: 🥈 Silver (2025)</div>
+              </div>
+            </td>
+            <td data-label="🥇 1st (Gold)"><b>0</b></td>
+            <td data-label="🥈 2nd (Silver)"><b>1</b></td>
+            <td data-label="🥉 3rd (Bronze)"><b>0</b></td>
+            <td data-label="💩 League Bitch" style="color: #ef4444; font-weight: 700;">0</td>
+            <td data-label="Total Podiums"><span class="badge badge-neutral"><b>1</b></span></td>
+          </tr>
+          <tr>
+            <td class="team-cell">
+              <div>
+                <b>Kurt Claycomb</b>
+                <div style="font-size: 11px; color: var(--muted); font-weight: normal; margin-top: 2px;">Most Recent: 🥉 Bronze (2025)</div>
+              </div>
+            </td>
+            <td data-label="🥇 1st (Gold)"><b>0</b></td>
+            <td data-label="🥈 2nd (Silver)"><b>0</b></td>
+            <td data-label="🥉 3rd (Bronze)"><b>2</b></td>
+            <td data-label="💩 League Bitch" style="color: #ef4444; font-weight: 700;">0</td>
+            <td data-label="Total Podiums"><span class="badge badge-neutral"><b>2</b></span></td>
+          </tr>
+          <tr>
+            <td class="team-cell">
+              <div>
+                <b>Ron Baker</b>
+                <div style="font-size: 11px; color: var(--muted); font-weight: normal; margin-top: 2px;">Most Recent: 🥉 Bronze (2024)</div>
+              </div>
+            </td>
+            <td data-label="🥇 1st (Gold)"><b>0</b></td>
+            <td data-label="🥈 2nd (Silver)"><b>0</b></td>
+            <td data-label="🥉 3rd (Bronze)"><b>1</b></td>
+            <td data-label="💩 League Bitch" style="color: #ef4444; font-weight: 700;">1</td>
+            <td data-label="Total Podiums"><span class="badge badge-neutral"><b>1</b></span></td>
+          </tr>
+          <tr>
+            <td class="team-cell">
+              <div>
+                <b>Eric King</b>
+                <div style="font-size: 11px; color: var(--muted); font-weight: normal; margin-top: 2px;">Most Recent: 💩 League Bitch (2024)</div>
+              </div>
+            </td>
+            <td data-label="🥇 1st (Gold)"><b>0</b></td>
+            <td data-label="🥈 2nd (Silver)"><b>0</b></td>
+            <td data-label="🥉 3rd (Bronze)"><b>0</b></td>
+            <td data-label="💩 League Bitch" style="color: #ef4444; font-weight: 700;">1</td>
+            <td data-label="Total Podiums"><span class="badge badge-neutral"><b>0</b></span></td>
+          </tr>
+          <tr>
+            <td class="team-cell">
+              <div>
+                <b>jeremy bayless</b>
+                <div style="font-size: 11px; color: var(--muted); font-weight: normal; margin-top: 2px;">Most Recent: 💩 League Bitch (2025)</div>
+              </div>
+            </td>
+            <td data-label="🥇 1st (Gold)"><b>0</b></td>
+            <td data-label="🥈 2nd (Silver)"><b>0</b></td>
+            <td data-label="🥉 3rd (Bronze)"><b>0</b></td>
+            <td data-label="💩 League Bitch" style="color: #ef4444; font-weight: 700;">1</td>
+            <td data-label="Total Podiums"><span class="badge badge-neutral"><b>0</b></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- HISTORICAL SEASON PODIUM CARDS -->
+    <div class="table-container">
+      <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 14px;">
+        🏆 Historical Season Podiums (Finalized Seasons)
+      </div>
+      <div class="podium-grid">
         <div class="podium-card">
           <div class="podium-year">2025 Season</div>
           <div class="podium-row">
@@ -1143,6 +1350,10 @@
           <div class="podium-row">
             <span>🥉 <b>Bronze (3rd Place)</b></span>
             <span style="color: var(--bronze); font-weight: 700;">No Punt Intended  (Kurt Claycomb)</span>
+          </div>
+          <div class="podium-row" style="border-top: 1px dashed var(--border); margin-top: 6px; padding-top: 8px;">
+            <span style="color: #ef4444;">💩 <b>League Bitch (Last)</b></span>
+            <span style="color: #ef4444; font-weight: 700;">Rejected Kamala (jeremy bayless)</span>
           </div>
         </div>
         <div class="podium-card">
@@ -1159,6 +1370,10 @@
             <span>🥉 <b>Bronze (3rd Place)</b></span>
             <span style="color: var(--bronze); font-weight: 700;">Team Bakesmode (Ron Baker)</span>
           </div>
+          <div class="podium-row" style="border-top: 1px dashed var(--border); margin-top: 6px; padding-top: 8px;">
+            <span style="color: #ef4444;">💩 <b>League Bitch (Last)</b></span>
+            <span style="color: #ef4444; font-weight: 700;">Son of a Veach (Eric King)</span>
+          </div>
         </div>
         <div class="podium-card">
           <div class="podium-year">2023 Season</div>
@@ -1174,8 +1389,14 @@
             <span>🥉 <b>Bronze (3rd Place)</b></span>
             <span style="color: var(--bronze); font-weight: 700;">No Punt Intended  (Kurt Claycomb)</span>
           </div>
+          <div class="podium-row" style="border-top: 1px dashed var(--border); margin-top: 6px; padding-top: 8px;">
+            <span style="color: #ef4444;">💩 <b>League Bitch (Last)</b></span>
+            <span style="color: #ef4444; font-weight: 700;">Team Bakesmode (Ron Baker)</span>
+          </div>
         </div>
+      </div>
     </div>
+
   </div>
 
   <!-- TAB 6: BENCH BLUNDERS -->
@@ -1192,73 +1413,73 @@
       </thead>
       <tbody>
         <tr>
-          <td class="team-cell"><span class="rank-num">#1</span> Make Fantasy Great Again (jeremy bayless)</td>
+          <td class="team-cell"><span class="rank-num">#1</span> Make Fantasy Great Again (jeremy bayless) <span class="badge badge-bitch" title="2025 League Bitch (Last Place)">💩 '25 League Bitch</span></td>
           <td data-label="Player" style="color: var(--text); font-weight: 600;">George Kittle</td>
           <td data-label="Pos"><span class="badge badge-neutral">TE</span></td>
-          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0 pts</td>
+          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0.00 pts</td>
           <td data-label="Projection" style="color: var(--muted);">8.36 pts</td>
         </tr>
         <tr>
-          <td class="team-cell"><span class="rank-num">#2</span> Make Fantasy Great Again (jeremy bayless)</td>
+          <td class="team-cell"><span class="rank-num">#2</span> Make Fantasy Great Again (jeremy bayless) <span class="badge badge-bitch" title="2025 League Bitch (Last Place)">💩 '25 League Bitch</span></td>
           <td data-label="Player" style="color: var(--text); font-weight: 600;">Jordan Mason</td>
           <td data-label="Pos"><span class="badge badge-neutral">RB</span></td>
-          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0 pts</td>
+          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0.00 pts</td>
           <td data-label="Projection" style="color: var(--muted);">8.72 pts</td>
         </tr>
         <tr>
           <td class="team-cell"><span class="rank-num">#3</span> Team Bakesmode (Ron Baker)</td>
           <td data-label="Player" style="color: var(--text); font-weight: 600;">Christian Watson</td>
           <td data-label="Pos"><span class="badge badge-neutral">WR</span></td>
-          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0 pts</td>
+          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0.00 pts</td>
           <td data-label="Projection" style="color: var(--muted);">11.06 pts</td>
         </tr>
         <tr>
           <td class="team-cell"><span class="rank-num">#4</span> Blue Medical Tent (Billy Haid)</td>
           <td data-label="Player" style="color: var(--text); font-weight: 600;">Kenny Gainwell</td>
           <td data-label="Pos"><span class="badge badge-neutral">RB</span></td>
-          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0 pts</td>
+          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0.00 pts</td>
           <td data-label="Projection" style="color: var(--muted);">10.79 pts</td>
         </tr>
         <tr>
           <td class="team-cell"><span class="rank-num">#5</span> THE G-MEN (TRAVIS GIBSON)</td>
           <td data-label="Player" style="color: var(--text); font-weight: 600;">Aaron Jones Sr.</td>
           <td data-label="Pos"><span class="badge badge-neutral">RB</span></td>
-          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0 pts</td>
+          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0.00 pts</td>
           <td data-label="Projection" style="color: var(--muted);">10.27 pts</td>
         </tr>
         <tr>
           <td class="team-cell"><span class="rank-num">#6</span> THE G-MEN (TRAVIS GIBSON)</td>
           <td data-label="Player" style="color: var(--text); font-weight: 600;">Deebo Samuel Sr.</td>
           <td data-label="Pos"><span class="badge badge-neutral">WR</span></td>
-          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0 pts</td>
+          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0.00 pts</td>
           <td data-label="Projection" style="color: var(--muted);">10.93 pts</td>
         </tr>
         <tr>
           <td class="team-cell"><span class="rank-num">#7</span> The American Dream (Miles Spainhower) <span class="badge badge-champ" title="2025 Champion">🥇 '25 Champ</span></td>
           <td data-label="Player" style="color: var(--text); font-weight: 600;">Josh Jacobs</td>
           <td data-label="Pos"><span class="badge badge-neutral">RB</span></td>
-          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0 pts</td>
-          <td data-label="Projection" style="color: var(--muted);">0.0 pts</td>
+          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0.00 pts</td>
+          <td data-label="Projection" style="color: var(--muted);">0.00 pts</td>
         </tr>
         <tr>
           <td class="team-cell"><span class="rank-num">#8</span> The American Dream (Miles Spainhower) <span class="badge badge-champ" title="2025 Champion">🥇 '25 Champ</span></td>
           <td data-label="Player" style="color: var(--text); font-weight: 600;">Alvin Kamara</td>
           <td data-label="Pos"><span class="badge badge-neutral">RB</span></td>
-          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0 pts</td>
-          <td data-label="Projection" style="color: var(--muted);">0.0 pts</td>
+          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0.00 pts</td>
+          <td data-label="Projection" style="color: var(--muted);">0.00 pts</td>
         </tr>
         <tr>
           <td class="team-cell"><span class="rank-num">#9</span> Team Draft order (Wes Colson)</td>
           <td data-label="Player" style="color: var(--text); font-weight: 600;">Chuba Hubbard</td>
           <td data-label="Pos"><span class="badge badge-neutral">RB</span></td>
-          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0 pts</td>
+          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0.00 pts</td>
           <td data-label="Projection" style="color: var(--muted);">12.25 pts</td>
         </tr>
         <tr>
           <td class="team-cell"><span class="rank-num">#10</span> Skatteboo boo (Kurt Claycomb) <span class="badge badge-bronze" title="2025 3rd Place">🥉 '25 3rd Pl</span></td>
           <td data-label="Player" style="color: var(--text); font-weight: 600;">Sam LaPorta</td>
           <td data-label="Pos"><span class="badge badge-neutral">TE</span></td>
-          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0 pts</td>
+          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0.00 pts</td>
           <td data-label="Projection" style="color: var(--muted);">10.95 pts</td>
         </tr>
       </tbody>
@@ -1278,7 +1499,7 @@
           Total real points surrendered to your bench across the season. It calculates the difference between your team's <b>Optimal Score</b> and your <b>Actual Score</b> each week.
         </div>
         <div class="glossary-example">
-          <b>Example:</b> Started an RB who scored 4.2 pts while leaving an RB with 18.2 on the bench. That is <b>14.0 pts</b> added to your Pine Tax.
+          <b>Example:</b> Started an RB who scored 4.20 pts while leaving an RB with 18.20 on the bench. That is <b>14.00 pts</b> added to your Pine Tax.
         </div>
       </div>
 
@@ -1349,7 +1570,7 @@
     
     var activeEl = document.getElementById('view-' + viewName);
     if (activeEl) {
-      if (viewName === 'h2h' || viewName === 'payouts') {
+      if (viewName === 'h2h' || viewName === 'payouts' || viewName === 'halloffame') {
         activeEl.style.display = 'flex';
       } else {
         activeEl.style.display = 'block';

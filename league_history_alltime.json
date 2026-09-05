@@ -3,22 +3,20 @@
     "2025": {
       "gold": "The American Dream (Miles Spainhower)",
       "silver": "Puka Time (trentan busey)",
-      "bronze": "No Punt Intended  (Kurt Claycomb)"
+      "bronze": "No Punt Intended  (Kurt Claycomb)",
+      "last": "Rejected Kamala (jeremy bayless)"
     },
     "2023": {
       "gold": "Team Draft order (Wes Colson)",
       "silver": "O-Bijan Kenobi (Roman Bayless)",
-      "bronze": "No Punt Intended  (Kurt Claycomb)"
+      "bronze": "No Punt Intended  (Kurt Claycomb)",
+      "last": "Team Bakesmode (Ron Baker)"
     },
     "2024": {
       "gold": "The American Dream (Miles Spainhower)",
       "silver": "Team Kendall (Robert Kendall)",
-      "bronze": "Team Bakesmode (Ron Baker)"
-    },
-    "2026": {
-      "gold": "Team Freedom (Roman Bayless)",
-      "silver": "Team Kendall (Robert Kendall)",
-      "bronze": "Team Draft order (Wes Colson)"
+      "bronze": "Team Bakesmode (Ron Baker)",
+      "last": "Son of a Veach (Eric King)"
     }
   },
   "matchups": {
@@ -921,6 +919,2411 @@
       "m2": "trentan busey",
       "t2": "Puka Time (trentan busey)",
       "s2": 0.0
+    },
+    "2023_W1_Ron Baker_vs_jeremy bayless": {
+      "year": 2023,
+      "week": 1,
+      "m1": "jeremy bayless",
+      "t1": "THE B-MEN",
+      "s1": 104.18,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode",
+      "s2": 109.04
+    },
+    "2023_W1_Jared Schneider_vs_Robert Kendall": {
+      "year": 2023,
+      "week": 1,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed",
+      "s1": 96.18,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 88.44
+    },
+    "2023_W1_Curtis Thornton_vs_TRAVIS GIBSON": {
+      "year": 2023,
+      "week": 1,
+      "m1": "Curtis Thornton",
+      "t1": "Staley Starch Makers",
+      "s1": 60.34,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN",
+      "s2": 105.8
+    },
+    "2023_W1_Eric King_vs_Miles Spainhower": {
+      "year": 2023,
+      "week": 1,
+      "m1": "Eric King",
+      "t1": "Son of a Veach",
+      "s1": 119.1,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream",
+      "s2": 80.06
+    },
+    "2023_W1_Kurt Claycomb_vs_Wes Colson": {
+      "year": 2023,
+      "week": 1,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order",
+      "s1": 81.06,
+      "m2": "Kurt Claycomb",
+      "t2": "No Punt Intended ",
+      "s2": 82.82
+    },
+    "2023_W1_Roman Bayless_vs_trentan busey": {
+      "year": 2023,
+      "week": 1,
+      "m1": "Roman Bayless",
+      "t1": "O-Bijan Kenobi",
+      "s1": 83.56,
+      "m2": "trentan busey",
+      "t2": "Trading mahomes",
+      "s2": 80.04
+    },
+    "2023_W2_Robert Kendall_vs_Ron Baker": {
+      "year": 2023,
+      "week": 2,
+      "m1": "Ron Baker",
+      "t1": "Team Bakesmode",
+      "s1": 130.44,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 85.1
+    },
+    "2023_W2_TRAVIS GIBSON_vs_jeremy bayless": {
+      "year": 2023,
+      "week": 2,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN",
+      "s1": 93.24,
+      "m2": "jeremy bayless",
+      "t2": "THE B-MEN",
+      "s2": 113.88
+    },
+    "2023_W2_Curtis Thornton_vs_Jared Schneider": {
+      "year": 2023,
+      "week": 2,
+      "m1": "Curtis Thornton",
+      "t1": "Staley Starch Makers",
+      "s1": 102.78,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed",
+      "s2": 98.28
+    },
+    "2023_W2_Kurt Claycomb_vs_Miles Spainhower": {
+      "year": 2023,
+      "week": 2,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream",
+      "s1": 118.68,
+      "m2": "Kurt Claycomb",
+      "t2": "No Punt Intended ",
+      "s2": 101.0
+    },
+    "2023_W2_Eric King_vs_trentan busey": {
+      "year": 2023,
+      "week": 2,
+      "m1": "trentan busey",
+      "t1": "Trading mahomes",
+      "s1": 103.1,
+      "m2": "Eric King",
+      "t2": "Son of a Veach",
+      "s2": 111.72
+    },
+    "2023_W2_Roman Bayless_vs_Wes Colson": {
+      "year": 2023,
+      "week": 2,
+      "m1": "Roman Bayless",
+      "t1": "O-Bijan Kenobi",
+      "s1": 101.9,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order",
+      "s2": 114.06
+    },
+    "2023_W3_Ron Baker_vs_TRAVIS GIBSON": {
+      "year": 2023,
+      "week": 3,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN",
+      "s1": 134.44,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode",
+      "s2": 72.16
+    },
+    "2023_W3_Curtis Thornton_vs_Robert Kendall": {
+      "year": 2023,
+      "week": 3,
+      "m1": "Robert Kendall",
+      "t1": "Team Kendall",
+      "s1": 97.08,
+      "m2": "Curtis Thornton",
+      "t2": "Staley Starch Makers",
+      "s2": 116.84
+    },
+    "2023_W3_Jared Schneider_vs_jeremy bayless": {
+      "year": 2023,
+      "week": 3,
+      "m1": "jeremy bayless",
+      "t1": "THE B-MEN",
+      "s1": 109.44,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed",
+      "s2": 126.96
+    },
+    "2023_W3_Miles Spainhower_vs_trentan busey": {
+      "year": 2023,
+      "week": 3,
+      "m1": "trentan busey",
+      "t1": "Trading mahomes",
+      "s1": 133.28,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream",
+      "s2": 101.28
+    },
+    "2023_W3_Kurt Claycomb_vs_Roman Bayless": {
+      "year": 2023,
+      "week": 3,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended ",
+      "s1": 132.76,
+      "m2": "Roman Bayless",
+      "t2": "O-Bijan Kenobi",
+      "s2": 125.3
+    },
+    "2023_W3_Eric King_vs_Wes Colson": {
+      "year": 2023,
+      "week": 3,
+      "m1": "Eric King",
+      "t1": "Son of a Veach",
+      "s1": 92.58,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order",
+      "s2": 122.48
+    },
+    "2023_W4_Curtis Thornton_vs_Ron Baker": {
+      "year": 2023,
+      "week": 4,
+      "m1": "Ron Baker",
+      "t1": "Team Bakesmode",
+      "s1": 114.04,
+      "m2": "Curtis Thornton",
+      "t2": "Staley Starch Makers",
+      "s2": 144.86
+    },
+    "2023_W4_Jared Schneider_vs_TRAVIS GIBSON": {
+      "year": 2023,
+      "week": 4,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed",
+      "s1": 61.66,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN",
+      "s2": 78.22
+    },
+    "2023_W4_Robert Kendall_vs_jeremy bayless": {
+      "year": 2023,
+      "week": 4,
+      "m1": "jeremy bayless",
+      "t1": "THE B-MEN",
+      "s1": 121.32,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 110.2
+    },
+    "2023_W4_Miles Spainhower_vs_Roman Bayless": {
+      "year": 2023,
+      "week": 4,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream",
+      "s1": 158.14,
+      "m2": "Roman Bayless",
+      "t2": "O-Bijan Kenobi",
+      "s2": 117.78
+    },
+    "2023_W4_Wes Colson_vs_trentan busey": {
+      "year": 2023,
+      "week": 4,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order",
+      "s1": 99.78,
+      "m2": "trentan busey",
+      "t2": "Trading mahomes",
+      "s2": 89.7
+    },
+    "2023_W4_Eric King_vs_Kurt Claycomb": {
+      "year": 2023,
+      "week": 4,
+      "m1": "Eric King",
+      "t1": "Son of a Veach",
+      "s1": 129.96,
+      "m2": "Kurt Claycomb",
+      "t2": "No Punt Intended ",
+      "s2": 95.82
+    },
+    "2023_W5_Jared Schneider_vs_Ron Baker": {
+      "year": 2023,
+      "week": 5,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed",
+      "s1": 81.66,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode",
+      "s2": 81.22
+    },
+    "2023_W5_Curtis Thornton_vs_jeremy bayless": {
+      "year": 2023,
+      "week": 5,
+      "m1": "Curtis Thornton",
+      "t1": "Staley Starch Makers",
+      "s1": 156.76,
+      "m2": "jeremy bayless",
+      "t2": "THE B-MEN",
+      "s2": 106.94
+    },
+    "2023_W5_Robert Kendall_vs_TRAVIS GIBSON": {
+      "year": 2023,
+      "week": 5,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN",
+      "s1": 96.96,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 133.78
+    },
+    "2023_W5_Miles Spainhower_vs_Wes Colson": {
+      "year": 2023,
+      "week": 5,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order",
+      "s1": 120.02,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream",
+      "s2": 88.14
+    },
+    "2023_W5_Eric King_vs_Roman Bayless": {
+      "year": 2023,
+      "week": 5,
+      "m1": "Roman Bayless",
+      "t1": "O-Bijan Kenobi",
+      "s1": 76.94,
+      "m2": "Eric King",
+      "t2": "Son of a Veach",
+      "s2": 72.52
+    },
+    "2023_W5_Kurt Claycomb_vs_trentan busey": {
+      "year": 2023,
+      "week": 5,
+      "m1": "trentan busey",
+      "t1": "Trading mahomes",
+      "s1": 90.74,
+      "m2": "Kurt Claycomb",
+      "t2": "No Punt Intended ",
+      "s2": 114.76
+    },
+    "2023_W6_Miles Spainhower_vs_Ron Baker": {
+      "year": 2023,
+      "week": 6,
+      "m1": "Ron Baker",
+      "t1": "Team Bakesmode",
+      "s1": 69.24,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream",
+      "s2": 110.02
+    },
+    "2023_W6_Eric King_vs_jeremy bayless": {
+      "year": 2023,
+      "week": 6,
+      "m1": "jeremy bayless",
+      "t1": "THE B-MEN",
+      "s1": 128.4,
+      "m2": "Eric King",
+      "t2": "Son of a Veach",
+      "s2": 85.5
+    },
+    "2023_W6_Kurt Claycomb_vs_Robert Kendall": {
+      "year": 2023,
+      "week": 6,
+      "m1": "Robert Kendall",
+      "t1": "Team Kendall",
+      "s1": 102.82,
+      "m2": "Kurt Claycomb",
+      "t2": "No Punt Intended ",
+      "s2": 120.88
+    },
+    "2023_W6_TRAVIS GIBSON_vs_trentan busey": {
+      "year": 2023,
+      "week": 6,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN",
+      "s1": 95.96,
+      "m2": "trentan busey",
+      "t2": "Trading mahomes",
+      "s2": 115.24
+    },
+    "2023_W6_Curtis Thornton_vs_Roman Bayless": {
+      "year": 2023,
+      "week": 6,
+      "m1": "Curtis Thornton",
+      "t1": "Staley Starch Makers",
+      "s1": 71.82,
+      "m2": "Roman Bayless",
+      "t2": "O-Bijan Kenobi",
+      "s2": 115.88
+    },
+    "2023_W6_Jared Schneider_vs_Wes Colson": {
+      "year": 2023,
+      "week": 6,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed",
+      "s1": 82.14,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order",
+      "s2": 119.84
+    },
+    "2023_W7_Miles Spainhower_vs_jeremy bayless": {
+      "year": 2023,
+      "week": 7,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream",
+      "s1": 119.38,
+      "m2": "jeremy bayless",
+      "t2": "THE B-MEN",
+      "s2": 97.76
+    },
+    "2023_W7_Eric King_vs_Robert Kendall": {
+      "year": 2023,
+      "week": 7,
+      "m1": "Eric King",
+      "t1": "Son of a Veach",
+      "s1": 124.16,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 91.76
+    },
+    "2023_W7_Kurt Claycomb_vs_TRAVIS GIBSON": {
+      "year": 2023,
+      "week": 7,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended ",
+      "s1": 124.18,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN",
+      "s2": 57.8
+    },
+    "2023_W7_Curtis Thornton_vs_trentan busey": {
+      "year": 2023,
+      "week": 7,
+      "m1": "trentan busey",
+      "t1": "Trading mahomes",
+      "s1": 132.46,
+      "m2": "Curtis Thornton",
+      "t2": "Staley Starch Makers",
+      "s2": 72.0
+    },
+    "2023_W7_Jared Schneider_vs_Roman Bayless": {
+      "year": 2023,
+      "week": 7,
+      "m1": "Roman Bayless",
+      "t1": "O-Bijan Kenobi",
+      "s1": 121.86,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed",
+      "s2": 85.0
+    },
+    "2023_W7_Ron Baker_vs_Wes Colson": {
+      "year": 2023,
+      "week": 7,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order",
+      "s1": 110.94,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode",
+      "s2": 55.6
+    },
+    "2023_W8_Miles Spainhower_vs_Robert Kendall": {
+      "year": 2023,
+      "week": 8,
+      "m1": "Robert Kendall",
+      "t1": "Team Kendall",
+      "s1": 105.16,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream",
+      "s2": 84.28
+    },
+    "2023_W8_Eric King_vs_TRAVIS GIBSON": {
+      "year": 2023,
+      "week": 8,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN",
+      "s1": 73.2,
+      "m2": "Eric King",
+      "t2": "Son of a Veach",
+      "s2": 149.36
+    },
+    "2023_W8_Curtis Thornton_vs_Kurt Claycomb": {
+      "year": 2023,
+      "week": 8,
+      "m1": "Curtis Thornton",
+      "t1": "Staley Starch Makers",
+      "s1": 134.2,
+      "m2": "Kurt Claycomb",
+      "t2": "No Punt Intended ",
+      "s2": 137.86
+    },
+    "2023_W8_Jared Schneider_vs_trentan busey": {
+      "year": 2023,
+      "week": 8,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed",
+      "s1": 104.52,
+      "m2": "trentan busey",
+      "t2": "Trading mahomes",
+      "s2": 74.2
+    },
+    "2023_W8_Roman Bayless_vs_Ron Baker": {
+      "year": 2023,
+      "week": 8,
+      "m1": "Ron Baker",
+      "t1": "Team Bakesmode",
+      "s1": 96.46,
+      "m2": "Roman Bayless",
+      "t2": "O-Bijan Kenobi",
+      "s2": 147.82
+    },
+    "2023_W8_Wes Colson_vs_jeremy bayless": {
+      "year": 2023,
+      "week": 8,
+      "m1": "jeremy bayless",
+      "t1": "THE B-MEN",
+      "s1": 110.92,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order",
+      "s2": 139.26
+    },
+    "2023_W9_Miles Spainhower_vs_TRAVIS GIBSON": {
+      "year": 2023,
+      "week": 9,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream",
+      "s1": 79.28,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN",
+      "s2": 131.38
+    },
+    "2023_W9_Curtis Thornton_vs_Eric King": {
+      "year": 2023,
+      "week": 9,
+      "m1": "Eric King",
+      "t1": "Son of a Veach",
+      "s1": 89.08,
+      "m2": "Curtis Thornton",
+      "t2": "Staley Starch Makers",
+      "s2": 74.48
+    },
+    "2023_W9_Jared Schneider_vs_Kurt Claycomb": {
+      "year": 2023,
+      "week": 9,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended ",
+      "s1": 116.86,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed",
+      "s2": 74.88
+    },
+    "2023_W9_Ron Baker_vs_trentan busey": {
+      "year": 2023,
+      "week": 9,
+      "m1": "trentan busey",
+      "t1": "Trading mahomes",
+      "s1": 111.22,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode",
+      "s2": 94.3
+    },
+    "2023_W9_Roman Bayless_vs_jeremy bayless": {
+      "year": 2023,
+      "week": 9,
+      "m1": "Roman Bayless",
+      "t1": "O-Bijan Kenobi",
+      "s1": 99.74,
+      "m2": "jeremy bayless",
+      "t2": "THE B-MEN",
+      "s2": 87.22
+    },
+    "2023_W9_Robert Kendall_vs_Wes Colson": {
+      "year": 2023,
+      "week": 9,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order",
+      "s1": 114.44,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 80.48
+    },
+    "2023_W10_Curtis Thornton_vs_Miles Spainhower": {
+      "year": 2023,
+      "week": 10,
+      "m1": "Curtis Thornton",
+      "t1": "Staley Starch Makers",
+      "s1": 118.52,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream",
+      "s2": 106.82
+    },
+    "2023_W10_Eric King_vs_Jared Schneider": {
+      "year": 2023,
+      "week": 10,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed",
+      "s1": 109.66,
+      "m2": "Eric King",
+      "t2": "Son of a Veach",
+      "s2": 94.22
+    },
+    "2023_W10_Kurt Claycomb_vs_Ron Baker": {
+      "year": 2023,
+      "week": 10,
+      "m1": "Ron Baker",
+      "t1": "Team Bakesmode",
+      "s1": 91.22,
+      "m2": "Kurt Claycomb",
+      "t2": "No Punt Intended ",
+      "s2": 104.86
+    },
+    "2023_W10_jeremy bayless_vs_trentan busey": {
+      "year": 2023,
+      "week": 10,
+      "m1": "jeremy bayless",
+      "t1": "THE B-MEN",
+      "s1": 122.88,
+      "m2": "trentan busey",
+      "t2": "Trading mahomes",
+      "s2": 82.12
+    },
+    "2023_W10_Robert Kendall_vs_Roman Bayless": {
+      "year": 2023,
+      "week": 10,
+      "m1": "Robert Kendall",
+      "t1": "Team Kendall",
+      "s1": 141.26,
+      "m2": "Roman Bayless",
+      "t2": "O-Bijan Kenobi",
+      "s2": 128.02
+    },
+    "2023_W10_TRAVIS GIBSON_vs_Wes Colson": {
+      "year": 2023,
+      "week": 10,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN",
+      "s1": 85.96,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order",
+      "s2": 104.22
+    },
+    "2023_W11_Jared Schneider_vs_Miles Spainhower": {
+      "year": 2023,
+      "week": 11,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream",
+      "s1": 101.06,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed",
+      "s2": 113.04
+    },
+    "2023_W11_Eric King_vs_Ron Baker": {
+      "year": 2023,
+      "week": 11,
+      "m1": "Eric King",
+      "t1": "Son of a Veach",
+      "s1": 132.8,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode",
+      "s2": 75.24
+    },
+    "2023_W11_Kurt Claycomb_vs_jeremy bayless": {
+      "year": 2023,
+      "week": 11,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended ",
+      "s1": 90.06,
+      "m2": "jeremy bayless",
+      "t2": "THE B-MEN",
+      "s2": 102.04
+    },
+    "2023_W11_Robert Kendall_vs_trentan busey": {
+      "year": 2023,
+      "week": 11,
+      "m1": "trentan busey",
+      "t1": "Trading mahomes",
+      "s1": 61.28,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 79.64
+    },
+    "2023_W11_Roman Bayless_vs_TRAVIS GIBSON": {
+      "year": 2023,
+      "week": 11,
+      "m1": "Roman Bayless",
+      "t1": "O-Bijan Kenobi",
+      "s1": 123.5,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN",
+      "s2": 104.26
+    },
+    "2023_W11_Curtis Thornton_vs_Wes Colson": {
+      "year": 2023,
+      "week": 11,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order",
+      "s1": 134.32,
+      "m2": "Curtis Thornton",
+      "t2": "Staley Starch Makers",
+      "s2": 161.1
+    },
+    "2023_W12_Miles Spainhower_vs_Ron Baker": {
+      "year": 2023,
+      "week": 12,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream",
+      "s1": 97.88,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode",
+      "s2": 170.06
+    },
+    "2023_W12_Eric King_vs_jeremy bayless": {
+      "year": 2023,
+      "week": 12,
+      "m1": "Eric King",
+      "t1": "Son of a Veach",
+      "s1": 117.7,
+      "m2": "jeremy bayless",
+      "t2": "THE B-MEN",
+      "s2": 128.86
+    },
+    "2023_W12_Kurt Claycomb_vs_Robert Kendall": {
+      "year": 2023,
+      "week": 12,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended ",
+      "s1": 139.54,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 106.18
+    },
+    "2023_W12_TRAVIS GIBSON_vs_trentan busey": {
+      "year": 2023,
+      "week": 12,
+      "m1": "trentan busey",
+      "t1": "Trading mahomes",
+      "s1": 101.12,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN",
+      "s2": 113.84
+    },
+    "2023_W12_Curtis Thornton_vs_Roman Bayless": {
+      "year": 2023,
+      "week": 12,
+      "m1": "Roman Bayless",
+      "t1": "O-Bijan Kenobi",
+      "s1": 135.48,
+      "m2": "Curtis Thornton",
+      "t2": "Staley Starch Makers",
+      "s2": 99.86
+    },
+    "2023_W12_Jared Schneider_vs_Wes Colson": {
+      "year": 2023,
+      "week": 12,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order",
+      "s1": 104.26,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed",
+      "s2": 98.92
+    },
+    "2023_W13_Miles Spainhower_vs_jeremy bayless": {
+      "year": 2023,
+      "week": 13,
+      "m1": "jeremy bayless",
+      "t1": "THE B-MEN",
+      "s1": 115.02,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream",
+      "s2": 99.18
+    },
+    "2023_W13_Eric King_vs_Robert Kendall": {
+      "year": 2023,
+      "week": 13,
+      "m1": "Robert Kendall",
+      "t1": "Team Kendall",
+      "s1": 134.16,
+      "m2": "Eric King",
+      "t2": "Son of a Veach",
+      "s2": 100.62
+    },
+    "2023_W13_Kurt Claycomb_vs_TRAVIS GIBSON": {
+      "year": 2023,
+      "week": 13,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN",
+      "s1": 98.2,
+      "m2": "Kurt Claycomb",
+      "t2": "No Punt Intended ",
+      "s2": 189.46
+    },
+    "2023_W13_Curtis Thornton_vs_trentan busey": {
+      "year": 2023,
+      "week": 13,
+      "m1": "Curtis Thornton",
+      "t1": "Staley Starch Makers",
+      "s1": 125.4,
+      "m2": "trentan busey",
+      "t2": "Trading mahomes",
+      "s2": 89.4
+    },
+    "2023_W13_Jared Schneider_vs_Roman Bayless": {
+      "year": 2023,
+      "week": 13,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed",
+      "s1": 96.1,
+      "m2": "Roman Bayless",
+      "t2": "O-Bijan Kenobi",
+      "s2": 97.48
+    },
+    "2023_W13_Ron Baker_vs_Wes Colson": {
+      "year": 2023,
+      "week": 13,
+      "m1": "Ron Baker",
+      "t1": "Team Bakesmode",
+      "s1": 112.36,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order",
+      "s2": 129.16
+    },
+    "2023_W14_Miles Spainhower_vs_Robert Kendall": {
+      "year": 2023,
+      "week": 14,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream",
+      "s1": 110.74,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 100.62
+    },
+    "2023_W14_Eric King_vs_TRAVIS GIBSON": {
+      "year": 2023,
+      "week": 14,
+      "m1": "Eric King",
+      "t1": "Son of a Veach",
+      "s1": 117.08,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN",
+      "s2": 131.38
+    },
+    "2023_W14_Curtis Thornton_vs_Kurt Claycomb": {
+      "year": 2023,
+      "week": 14,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended ",
+      "s1": 131.74,
+      "m2": "Curtis Thornton",
+      "t2": "Staley Starch Makers",
+      "s2": 106.02
+    },
+    "2023_W14_Jared Schneider_vs_trentan busey": {
+      "year": 2023,
+      "week": 14,
+      "m1": "trentan busey",
+      "t1": "Trading mahomes",
+      "s1": 83.34,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed",
+      "s2": 110.4
+    },
+    "2023_W14_Roman Bayless_vs_Ron Baker": {
+      "year": 2023,
+      "week": 14,
+      "m1": "Roman Bayless",
+      "t1": "O-Bijan Kenobi",
+      "s1": 101.54,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode",
+      "s2": 64.94
+    },
+    "2023_W14_Wes Colson_vs_jeremy bayless": {
+      "year": 2023,
+      "week": 14,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order",
+      "s1": 112.52,
+      "m2": "jeremy bayless",
+      "t2": "THE B-MEN",
+      "s2": 68.24
+    },
+    "2023_W15_TRAVIS GIBSON_vs_Wes Colson": {
+      "year": 2023,
+      "week": 15,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order",
+      "s1": 117.48,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN",
+      "s2": 105.36
+    },
+    "2023_W15_Curtis Thornton_vs_Eric King": {
+      "year": 2023,
+      "week": 15,
+      "m1": "Curtis Thornton",
+      "t1": "Staley Starch Makers",
+      "s1": 89.36,
+      "m2": "Eric King",
+      "t2": "Son of a Veach",
+      "s2": 130.82
+    },
+    "2023_W15_Roman Bayless_vs_jeremy bayless": {
+      "year": 2023,
+      "week": 15,
+      "m1": "Roman Bayless",
+      "t1": "O-Bijan Kenobi",
+      "s1": 152.12,
+      "m2": "jeremy bayless",
+      "t2": "THE B-MEN",
+      "s2": 97.04
+    },
+    "2023_W15_Jared Schneider_vs_Kurt Claycomb": {
+      "year": 2023,
+      "week": 15,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended ",
+      "s1": 104.46,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed",
+      "s2": 75.7
+    },
+    "2023_W15_Miles Spainhower_vs_Robert Kendall": {
+      "year": 2023,
+      "week": 15,
+      "m1": "Robert Kendall",
+      "t1": "Team Kendall",
+      "s1": 122.22,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream",
+      "s2": 94.34
+    },
+    "2023_W15_Ron Baker_vs_trentan busey": {
+      "year": 2023,
+      "week": 15,
+      "m1": "trentan busey",
+      "t1": "Trading mahomes",
+      "s1": 81.8,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode",
+      "s2": 63.94
+    },
+    "2023_W16_Eric King_vs_Wes Colson": {
+      "year": 2023,
+      "week": 16,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order",
+      "s1": 153.7,
+      "m2": "Eric King",
+      "t2": "Son of a Veach",
+      "s2": 97.24
+    },
+    "2023_W16_Kurt Claycomb_vs_Roman Bayless": {
+      "year": 2023,
+      "week": 16,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended ",
+      "s1": 82.3,
+      "m2": "Roman Bayless",
+      "t2": "O-Bijan Kenobi",
+      "s2": 121.82
+    },
+    "2023_W16_Curtis Thornton_vs_jeremy bayless": {
+      "year": 2023,
+      "week": 16,
+      "m1": "Curtis Thornton",
+      "t1": "Staley Starch Makers",
+      "s1": 101.98,
+      "m2": "jeremy bayless",
+      "t2": "THE B-MEN",
+      "s2": 102.68
+    },
+    "2023_W16_Jared Schneider_vs_TRAVIS GIBSON": {
+      "year": 2023,
+      "week": 16,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed",
+      "s1": 88.88,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN",
+      "s2": 88.78
+    },
+    "2023_W16_Robert Kendall_vs_trentan busey": {
+      "year": 2023,
+      "week": 16,
+      "m1": "Robert Kendall",
+      "t1": "Team Kendall",
+      "s1": 123.2,
+      "m2": "trentan busey",
+      "t2": "Trading mahomes",
+      "s2": 57.3
+    },
+    "2023_W16_Miles Spainhower_vs_Ron Baker": {
+      "year": 2023,
+      "week": 16,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream",
+      "s1": 128.48,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode",
+      "s2": 121.52
+    },
+    "2023_W17_Roman Bayless_vs_Wes Colson": {
+      "year": 2023,
+      "week": 17,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order",
+      "s1": 168.0,
+      "m2": "Roman Bayless",
+      "t2": "O-Bijan Kenobi",
+      "s2": 94.48
+    },
+    "2023_W17_Eric King_vs_Kurt Claycomb": {
+      "year": 2023,
+      "week": 17,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended ",
+      "s1": 134.3,
+      "m2": "Eric King",
+      "t2": "Son of a Veach",
+      "s2": 92.98
+    },
+    "2023_W17_Jared Schneider_vs_jeremy bayless": {
+      "year": 2023,
+      "week": 17,
+      "m1": "jeremy bayless",
+      "t1": "THE B-MEN",
+      "s1": 76.84,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed",
+      "s2": 110.5
+    },
+    "2023_W17_Curtis Thornton_vs_TRAVIS GIBSON": {
+      "year": 2023,
+      "week": 17,
+      "m1": "Curtis Thornton",
+      "t1": "Staley Starch Makers",
+      "s1": 122.38,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN",
+      "s2": 77.58
+    },
+    "2023_W17_Miles Spainhower_vs_Robert Kendall": {
+      "year": 2023,
+      "week": 17,
+      "m1": "Robert Kendall",
+      "t1": "Team Kendall",
+      "s1": 136.92,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream",
+      "s2": 150.44
+    },
+    "2023_W17_Ron Baker_vs_trentan busey": {
+      "year": 2023,
+      "week": 17,
+      "m1": "trentan busey",
+      "t1": "Trading mahomes",
+      "s1": 71.7,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode",
+      "s2": 55.66
+    },
+    "2023_W18_Roman Bayless_vs_Wes Colson": {
+      "year": 2023,
+      "week": 18,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order",
+      "s1": 168.0,
+      "m2": "Roman Bayless",
+      "t2": "O-Bijan Kenobi",
+      "s2": 94.48
+    },
+    "2023_W18_Eric King_vs_Kurt Claycomb": {
+      "year": 2023,
+      "week": 18,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended ",
+      "s1": 134.3,
+      "m2": "Eric King",
+      "t2": "Son of a Veach",
+      "s2": 92.98
+    },
+    "2023_W18_Jared Schneider_vs_jeremy bayless": {
+      "year": 2023,
+      "week": 18,
+      "m1": "jeremy bayless",
+      "t1": "THE B-MEN",
+      "s1": 76.84,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed",
+      "s2": 110.5
+    },
+    "2023_W18_Curtis Thornton_vs_TRAVIS GIBSON": {
+      "year": 2023,
+      "week": 18,
+      "m1": "Curtis Thornton",
+      "t1": "Staley Starch Makers",
+      "s1": 122.38,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN",
+      "s2": 77.58
+    },
+    "2023_W18_Miles Spainhower_vs_Robert Kendall": {
+      "year": 2023,
+      "week": 18,
+      "m1": "Robert Kendall",
+      "t1": "Team Kendall",
+      "s1": 136.92,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream",
+      "s2": 150.44
+    },
+    "2023_W18_Ron Baker_vs_trentan busey": {
+      "year": 2023,
+      "week": 18,
+      "m1": "trentan busey",
+      "t1": "Trading mahomes",
+      "s1": 71.7,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode",
+      "s2": 55.66
+    },
+    "2024_W1_Ron Baker_vs_jeremy bayless": {
+      "year": 2024,
+      "week": 1,
+      "m1": "jeremy bayless",
+      "t1": "Rejected Kamala",
+      "s1": 63.06,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode",
+      "s2": 125.32
+    },
+    "2024_W1_Jared Schneider_vs_Robert Kendall": {
+      "year": 2024,
+      "week": 1,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed",
+      "s1": 108.76,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 116.96
+    },
+    "2024_W1_Curtis Thornton_vs_TRAVIS GIBSON": {
+      "year": 2024,
+      "week": 1,
+      "m1": "Curtis Thornton",
+      "t1": "Staley Starch Makers",
+      "s1": 104.36,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN",
+      "s2": 169.76
+    },
+    "2024_W1_Eric King_vs_Miles Spainhower": {
+      "year": 2024,
+      "week": 1,
+      "m1": "Eric King",
+      "t1": "Son of a Veach",
+      "s1": 98.48,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream",
+      "s2": 116.32
+    },
+    "2024_W1_Kurt Claycomb_vs_Wes Colson": {
+      "year": 2024,
+      "week": 1,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order",
+      "s1": 118.38,
+      "m2": "Kurt Claycomb",
+      "t2": "No Punt Intended ",
+      "s2": 97.08
+    },
+    "2024_W1_Roman Bayless_vs_trentan busey": {
+      "year": 2024,
+      "week": 1,
+      "m1": "Roman Bayless",
+      "t1": "Team Freedom",
+      "s1": 90.26,
+      "m2": "trentan busey",
+      "t2": "Bum Ass McAssffery",
+      "s2": 113.12
+    },
+    "2024_W2_Robert Kendall_vs_Ron Baker": {
+      "year": 2024,
+      "week": 2,
+      "m1": "Ron Baker",
+      "t1": "Team Bakesmode",
+      "s1": 135.92,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 130.8
+    },
+    "2024_W2_TRAVIS GIBSON_vs_jeremy bayless": {
+      "year": 2024,
+      "week": 2,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN",
+      "s1": 118.7,
+      "m2": "jeremy bayless",
+      "t2": "Rejected Kamala",
+      "s2": 108.72
+    },
+    "2024_W2_Curtis Thornton_vs_Jared Schneider": {
+      "year": 2024,
+      "week": 2,
+      "m1": "Curtis Thornton",
+      "t1": "Staley Starch Makers",
+      "s1": 88.22,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed",
+      "s2": 111.32
+    },
+    "2024_W2_Kurt Claycomb_vs_Miles Spainhower": {
+      "year": 2024,
+      "week": 2,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream",
+      "s1": 109.96,
+      "m2": "Kurt Claycomb",
+      "t2": "No Punt Intended ",
+      "s2": 103.46
+    },
+    "2024_W2_Eric King_vs_trentan busey": {
+      "year": 2024,
+      "week": 2,
+      "m1": "trentan busey",
+      "t1": "Bum Ass McAssffery",
+      "s1": 87.42,
+      "m2": "Eric King",
+      "t2": "Son of a Veach",
+      "s2": 110.04
+    },
+    "2024_W2_Roman Bayless_vs_Wes Colson": {
+      "year": 2024,
+      "week": 2,
+      "m1": "Roman Bayless",
+      "t1": "Team Freedom",
+      "s1": 99.74,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order",
+      "s2": 94.54
+    },
+    "2024_W3_Ron Baker_vs_TRAVIS GIBSON": {
+      "year": 2024,
+      "week": 3,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN",
+      "s1": 77.9,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode",
+      "s2": 118.28
+    },
+    "2024_W3_Curtis Thornton_vs_Robert Kendall": {
+      "year": 2024,
+      "week": 3,
+      "m1": "Robert Kendall",
+      "t1": "Team Kendall",
+      "s1": 85.82,
+      "m2": "Curtis Thornton",
+      "t2": "Staley Starch Makers",
+      "s2": 109.38
+    },
+    "2024_W3_Jared Schneider_vs_jeremy bayless": {
+      "year": 2024,
+      "week": 3,
+      "m1": "jeremy bayless",
+      "t1": "Rejected Kamala",
+      "s1": 124.16,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed",
+      "s2": 118.16
+    },
+    "2024_W3_Miles Spainhower_vs_trentan busey": {
+      "year": 2024,
+      "week": 3,
+      "m1": "trentan busey",
+      "t1": "Bum Ass McAssffery",
+      "s1": 126.84,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream",
+      "s2": 66.68
+    },
+    "2024_W3_Kurt Claycomb_vs_Roman Bayless": {
+      "year": 2024,
+      "week": 3,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended ",
+      "s1": 136.72,
+      "m2": "Roman Bayless",
+      "t2": "Team Freedom",
+      "s2": 116.46
+    },
+    "2024_W3_Eric King_vs_Wes Colson": {
+      "year": 2024,
+      "week": 3,
+      "m1": "Eric King",
+      "t1": "Son of a Veach",
+      "s1": 94.82,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order",
+      "s2": 117.98
+    },
+    "2024_W4_Curtis Thornton_vs_Ron Baker": {
+      "year": 2024,
+      "week": 4,
+      "m1": "Ron Baker",
+      "t1": "Team Bakesmode",
+      "s1": 137.94,
+      "m2": "Curtis Thornton",
+      "t2": "Staley Starch Makers",
+      "s2": 97.38
+    },
+    "2024_W4_Jared Schneider_vs_TRAVIS GIBSON": {
+      "year": 2024,
+      "week": 4,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed",
+      "s1": 102.58,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN",
+      "s2": 122.3
+    },
+    "2024_W4_Robert Kendall_vs_jeremy bayless": {
+      "year": 2024,
+      "week": 4,
+      "m1": "jeremy bayless",
+      "t1": "Rejected Kamala",
+      "s1": 117.42,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 95.18
+    },
+    "2024_W4_Miles Spainhower_vs_Roman Bayless": {
+      "year": 2024,
+      "week": 4,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream",
+      "s1": 87.52,
+      "m2": "Roman Bayless",
+      "t2": "Team Freedom",
+      "s2": 92.92
+    },
+    "2024_W4_Wes Colson_vs_trentan busey": {
+      "year": 2024,
+      "week": 4,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order",
+      "s1": 126.68,
+      "m2": "trentan busey",
+      "t2": "Bum Ass McAssffery",
+      "s2": 99.02
+    },
+    "2024_W4_Eric King_vs_Kurt Claycomb": {
+      "year": 2024,
+      "week": 4,
+      "m1": "Eric King",
+      "t1": "Son of a Veach",
+      "s1": 90.7,
+      "m2": "Kurt Claycomb",
+      "t2": "No Punt Intended ",
+      "s2": 121.0
+    },
+    "2024_W5_Jared Schneider_vs_Ron Baker": {
+      "year": 2024,
+      "week": 5,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed",
+      "s1": 158.58,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode",
+      "s2": 101.38
+    },
+    "2024_W5_Curtis Thornton_vs_jeremy bayless": {
+      "year": 2024,
+      "week": 5,
+      "m1": "Curtis Thornton",
+      "t1": "Staley Starch Makers",
+      "s1": 112.46,
+      "m2": "jeremy bayless",
+      "t2": "Rejected Kamala",
+      "s2": 109.08
+    },
+    "2024_W5_Robert Kendall_vs_TRAVIS GIBSON": {
+      "year": 2024,
+      "week": 5,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN",
+      "s1": 137.84,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 121.2
+    },
+    "2024_W5_Miles Spainhower_vs_Wes Colson": {
+      "year": 2024,
+      "week": 5,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order",
+      "s1": 96.94,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream",
+      "s2": 89.32
+    },
+    "2024_W5_Eric King_vs_Roman Bayless": {
+      "year": 2024,
+      "week": 5,
+      "m1": "Roman Bayless",
+      "t1": "Team Freedom",
+      "s1": 85.42,
+      "m2": "Eric King",
+      "t2": "Son of a Veach",
+      "s2": 103.86
+    },
+    "2024_W5_Kurt Claycomb_vs_trentan busey": {
+      "year": 2024,
+      "week": 5,
+      "m1": "trentan busey",
+      "t1": "Bum Ass McAssffery",
+      "s1": 86.54,
+      "m2": "Kurt Claycomb",
+      "t2": "No Punt Intended ",
+      "s2": 102.14
+    },
+    "2024_W6_Miles Spainhower_vs_Ron Baker": {
+      "year": 2024,
+      "week": 6,
+      "m1": "Ron Baker",
+      "t1": "Team Bakesmode",
+      "s1": 88.9,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream",
+      "s2": 164.96
+    },
+    "2024_W6_Eric King_vs_jeremy bayless": {
+      "year": 2024,
+      "week": 6,
+      "m1": "jeremy bayless",
+      "t1": "Rejected Kamala",
+      "s1": 104.8,
+      "m2": "Eric King",
+      "t2": "Son of a Veach",
+      "s2": 83.88
+    },
+    "2024_W6_Kurt Claycomb_vs_Robert Kendall": {
+      "year": 2024,
+      "week": 6,
+      "m1": "Robert Kendall",
+      "t1": "Team Kendall",
+      "s1": 164.1,
+      "m2": "Kurt Claycomb",
+      "t2": "No Punt Intended ",
+      "s2": 122.82
+    },
+    "2024_W6_TRAVIS GIBSON_vs_trentan busey": {
+      "year": 2024,
+      "week": 6,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN",
+      "s1": 94.28,
+      "m2": "trentan busey",
+      "t2": "Bum Ass McAssffery",
+      "s2": 98.24
+    },
+    "2024_W6_Curtis Thornton_vs_Roman Bayless": {
+      "year": 2024,
+      "week": 6,
+      "m1": "Curtis Thornton",
+      "t1": "Staley Starch Makers",
+      "s1": 78.84,
+      "m2": "Roman Bayless",
+      "t2": "Team Freedom",
+      "s2": 106.46
+    },
+    "2024_W6_Jared Schneider_vs_Wes Colson": {
+      "year": 2024,
+      "week": 6,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed",
+      "s1": 130.72,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order",
+      "s2": 94.1
+    },
+    "2024_W7_Miles Spainhower_vs_jeremy bayless": {
+      "year": 2024,
+      "week": 7,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream",
+      "s1": 85.58,
+      "m2": "jeremy bayless",
+      "t2": "Rejected Kamala",
+      "s2": 100.28
+    },
+    "2024_W7_Eric King_vs_Robert Kendall": {
+      "year": 2024,
+      "week": 7,
+      "m1": "Eric King",
+      "t1": "Son of a Veach",
+      "s1": 101.74,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 148.5
+    },
+    "2024_W7_Kurt Claycomb_vs_TRAVIS GIBSON": {
+      "year": 2024,
+      "week": 7,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended ",
+      "s1": 84.52,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN",
+      "s2": 90.44
+    },
+    "2024_W7_Curtis Thornton_vs_trentan busey": {
+      "year": 2024,
+      "week": 7,
+      "m1": "trentan busey",
+      "t1": "Bum Ass McAssffery",
+      "s1": 114.12,
+      "m2": "Curtis Thornton",
+      "t2": "Staley Starch Makers",
+      "s2": 79.3
+    },
+    "2024_W7_Jared Schneider_vs_Roman Bayless": {
+      "year": 2024,
+      "week": 7,
+      "m1": "Roman Bayless",
+      "t1": "Team Freedom",
+      "s1": 69.7,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed",
+      "s2": 106.94
+    },
+    "2024_W7_Ron Baker_vs_Wes Colson": {
+      "year": 2024,
+      "week": 7,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order",
+      "s1": 123.6,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode",
+      "s2": 99.1
+    },
+    "2024_W8_Miles Spainhower_vs_Robert Kendall": {
+      "year": 2024,
+      "week": 8,
+      "m1": "Robert Kendall",
+      "t1": "Team Kendall",
+      "s1": 152.36,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream",
+      "s2": 124.12
+    },
+    "2024_W8_Eric King_vs_TRAVIS GIBSON": {
+      "year": 2024,
+      "week": 8,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN",
+      "s1": 97.1,
+      "m2": "Eric King",
+      "t2": "Son of a Veach",
+      "s2": 126.46
+    },
+    "2024_W8_Curtis Thornton_vs_Kurt Claycomb": {
+      "year": 2024,
+      "week": 8,
+      "m1": "Curtis Thornton",
+      "t1": "Staley Starch Makers",
+      "s1": 118.14,
+      "m2": "Kurt Claycomb",
+      "t2": "No Punt Intended ",
+      "s2": 94.04
+    },
+    "2024_W8_Jared Schneider_vs_trentan busey": {
+      "year": 2024,
+      "week": 8,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed",
+      "s1": 128.26,
+      "m2": "trentan busey",
+      "t2": "Bum Ass McAssffery",
+      "s2": 151.36
+    },
+    "2024_W8_Roman Bayless_vs_Ron Baker": {
+      "year": 2024,
+      "week": 8,
+      "m1": "Ron Baker",
+      "t1": "Team Bakesmode",
+      "s1": 93.56,
+      "m2": "Roman Bayless",
+      "t2": "Team Freedom",
+      "s2": 108.1
+    },
+    "2024_W8_Wes Colson_vs_jeremy bayless": {
+      "year": 2024,
+      "week": 8,
+      "m1": "jeremy bayless",
+      "t1": "Rejected Kamala",
+      "s1": 101.38,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order",
+      "s2": 97.78
+    },
+    "2024_W9_Miles Spainhower_vs_TRAVIS GIBSON": {
+      "year": 2024,
+      "week": 9,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream",
+      "s1": 122.98,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN",
+      "s2": 163.2
+    },
+    "2024_W9_Curtis Thornton_vs_Eric King": {
+      "year": 2024,
+      "week": 9,
+      "m1": "Eric King",
+      "t1": "Son of a Veach",
+      "s1": 137.74,
+      "m2": "Curtis Thornton",
+      "t2": "Staley Starch Makers",
+      "s2": 86.8
+    },
+    "2024_W9_Jared Schneider_vs_Kurt Claycomb": {
+      "year": 2024,
+      "week": 9,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended ",
+      "s1": 108.26,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed",
+      "s2": 118.44
+    },
+    "2024_W9_Ron Baker_vs_trentan busey": {
+      "year": 2024,
+      "week": 9,
+      "m1": "trentan busey",
+      "t1": "Bum Ass McAssffery",
+      "s1": 111.4,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode",
+      "s2": 105.2
+    },
+    "2024_W9_Roman Bayless_vs_jeremy bayless": {
+      "year": 2024,
+      "week": 9,
+      "m1": "Roman Bayless",
+      "t1": "Team Freedom",
+      "s1": 115.56,
+      "m2": "jeremy bayless",
+      "t2": "Rejected Kamala",
+      "s2": 85.38
+    },
+    "2024_W9_Robert Kendall_vs_Wes Colson": {
+      "year": 2024,
+      "week": 9,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order",
+      "s1": 107.06,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 102.0
+    },
+    "2024_W10_Curtis Thornton_vs_Miles Spainhower": {
+      "year": 2024,
+      "week": 10,
+      "m1": "Curtis Thornton",
+      "t1": "Staley Starch Makers",
+      "s1": 51.84,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream",
+      "s2": 103.52
+    },
+    "2024_W10_Eric King_vs_Jared Schneider": {
+      "year": 2024,
+      "week": 10,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed",
+      "s1": 161.42,
+      "m2": "Eric King",
+      "t2": "Son of a Veach",
+      "s2": 66.74
+    },
+    "2024_W10_Kurt Claycomb_vs_Ron Baker": {
+      "year": 2024,
+      "week": 10,
+      "m1": "Ron Baker",
+      "t1": "Team Bakesmode",
+      "s1": 132.4,
+      "m2": "Kurt Claycomb",
+      "t2": "No Punt Intended ",
+      "s2": 84.8
+    },
+    "2024_W10_jeremy bayless_vs_trentan busey": {
+      "year": 2024,
+      "week": 10,
+      "m1": "jeremy bayless",
+      "t1": "Rejected Kamala",
+      "s1": 86.94,
+      "m2": "trentan busey",
+      "t2": "Bum Ass McAssffery",
+      "s2": 105.98
+    },
+    "2024_W10_Robert Kendall_vs_Roman Bayless": {
+      "year": 2024,
+      "week": 10,
+      "m1": "Robert Kendall",
+      "t1": "Team Kendall",
+      "s1": 96.34,
+      "m2": "Roman Bayless",
+      "t2": "Team Freedom",
+      "s2": 123.7
+    },
+    "2024_W10_TRAVIS GIBSON_vs_Wes Colson": {
+      "year": 2024,
+      "week": 10,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN",
+      "s1": 72.74,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order",
+      "s2": 99.84
+    },
+    "2024_W11_Jared Schneider_vs_Miles Spainhower": {
+      "year": 2024,
+      "week": 11,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream",
+      "s1": 88.06,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed",
+      "s2": 130.74
+    },
+    "2024_W11_Eric King_vs_Ron Baker": {
+      "year": 2024,
+      "week": 11,
+      "m1": "Eric King",
+      "t1": "Son of a Veach",
+      "s1": 93.66,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode",
+      "s2": 110.18
+    },
+    "2024_W11_Kurt Claycomb_vs_jeremy bayless": {
+      "year": 2024,
+      "week": 11,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended ",
+      "s1": 119.82,
+      "m2": "jeremy bayless",
+      "t2": "Rejected Kamala",
+      "s2": 107.28
+    },
+    "2024_W11_Robert Kendall_vs_trentan busey": {
+      "year": 2024,
+      "week": 11,
+      "m1": "trentan busey",
+      "t1": "Bum Ass McAssffery",
+      "s1": 100.34,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 132.1
+    },
+    "2024_W11_Roman Bayless_vs_TRAVIS GIBSON": {
+      "year": 2024,
+      "week": 11,
+      "m1": "Roman Bayless",
+      "t1": "Team Freedom",
+      "s1": 95.4,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN",
+      "s2": 159.08
+    },
+    "2024_W11_Curtis Thornton_vs_Wes Colson": {
+      "year": 2024,
+      "week": 11,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order",
+      "s1": 98.08,
+      "m2": "Curtis Thornton",
+      "t2": "Staley Starch Makers",
+      "s2": 61.24
+    },
+    "2024_W12_Miles Spainhower_vs_Ron Baker": {
+      "year": 2024,
+      "week": 12,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream",
+      "s1": 143.68,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode",
+      "s2": 110.96
+    },
+    "2024_W12_Eric King_vs_jeremy bayless": {
+      "year": 2024,
+      "week": 12,
+      "m1": "Eric King",
+      "t1": "Son of a Veach",
+      "s1": 110.58,
+      "m2": "jeremy bayless",
+      "t2": "Rejected Kamala",
+      "s2": 72.42
+    },
+    "2024_W12_Kurt Claycomb_vs_Robert Kendall": {
+      "year": 2024,
+      "week": 12,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended ",
+      "s1": 114.56,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 97.46
+    },
+    "2024_W12_TRAVIS GIBSON_vs_trentan busey": {
+      "year": 2024,
+      "week": 12,
+      "m1": "trentan busey",
+      "t1": "Bum Ass McAssffery",
+      "s1": 111.36,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN",
+      "s2": 125.96
+    },
+    "2024_W12_Curtis Thornton_vs_Roman Bayless": {
+      "year": 2024,
+      "week": 12,
+      "m1": "Roman Bayless",
+      "t1": "Team Freedom",
+      "s1": 126.24,
+      "m2": "Curtis Thornton",
+      "t2": "Staley Starch Makers",
+      "s2": 94.76
+    },
+    "2024_W12_Jared Schneider_vs_Wes Colson": {
+      "year": 2024,
+      "week": 12,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order",
+      "s1": 115.92,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed",
+      "s2": 133.66
+    },
+    "2024_W13_Miles Spainhower_vs_jeremy bayless": {
+      "year": 2024,
+      "week": 13,
+      "m1": "jeremy bayless",
+      "t1": "Rejected Kamala",
+      "s1": 88.18,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream",
+      "s2": 166.36
+    },
+    "2024_W13_Eric King_vs_Robert Kendall": {
+      "year": 2024,
+      "week": 13,
+      "m1": "Robert Kendall",
+      "t1": "Team Kendall",
+      "s1": 110.1,
+      "m2": "Eric King",
+      "t2": "Son of a Veach",
+      "s2": 69.8
+    },
+    "2024_W13_Kurt Claycomb_vs_TRAVIS GIBSON": {
+      "year": 2024,
+      "week": 13,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN",
+      "s1": 142.14,
+      "m2": "Kurt Claycomb",
+      "t2": "No Punt Intended ",
+      "s2": 101.82
+    },
+    "2024_W13_Curtis Thornton_vs_trentan busey": {
+      "year": 2024,
+      "week": 13,
+      "m1": "Curtis Thornton",
+      "t1": "Staley Starch Makers",
+      "s1": 112.04,
+      "m2": "trentan busey",
+      "t2": "Bum Ass McAssffery",
+      "s2": 108.22
+    },
+    "2024_W13_Jared Schneider_vs_Roman Bayless": {
+      "year": 2024,
+      "week": 13,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed",
+      "s1": 83.3,
+      "m2": "Roman Bayless",
+      "t2": "Team Freedom",
+      "s2": 139.54
+    },
+    "2024_W13_Ron Baker_vs_Wes Colson": {
+      "year": 2024,
+      "week": 13,
+      "m1": "Ron Baker",
+      "t1": "Team Bakesmode",
+      "s1": 135.78,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order",
+      "s2": 116.06
+    },
+    "2024_W14_Miles Spainhower_vs_Robert Kendall": {
+      "year": 2024,
+      "week": 14,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream",
+      "s1": 129.1,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 101.98
+    },
+    "2024_W14_Eric King_vs_TRAVIS GIBSON": {
+      "year": 2024,
+      "week": 14,
+      "m1": "Eric King",
+      "t1": "Son of a Veach",
+      "s1": 144.84,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN",
+      "s2": 151.08
+    },
+    "2024_W14_Curtis Thornton_vs_Kurt Claycomb": {
+      "year": 2024,
+      "week": 14,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended ",
+      "s1": 127.08,
+      "m2": "Curtis Thornton",
+      "t2": "Staley Starch Makers",
+      "s2": 66.4
+    },
+    "2024_W14_Jared Schneider_vs_trentan busey": {
+      "year": 2024,
+      "week": 14,
+      "m1": "trentan busey",
+      "t1": "Bum Ass McAssffery",
+      "s1": 104.52,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed",
+      "s2": 121.86
+    },
+    "2024_W14_Roman Bayless_vs_Ron Baker": {
+      "year": 2024,
+      "week": 14,
+      "m1": "Roman Bayless",
+      "t1": "Team Freedom",
+      "s1": 117.52,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode",
+      "s2": 124.06
+    },
+    "2024_W14_Wes Colson_vs_jeremy bayless": {
+      "year": 2024,
+      "week": 14,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order",
+      "s1": 116.26,
+      "m2": "jeremy bayless",
+      "t2": "Rejected Kamala",
+      "s2": 83.12
+    },
+    "2024_W15_Robert Kendall_vs_TRAVIS GIBSON": {
+      "year": 2024,
+      "week": 15,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN",
+      "s1": 109.14,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 129.32
+    },
+    "2024_W15_Roman Bayless_vs_Ron Baker": {
+      "year": 2024,
+      "week": 15,
+      "m1": "Ron Baker",
+      "t1": "Team Bakesmode",
+      "s1": 132.68,
+      "m2": "Roman Bayless",
+      "t2": "Team Freedom",
+      "s2": 105.64
+    },
+    "2024_W15_Miles Spainhower_vs_Wes Colson": {
+      "year": 2024,
+      "week": 15,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order",
+      "s1": 102.5,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream",
+      "s2": 144.08
+    },
+    "2024_W15_Jared Schneider_vs_trentan busey": {
+      "year": 2024,
+      "week": 15,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed",
+      "s1": 96.94,
+      "m2": "trentan busey",
+      "t2": "Bum Ass McAssffery",
+      "s2": 113.3
+    },
+    "2024_W15_Eric King_vs_Kurt Claycomb": {
+      "year": 2024,
+      "week": 15,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended ",
+      "s1": 103.98,
+      "m2": "Eric King",
+      "t2": "Son of a Veach",
+      "s2": 92.84
+    },
+    "2024_W15_Curtis Thornton_vs_jeremy bayless": {
+      "year": 2024,
+      "week": 15,
+      "m1": "jeremy bayless",
+      "t1": "Rejected Kamala",
+      "s1": 103.0,
+      "m2": "Curtis Thornton",
+      "t2": "Staley Starch Makers",
+      "s2": 119.86
+    },
+    "2024_W16_Robert Kendall_vs_Ron Baker": {
+      "year": 2024,
+      "week": 16,
+      "m1": "Ron Baker",
+      "t1": "Team Bakesmode",
+      "s1": 128.02,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 138.12
+    },
+    "2024_W16_Miles Spainhower_vs_trentan busey": {
+      "year": 2024,
+      "week": 16,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream",
+      "s1": 122.64,
+      "m2": "trentan busey",
+      "t2": "Bum Ass McAssffery",
+      "s2": 121.22
+    },
+    "2024_W16_Jared Schneider_vs_TRAVIS GIBSON": {
+      "year": 2024,
+      "week": 16,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN",
+      "s1": 146.44,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed",
+      "s2": 118.08
+    },
+    "2024_W16_Roman Bayless_vs_Wes Colson": {
+      "year": 2024,
+      "week": 16,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order",
+      "s1": 98.62,
+      "m2": "Roman Bayless",
+      "t2": "Team Freedom",
+      "s2": 140.52
+    },
+    "2024_W16_Curtis Thornton_vs_Kurt Claycomb": {
+      "year": 2024,
+      "week": 16,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended ",
+      "s1": 79.96,
+      "m2": "Curtis Thornton",
+      "t2": "Staley Starch Makers",
+      "s2": 110.2
+    },
+    "2024_W16_Eric King_vs_jeremy bayless": {
+      "year": 2024,
+      "week": 16,
+      "m1": "Eric King",
+      "t1": "Son of a Veach",
+      "s1": 97.9,
+      "m2": "jeremy bayless",
+      "t2": "Rejected Kamala",
+      "s2": 100.76
+    },
+    "2024_W17_Miles Spainhower_vs_Robert Kendall": {
+      "year": 2024,
+      "week": 17,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream",
+      "s1": 135.48,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 123.56
+    },
+    "2024_W17_Ron Baker_vs_trentan busey": {
+      "year": 2024,
+      "week": 17,
+      "m1": "Ron Baker",
+      "t1": "Team Bakesmode",
+      "s1": 135.02,
+      "m2": "trentan busey",
+      "t2": "Bum Ass McAssffery",
+      "s2": 74.2
+    },
+    "2024_W17_Roman Bayless_vs_TRAVIS GIBSON": {
+      "year": 2024,
+      "week": 17,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN",
+      "s1": 162.02,
+      "m2": "Roman Bayless",
+      "t2": "Team Freedom",
+      "s2": 112.48
+    },
+    "2024_W17_Jared Schneider_vs_Wes Colson": {
+      "year": 2024,
+      "week": 17,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed",
+      "s1": 112.98,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order",
+      "s2": 99.96
+    },
+    "2024_W17_Curtis Thornton_vs_jeremy bayless": {
+      "year": 2024,
+      "week": 17,
+      "m1": "jeremy bayless",
+      "t1": "Rejected Kamala",
+      "s1": 102.24,
+      "m2": "Curtis Thornton",
+      "t2": "Staley Starch Makers",
+      "s2": 123.5
+    },
+    "2024_W17_Eric King_vs_Kurt Claycomb": {
+      "year": 2024,
+      "week": 17,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended ",
+      "s1": 120.68,
+      "m2": "Eric King",
+      "t2": "Son of a Veach",
+      "s2": 60.98
+    },
+    "2024_W18_Miles Spainhower_vs_Robert Kendall": {
+      "year": 2024,
+      "week": 18,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream",
+      "s1": 135.48,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 123.56
+    },
+    "2024_W18_Ron Baker_vs_trentan busey": {
+      "year": 2024,
+      "week": 18,
+      "m1": "Ron Baker",
+      "t1": "Team Bakesmode",
+      "s1": 135.02,
+      "m2": "trentan busey",
+      "t2": "Bum Ass McAssffery",
+      "s2": 74.2
+    },
+    "2024_W18_Roman Bayless_vs_TRAVIS GIBSON": {
+      "year": 2024,
+      "week": 18,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN",
+      "s1": 162.02,
+      "m2": "Roman Bayless",
+      "t2": "Team Freedom",
+      "s2": 112.48
+    },
+    "2024_W18_Jared Schneider_vs_Wes Colson": {
+      "year": 2024,
+      "week": 18,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed",
+      "s1": 112.98,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order",
+      "s2": 99.96
+    },
+    "2024_W18_Curtis Thornton_vs_jeremy bayless": {
+      "year": 2024,
+      "week": 18,
+      "m1": "jeremy bayless",
+      "t1": "Rejected Kamala",
+      "s1": 102.24,
+      "m2": "Curtis Thornton",
+      "t2": "Staley Starch Makers",
+      "s2": 123.5
+    },
+    "2024_W18_Eric King_vs_Kurt Claycomb": {
+      "year": 2024,
+      "week": 18,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended ",
+      "s1": 120.68,
+      "m2": "Eric King",
+      "t2": "Son of a Veach",
+      "s2": 60.98
+    },
+    "2025_W15_Wes Colson_vs_trentan busey": {
+      "year": 2025,
+      "week": 15,
+      "m1": "trentan busey",
+      "t1": "Puka Time",
+      "s1": 142.1,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order",
+      "s2": 116.76
+    },
+    "2025_W15_Roman Bayless_vs_TRAVIS GIBSON": {
+      "year": 2025,
+      "week": 15,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN",
+      "s1": 156.92,
+      "m2": "Roman Bayless",
+      "t2": "Team Freedom",
+      "s2": 152.0
+    },
+    "2025_W15_Billy Haid_vs_Miles Spainhower": {
+      "year": 2025,
+      "week": 15,
+      "m1": "Billy Haid",
+      "t1": "Off In the Corner",
+      "s1": 90.38,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream",
+      "s2": 120.22
+    },
+    "2025_W15_Kurt Claycomb_vs_Ron Baker": {
+      "year": 2025,
+      "week": 15,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended ",
+      "s1": 143.52,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode",
+      "s2": 142.6
+    },
+    "2025_W15_Eric King_vs_jeremy bayless": {
+      "year": 2025,
+      "week": 15,
+      "m1": "Eric King",
+      "t1": "55 TDs 55 Punts 55 FGs 55 INTs",
+      "s1": 121.7,
+      "m2": "jeremy bayless",
+      "t2": "Rejected Kamala",
+      "s2": 96.24
+    },
+    "2025_W15_Jared Schneider_vs_Robert Kendall": {
+      "year": 2025,
+      "week": 15,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed",
+      "s1": 185.02,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 93.46
+    },
+    "2025_W16_TRAVIS GIBSON_vs_trentan busey": {
+      "year": 2025,
+      "week": 16,
+      "m1": "trentan busey",
+      "t1": "Puka Time",
+      "s1": 164.7,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN",
+      "s2": 114.86
+    },
+    "2025_W16_Kurt Claycomb_vs_Miles Spainhower": {
+      "year": 2025,
+      "week": 16,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended ",
+      "s1": 111.3,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream",
+      "s2": 150.38
+    },
+    "2025_W16_Billy Haid_vs_Roman Bayless": {
+      "year": 2025,
+      "week": 16,
+      "m1": "Billy Haid",
+      "t1": "Off In the Corner",
+      "s1": 87.44,
+      "m2": "Roman Bayless",
+      "t2": "Team Freedom",
+      "s2": 90.1
+    },
+    "2025_W16_Ron Baker_vs_Wes Colson": {
+      "year": 2025,
+      "week": 16,
+      "m1": "Ron Baker",
+      "t1": "Team Bakesmode",
+      "s1": 114.2,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order",
+      "s2": 148.08
+    },
+    "2025_W16_Eric King_vs_Jared Schneider": {
+      "year": 2025,
+      "week": 16,
+      "m1": "Eric King",
+      "t1": "55 TDs 55 Punts 55 FGs 55 INTs",
+      "s1": 94.5,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed",
+      "s2": 121.86
+    },
+    "2025_W16_Robert Kendall_vs_jeremy bayless": {
+      "year": 2025,
+      "week": 16,
+      "m1": "jeremy bayless",
+      "t1": "Rejected Kamala",
+      "s1": 86.82,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 160.1
+    },
+    "2025_W17_Miles Spainhower_vs_trentan busey": {
+      "year": 2025,
+      "week": 17,
+      "m1": "trentan busey",
+      "t1": "Puka Time",
+      "s1": 133.92,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream",
+      "s2": 135.86
+    },
+    "2025_W17_Kurt Claycomb_vs_TRAVIS GIBSON": {
+      "year": 2025,
+      "week": 17,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended ",
+      "s1": 150.94,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN",
+      "s2": 123.68
+    },
+    "2025_W17_Roman Bayless_vs_Wes Colson": {
+      "year": 2025,
+      "week": 17,
+      "m1": "Roman Bayless",
+      "t1": "Team Freedom",
+      "s1": 99.5,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order",
+      "s2": 107.82
+    },
+    "2025_W17_Billy Haid_vs_Ron Baker": {
+      "year": 2025,
+      "week": 17,
+      "m1": "Billy Haid",
+      "t1": "Off In the Corner",
+      "s1": 87.7,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode",
+      "s2": 102.34
+    },
+    "2025_W17_Jared Schneider_vs_Robert Kendall": {
+      "year": 2025,
+      "week": 17,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed",
+      "s1": 96.02,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 103.44
+    },
+    "2025_W17_Eric King_vs_jeremy bayless": {
+      "year": 2025,
+      "week": 17,
+      "m1": "Eric King",
+      "t1": "55 TDs 55 Punts 55 FGs 55 INTs",
+      "s1": 84.98,
+      "m2": "jeremy bayless",
+      "t2": "Rejected Kamala",
+      "s2": 79.7
+    },
+    "2025_W18_Miles Spainhower_vs_trentan busey": {
+      "year": 2025,
+      "week": 18,
+      "m1": "trentan busey",
+      "t1": "Puka Time",
+      "s1": 133.92,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream",
+      "s2": 135.86
+    },
+    "2025_W18_Kurt Claycomb_vs_TRAVIS GIBSON": {
+      "year": 2025,
+      "week": 18,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended ",
+      "s1": 150.94,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN",
+      "s2": 123.68
+    },
+    "2025_W18_Roman Bayless_vs_Wes Colson": {
+      "year": 2025,
+      "week": 18,
+      "m1": "Roman Bayless",
+      "t1": "Team Freedom",
+      "s1": 99.5,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order",
+      "s2": 107.82
+    },
+    "2025_W18_Billy Haid_vs_Ron Baker": {
+      "year": 2025,
+      "week": 18,
+      "m1": "Billy Haid",
+      "t1": "Off In the Corner",
+      "s1": 87.7,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode",
+      "s2": 102.34
+    },
+    "2025_W18_Jared Schneider_vs_Robert Kendall": {
+      "year": 2025,
+      "week": 18,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed",
+      "s1": 96.02,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 103.44
+    },
+    "2025_W18_Eric King_vs_jeremy bayless": {
+      "year": 2025,
+      "week": 18,
+      "m1": "Eric King",
+      "t1": "55 TDs 55 Punts 55 FGs 55 INTs",
+      "s1": 84.98,
+      "m2": "jeremy bayless",
+      "t2": "Rejected Kamala",
+      "s2": 79.7
     }
-  }
+  },
+  "h2h_ingested_years": [
+    2023,
+    2024,
+    2025
+  ]
 }
