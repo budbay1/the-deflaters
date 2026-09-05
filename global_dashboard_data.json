@@ -29126,8 +29126,7 @@
       "gold": "The American Dream (Miles Spainhower)",
       "silver": "Team Kendall (Robert Kendall)",
       "bronze": "Team Bakesmode (Ron Baker)",
-      "last": "Son of a Veach (Eric King)",
-      "year": "2024"
+      "last": "Son of a Veach (Eric King)"
     },
     "2025": {
       "gold": "The American Dream (Miles Spainhower)",
@@ -29369,12 +29368,25 @@
       "avg_sort": 9.3
     }
   ],
-  "reigning": {
-    "gold": "The American Dream (Miles Spainhower)",
-    "silver": "Team Kendall (Robert Kendall)",
-    "bronze": "Team Bakesmode (Ron Baker)",
-    "last": "Son of a Veach (Eric King)",
-    "year": "2024"
+  "reigning_by_season": {
+    "2023": {
+      "gold": "Team Draft order (Wes Colson)",
+      "silver": "O-Bijan Kenobi (Roman Bayless)",
+      "bronze": "No Punt Intended  (Kurt Claycomb)",
+      "last": "Team Bakesmode (Ron Baker)"
+    },
+    "2024": {
+      "gold": "The American Dream (Miles Spainhower)",
+      "silver": "Team Kendall (Robert Kendall)",
+      "bronze": "Team Bakesmode (Ron Baker)",
+      "last": "Son of a Veach (Eric King)"
+    },
+    "2025": {
+      "gold": "The American Dream (Miles Spainhower)",
+      "silver": "Puka Time (trentan busey)",
+      "bronze": "No Punt Intended  (Kurt Claycomb)",
+      "last": "Rejected Kamala (jeremy bayless)"
+    }
   },
   "current_managers": [
     "Billy Haid",
@@ -33095,10 +33107,12 @@
   },
   "all_time_records": {
     "high_team_game": {
-      "team": "Puka Time (trentan busey)",
-      "pts": 185.08,
-      "week": 5,
-      "year": 2025
+      "team": "No Punt Intended ",
+      "pts": 189.46,
+      "opp": "THE G-MEN",
+      "opp_pts": 98.2,
+      "week": 13,
+      "year": 2023
     },
     "high_player_game": {
       "player": "Trevor Lawrence",
@@ -33114,10 +33128,15 @@
       "year": 2025
     },
     "high_points_against": {
-      "team": "No Punt Intended  (Kurt Claycomb)",
-      "pa": 185.08,
-      "opp": "Puka Time (trentan busey)",
-      "week": 5,
+      "team": "The American Dream",
+      "pa": 1992.64,
+      "year": 2023
+    },
+    "max_margin": {
+      "winner": "Puka Time (trentan busey)",
+      "loser": "Team Unvaxxed (Jared Schneider)",
+      "margin": 117.08,
+      "week": 14,
       "year": 2025
     }
   }
