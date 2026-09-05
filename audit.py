@@ -9,7 +9,7 @@ ESPN_S2 = os.environ["ESPN_S2"]
 YEAR = int(os.environ.get("YEAR", 2026))
 WEEK = int(os.environ.get("WEEK", 1))
 
-# League Roster Requirements (1 QB, 2 RB, 3 WR, 1 TE, 1 FLEX, 1 K, 1 D/ST)
+# League Roster Setup (3 WR Modern Rule)
 ROSTER_SLOTS = {
     "QB": 1,
     "RB": 2,
@@ -23,8 +23,9 @@ ROSTER_SLOTS = {
 HISTORY_FILE = f"league_history_{YEAR}.json"
 ALL_TIME_FILE = "league_history_alltime.json"
 
+# Manual legacy champions for pre-2025 seasons
 HISTORICAL_CHAMPIONS_OVERRIDE = {
-    # "2024": {"gold": "Team (Manager)", "silver": "Team (Manager)", "bronze": "Team (Manager)"}
+    # "2024": {"gold": "Team Alpha (Manager A)", "silver": "Team Beta (Manager B)", "bronze": "Team Gamma (Manager C)"},
 }
 
 
@@ -186,6 +187,8 @@ def compute_records_and_payouts(history):
 
 def sync_champions(league, current_year):
   all_time = load_history(ALL_TIME_FILE, {"champions": {}, "matchups": {}})
+  if "champions" not in all_time:
+    all_time["champions"] = {}
   all_time["champions"].update(HISTORICAL_CHAMPIONS_OVERRIDE)
 
   try:
@@ -253,11 +256,9 @@ def update_and_compute_h2h(history, current_year):
   if "matchups" not in all_time:
     all_time["matchups"] = {}
 
-  # 1. Ingest matchups into permanent all-time archive
   for w_str, matchups in history["weeks"].items():
     w = int(w_str)
     for m in matchups:
-      # Use sorted manager pairs to create a single canonical matchup key per game
       mgr = m.get("manager", "Unknown")
       opp_mgr = m.get("opp_manager", "Unknown")
       if mgr == "Unknown" or opp_mgr == "Unknown":
@@ -280,7 +281,6 @@ def update_and_compute_h2h(history, current_year):
 
   save_history(ALL_TIME_FILE, all_time)
 
-  # 2. Compute aggregate pairwise stats
   rivalries = {}
   managers_set = set()
   season_log = []
@@ -588,7 +588,6 @@ def generate_html_report(
     .glossary-desc {{ font-size: 13px; color: var(--muted); line-height: 1.5; }}
     .glossary-example {{ margin-top: 10px; padding: 8px 12px; background: var(--surface); border-radius: 8px; font-size: 12px; color: var(--text); border-left: 3px solid var(--accent); }}
 
-    /* H2H Filter Header */
     .filter-header {{ padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }}
     .select-dropdown {{ background: var(--surface); color: var(--text); border: 1px solid var(--border); padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; outline: none; }}
   </style>
