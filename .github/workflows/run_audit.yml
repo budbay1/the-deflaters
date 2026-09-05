@@ -12,7 +12,7 @@ on:
         required: true
         default: '2026'
   schedule:
-    # Runs automatically every Tuesday at 7:00 AM Central Time (12:00 UTC)
+    # Runs every Tuesday at 7:00 AM Central Time (12:00 UTC)
     - cron: '0 12 * * 2'
 
 permissions:
