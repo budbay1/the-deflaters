@@ -7,12 +7,8 @@ on:
         description: 'NFL Week Number to Audit'
         required: true
         default: '1'
-      year:
-        description: 'Season Year'
-        required: true
-        default: '2026'
   schedule:
-    # Runs every Tuesday at 7:00 AM Central Time (12:00 UTC)
+    # Optional backup: runs automatically every Tuesday at 7:00 AM Central Time (12:00 UTC)
     - cron: '0 12 * * 2'
 
 permissions:
@@ -40,15 +36,15 @@ jobs:
           LEAGUE_ID: ${{ secrets.LEAGUE_ID }}
           SWID: ${{ secrets.SWID }}
           ESPN_S2: ${{ secrets.ESPN_S2 }}
-          YEAR: ${{ github.event.inputs.year || '2026' }}
+          YEAR: '2026'
           WEEK: ${{ github.event.inputs.week || '1' }}
         run: |
           python audit.py
 
-     - name: Commit and Save History + Webpage
+      - name: Commit and Save History + Webpage
         run: |
           git config --global user.name "FantasyBot"
           git config --global user.email "bot@fantasy.internal"
-          git add league_history_*.json seasons_data.json index.html
-          git commit -m "Automated Multi-Season Audit Update" || echo "No changes to commit"
+          git add league_history_*.json index.html
+          git commit -m "Updated Fantasy Audit for Week ${{ github.event.inputs.week || '1' }}" || echo "No changes to commit"
           git push
