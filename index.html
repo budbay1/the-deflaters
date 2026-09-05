@@ -150,6 +150,10 @@
 {"year": "2024", "gold": "The American Dream (Miles Spainhower)", "silver": "Team Kendall (Robert Kendall)", "bronze": "Team Bakesmode (Ron Baker)", "last": "Son of a Veach (Eric King)"}
 </script>
 
+<script id="active-meta-data" type="application/json">
+{"year": "2025", "week": "14"}
+</script>
+
 <div class="wrapper">
   <div class="header">
     <div>
@@ -1965,9 +1969,10 @@
 <script>
   var seasonsData = {};
   var reigningBadges = JSON.parse(document.getElementById('reigning-badges-data').textContent || '{}');
+  var activeMeta = JSON.parse(document.getElementById('active-meta-data').textContent || '{"year": "2026", "week": "1"}');
 
-  var currentYear = '{active_year}';
-  var currentWeek = '{latest_week_num}';
+  var currentYear = activeMeta.year;
+  var currentWeek = activeMeta.week;
 
   var h2hScope = 'current';
   var hofScope = 'current';
