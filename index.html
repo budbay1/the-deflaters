@@ -520,9 +520,10 @@
       `;
     });
 
-    // 4. Render Payouts & Records Tab
+// 4. Render Payouts & Records Tab
     const pGrid = document.getElementById('payoutsGrid');
-    const sp = dashboardData.season_payouts?[currentYear] || {};
+    const seasonPayouts = dashboardData.season_payouts || {};
+    const sp = seasonPayouts[currentYear] || {};
     pGrid.innerHTML = `
       <div class="award-card gold">
         <div><div class="award-tag" style="color: var(--gold);">👑 Season Points Leader</div>
