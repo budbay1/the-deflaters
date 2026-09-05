@@ -327,7 +327,7 @@ def main():
   all_time_high_player = {"player": "None", "team": "None", "pts": 0.0, "week": 0, "year": 0, "pos": ""}
   all_time_high_season_pf = {"team": "None", "pts": 0.0, "year": 0}
   all_time_high_pa = {"team": "None", "pa": 0.0, "year": 0}
-  all_time_max_margin = {"winner": "None", "loser": "None", "margin": 0.0, "week": 0, "year": 0}
+  all_time_max_margin = {"winner": "None", "loser": "None", "margin": -1.0, "week": 0, "year": 0}
 
   for yr_str, weeks_dict in seasons_data.items():
     yr_int = int(yr_str)
