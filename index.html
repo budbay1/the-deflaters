@@ -392,7 +392,7 @@
   }
 
   function renderBadge(label) {
-    const reigningMap = dashboardData.reigning_by_season || {};
+    const reigningMap = dashboardData.reigning_by_season || dashboardData.champions || {};
     const priorYr = (parseInt(currentYear) - 1).toString();
     const reigning = reigningMap[priorYr] || {};
     if (!reigning.gold && !reigning.silver && !reigning.bronze && !reigning.last) return label;
@@ -621,9 +621,10 @@
       `;
     });
 
-    // 5. Render Bench Blunders
+    // 5. Render Bench Blunders for Selected Season/Week
     let blunders = [];
-    sortedWk.forEach(t => {
+    const targetWkData = dashboardData.seasons_data?.[currentYear]?.[currentWeek] || [];
+    targetWkData.forEach(t => {
       if (t.players) {
         t.players.forEach(p => {
           if (p.audit === 'Costly Bench') blunders.push({ team: t.team, name: p.name, pos: p.pos, pts: p.pts, proj: p.proj });
