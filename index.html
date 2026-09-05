@@ -105,10 +105,10 @@
     .podium-year { font-size: 17px; font-weight: 800; color: var(--text); margin-bottom: 10px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
     .podium-row { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; font-size: 13px; }
 
-    .glossary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; padding: 16px; }
-    .glossary-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }
-    .glossary-title { font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
-    .glossary-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .glossary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; padding: 20px; }
+    .glossary-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 8px; }
+    .glossary-title { font-size: 16px; font-weight: 800; color: var(--text); display: flex; align-items: center; gap: 8px; }
+    .glossary-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
     
     .filter-header { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
     .filter-control { display: flex; align-items: center; gap: 8px; width: 100%; max-width: 260px; }
@@ -200,10 +200,11 @@
       </div>
       <div class="filter-control">
         <select id="mgrFilter" class="select-dropdown" onchange="applyH2HFilters()">
-          <option value="ALL">Show All Rivalries</option>
+          <option value="ALL">Show All Rivalries / Summary</option>
         </select>
       </div>
     </div>
+    <div id="managerSummaryBox" style="padding: 14px 16px; background: var(--surface); border-bottom: 1px solid var(--border); font-size: 14px; font-weight: 700; display: none;"></div>
     <table class="responsive-table">
       <thead>
         <tr>
@@ -219,7 +220,7 @@
 
   <!-- TAB 4: PAYOUTS & RECORDS -->
   <div id="view-payouts" style="display: none; display: flex; flex-direction: column; gap: 20px;">
-    <div style="font-size: 16px; font-weight: 800; color: var(--text);">🌟 All-Time League Records</div>
+    <div style="font-size: 16px; font-weight: 800; color: var(--text);">🌟 All-Time League Records (2023–Present)</div>
     <div class="awards-grid" id="allTimeRecordsGrid"></div>
 
     <div style="font-size: 16px; font-weight: 800; color: var(--text); margin-top: 10px;">👑 Season Cash Bounties & Highlights</div>
@@ -295,19 +296,27 @@
     <div class="glossary-grid">
       <div class="glossary-card">
         <div class="glossary-title">🫀 The Cardiac Index</div>
-        <div class="glossary-desc">Tracks team record in tight games decided by 5.00 points or fewer.</div>
+        <div class="glossary-desc">Tracks a team's record in nail-biting games decided by <b>5.00 points or fewer</b>. Highlights which managers thrive under pressure and which ones repeatedly melt down in crunch time.</div>
       </div>
       <div class="glossary-card">
-        <div class="glossary-title">📊 Scoring Volatility (σ StdDev)</div>
-        <div class="glossary-desc">Standard deviation of weekly scoring totals measuring consistency versus boom/bust volatility.</div>
+        <div class="glossary-title">📊 Scoring Volatility ($\sigma$ StdDev)</div>
+        <div class="glossary-desc">Measures the standard deviation of weekly scoring totals. Categorizes squads into <b>Steady Floors</b> (consistent week-to-week production) vs. <b>Boom/Bust</b> squads (massive ceiling, terrifying floor).</div>
       </div>
       <div class="glossary-card">
         <div class="glossary-title">📐 Pythagorean Expected Wins</div>
-        <div class="glossary-desc">Calculates true record based purely on scoring differential using points for and against.</div>
+        <div class="glossary-desc">Calculates a team's true expected record based purely on total points scored (PF) versus points allowed (PA). Exposes whether a team is genuinely elite or just benefiting from a soft schedule.</div>
+      </div>
+      <div class="glossary-card">
+        <div class="glossary-title">🍀 Schedule Luck Δ</div>
+        <div class="glossary-desc">The difference between a team's actual win percentage and their <b>All-Play win percentage</b> (how they would have fared against every team every week). Positive delta means you caught lucky weekly matchups; negative means you faced buzzsaws.</div>
+      </div>
+      <div class="glossary-card">
+        <div class="glossary-title">💸 The Pine Tax</div>
+        <div class="glossary-desc">Total actual points left sitting on the bench instead of in optimal starting slots due to manager overthinking or misjudged start/sit decisions.</div>
       </div>
       <div class="glossary-card">
         <div class="glossary-title">⚓ The Anchor Award</div>
-        <div class="glossary-desc">Weekly dishonor given to the lowest scoring active starter in the entire league.</div>
+        <div class="glossary-desc">Weekly dishonor awarded to the lowest-scoring active starter in the entire league, dragging their team's score down like an iron weight.</div>
       </div>
     </div>
   </div>
@@ -383,9 +392,11 @@
   }
 
   function renderBadge(label) {
-    const reigning = dashboardData.reigning || {};
-    if (!reigning.year) return label;
-    const yrShort = reigning.year.slice(-2);
+    const reigningMap = dashboardData.reigning_by_season || {};
+    const priorYr = (parseInt(currentYear) - 1).toString();
+    const reigning = reigningMap[priorYr] || {};
+    if (!reigning.gold && !reigning.silver && !reigning.bronze && !reigning.last) return label;
+    const yrShort = priorYr.slice(-2);
 
     function matches(target) {
       if (!target || target === 'TBD') return false;
@@ -546,7 +557,7 @@
       <div class="award-card gold">
         <div><div class="award-tag" style="color: var(--gold);">⚡ All-Time High Team Game</div>
         <div class="award-title">${renderBadge(atr.high_team_game?.team || 'None')}</div>
-        <div class="award-desc">Exploded for <b>${(atr.high_team_game?.pts || 0).toFixed(2)} pts</b> in ${atr.high_team_game?.year || 2025} Wk ${atr.high_team_game?.week || 1}.</div></div>
+        <div class="award-desc">Exploded for <b>${(atr.high_team_game?.pts || 0).toFixed(2)} pts</b> against ${renderBadge(atr.high_team_game?.opp || '')} (${(atr.high_team_game?.opp_pts || 0).toFixed(2)}) in ${atr.high_team_game?.year || 2025} Wk ${atr.high_team_game?.week || 1}.</div></div>
       </div>
       <div class="award-card green">
         <div><div class="award-tag" style="color: var(--green);">🌟 All-Time High Starter Game</div>
@@ -559,9 +570,14 @@
         <div class="award-desc">Paced an entire year with <b>${(atr.high_season_pf?.pts || 0).toFixed(2)} Total PF</b> in ${atr.high_season_pf?.year || 2025}.</div></div>
       </div>
       <div class="award-card red">
-        <div><div class="award-tag" style="color: var(--red);">💀 All-Time High Points Against</div>
+        <div><div class="award-tag" style="color: var(--red);">💀 All-Time Season Points Against</div>
         <div class="award-title">${renderBadge(atr.high_points_against?.team || 'None')}</div>
-        <div class="award-desc">Got decimated by a brutal <b>${(atr.high_points_against?.pa || 0).toFixed(2)} PA</b> from ${atr.high_points_against?.opp || ''} in ${atr.high_points_against?.year || 2025} Wk ${atr.high_points_against?.week || 1}.</div></div>
+        <div class="award-desc">Suffered a brutal <b>${(atr.high_points_against?.pa || 0).toFixed(2)} Total PA</b> across ${atr.high_points_against?.year || 2025}.</div></div>
+      </div>
+      <div class="award-card zinc" style="grid-column: span 2;">
+        <div><div class="award-tag" style="color: var(--dim);">📏 All-Time Largest Margin of Defeat</div>
+        <div class="award-title">${renderBadge(atr.max_margin?.loser || 'None')} vs ${renderBadge(atr.max_margin?.winner || 'None')}</div>
+        <div class="award-desc">Record blowout margin of <b>+${(atr.max_margin?.margin || 0).toFixed(2)} pts</b> in ${atr.max_margin?.year || 2025} Wk ${atr.max_margin?.week || 1}.</div></div>
       </div>
     `;
 
@@ -679,7 +695,7 @@
       managersSet.add(m.m1); managersSet.add(m.m2);
     });
 
-    select.innerHTML = '<option value="ALL">Show All Rivalries</option>';
+    select.innerHTML = '<option value="ALL">Show All Rivalries / Summary</option>';
     Array.from(managersSet).sort().forEach(mgr => {
       const isCur = currentManagers.includes(mgr);
       select.innerHTML += `<option value="${mgr}" data-is-current="${isCur}">${mgr}${isCur ? '' : ' (Former)'}</option>`;
@@ -693,9 +709,16 @@
     const currentManagers = dashboardData.current_managers || [];
     const mgrFilter = document.getElementById('mgrFilter').value;
     const h2hBody = document.getElementById('h2hTableBody');
+    const summaryBox = document.getElementById('managerSummaryBox');
     h2hBody.innerHTML = '';
 
     let rivalries = {};
+    let selectedManagerWins = 0;
+    let selectedManagerLosses = 0;
+    let selectedManagerTies = 0;
+    let selectedManagerPF = 0;
+    let selectedManagerPA = 0;
+
     Object.values(matchups).forEach(g => {
       const pair = [g.m1, g.m2].sort();
       const key = pair[0] + '_vs_' + pair[1];
@@ -710,7 +733,26 @@
         if (g.m2 === r.m1) r.wins1++; else r.wins2++;
       }
       if (g.m1 === r.m1) { r.pf1 += g.s1; r.pf2 += g.s2; } else { r.pf1 += g.s2; r.pf2 += g.s1; }
+
+      if (mgrFilter !== 'ALL' && (g.m1 === mgrFilter || g.m2 === mgrFilter)) {
+        const isM1 = g.m1 === mgrFilter;
+        const myScore = isM1 ? g.s1 : g.s2;
+        const oppScore = isM1 ? g.s2 : g.s1;
+        selectedManagerPF += myScore;
+        selectedManagerPA += oppScore;
+        if (myScore > oppScore) selectedManagerWins++;
+        else if (myScore < oppScore) selectedManagerLosses++;
+        else selectedManagerTies++;
+      }
     });
+
+    if (mgrFilter !== 'ALL') {
+      summaryBox.style.display = 'block';
+      const diff = selectedManagerPF - selectedManagerPA;
+      summaryBox.innerHTML = `📊 All-Time Summary for <b>${mgrFilter}</b>: <span style="color: var(--green);">${selectedManagerWins}W</span>–<span style="color: var(--red);">${selectedManagerLosses}L</span>${selectedManagerTies > 0 ? '–' + selectedManagerTies + 'T' : ''} | Total PF: <b>${selectedManagerPF.toFixed(2)}</b> | Total PA: <b>${selectedManagerPA.toFixed(2)}</b> (Δ <span style="color: ${diff >= 0 ? 'var(--green)' : 'var(--red)'};">${diff >= 0 ? '+' : ''}${diff.toFixed(2)}</span>)`;
+    } else {
+      summaryBox.style.display = 'none';
+    }
 
     Object.values(rivalries).forEach(r => {
       const isBothCurrent = currentManagers.includes(r.m1) && currentManagers.includes(r.m2);
