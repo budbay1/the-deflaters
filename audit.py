@@ -807,7 +807,7 @@ def generate_html_report(
   }
   save_history("dashboard_data.json", dashboard_payload)
 
-  html = f"""<!DOCTYPE html>
+  html = """<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
