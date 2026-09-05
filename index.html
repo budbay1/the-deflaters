@@ -14,6 +14,8 @@
       --red: #f43f5e; --red-bg: rgba(244, 63, 94, 0.12);
       --amber: #f59e0b; --amber-bg: rgba(245, 158, 11, 0.12);
       --gold: #fbbf24; --gold-bg: rgba(251, 191, 36, 0.15);
+      --silver: #cbd5e1; --silver-bg: rgba(203, 213, 225, 0.15);
+      --bronze: #d97706; --bronze-bg: rgba(217, 119, 6, 0.15);
       --th-bg: #0d1424;
     }
     body.light-mode {
@@ -21,7 +23,10 @@
       --text: #0f172a; --muted: #64748b; --dim: #94a3b8; --accent: #0284c7;
       --green: #059669; --green-bg: rgba(5, 150, 105, 0.12);
       --red: #e11d48; --red-bg: rgba(225, 29, 72, 0.12);
+      --amber: #d97706; --amber-bg: rgba(217, 119, 6, 0.12);
       --gold: #b45309; --gold-bg: rgba(245, 158, 11, 0.15);
+      --silver: #475569; --silver-bg: rgba(100, 116, 139, 0.15);
+      --bronze: #9a3412; --bronze-bg: rgba(194, 65, 12, 0.15);
       --th-bg: #f1f5f9;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -61,16 +66,27 @@
       flex: 1 1 auto; min-width: 120px; padding: 10px 14px; background: transparent; border: 1px solid transparent;
       border-radius: 10px; color: var(--muted); font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer; text-align: center;
     }
-    .tab-btn.active { background: var(--card); color: var(--text); border-color: var(--border); }
+    .tab-btn.active { background: var(--card); color: var(--text); border-color: var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
 
-    .table-container { background: var(--card); border: 1px solid var(--border); border-radius: 16px; width: 100%; overflow: hidden; }
+    .table-container { background: var(--card); border: 1px solid var(--border); border-radius: 16px; width: 100%; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
     .responsive-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
     .responsive-table th { background: var(--th-bg); color: var(--muted); font-weight: 700; font-size: 11px; text-transform: uppercase; padding: 12px 14px; border-bottom: 1px solid var(--border); }
+    .responsive-table th .sub-th { display: block; font-size: 9px; color: var(--dim); font-weight: normal; text-transform: none; margin-top: 2px; }
     .responsive-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    .responsive-table tr:last-child td { border-bottom: none; }
+    .responsive-table tr:hover td { background: rgba(125,125,125,0.03); }
+
     .team-cell { font-weight: 800; color: var(--text); }
     .badge { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; }
     .badge-win { background: var(--green-bg); color: var(--green); }
     .badge-loss { background: var(--red-bg); color: var(--red); }
+    .badge-neutral { background: rgba(125,125,125,0.08); color: var(--muted); }
+    .rank-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: rgba(125,125,125,0.12); border-radius: 50%; font-size: 11px; font-weight: 800; color: var(--accent); margin-right: 8px; flex-shrink: 0; }
+
+    .glossary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; padding: 16px; }
+    .glossary-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }
+    .glossary-title { font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+    .glossary-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
   </style>
 </head>
 <body>
@@ -95,24 +111,62 @@
   </div>
 
   <div class="tab-bar">
-    <button class="tab-btn active" id="tabBtnWeek">📅 Week Summary</button>
+    <button class="tab-btn active" onclick="switchTab('week')" id="tabBtnWeek">📅 Week Summary</button>
+    <button class="tab-btn" onclick="switchTab('season')" id="tabBtnSeason">📈 Season Trends</button>
+    <button class="tab-btn" onclick="switchTab('glossary')">📖 Stat Decoders</button>
   </div>
 
+  <!-- TAB 1: WEEK SUMMARY -->
   <div id="view-week" class="table-container">
     <table class="responsive-table">
       <thead>
         <tr>
-          <th>Team</th>
+          <th>Rank / Team</th>
           <th>Result</th>
-          <th>Score</th>
-          <th>Opponent</th>
-          <th>All-Play</th>
-          <th>Coaching Eff</th>
+          <th>Score <span class="sub-th">(vs Proj)</span></th>
+          <th>Opponent <span class="sub-th">(Score)</span></th>
+          <th>All-Play <span class="sub-th">Record</span></th>
+          <th>Coaching Eff <span class="sub-th">Optimal Pts %</span></th>
         </tr>
       </thead>
       <tbody id="weekTableBody"></tbody>
     </table>
   </div>
+
+  <!-- TAB 2: SEASON TRENDS -->
+  <div id="view-season" class="table-container" style="display: none;">
+    <table class="responsive-table">
+      <thead>
+        <tr>
+          <th>Rank / Team</th>
+          <th>Actual W-L</th>
+          <th>All-Play Record</th>
+          <th>Total PF</th>
+          <th>Total PA</th>
+          <th>Avg Coaching Eff</th>
+        </tr>
+      </thead>
+      <tbody id="seasonTableBody"></tbody>
+    </table>
+  </div>
+
+  <!-- TAB 3: STAT DECODERS -->
+  <div id="view-glossary" class="table-container" style="display: none;">
+    <div style="padding: 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
+      📖 The Deflaters Analytics Handbook
+    </div>
+    <div class="glossary-grid">
+      <div class="glossary-card">
+        <div class="glossary-title">🫀 The Cardiac Index</div>
+        <div class="glossary-desc">Tracks team record in tight games decided by 5.00 points or fewer.</div>
+      </div>
+      <div class="glossary-card">
+        <div class="glossary-title">📊 Scoring Volatility (σ StdDev)</div>
+        <div class="glossary-desc">Standard deviation of weekly scoring totals measuring consistency versus boom/bust volatility.</div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -182,23 +236,78 @@
   function renderData() {
     document.getElementById('headerTitle').innerText = `${currentYear} WEEK ${currentWeek} SUMMARY`;
     document.getElementById('tabBtnWeek').innerText = `📅 Week ${currentWeek} Summary`;
+    document.getElementById('tabBtnSeason').innerText = `📈 ${currentYear} Season Trends`;
 
+    // 1. Render Weekly Table
     const wkData = seasonsData[currentYear]?.[currentWeek] || [];
+    const sortedWk = wkData.slice().sort((a, b) => {
+      if (b.all_play_w !== a.all_play_w) return b.all_play_w - a.all_play_w;
+      return b.actual - a.actual;
+    });
+
     const tbody = document.getElementById('weekTableBody');
     tbody.innerHTML = '';
-
-    wkData.forEach((t, idx) => {
+    sortedWk.forEach((t, idx) => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td class="team-cell">#${idx + 1} ${t.team}</td>
+        <td class="team-cell"><span class="rank-num">#${idx + 1}</span> ${t.team}</td>
         <td><span class="badge ${t.result === 'W' ? 'badge-win' : 'badge-loss'}">${t.result}</span></td>
-        <td><b>${t.actual.toFixed(2)}</b></td>
-        <td>${t.opp} (${t.opp_actual.toFixed(2)})</td>
+        <td><b>${t.actual.toFixed(2)}</b> <span style="font-size: 11px; color: var(--dim);">(${t.diff > 0 ? '+' : ''}${t.diff.toFixed(2)})</span></td>
+        <td>${t.opp} <span style="color: var(--muted); font-size: 11px;">(${t.opp_actual.toFixed(2)})</span></td>
         <td><b>${t.all_play_w}</b>–${t.all_play_l}</td>
         <td><b>${t.coach_eff.toFixed(1)}%</b></td>
       `;
       tbody.appendChild(tr);
     });
+
+    // 2. Render Season Trends Table
+    const yrWeeks = seasonsData[currentYear] || {};
+    let teamStats = {};
+    Object.values(yrWeeks).forEach(matchups => {
+      matchups.forEach(m => {
+        if (!teamStats[m.team]) {
+          teamStats[m.team] = { team: m.team, wins: 0, losses: 0, ap_w: 0, ap_l: 0, pf: 0, pa: 0, effSum: 0, count: 0 };
+        }
+        let s = teamStats[m.team];
+        s.pf += m.actual;
+        s.pa += m.opp_actual;
+        s.ap_w += m.all_play_w;
+        s.ap_l += m.all_play_l;
+        s.effSum += m.coach_eff;
+        s.count++;
+        if (m.result === 'W') s.wins++;
+        else if (m.result === 'L') s.losses++;
+      });
+    });
+
+    const seasonArr = Object.values(teamStats).sort((a, b) => {
+      if (b.ap_w !== a.ap_w) return b.ap_w - a.ap_w;
+      return b.pf - a.pf;
+    });
+
+    const stBody = document.getElementById('seasonTableBody');
+    stBody.innerHTML = '';
+    seasonArr.forEach((s, idx) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="team-cell"><span class="rank-num">#${idx + 1}</span> ${s.team}</td>
+        <td><b>${s.wins}–${s.losses}</b></td>
+        <td>${s.ap_w}–${s.ap_l}</td>
+        <td><b>${s.pf.toFixed(2)}</b></td>
+        <td>${s.pa.toFixed(2)}</td>
+        <td><b>${s.count > 0 ? (s.effSum / s.count).toFixed(1) : 0.0}%</b></td>
+      `;
+      stBody.appendChild(tr);
+    });
+  }
+
+  function switchTab(viewName) {
+    ['week', 'season', 'glossary'].forEach(tab => {
+      const el = document.getElementById('view-' + tab);
+      if (el) el.style.display = tab === viewName ? 'block' : 'none';
+    });
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
   }
 
   function toggleTheme() {
