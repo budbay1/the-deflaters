@@ -749,6 +749,10 @@ def update_and_compute_h2h(current_year):
   return rivalries, sorted(list(managers_set)), season_log
 
 
+def render_team_badge(team_name, reigning):
+  return team_name
+
+
 def generate_html_report(
     active_year,
     latest_week_num,
@@ -1579,11 +1583,177 @@ def generate_html_report(
     });
 
     var rows = Object.values(stats);
-$\text{if } \text{\_\_name\_\_} == \text{"\_\_main\_\_"}$
+    var totalGames = weeks.length;
 
-A stray closing curly brace (`}`) was left at the end of the line, and Python requires a colon (`:`) instead to open the block. 
+    rows.forEach(function(r) {
+      var totalMatches = r.actual_w + r.actual_l;
+      r.pyth_w = totalMatches > 0 ? (Math.pow(r.pf, 2) / (Math.pow(r.pf, 2) + Math.pow(r.pa, 2))) * totalMatches : 0;
+      var mean = r.scores.length ? r.scores.reduce(function(a,b){return a+b;},0)/r.scores.length : 0;
+      var variance = r.scores.length ? r.scores.reduce(function(a,b){return a + Math.pow(b - mean, 2);},0)/r.scores.length : 0;
+      r.sigma = Math.sqrt(variance);
+      r.all_play_pct = (r.all_play_w + r.all_play_l) > 0 ? (r.all_play_w / (r.all_play_w + r.all_play_l)) * 100 : 0;
+    });
 
-Update line 1909 to:
+    rows.sort(function(a, b) {
+      if (b.actual_w !== a.actual_w) return b.actual_w - a.actual_w;
+      return b.pf - a.pf;
+    });
 
-```python
+    var stBody = document.getElementById('seasonTableBody');
+    stBody.innerHTML = '';
+    rows.forEach(function(r, idx) {
+      var totalMatches = r.actual_w + r.actual_l;
+      var pythDelta = r.actual_w - r.pyth_w;
+      var pythDeltaStr = (pythDelta >= 0 ? '+' : '') + pythDelta.toFixed(1);
+      var allPlayPctStr = r.all_play_pct.toFixed(1) + '%';
+      var seasonLuckDelta = (r.actual_w / (totalMatches || 1)) - (r.all_play_w / ((r.all_play_w + r.all_play_l) || 1));
+      var seasonLuckStr = (seasonLuckDelta >= 0 ? '+' : '') + seasonLuckDelta.toFixed(3);
+      var luckBadgeClass = seasonLuckDelta >= 0 ? 'badge-lucky' : 'badge-unlucky';
+
+      var archetype = 'Balanced';
+      if (r.sigma < 12) archetype = 'Steady Floor';
+      else if (r.sigma > 18) archetype = 'Boom / Bust';
+
+      var tr = document.createElement('tr');
+      tr.innerHTML = 
+        '<td class="team-cell"><span class="rank-num">#' + (idx + 1) + '</span> ' + renderBadge(r.team) + '</td>' +
+        '<td data-label="Actual W-L"><b>' + r.actual_w + '–' + r.actual_l + '</b></td>' +
+        '<td data-label="Pyth Exp Wins"><b>' + r.pyth_w.toFixed(1) + '</b> <span style="font-size: 11px; color: var(--dim);">(' + pythDeltaStr + ')</span></td>' +
+        '<td data-label="All-Play"><b>' + r.all_play_w + '–' + r.all_play_l + '</b> <span style="font-size: 11px; color: var(--dim);">(' + allPlayPctStr + ')</span></td>' +
+        '<td data-label="Season Luck Δ"><span class="badge ' + luckBadgeClass + '">' + seasonLuckStr + '</span></td>' +
+        '<td data-label="Volatility"><b>σ ' + r.sigma.toFixed(1) + '</b> <span style="font-size: 11px; color: var(--muted);">(' + archetype + ')</span></td>' +
+        '<td data-label="Cardiac Rec"><b>' + r.cardiac_w + '–' + r.cardiac_l + '</b></td>' +
+        '<td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">-' + r.pine_tax.toFixed(1) + ' pts</td>' +
+        '<td data-label="Opp Surges"><b>' + r.opp_surges + '</b> wks</td>' +
+        '<td data-label="Avg Opp PA" style="color: var(--muted);">' + (r.pa / (totalMatches || 1)).toFixed(2) + ' pts</td>';
+      stBody.appendChild(tr);
+    });
+  }
+
+  function toggleTheme() {
+    document.body.classList.toggle('light-mode');
+    var btn = document.getElementById('theme-toggle');
+    if (document.body.classList.contains('light-mode')) {
+      btn.innerHTML = '🌙 Dark Mode';
+    } else {
+      btn.innerHTML = '☀️ Light Mode';
+    }
+  }
+
+  function switchTab(tabId) {
+    var tabs = ['week', 'season', 'h2h', 'payouts', 'halloffame', 'blunders', 'glossary'];
+    tabs.forEach(function(t) {
+      var el = document.getElementById('view-' + t);
+      if (el) el.style.display = (t === tabId) ? 'flex' : 'none';
+    });
+    var btns = document.querySelectorAll('.tab-btn');
+    btns.forEach(function(b) { b.classList.remove('active'); });
+    event.currentTarget.classList.add('active');
+  }
+
+  function setH2HScope(scope) {
+    h2hScope = scope;
+    document.getElementById('scopeCurrentBtn').classList.toggle('active', scope === 'current');
+    document.getElementById('scopeAllBtn').classList.toggle('active', scope === 'all');
+    applyH2HFilters();
+  }
+
+  function setHOFScope(scope) {
+    hofScope = scope;
+    document.getElementById('hofScopeCurrentBtn').classList.toggle('active', scope === 'current');
+    document.getElementById('hofScopeAllBtn').classList.toggle('active', scope === 'all');
+    
+    var rows = document.querySelectorAll('.hof-row');
+    rows.forEach(function(row) {
+      var isCurrent = row.getAttribute('data-current') === 'true';
+      if (hofScope === 'current' && !isCurrent) {
+        row.style.display = 'none';
+      } else {
+        row.style.display = '';
+      }
+    });
+  }
+
+  function applyH2HFilters() {
+    var selectedMgr = document.getElementById('mgrFilter').value;
+    var rows = document.querySelectorAll('.rivalry-row');
+    
+    rows.forEach(function(row) {
+      var m1 = row.getAttribute('data-m1');
+      var m2 = row.getAttribute('data-m2');
+      var isCurrent = row.getAttribute('data-current') === 'true';
+      
+      var matchesScope = (h2hScope === 'all') || isCurrent;
+      var matchesMgr = (selectedMgr === 'ALL') || (m1 === selectedMgr || m2 === selectedMgr);
+      
+      if (matchesScope && matchesMgr) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+
+  window.onload = initApp;
+</script>
+</body>
+</html>
+"""
+  return html
+
+
 if __name__ == "__main__":
+    current_year = YEAR
+    target_week = WEEK
+
+    print(f"Syncing historical season weeks for {current_year}...")
+    season_data = sync_historical_season_weeks(current_year)
+
+    all_seasons = {str(current_year): season_data.get("weeks", {})}
+    if os.path.exists("seasons_data.json"):
+        try:
+            with open("seasons_data.json", "r") as f:
+                existing_seasons = json.load(f)
+                all_seasons.update(existing_seasons)
+        except Exception:
+            pass
+    save_history("seasons_data.json", all_seasons)
+
+    champions, finishes_data = sync_champions_and_finishes(current_year)
+    sync_historical_h2h(current_year)
+
+    latest_week = target_week
+    if not latest_week:
+        wk_keys = [int(w) for w in season_data.get("weeks", {}).keys()]
+        latest_week = max(wk_keys) if wk_keys else 1
+
+    week_key_str = str(latest_week)
+    current_wk_matchups = season_data.get("weeks", {}).get(week_key_str, [])
+
+    current_managers = set()
+    for m in current_wk_matchups:
+        if m.get("manager"):
+            current_managers.add(m["manager"])
+
+    weekly_team_bounties, weekly_player_bounties, weekly_anchors, position_records, season_payout_leaders = compute_records_and_payouts(season_data)
+    rivalries, managers_list, season_log = update_and_compute_h2h(current_year)
+    leaderboard = compute_all_time_leaderboard(champions, list(current_managers), finishes_data)
+    reigning = get_reigning_badges(champions, current_year)
+
+    html_content = generate_html_report(
+        active_year=current_year,
+        latest_week_num=latest_week,
+        position_records=position_records,
+        season_payout_leaders=season_payout_leaders,
+        champions=champions,
+        leaderboard=leaderboard,
+        reigning=reigning,
+        rivalries=rivalries,
+        managers_list=managers_list,
+        current_managers=list(current_managers),
+        season_log=season_log
+    )
+
+    with open("index.html", "w") as f:
+        f.write(html_content)
+    print("Dashboard index.html generated successfully.")
