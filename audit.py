@@ -426,7 +426,7 @@ def main():
             if h_act > a_act
             else ("L" if h_act < a_act else "T")
         ),
-        "coach_eff": round((h_act / h_opt) * 100, 1),
+        "coach_eff": round((h_act / h_opt) * 100, 1) if h_opt > 0 else 100.0,
         "players": h_players,
     })
 
@@ -443,7 +443,7 @@ def main():
             if a_act > h_act
             else ("L" if a_act < h_act else "T")
         ),
-        "coach_eff": round((a_act / a_opt) * 100, 1),
+        "coach_eff": round((a_act / a_opt) * 100, 1) if a_opt > 0 else 100.0,
         "players": a_players,
     })
 
