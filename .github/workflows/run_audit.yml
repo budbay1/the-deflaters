@@ -3,21 +3,25 @@ name: Run Fantasy Audit
 on:
   workflow_dispatch:
     inputs:
+      year:
+        description: 'Season Year (e.g. 2025, 2026)'
+        required: false
+        default: '2026'
+        type: string
       week:
-        description: 'NFL Week Number to Audit'
-        required: true
-        default: '1'
+        description: 'Week Number (leave blank for auto-detect)'
+        required: false
+        default: ''
+        type: string
   schedule:
-    # Optional backup: runs automatically every Tuesday at 7:00 AM Central Time (12:00 UTC)
-    - cron: '0 12 * * 2'
+    - cron: '30 4 * * 3' # Runs every Wednesday at 4:30 AM UTC
 
 permissions:
   contents: write
 
 jobs:
-  build-report:
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -25,26 +29,27 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.10'
 
       - name: Install Dependencies
         run: |
+          python -m pip install --upgrade pip
           pip install espn-api
 
-      - name: Run Audit
+      - name: Run Audit Script
         env:
           LEAGUE_ID: ${{ secrets.LEAGUE_ID }}
           SWID: ${{ secrets.SWID }}
           ESPN_S2: ${{ secrets.ESPN_S2 }}
-          YEAR: '2026'
-          WEEK: ${{ github.event.inputs.week || '1' }}
+          YEAR: ${{ github.event.inputs.year }}
+          WEEK: ${{ github.event.inputs.week }}
         run: |
           python audit.py
 
-      - name: Commit and Save History + Webpage
+      - name: Commit and Push Generated Reports
         run: |
-          git config --global user.name "FantasyBot"
-          git config --global user.email "bot@fantasy.internal"
-          git add league_history_*.json index.html
-          git commit -m "Updated Fantasy Audit for Week ${{ github.event.inputs.week || '1' }}" || echo "No changes to commit"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html league_history_*.json league_history_alltime.json seasons_data.json
+          git commit -m "Auto-audit fantasy data and update historical logs [skip ci]" || echo "No changes to commit"
           git push
