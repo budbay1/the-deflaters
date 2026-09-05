@@ -23,7 +23,6 @@ ROSTER_SLOTS = {
 HISTORY_FILE = f"league_history_{YEAR}.json"
 ALL_TIME_FILE = "league_history_alltime.json"
 
-# Manual legacy champions for pre-2025 seasons
 HISTORICAL_CHAMPIONS_OVERRIDE = {
     # "2024": {"gold": "Team Alpha (Manager A)", "silver": "Team Beta (Manager B)", "bronze": "Team Gamma (Manager C)"},
 }
@@ -522,45 +521,192 @@ def generate_html_report(
       --bronze: #d97706; --bronze-bg: rgba(217, 119, 6, 0.15);
     }}
     * {{ box-sizing: border-box; margin: 0; padding: 0; }}
-    body {{ font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; background: var(--bg); color: var(--text); padding: 24px 12px; }}
-    .wrapper {{ max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }}
+    html, body {{
+      max-width: 100%;
+      overflow-x: hidden;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      line-height: 1.5;
+    }}
+    body {{ padding: 16px 12px; }}
+    .wrapper {{
+      max-width: 1080px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }}
     
+    /* Header Banner */
     .header {{
       background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-      border: 1px solid var(--border); border-radius: 20px; padding: 24px 28px;
-      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
     }}
-    .header h1 {{ font-size: 26px; font-weight: 800; color: #fff; }}
-    .header .subtitle {{ color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 11px; letter-spacing: 1.5px; margin-bottom: 4px; }}
-    .header-badge {{ background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.25); color: var(--accent); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }}
+    .header h1 {{ font-size: 22px; font-weight: 800; color: #fff; }}
+    .header .subtitle {{ color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 11px; letter-spacing: 1.5px; margin-bottom: 2px; }}
+    .header-badge {{ background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.25); color: var(--accent); padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }}
 
-    .awards-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }}
-    .award-card {{ background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 18px 20px; display: flex; flex-direction: column; justify-content: space-between; }}
+    /* Superlatives Grid */
+    .awards-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }}
+    .award-card {{ background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; }}
     .award-card.red {{ border-left: 4px solid var(--red); }}
     .award-card.green {{ border-left: 4px solid var(--green); }}
     .award-card.blue {{ border-left: 4px solid var(--accent); }}
     .award-card.gold {{ border-left: 4px solid var(--gold); }}
     .award-tag {{ font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }}
-    .award-title {{ font-size: 17px; font-weight: 800; color: #fff; margin-bottom: 4px; }}
+    .award-title {{ font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 4px; word-break: break-word; }}
     .award-desc {{ font-size: 13px; color: var(--muted); line-height: 1.4; }}
 
-    .tab-bar {{ display: flex; gap: 8px; background: var(--surface); padding: 6px; border-radius: 12px; border: 1px solid var(--border); overflow-x: auto; }}
-    .tab-btn {{ flex: 1; padding: 10px 16px; background: none; border: none; border-radius: 8px; color: var(--muted); font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; text-align: center; white-space: nowrap; transition: all 0.2s; }}
-    .tab-btn.active {{ background: var(--card); color: #fff; border: 1px solid var(--border); }}
+    /* Tab Bar (Zero Scroll, Wraps Cleanly) */
+    .tab-bar {{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      background: var(--surface);
+      padding: 6px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+    }}
+    .tab-btn {{
+      flex: 1 1 auto;
+      min-width: 120px;
+      padding: 10px 14px;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }}
+    .tab-btn.active {{
+      background: var(--card);
+      color: #fff;
+      border-color: var(--border);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }}
 
-    .table-container {{ background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }}
-    .table-scroll {{ overflow-x: auto; }}
-    table {{ width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }}
-    th {{ background: #0d1424; color: var(--muted); font-weight: 700; font-size: 11px; text-transform: uppercase; padding: 14px 16px; border-bottom: 1px solid var(--border); white-space: nowrap; }}
-    th .sub-th {{ display: block; font-size: 9px; color: var(--dim); font-weight: normal; text-transform: none; margin-top: 2px; }}
-    td {{ padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: middle; white-space: nowrap; }}
-    tr:last-child td {{ border-bottom: none; }}
-    tr:hover td {{ background: rgba(255,255,255,0.015); }}
+    /* Table Container (Fluid, Zero Overflow Container) */
+    .table-container {{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      width: 100%;
+      overflow: hidden;
+    }}
     
-    .team-name {{ font-weight: 700; color: #fff; }}
-    .rank-num {{ font-size: 12px; color: var(--dim); font-weight: 800; width: 20px; }}
-    
-    .badge {{ display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; gap: 4px; }}
+    /* Desktop Table Layout */
+    .responsive-table {{
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13px;
+    }}
+    .responsive-table th {{
+      background: #0d1424;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+    }}
+    .responsive-table th .sub-th {{
+      display: block;
+      font-size: 9px;
+      color: var(--dim);
+      font-weight: normal;
+      text-transform: none;
+      margin-top: 2px;
+    }}
+    .responsive-table td {{
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      vertical-align: middle;
+    }}
+    .responsive-table tr:last-child td {{ border-bottom: none; }}
+    .responsive-table tr:hover td {{ background: rgba(255,255,255,0.015); }}
+
+    /* Responsive Mobile Card View (Eliminates All Horizontal Scroll Under 768px) */
+    @media (max-width: 768px) {{
+      .responsive-table thead {{ display: none; }}
+      .responsive-table, 
+      .responsive-table tbody, 
+      .responsive-table tr, 
+      .responsive-table td {{
+        display: block;
+        width: 100%;
+      }}
+      .responsive-table tr {{
+        background: var(--card);
+        border-bottom: 1px solid var(--border);
+        padding: 12px 14px;
+      }}
+      .responsive-table tr:last-child {{ border-bottom: none; }}
+      .responsive-table td {{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.03);
+        font-size: 13px;
+      }}
+      .responsive-table td:last-child {{ border-bottom: none; }}
+      .responsive-table td::before {{
+        content: attr(data-label);
+        font-weight: 700;
+        font-size: 11px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-right: 12px;
+        text-align: left;
+        flex-shrink: 0;
+      }}
+      .responsive-table td.team-cell {{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        font-size: 15px;
+        font-weight: 800;
+        color: #fff;
+        padding-bottom: 8px;
+        margin-bottom: 4px;
+        border-bottom: 1px solid var(--border);
+      }}
+      .responsive-table td.team-cell::before {{ display: none; }}
+      .rank-num {{
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        background: rgba(255,255,255,0.08);
+        border-radius: 50%;
+        font-size: 11px;
+        font-weight: 800;
+        color: var(--accent);
+        margin-right: 8px;
+        flex-shrink: 0;
+      }}
+    }}
+
+    .team-name {{ font-weight: 700; color: #fff; word-break: break-word; }}
+
+    /* Badges */
+    .badge {{ display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; gap: 4px; flex-wrap: wrap; }}
     .badge-win {{ background: var(--green-bg); color: var(--green); }}
     .badge-loss {{ background: var(--red-bg); color: var(--red); }}
     .badge-lucky {{ background: var(--green-bg); color: var(--green); }}
@@ -571,25 +717,41 @@ def generate_html_report(
     .badge-silver {{ background: var(--silver-bg); color: var(--silver); border: 1px solid rgba(203, 213, 225, 0.4); font-size: 10px; padding: 2px 6px; }}
     .badge-bronze {{ background: var(--bronze-bg); color: var(--bronze); border: 1px solid rgba(217, 119, 6, 0.4); font-size: 10px; padding: 2px 6px; }}
 
-    .podium-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; padding: 20px; }}
-    .podium-card {{ background: #0d1424; border: 1px solid var(--border); border-radius: 14px; padding: 18px; }}
-    .podium-year {{ font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }}
-    .podium-row {{ display: flex; align-items: center; justify-content: space-between; padding: 8px 0; font-size: 13px; }}
+    /* Podiums & Grids */
+    .podium-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; padding: 16px; }}
+    .podium-card {{ background: #0d1424; border: 1px solid var(--border); border-radius: 14px; padding: 16px; }}
+    .podium-year {{ font-size: 17px; font-weight: 800; color: #fff; margin-bottom: 10px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }}
+    .podium-row {{ display: flex; align-items: center; justify-content: space-between; padding: 6px 0; font-size: 13px; }}
     
-    .records-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 24px; }}
-    .record-card {{ background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px; text-align: center; }}
-    .record-pos {{ font-size: 11px; font-weight: 800; color: var(--accent); text-transform: uppercase; margin-bottom: 4px; }}
-    .record-pts {{ font-size: 22px; font-weight: 800; color: #fff; }}
-    .record-holder {{ font-size: 12px; color: var(--muted); margin-top: 4px; }}
+    .records-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 20px; }}
+    .record-card {{ background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px; text-align: center; }}
+    .record-pos {{ font-size: 11px; font-weight: 800; color: var(--accent); text-transform: uppercase; margin-bottom: 2px; }}
+    .record-pts {{ font-size: 20px; font-weight: 800; color: #fff; }}
+    .record-holder {{ font-size: 11px; color: var(--muted); margin-top: 4px; word-break: break-word; }}
 
-    .glossary-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; padding: 24px; }}
-    .glossary-card {{ background: #0d1424; border: 1px solid var(--border); border-radius: 14px; padding: 20px; }}
-    .glossary-title {{ font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }}
+    /* Glossary */
+    .glossary-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; padding: 16px; }}
+    .glossary-card {{ background: #0d1424; border: 1px solid var(--border); border-radius: 14px; padding: 16px; }}
+    .glossary-title {{ font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }}
     .glossary-desc {{ font-size: 13px; color: var(--muted); line-height: 1.5; }}
-    .glossary-example {{ margin-top: 10px; padding: 8px 12px; background: var(--surface); border-radius: 8px; font-size: 12px; color: var(--text); border-left: 3px solid var(--accent); }}
+    .glossary-example {{ margin-top: 8px; padding: 8px 10px; background: var(--surface); border-radius: 8px; font-size: 12px; color: var(--text); border-left: 3px solid var(--accent); }}
 
-    .filter-header {{ padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }}
-    .select-dropdown {{ background: var(--surface); color: var(--text); border: 1px solid var(--border); padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; outline: none; }}
+    /* Filter Controls */
+    .filter-header {{ padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }}
+    .filter-control {{ display: flex; align-items: center; gap: 8px; width: 100%; max-width: 380px; }}
+    .select-dropdown {{
+      flex: 1;
+      width: 100%;
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      outline: none;
+    }}
   </style>
 </head>
 <body>
@@ -609,7 +771,7 @@ def generate_html_report(
         <div class="award-title">{render_team_badge(curr_bounty['team'] if curr_bounty else 'None', reigning)}</div>
         <div class="award-desc">Paced the entire league with <b>{curr_bounty['pts'] if curr_bounty else 0} pts</b> to take down the weekly cash payout!</div>
       </div>
-      <div style="margin-top: 10px;"><span class="badge badge-gold">Weekly Bounty Winner</span></div>
+      <div style="margin-top: 8px;"><span class="badge badge-gold">Weekly Bounty Winner</span></div>
     </div>
 
     <div class="award-card red">
@@ -618,7 +780,7 @@ def generate_html_report(
         <div class="award-title">{render_team_badge(buzzsaw['team'], reigning)}</div>
         <div class="award-desc">Dropped {buzzsaw['actual']} pts ({buzzsaw['all_play_w']}–{buzzsaw['all_play_l']} All-Play), but took an L to {buzzsaw['opp']} ({buzzsaw['opp_actual']} pts).</div>
       </div>
-      <div style="margin-top: 10px;"><span class="badge badge-unlucky">Luck Δ: {buzzsaw['luck_delta']:+.3f}</span></div>
+      <div style="margin-top: 8px;"><span class="badge badge-unlucky">Luck Δ: {buzzsaw['luck_delta']:+.3f}</span></div>
     </div>
 
     <div class="award-card green">
@@ -627,7 +789,7 @@ def generate_html_report(
         <div class="award-title">{render_team_badge(horseshoe['team'], reigning)}</div>
         <div class="award-desc">Squeaked by with {horseshoe['actual']} pts ({horseshoe['all_play_w']}–{horseshoe['all_play_l']} All-Play) thanks to opponent meltdown.</div>
       </div>
-      <div style="margin-top: 10px;"><span class="badge badge-lucky">Luck Δ: {horseshoe['luck_delta']:+.3f}</span></div>
+      <div style="margin-top: 8px;"><span class="badge badge-lucky">Luck Δ: {horseshoe['luck_delta']:+.3f}</span></div>
     </div>
 
     <div class="award-card blue">
@@ -636,7 +798,7 @@ def generate_html_report(
         <div class="award-title">{render_team_badge(tactician['team'], reigning)}</div>
         <div class="award-desc">Optimal starting execution of <b>{tactician['coach_eff']}%</b> ({tactician['actual']} of {tactician['optimal']} optimal pts).</div>
       </div>
-      <div style="margin-top: 10px;"><span class="badge badge-neutral">Lineup Mastery</span></div>
+      <div style="margin-top: 8px;"><span class="badge badge-neutral">Lineup Mastery</span></div>
     </div>
   </div>
 
@@ -644,7 +806,7 @@ def generate_html_report(
     <button class="tab-btn active" onclick="switchTab('week')">📅 Week {week_num} Audit</button>
     <button class="tab-btn" onclick="switchTab('season')">📈 Season Trends</button>
     <button class="tab-btn" onclick="switchTab('h2h')">⚔️ Head-to-Head</button>
-    <button class="tab-btn" onclick="switchTab('payouts')">💰 Weekly Payouts & Records</button>
+    <button class="tab-btn" onclick="switchTab('payouts')">💰 Payouts & Records</button>
     <button class="tab-btn" onclick="switchTab('halloffame')">🏆 Hall of Champions</button>
     <button class="tab-btn" onclick="switchTab('blunders')">🤡 Bench Blunders</button>
     <button class="tab-btn" onclick="switchTab('glossary')">📖 Stat Decoders</button>
@@ -652,21 +814,19 @@ def generate_html_report(
 
   <!-- TAB 1: WEEK AUDIT -->
   <div id="view-week" class="table-container">
-    <div class="table-scroll">
-      <table>
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Team</th>
-            <th>Result</th>
-            <th>Score<span class="sub-th">(vs Proj)</span></th>
-            <th>Opponent<span class="sub-th">(Score)</span></th>
-            <th>All-Play<span class="sub-th">Record</span></th>
-            <th>Luck Δ<span class="sub-th">Schedule Break</span></th>
-            <th>Coaching Eff<span class="sub-th">Optimal Pts %</span></th>
-          </tr>
-        </thead>
-        <tbody>"""
+    <table class="responsive-table">
+      <thead>
+        <tr>
+          <th>Rank / Team</th>
+          <th>Result</th>
+          <th>Score<span class="sub-th">(vs Proj)</span></th>
+          <th>Opponent<span class="sub-th">(Score)</span></th>
+          <th>All-Play<span class="sub-th">Record</span></th>
+          <th>Luck Δ<span class="sub-th">Schedule Break</span></th>
+          <th>Coaching Eff<span class="sub-th">Optimal Pts %</span></th>
+        </tr>
+      </thead>
+      <tbody>"""
 
   for idx, t in enumerate(sorted_week, 1):
     delta_class = (
@@ -677,41 +837,37 @@ def generate_html_report(
     res_badge = "badge-win" if t["result"] == "W" else "badge-loss"
     decorated_team = render_team_badge(t["team"], reigning)
     html += f"""
-          <tr>
-            <td class="rank-num">{idx}</td>
-            <td class="team-name">{decorated_team}</td>
-            <td><span class="badge {res_badge}">{t['result']}</span></td>
-            <td style="font-weight: 700;">{t['actual']} <span style="font-size: 11px; color: var(--dim); font-weight: normal;">({t['diff']:+0.1f})</span></td>
-            <td>{t['opp']} <span style="color: var(--muted); font-size: 11px;">({t['opp_actual']})</span></td>
-            <td><b>{t['all_play_w']}</b>–{t['all_play_l']}</td>
-            <td><span class="badge {delta_class}">{t['luck_delta']:+.3f}</span></td>
-            <td>{t['coach_eff']}%</td>
-          </tr>"""
+        <tr>
+          <td class="team-cell"><span class="rank-num">#{idx}</span> {decorated_team}</td>
+          <td data-label="Result"><span class="badge {res_badge}">{t['result']}</span></td>
+          <td data-label="Score"><b>{t['actual']}</b> <span style="font-size: 11px; color: var(--dim);">({t['diff']:+0.1f})</span></td>
+          <td data-label="Opponent">{t['opp']} <span style="color: var(--muted); font-size: 11px;">({t['opp_actual']})</span></td>
+          <td data-label="All-Play"><b>{t['all_play_w']}</b>–{t['all_play_l']}</td>
+          <td data-label="Luck Δ"><span class="badge {delta_class}">{t['luck_delta']:+.3f}</span></td>
+          <td data-label="Coaching Eff"><b>{t['coach_eff']}%</b></td>
+        </tr>"""
 
   html += f"""
-        </tbody>
-      </table>
-    </div>
+      </tbody>
+    </table>
   </div>
 
   <!-- TAB 2: SEASON TRENDS -->
   <div id="view-season" class="table-container" style="display: none;">
-    <div class="table-scroll">
-      <table>
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Team</th>
-            <th>Actual W-L</th>
-            <th>All-Play<span class="sub-th">True Strength</span></th>
-            <th>All-Play %</th>
-            <th>Season Luck Δ<span class="sub-th">Net Fortune</span></th>
-            <th>Pine Tax<span class="sub-th">Total Pts Lost</span></th>
-            <th>Opp Surges Faced<span class="sub-th">Over Proj (Active Streak)</span></th>
-            <th>Avg Opp PA<span class="sub-th">Matchup Gauntlet</span></th>
-          </tr>
-        </thead>
-        <tbody>"""
+    <table class="responsive-table">
+      <thead>
+        <tr>
+          <th>Rank / Team</th>
+          <th>Actual W-L</th>
+          <th>All-Play<span class="sub-th">True Strength</span></th>
+          <th>All-Play %</th>
+          <th>Season Luck Δ<span class="sub-th">Net Fortune</span></th>
+          <th>Pine Tax<span class="sub-th">Total Pts Lost</span></th>
+          <th>Opp Surges Faced<span class="sub-th">Over Proj (Streak)</span></th>
+          <th>Avg Opp PA<span class="sub-th">Matchup Gauntlet</span></th>
+        </tr>
+      </thead>
+      <tbody>"""
 
   for idx, s in enumerate(sorted_trends, 1):
     c_delta_class = (
@@ -721,37 +877,34 @@ def generate_html_report(
     )
     decorated_team = render_team_badge(s["team"], reigning)
     streak_badge = (
-        f"<b>{s['curr_opp_surge_streak']} straight!</b>"
+        f"<b>{s['curr_opp_surge_streak']} st!</b>"
         if s["curr_opp_surge_streak"] >= 2
         else f"{s['curr_opp_surge_streak']} st"
     )
     html += f"""
-          <tr>
-            <td class="rank-num">{idx}</td>
-            <td class="team-name">{decorated_team}</td>
-            <td><b>{s['actual_w']}–{s['actual_l']}</b></td>
-            <td>{s['all_play_w']}–{s['all_play_l']}</td>
-            <td><b>{s['all_play_pct']:.3f}</b></td>
-            <td><span class="badge {c_delta_class}">{s['luck_delta']:+.3f}</span></td>
-            <td style="color: var(--amber); font-weight: 700;">{s['pine_tax']} pts</td>
-            <td>{s['opp_over_proj_count']}/{total_weeks} wks ({streak_badge})</td>
-            <td style="font-weight: 700;">{s['avg_pa']}</td>
-          </tr>"""
+        <tr>
+          <td class="team-cell"><span class="rank-num">#{idx}</span> {decorated_team}</td>
+          <td data-label="Actual W-L"><b>{s['actual_w']}–{s['actual_l']}</b></td>
+          <td data-label="All-Play">{s['all_play_w']}–{s['all_play_l']}</td>
+          <td data-label="All-Play %"><b>{s['all_play_pct']:.3f}</b></td>
+          <td data-label="Season Luck Δ"><span class="badge {c_delta_class}">{s['luck_delta']:+.3f}</span></td>
+          <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">{s['pine_tax']} pts</td>
+          <td data-label="Opp Surges">{s['opp_over_proj_count']}/{total_weeks} wks ({streak_badge})</td>
+          <td data-label="Avg Opp PA"><b>{s['avg_pa']}</b></td>
+        </tr>"""
 
   html += f"""
-        </tbody>
-      </table>
-    </div>
+      </tbody>
+    </table>
   </div>
 
   <!-- TAB 3: HEAD-TO-HEAD LOG & MATRIX -->
-  <div id="view-h2h" style="display: none;">
+  <div id="view-h2h" style="display: none; display: flex; flex-direction: column; gap: 16px;">
     
-    <div class="table-container" style="margin-bottom: 24px;">
+    <div class="table-container">
       <div class="filter-header">
-        <div style="font-size: 15px; font-weight: 800; color: #fff;">⚔️ All-Time Manager Rivalry Records</div>
-        <div>
-          <label style="font-size: 12px; color: var(--muted); font-weight: 700; margin-right: 8px;">Filter by Manager:</label>
+        <div style="font-size: 14px; font-weight: 800; color: #fff;">⚔️ All-Time Manager Rivalry Records</div>
+        <div class="filter-control">
           <select id="mgrFilter" class="select-dropdown" onchange="filterRivalries(this.value)">
             <option value="ALL">Show All Rivalries</option>"""
 
@@ -762,18 +915,17 @@ def generate_html_report(
           </select>
         </div>
       </div>
-      <div class="table-scroll">
-        <table id="rivalryTable">
-          <thead>
-            <tr>
-              <th>Rivalry Matchup</th>
-              <th>All-Time Series</th>
-              <th>Season Series</th>
-              <th>Total Points (PF vs PA)</th>
-              <th>Last Meeting</th>
-            </tr>
-          </thead>
-          <tbody>"""
+      <table class="responsive-table" id="rivalryTable">
+        <thead>
+          <tr>
+            <th>Rivalry Matchup</th>
+            <th>All-Time Series</th>
+            <th>Season Series</th>
+            <th>Total Points (PF vs PA)</th>
+            <th>Last Meeting</th>
+          </tr>
+        </thead>
+        <tbody>"""
 
   for pair_key, r in rivalries.items():
     m1, m2 = r["m1"], r["m2"]
@@ -788,37 +940,35 @@ def generate_html_report(
     )
 
     html += f"""
-            <tr class="rivalry-row" data-m1="{m1}" data-m2="{m2}">
-              <td class="team-name"><b>{m1}</b> vs <b>{m2}</b></td>
-              <td><b>{m1_w}–{m2_w}</b></td>
-              <td>{sm1_w}–{sm2_w}</td>
-              <td>{r['m1_pf']:.1f} vs {r['m2_pf']:.1f}</td>
-              <td style="color: var(--muted); font-size: 12px;">{last_str}</td>
-            </tr>"""
+          <tr class="rivalry-row" data-m1="{m1}" data-m2="{m2}">
+            <td class="team-cell">{m1} vs {m2}</td>
+            <td data-label="All-Time Series"><b>{m1_w}–{m2_w}</b></td>
+            <td data-label="Season Series">{sm1_w}–{sm2_w}</td>
+            <td data-label="PF vs PA">{r['m1_pf']:.1f} – {r['m2_pf']:.1f}</td>
+            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">{last_str}</td>
+          </tr>"""
 
   html += f"""
-          </tbody>
-        </table>
-      </div>
+        </tbody>
+      </table>
     </div>
 
     <!-- SEASON MATCHUP SCHEDULE LOG -->
     <div class="table-container">
-      <div style="padding: 16px 20px; font-weight: 800; border-bottom: 1px solid var(--border); color: #fff;">
+      <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: #fff; font-size: 14px;">
         📅 Season {YEAR} Completed Matchup Log
       </div>
-      <div class="table-scroll">
-        <table>
-          <thead>
-            <tr>
-              <th>Week</th>
-              <th>Winner</th>
-              <th>Score</th>
-              <th>Loser</th>
-              <th>Margin</th>
-            </tr>
-          </thead>
-          <tbody>"""
+      <table class="responsive-table">
+        <thead>
+          <tr>
+            <th>Week</th>
+            <th>Winner</th>
+            <th>Score</th>
+            <th>Loser</th>
+            <th>Margin</th>
+          </tr>
+        </thead>
+        <tbody>"""
 
   for g in season_log:
     winner_team = g["t1"] if g["s1"] >= g["s2"] else g["t2"]
@@ -827,25 +977,24 @@ def generate_html_report(
     loser_score = min(g["s1"], g["s2"])
 
     html += f"""
-            <tr>
-              <td style="font-weight: 800; color: var(--accent);">Week {g['week']}</td>
-              <td class="team-name">{winner_team}</td>
-              <td style="font-weight: 700; color: var(--green);">{winner_score} – {loser_score}</td>
-              <td style="color: var(--muted);">{loser_team}</td>
-              <td style="font-weight: 700; color: var(--accent);">+{g['margin']} pts</td>
-            </tr>"""
+          <tr>
+            <td class="team-cell" style="color: var(--accent);">Week {g['week']} Matchup</td>
+            <td data-label="Winner" style="font-weight: 700; color: #fff;">{winner_team}</td>
+            <td data-label="Score" style="font-weight: 700; color: var(--green);">{winner_score} – {loser_score}</td>
+            <td data-label="Loser" style="color: var(--muted);">{loser_team}</td>
+            <td data-label="Margin" style="font-weight: 700; color: var(--accent);">+{g['margin']} pts</td>
+          </tr>"""
 
   html += """
-          </tbody>
-        </table>
-      </div>
+        </tbody>
+      </table>
     </div>
 
   </div>
 
   <!-- TAB 4: PAYOUTS & POSITIONAL RECORDS -->
   <div id="view-payouts" style="display: none;">
-    <div style="font-size: 16px; font-weight: 800; margin-bottom: 12px; color: #fff;">🔥 Single-Game Positional Records (Season Highs)</div>
+    <div style="font-size: 15px; font-weight: 800; margin-bottom: 10px; color: #fff;">🔥 Single-Game Positional Records (Season Highs)</div>
     <div class="records-grid">"""
 
   for pos, rec in position_records.items():
@@ -860,38 +1009,44 @@ def generate_html_report(
     </div>
 
     <div class="table-container">
-      <div style="padding: 16px 20px; font-weight: 800; border-bottom: 1px solid var(--border); color: #fff;">💵 Weekly High Scorer Cash Ledger</div>
-      <div class="table-scroll">
-        <table>
-          <thead><tr><th>Week</th><th>High Point Winner</th><th>Score</th><th>Matchup Opponent</th><th>Opp Score</th></tr></thead>
-          <tbody>"""
+      <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: #fff; font-size: 14px;">💵 Weekly High Scorer Cash Ledger</div>
+      <table class="responsive-table">
+        <thead>
+          <tr>
+            <th>Week</th>
+            <th>High Point Winner</th>
+            <th>Score</th>
+            <th>Matchup Opponent</th>
+            <th>Opp Score</th>
+          </tr>
+        </thead>
+        <tbody>"""
 
   for b in weekly_bounties:
     dec_team = render_team_badge(b["team"], reigning)
     html += f"""
-            <tr>
-              <td style="font-weight: 800; color: var(--accent);">Week {b['week']}</td>
-              <td class="team-name">{dec_team}</td>
-              <td style="font-weight: 800; color: var(--gold);">{b['pts']} pts</td>
-              <td>vs {b['opp']}</td>
-              <td style="color: var(--muted);">{b['opp_pts']} pts</td>
-            </tr>"""
+          <tr>
+            <td class="team-cell" style="color: var(--accent);">Week {b['week']} Payout</td>
+            <td data-label="Winner" style="font-weight: 700; color: #fff;">{dec_team}</td>
+            <td data-label="Score" style="font-weight: 800; color: var(--gold);">{b['pts']} pts</td>
+            <td data-label="Opponent">vs {b['opp']}</td>
+            <td data-label="Opp Score" style="color: var(--muted);">{b['opp_pts']} pts</td>
+          </tr>"""
 
   html += """
-          </tbody>
-        </table>
-      </div>
+        </tbody>
+      </table>
     </div>
   </div>
 
   <!-- TAB 5: HALL OF CHAMPIONS -->
   <div id="view-halloffame" class="table-container" style="display: none;">
-    <div style="padding: 16px 20px; font-weight: 800; border-bottom: 1px solid var(--border); color: #fff;">🏆 Historical Podium (Gold, Silver, Bronze)</div>
+    <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: #fff; font-size: 14px;">🏆 Historical Podium (Gold, Silver, Bronze)</div>
     <div class="podium-grid">"""
 
   sorted_champs = sorted(champions.keys(), reverse=True)
   if not sorted_champs:
-    html += """<div style="padding: 24px; color: var(--muted);">No historical podium records locked in yet.</div>"""
+    html += """<div style="padding: 20px; color: var(--muted);">No historical podium records locked in yet.</div>"""
   else:
     for c_year in sorted_champs:
       p = champions[c_year]
@@ -918,32 +1073,37 @@ def generate_html_report(
 
   <!-- TAB 6: BENCH BLUNDERS -->
   <div id="view-blunders" class="table-container" style="display: none;">
-    <div class="table-scroll">
-      <table>
-        <thead><tr><th>Rank</th><th>Team</th><th>Player Benched</th><th>Pos</th><th>Points Left on Pine</th><th>Projection</th></tr></thead>
-        <tbody>"""
+    <table class="responsive-table">
+      <thead>
+        <tr>
+          <th>Rank / Team</th>
+          <th>Player Benched</th>
+          <th>Pos</th>
+          <th>Points Left on Pine</th>
+          <th>Projection</th>
+        </tr>
+      </thead>
+      <tbody>"""
 
   for idx, b in enumerate(all_blunders[:10], 1):
     dec_team = render_team_badge(b["team"], reigning)
     html += f"""
-          <tr>
-            <td class="rank-num">{idx}</td>
-            <td class="team-name">{dec_team}</td>
-            <td style="color: #fff; font-weight: 600;">{b['name']}</td>
-            <td><span class="badge badge-neutral">{b['pos']}</span></td>
-            <td style="font-weight: 800; color: var(--amber);">{b['pts']} pts</td>
-            <td style="color: var(--muted);">{b['proj']} pts</td>
-          </tr>"""
+        <tr>
+          <td class="team-cell"><span class="rank-num">#{idx}</span> {dec_team}</td>
+          <td data-label="Player" style="color: #fff; font-weight: 600;">{b['name']}</td>
+          <td data-label="Pos"><span class="badge badge-neutral">{b['pos']}</span></td>
+          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">{b['pts']} pts</td>
+          <td data-label="Projection" style="color: var(--muted);">{b['proj']} pts</td>
+        </tr>"""
 
   html += """
-        </tbody>
-      </table>
-    </div>
+      </tbody>
+    </table>
   </div>
 
   <!-- TAB 7: STAT DECODERS (THE GLOSSARY) -->
   <div id="view-glossary" class="table-container" style="display: none;">
-    <div style="padding: 18px 24px; font-weight: 800; border-bottom: 1px solid var(--border); color: #fff; font-size: 16px;">
+    <div style="padding: 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: #fff; font-size: 15px;">
       📖 The Deflaters Analytics Handbook
     </div>
     <div class="glossary-grid">
@@ -951,20 +1111,20 @@ def generate_html_report(
       <div class="glossary-card">
         <div class="glossary-title">🪵 Pine Tax (Cumulative Bench Cost)</div>
         <div class="glossary-desc">
-          The total number of real points surrendered to your bench across the season. It calculates the difference between your team's <b>Optimal Score</b> and your <b>Actual Score</b> each week.
+          Total real points surrendered to your bench across the season. It calculates the difference between your team's <b>Optimal Score</b> and your <b>Actual Score</b> each week.
         </div>
         <div class="glossary-example">
-          <b>Example:</b> You started an RB who scored 4.2 pts while leaving an RB with 18.2 on your bench. That is <b>14.0 pts</b> added to your Pine Tax.
+          <b>Example:</b> Started an RB who scored 4.2 pts while leaving an RB with 18.2 on the bench. That is <b>14.0 pts</b> added to your Pine Tax.
         </div>
       </div>
 
       <div class="glossary-card">
         <div class="glossary-title">🧲 Opp Surges Faced & Streak (X st)</div>
         <div class="glossary-desc">
-          Tracks how many times an opponent significantly outperformed their projected ESPN score when facing you. The <b>(X st)</b> callout denotes their <b>current consecutive streak</b> of facing surging opponents.
+          Tracks how many times an opponent significantly outperformed their projected ESPN score against you. The <b>(X st)</b> callout denotes their <b>current consecutive streak</b> of facing surging opponents.
         </div>
         <div class="glossary-example">
-          <b>Example:</b> <code>6/14 wks (3 straight!)</code> means your opponent beat their projection 6 times this year, and you are currently in a 3-week stretch where opponents are spiking against you.
+          <b>Example:</b> <code>6/14 wks (3 st!)</code> means opponents beat projections 6 times, currently in a 3-week streak of opponent scoring explosions.
         </div>
       </div>
 
@@ -974,35 +1134,35 @@ def generate_html_report(
           Quantifies schedule luck by measuring the gap between your <b>Actual Win %</b> and your <b>All-Play Win %</b>.
         </div>
         <div class="glossary-example">
-          <b>+0.450 (Lucky):</b> Escaping with wins despite bottom-half scoring.<br>
-          <b>-0.500 (Unlucky):</b> Putting up top scores but getting buzzsawed by the #1 scorer.
+          <b>+0.450 (Lucky):</b> Winning despite bottom-half scoring.<br>
+          <b>-0.500 (Unlucky):</b> Top scoring neutralized by opponent gauntlet.
         </div>
       </div>
 
       <div class="glossary-card">
         <div class="glossary-title">🌐 All-Play Record</div>
         <div class="glossary-desc">
-          What your record would be if you played <b>every other team in the league</b> every single week. It strips away schedule bias to reveal your roster's true scoring caliber.
+          What your record would be if you played <b>every other team in the league</b> every week. It strips away schedule luck to show pure roster strength.
         </div>
         <div class="glossary-example">
-          In a 12-team league, going 11–0 in All-Play means you put up the absolute highest score of the week.
+          Going 11–0 in All-Play means you posted the highest score in the league that week.
         </div>
       </div>
 
       <div class="glossary-card">
         <div class="glossary-title">🧠 Coaching Efficiency %</div>
         <div class="glossary-desc">
-          The percentage of maximum possible points you successfully started. Calculated as: <code>(Actual Score ÷ Optimal Lineup Score) × 100</code>.
+          Percentage of maximum possible points started: <code>(Actual Score ÷ Optimal Lineup Score) × 100</code>.
         </div>
         <div class="glossary-example">
-          A score of <b>100%</b> means you started the mathematically best possible lineup out of everyone on your roster.
+          <b>100%</b> means you started the mathematically best possible lineup from your roster.
         </div>
       </div>
 
       <div class="glossary-card">
         <div class="glossary-title">🛡️ Avg Opp PA (Matchup Gauntlet)</div>
         <div class="glossary-desc">
-          Average Points Against per game. Teams at the top of this list have faced the most brutal schedules in the league, regardless of their win-loss record.
+          Average Points Against per game. Teams at the top face the toughest weekly scoring schedules in the league.
         </div>
       </div>
 
@@ -1013,32 +1173,44 @@ def generate_html_report(
 
 <script>
   function switchTab(viewName) {
-    ['week', 'season', 'h2h', 'payouts', 'halloffame', 'blunders', 'glossary'].forEach(tab => {
-      var el = document.getElementById('view-' + tab);
+    var tabs = ['week', 'season', 'h2h', 'payouts', 'halloffame', 'blunders', 'glossary'];
+    for (var i = 0; i < tabs.length; i++) {
+      var el = document.getElementById('view-' + tabs[i]);
       if (el) el.style.display = 'none';
-    });
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    }
+    var btns = document.querySelectorAll('.tab-btn');
+    for (var j = 0; j < btns.length; j++) {
+      btns[j].classList.remove('active');
+    }
     
     var activeEl = document.getElementById('view-' + viewName);
-    if (activeEl) activeEl.style.display = 'block';
-    if (event && event.target) event.target.classList.add('active');
+    if (activeEl) {
+      if (viewName === 'h2h') {
+        activeEl.style.display = 'flex';
+      } else {
+        activeEl.style.display = 'block';
+      }
+    }
+    if (event && event.target) {
+      event.target.classList.add('active');
+    }
   }
 
   function filterRivalries(mgr) {
     var rows = document.querySelectorAll('.rivalry-row');
-    rows.forEach(r => {
+    for (var i = 0; i < rows.length; i++) {
       if (mgr === 'ALL') {
-        r.style.display = '';
+        rows[i].style.display = '';
       } else {
-        var m1 = r.getAttribute('data-m1');
-        var m2 = r.getAttribute('data-m2');
+        var m1 = rows[i].getAttribute('data-m1');
+        var m2 = rows[i].getAttribute('data-m2');
         if (m1 === mgr || m2 === mgr) {
-          r.style.display = '';
+          rows[i].style.display = '';
         } else {
-          r.style.display = 'none';
+          rows[i].style.display = 'none';
         }
       }
-    });
+    }
   }
 </script>
 </body>
@@ -1191,8 +1363,7 @@ def main():
       season_log,
   )
   print(
-      "Audit complete! Generated index.html with Head-to-Head rivalries &"
-      " logs."
+      "Audit complete! Generated responsive, zero-horizontal-scroll index.html"
   )
 
 
