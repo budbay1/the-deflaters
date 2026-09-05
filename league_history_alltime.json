@@ -1,11 +1,5 @@
 {
   "champions": {
-    "2025": {
-      "gold": "The American Dream (Miles Spainhower)",
-      "silver": "Puka Time (trentan busey)",
-      "bronze": "No Punt Intended  (Kurt Claycomb)",
-      "last": "Rejected Kamala (jeremy bayless)"
-    },
     "2023": {
       "gold": "Team Draft order (Wes Colson)",
       "silver": "O-Bijan Kenobi (Roman Bayless)",
@@ -3354,20 +3348,6 @@
       "jeremy bayless": 10,
       "Kurt Claycomb": 11,
       "Eric King": 12
-    },
-    "2025": {
-      "Miles Spainhower": 1,
-      "trentan busey": 2,
-      "Kurt Claycomb": 3,
-      "TRAVIS GIBSON": 4,
-      "Wes Colson": 5,
-      "Roman Bayless": 6,
-      "Ron Baker": 7,
-      "Billy Haid": 8,
-      "Robert Kendall": 9,
-      "Jared Schneider": 10,
-      "Eric King": 11,
-      "jeremy bayless": 12
     }
   }
 }
