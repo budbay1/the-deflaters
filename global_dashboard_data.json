@@ -29128,9 +29128,33 @@
       "bronze": "Team Bakesmode (Ron Baker)",
       "last": "Son of a Veach (Eric King)",
       "year": "2024"
+    },
+    "2025": {
+      "gold": "The American Dream (Miles Spainhower)",
+      "silver": "Puka Time (trentan busey)",
+      "bronze": "No Punt Intended  (Kurt Claycomb)",
+      "last": "Rejected Kamala (jeremy bayless)"
     }
   },
   "leaderboard": [
+    {
+      "manager": "Miles Spainhower",
+      "is_current": true,
+      "gold": 2,
+      "silver": 0,
+      "bronze": 0,
+      "last": 0,
+      "total_podiums": 2,
+      "most_recent": "\ud83e\udd47 Gold (2025)",
+      "finishes": [
+        9,
+        1,
+        1
+      ],
+      "avg_finish": 3.7,
+      "seasons_count": 3,
+      "avg_sort": 3.7
+    },
     {
       "manager": "Wes Colson",
       "is_current": true,
@@ -29142,28 +29166,12 @@
       "most_recent": "\ud83e\udd47 Gold (2023)",
       "finishes": [
         1,
-        8
+        8,
+        5
       ],
-      "avg_finish": 4.5,
-      "seasons_count": 2,
-      "avg_sort": 4.5
-    },
-    {
-      "manager": "Miles Spainhower",
-      "is_current": true,
-      "gold": 1,
-      "silver": 0,
-      "bronze": 0,
-      "last": 0,
-      "total_podiums": 1,
-      "most_recent": "\ud83e\udd47 Gold (2024)",
-      "finishes": [
-        9,
-        1
-      ],
-      "avg_finish": 5.0,
-      "seasons_count": 2,
-      "avg_sort": 5.0
+      "avg_finish": 4.7,
+      "seasons_count": 3,
+      "avg_sort": 4.7
     },
     {
       "manager": "Roman Bayless",
@@ -29176,11 +29184,30 @@
       "most_recent": "\ud83e\udd48 Silver (2023)",
       "finishes": [
         2,
+        6,
         6
       ],
-      "avg_finish": 4.0,
-      "seasons_count": 2,
-      "avg_sort": 4.0
+      "avg_finish": 4.7,
+      "seasons_count": 3,
+      "avg_sort": 4.7
+    },
+    {
+      "manager": "trentan busey",
+      "is_current": true,
+      "gold": 0,
+      "silver": 1,
+      "bronze": 0,
+      "last": 0,
+      "total_podiums": 1,
+      "most_recent": "\ud83e\udd48 Silver (2025)",
+      "finishes": [
+        11,
+        4,
+        2
+      ],
+      "avg_finish": 5.7,
+      "seasons_count": 3,
+      "avg_sort": 5.7
     },
     {
       "manager": "Robert Kendall",
@@ -29193,28 +29220,30 @@
       "most_recent": "\ud83e\udd48 Silver (2024)",
       "finishes": [
         10,
-        2
+        2,
+        9
       ],
-      "avg_finish": 6.0,
-      "seasons_count": 2,
-      "avg_sort": 6.0
+      "avg_finish": 7.0,
+      "seasons_count": 3,
+      "avg_sort": 7.0
     },
     {
       "manager": "Kurt Claycomb",
       "is_current": true,
       "gold": 0,
       "silver": 0,
-      "bronze": 1,
+      "bronze": 2,
       "last": 0,
-      "total_podiums": 1,
-      "most_recent": "\ud83e\udd49 Bronze (2023)",
+      "total_podiums": 2,
+      "most_recent": "\ud83e\udd49 Bronze (2025)",
       "finishes": [
         3,
-        11
+        11,
+        3
       ],
-      "avg_finish": 7.0,
-      "seasons_count": 2,
-      "avg_sort": 7.0
+      "avg_finish": 5.7,
+      "seasons_count": 3,
+      "avg_sort": 5.7
     },
     {
       "manager": "Ron Baker",
@@ -29227,28 +29256,12 @@
       "most_recent": "\ud83e\udd49 Bronze (2024)",
       "finishes": [
         12,
-        3
-      ],
-      "avg_finish": 7.5,
-      "seasons_count": 2,
-      "avg_sort": 7.5
-    },
-    {
-      "manager": "Jared Schneider",
-      "is_current": true,
-      "gold": 0,
-      "silver": 0,
-      "bronze": 0,
-      "last": 0,
-      "total_podiums": 0,
-      "most_recent": "No Podiums Yet",
-      "finishes": [
-        5,
+        3,
         7
       ],
-      "avg_finish": 6.0,
-      "seasons_count": 2,
-      "avg_sort": 6.0
+      "avg_finish": 7.3,
+      "seasons_count": 3,
+      "avg_sort": 7.3
     },
     {
       "manager": "TRAVIS GIBSON",
@@ -29261,14 +29274,15 @@
       "most_recent": "No Podiums Yet",
       "finishes": [
         8,
-        5
+        5,
+        4
       ],
-      "avg_finish": 6.5,
-      "seasons_count": 2,
-      "avg_sort": 6.5
+      "avg_finish": 5.7,
+      "seasons_count": 3,
+      "avg_sort": 5.7
     },
     {
-      "manager": "trentan busey",
+      "manager": "Jared Schneider",
       "is_current": true,
       "gold": 0,
       "silver": 0,
@@ -29277,12 +29291,29 @@
       "total_podiums": 0,
       "most_recent": "No Podiums Yet",
       "finishes": [
-        11,
-        4
+        5,
+        7,
+        10
       ],
-      "avg_finish": 7.5,
-      "seasons_count": 2,
-      "avg_sort": 7.5
+      "avg_finish": 7.3,
+      "seasons_count": 3,
+      "avg_sort": 7.3
+    },
+    {
+      "manager": "Billy Haid",
+      "is_current": true,
+      "gold": 0,
+      "silver": 0,
+      "bronze": 0,
+      "last": 0,
+      "total_podiums": 0,
+      "most_recent": "No Podiums Yet",
+      "finishes": [
+        8
+      ],
+      "avg_finish": 8.0,
+      "seasons_count": 1,
+      "avg_sort": 8.0
     },
     {
       "manager": "Curtis Thornton",
@@ -29302,23 +29333,6 @@
       "avg_sort": 8.0
     },
     {
-      "manager": "jeremy bayless",
-      "is_current": true,
-      "gold": 0,
-      "silver": 0,
-      "bronze": 0,
-      "last": 0,
-      "total_podiums": 0,
-      "most_recent": "No Podiums Yet",
-      "finishes": [
-        6,
-        10
-      ],
-      "avg_finish": 8.0,
-      "seasons_count": 2,
-      "avg_sort": 8.0
-    },
-    {
       "manager": "Eric King",
       "is_current": true,
       "gold": 0,
@@ -29329,25 +29343,30 @@
       "most_recent": "\ud83d\udca9 League Bitch (2024)",
       "finishes": [
         4,
-        12
+        12,
+        11
       ],
-      "avg_finish": 8.0,
-      "seasons_count": 2,
-      "avg_sort": 8.0
+      "avg_finish": 9.0,
+      "seasons_count": 3,
+      "avg_sort": 9.0
     },
     {
-      "manager": "Billy Haid",
+      "manager": "jeremy bayless",
       "is_current": true,
       "gold": 0,
       "silver": 0,
       "bronze": 0,
-      "last": 0,
+      "last": 1,
       "total_podiums": 0,
-      "most_recent": "No Podiums Yet",
-      "finishes": [],
-      "avg_finish": null,
-      "seasons_count": 0,
-      "avg_sort": 999.0
+      "most_recent": "\ud83d\udca9 League Bitch (2025)",
+      "finishes": [
+        6,
+        10,
+        12
+      ],
+      "avg_finish": 9.3,
+      "seasons_count": 3,
+      "avg_sort": 9.3
     }
   ],
   "reigning": {
@@ -32824,6 +32843,131 @@
       }
     ]
   },
+  "weekly_player_bounties": {
+    "2025": [
+      {
+        "week": 1,
+        "player": "Josh Allen",
+        "pos": "QB",
+        "pts": 42.76,
+        "team": "No Punt Intended  (Kurt Claycomb)"
+      },
+      {
+        "week": 2,
+        "player": "Jared Goff",
+        "pos": "QB",
+        "pts": 43.96,
+        "team": "THE G-MEN (TRAVIS GIBSON)"
+      },
+      {
+        "week": 3,
+        "player": "Jalen Hurts",
+        "pos": "QB",
+        "pts": 35.04,
+        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)"
+      },
+      {
+        "week": 4,
+        "player": "Patrick Mahomes",
+        "pos": "QB",
+        "pts": 35.3,
+        "team": "Team Draft order (Wes Colson)"
+      },
+      {
+        "week": 5,
+        "player": "Dak Prescott",
+        "pos": "QB",
+        "pts": 36.28,
+        "team": "Puka Time (trentan busey)"
+      },
+      {
+        "week": 6,
+        "player": "Patrick Mahomes",
+        "pos": "QB",
+        "pts": 37.48,
+        "team": "Team Draft order (Wes Colson)"
+      },
+      {
+        "week": 7,
+        "player": "Bo Nix",
+        "pos": "QB",
+        "pts": 43.96,
+        "team": "Team Freedom (Roman Bayless)"
+      },
+      {
+        "week": 8,
+        "player": "Jonathan Taylor",
+        "pos": "RB",
+        "pts": 36.4,
+        "team": "No Punt Intended  (Kurt Claycomb)"
+      },
+      {
+        "week": 9,
+        "player": "Joe Flacco",
+        "pos": "QB",
+        "pts": 38.7,
+        "team": "The American Dream (Miles Spainhower)"
+      },
+      {
+        "week": 10,
+        "player": "Jonathan Taylor",
+        "pos": "RB",
+        "pts": 48.1,
+        "team": "No Punt Intended  (Kurt Claycomb)"
+      },
+      {
+        "week": 11,
+        "player": "Josh Allen",
+        "pos": "QB",
+        "pts": 48.68,
+        "team": "No Punt Intended  (Kurt Claycomb)"
+      },
+      {
+        "week": 12,
+        "player": "Jahmyr Gibbs",
+        "pos": "RB",
+        "pts": 49.9,
+        "team": "Puka Time (trentan busey)"
+      },
+      {
+        "week": 13,
+        "player": "Patrick Mahomes",
+        "pos": "QB",
+        "pts": 37.44,
+        "team": "Team Draft order (Wes Colson)"
+      },
+      {
+        "week": 14,
+        "player": "Josh Allen",
+        "pos": "QB",
+        "pts": 43.84,
+        "team": "No Punt Intended  (Kurt Claycomb)"
+      },
+      {
+        "week": 15,
+        "player": "Trevor Lawrence",
+        "pos": "QB",
+        "pts": 54.3,
+        "team": "Team Unvaxxed (Jared Schneider)"
+      },
+      {
+        "week": 16,
+        "player": "Brock Purdy",
+        "pos": "QB",
+        "pts": 40.9,
+        "team": "Puka Time (trentan busey)"
+      }
+    ],
+    "2026": [
+      {
+        "week": 1,
+        "player": "Jaxon Smith-Njigba",
+        "pos": "WR",
+        "pts": 0,
+        "team": "Make Fantasy Great Again (jeremy bayless)"
+      }
+    ]
+  },
   "weekly_anchors": {
     "2025": [
       {
@@ -32948,5 +33092,33 @@
         "team": "Make Fantasy Great Again (jeremy bayless)"
       }
     ]
+  },
+  "all_time_records": {
+    "high_team_game": {
+      "team": "Puka Time (trentan busey)",
+      "pts": 185.08,
+      "week": 5,
+      "year": 2025
+    },
+    "high_player_game": {
+      "player": "Trevor Lawrence",
+      "team": "Team Unvaxxed (Jared Schneider)",
+      "pts": 54.3,
+      "week": 15,
+      "year": 2025,
+      "pos": "QB"
+    },
+    "high_season_pf": {
+      "team": "No Punt Intended  (Kurt Claycomb)",
+      "pts": 2184.96,
+      "year": 2025
+    },
+    "high_points_against": {
+      "team": "No Punt Intended  (Kurt Claycomb)",
+      "pa": 185.08,
+      "opp": "Puka Time (trentan busey)",
+      "week": 5,
+      "year": 2025
+    }
   }
 }
