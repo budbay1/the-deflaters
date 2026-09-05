@@ -3325,5 +3325,49 @@
     2023,
     2024,
     2025
-  ]
+  ],
+  "finishes": {
+    "2023": {
+      "Wes Colson": 1,
+      "Roman Bayless": 2,
+      "Kurt Claycomb": 3,
+      "Eric King": 4,
+      "Jared Schneider": 5,
+      "jeremy bayless": 6,
+      "Curtis Thornton": 7,
+      "TRAVIS GIBSON": 8,
+      "Miles Spainhower": 9,
+      "Robert Kendall": 10,
+      "trentan busey": 11,
+      "Ron Baker": 12
+    },
+    "2024": {
+      "Miles Spainhower": 1,
+      "Robert Kendall": 2,
+      "Ron Baker": 3,
+      "trentan busey": 4,
+      "TRAVIS GIBSON": 5,
+      "Roman Bayless": 6,
+      "Jared Schneider": 7,
+      "Wes Colson": 8,
+      "Curtis Thornton": 9,
+      "jeremy bayless": 10,
+      "Kurt Claycomb": 11,
+      "Eric King": 12
+    },
+    "2025": {
+      "Miles Spainhower": 1,
+      "trentan busey": 2,
+      "Kurt Claycomb": 3,
+      "TRAVIS GIBSON": 4,
+      "Wes Colson": 5,
+      "Roman Bayless": 6,
+      "Ron Baker": 7,
+      "Billy Haid": 8,
+      "Robert Kendall": 9,
+      "Jared Schneider": 10,
+      "Eric King": 11,
+      "jeremy bayless": 12
+    }
+  }
 }
