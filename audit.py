@@ -1269,10 +1269,11 @@ def generate_html_report(
     <div class="records-grid">"""
 
   for pos, rec in position_records.items():
+    rec_display = f"{rec['pts']:.2f}" if rec["pts"] > -50 else "0.00"
     html += f"""
       <div class="record-card">
         <div class="record-pos">{pos} Record</div>
-        <div class="record-pts">{rec['pts']:.2f if rec['pts'] > -50 else '0.00'}</div>
+        <div class="record-pts">{rec_display}</div>
         <div class="record-holder">{rec['player']}<br><span style="color: var(--dim);">{rec['team']} (Wk {rec['week']})</span></div>
       </div>"""
 
