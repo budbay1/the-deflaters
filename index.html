@@ -17,238 +17,118 @@
       --gold: #fbbf24; --gold-bg: rgba(251, 191, 36, 0.15);
       --silver: #cbd5e1; --silver-bg: rgba(203, 213, 225, 0.15);
       --bronze: #d97706; --bronze-bg: rgba(217, 119, 6, 0.15);
+      --th-bg: #0d1424;
+    }
+    body.light-mode {
+      --bg: #f8fafc; --surface: #ffffff; --card: #ffffff; --border: #e2e8f0;
+      --text: #0f172a; --muted: #64748b; --dim: #94a3b8; --accent: #0284c7;
+      --green: #059669; --green-bg: rgba(5, 150, 105, 0.12);
+      --red: #e11d48; --red-bg: rgba(225, 29, 72, 0.12);
+      --amber: #d97706; --amber-bg: rgba(217, 119, 6, 0.12);
+      --purple: #7c3aed; --purple-bg: rgba(124, 58, 237, 0.12);
+      --gold: #b45309; --gold-bg: rgba(245, 158, 11, 0.15);
+      --silver: #475569; --silver-bg: rgba(100, 116, 139, 0.15);
+      --bronze: #9a3412; --bronze-bg: rgba(194, 65, 12, 0.15);
+      --th-bg: #f1f5f9;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
-      max-width: 100%;
-      overflow-x: hidden;
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-      line-height: 1.5;
+      max-width: 100%; overflow-x: hidden; background-color: var(--bg); color: var(--text);
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; line-height: 1.5; transition: background-color 0.2s, color 0.2s;
     }
     body { padding: 16px 12px; }
-    .wrapper {
-      max-width: 1080px;
-      width: 100%;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
+    .wrapper { max-width: 1080px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
     
-    /* Header Banner */
     .header {
       background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
+      border: 1px solid var(--border); border-radius: 18px; padding: 20px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
     }
     .header h1 { font-size: 22px; font-weight: 800; color: #fff; }
     .header .subtitle { color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 11px; letter-spacing: 1.5px; margin-bottom: 2px; }
+    .header-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
     .header-badge { background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.25); color: var(--accent); padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+    
+    .theme-toggle-btn {
+      background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700;
+      cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s;
+    }
+    .theme-toggle-btn:hover { background: rgba(255, 255, 255, 0.2); }
 
-    /* Superlatives Grid */
     .awards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
-    .award-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; }
+    .award-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
     .award-card.red { border-left: 4px solid var(--red); }
     .award-card.green { border-left: 4px solid var(--green); }
     .award-card.blue { border-left: 4px solid var(--accent); }
     .award-card.gold { border-left: 4px solid var(--gold); }
     .award-tag { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-    .award-title { font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 4px; word-break: break-word; }
+    .award-title { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 4px; word-break: break-word; }
     .award-desc { font-size: 13px; color: var(--muted); line-height: 1.4; }
 
-    /* Tab Bar (Zero Scroll, Wraps Cleanly) */
-    .tab-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      background: var(--surface);
-      padding: 6px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-    }
+    .tab-bar { display: flex; flex-wrap: wrap; gap: 6px; background: var(--surface); padding: 6px; border-radius: 14px; border: 1px solid var(--border); }
     .tab-btn {
-      flex: 1 1 auto;
-      min-width: 120px;
-      padding: 10px 14px;
-      background: transparent;
-      border: 1px solid transparent;
-      border-radius: 10px;
-      color: var(--muted);
-      font-family: inherit;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.2s;
+      flex: 1 1 auto; min-width: 120px; padding: 10px 14px; background: transparent; border: 1px solid transparent;
+      border-radius: 10px; color: var(--muted); font-family: inherit; font-size: 12px; font-weight: 700;
+      cursor: pointer; text-align: center; transition: all 0.2s;
     }
-    .tab-btn.active {
-      background: var(--card);
-      color: #fff;
-      border-color: var(--border);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    }
+    .tab-btn.active { background: var(--card); color: var(--text); border-color: var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
 
-    /* Table Container (Fluid, Zero Overflow Container) */
-    .table-container {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      width: 100%;
-      overflow: hidden;
-    }
-    
-    /* Desktop Table Layout */
-    .responsive-table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 13px;
-    }
-    .responsive-table th {
-      background: #0d1424;
-      color: var(--muted);
-      font-weight: 700;
-      font-size: 11px;
-      text-transform: uppercase;
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--border);
-    }
-    .responsive-table th .sub-th {
-      display: block;
-      font-size: 9px;
-      color: var(--dim);
-      font-weight: normal;
-      text-transform: none;
-      margin-top: 2px;
-    }
-    .responsive-table td {
-      padding: 12px 14px;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      vertical-align: middle;
-    }
+    .table-container { background: var(--card); border: 1px solid var(--border); border-radius: 16px; width: 100%; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
+    .responsive-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+    .responsive-table th { background: var(--th-bg); color: var(--muted); font-weight: 700; font-size: 11px; text-transform: uppercase; padding: 12px 14px; border-bottom: 1px solid var(--border); }
+    .responsive-table th .sub-th { display: block; font-size: 9px; color: var(--dim); font-weight: normal; text-transform: none; margin-top: 2px; }
+    .responsive-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
     .responsive-table tr:last-child td { border-bottom: none; }
-    .responsive-table tr:hover td { background: rgba(255,255,255,0.015); }
+    .responsive-table tr:hover td { background: rgba(125,125,125,0.03); }
 
-    /* Responsive Mobile Card View (Eliminates All Horizontal Scroll Under 768px) */
     @media (max-width: 768px) {
       .responsive-table thead { display: none; }
-      .responsive-table, 
-      .responsive-table tbody, 
-      .responsive-table tr, 
-      .responsive-table td {
-        display: block;
-        width: 100%;
-      }
-      .responsive-table tr {
-        background: var(--card);
-        border-bottom: 1px solid var(--border);
-        padding: 12px 14px;
-      }
+      .responsive-table, .responsive-table tbody, .responsive-table tr, .responsive-table td { display: block; width: 100%; }
+      .responsive-table tr { background: var(--card); border-bottom: 1px solid var(--border); padding: 12px 14px; }
       .responsive-table tr:last-child { border-bottom: none; }
-      .responsive-table td {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 6px 0;
-        border-bottom: 1px solid rgba(255,255,255,0.03);
-        font-size: 13px;
-      }
+      .responsive-table td { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(125,125,125,0.08); font-size: 13px; }
       .responsive-table td:last-child { border-bottom: none; }
-      .responsive-table td::before {
-        content: attr(data-label);
-        font-weight: 700;
-        font-size: 11px;
-        color: var(--muted);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-right: 12px;
-        text-align: left;
-        flex-shrink: 0;
-      }
-      .responsive-table td.team-cell {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        font-size: 15px;
-        font-weight: 800;
-        color: #fff;
-        padding-bottom: 8px;
-        margin-bottom: 4px;
-        border-bottom: 1px solid var(--border);
-      }
+      .responsive-table td::before { content: attr(data-label); font-weight: 700; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-right: 12px; text-align: left; flex-shrink: 0; }
+      .responsive-table td.team-cell { display: flex; justify-content: flex-start; align-items: center; font-size: 15px; font-weight: 800; color: var(--text); padding-bottom: 8px; margin-bottom: 4px; border-bottom: 1px solid var(--border); }
       .responsive-table td.team-cell::before { display: none; }
-      .rank-num {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 22px;
-        height: 22px;
-        background: rgba(255,255,255,0.08);
-        border-radius: 50%;
-        font-size: 11px;
-        font-weight: 800;
-        color: var(--accent);
-        margin-right: 8px;
-        flex-shrink: 0;
-      }
+      .rank-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: rgba(125,125,125,0.12); border-radius: 50%; font-size: 11px; font-weight: 800; color: var(--accent); margin-right: 8px; flex-shrink: 0; }
     }
 
-    .team-name { font-weight: 700; color: #fff; word-break: break-word; }
-
-    /* Badges */
+    .team-name { font-weight: 700; color: var(--text); word-break: break-word; }
     .badge { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; gap: 4px; flex-wrap: wrap; }
     .badge-win { background: var(--green-bg); color: var(--green); }
     .badge-loss { background: var(--red-bg); color: var(--red); }
     .badge-lucky { background: var(--green-bg); color: var(--green); }
     .badge-unlucky { background: var(--red-bg); color: var(--red); }
-    .badge-neutral { background: rgba(255,255,255,0.06); color: var(--muted); }
-    .badge-gold { background: var(--gold-bg); color: var(--gold); border: 1px solid rgba(251, 191, 36, 0.3); }
+    .badge-neutral { background: rgba(125,125,125,0.08); color: var(--muted); }
+    .badge-gold { background: var(--gold-bg); color: var(--gold); border: 1px solid rgba(251, 191, 36, 0.4); }
     .badge-champ { background: var(--gold-bg); color: var(--gold); border: 1px solid rgba(251, 191, 36, 0.4); font-size: 10px; padding: 2px 6px; }
     .badge-silver { background: var(--silver-bg); color: var(--silver); border: 1px solid rgba(203, 213, 225, 0.4); font-size: 10px; padding: 2px 6px; }
     .badge-bronze { background: var(--bronze-bg); color: var(--bronze); border: 1px solid rgba(217, 119, 6, 0.4); font-size: 10px; padding: 2px 6px; }
 
-    /* Podiums & Grids */
     .podium-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; padding: 16px; }
-    .podium-card { background: #0d1424; border: 1px solid var(--border); border-radius: 14px; padding: 16px; }
-    .podium-year { font-size: 17px; font-weight: 800; color: #fff; margin-bottom: 10px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+    .podium-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }
+    .podium-year { font-size: 17px; font-weight: 800; color: var(--text); margin-bottom: 10px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
     .podium-row { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; font-size: 13px; }
     
     .records-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 20px; }
     .record-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px; text-align: center; }
     .record-pos { font-size: 11px; font-weight: 800; color: var(--accent); text-transform: uppercase; margin-bottom: 2px; }
-    .record-pts { font-size: 20px; font-weight: 800; color: #fff; }
+    .record-pts { font-size: 20px; font-weight: 800; color: var(--text); }
     .record-holder { font-size: 11px; color: var(--muted); margin-top: 4px; word-break: break-word; }
 
-    /* Glossary */
     .glossary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; padding: 16px; }
-    .glossary-card { background: #0d1424; border: 1px solid var(--border); border-radius: 14px; padding: 16px; }
-    .glossary-title { font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+    .glossary-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }
+    .glossary-title { font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
     .glossary-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
-    .glossary-example { margin-top: 8px; padding: 8px 10px; background: var(--surface); border-radius: 8px; font-size: 12px; color: var(--text); border-left: 3px solid var(--accent); }
+    .glossary-example { margin-top: 8px; padding: 8px 10px; background: var(--card); border-radius: 8px; font-size: 12px; color: var(--text); border-left: 3px solid var(--accent); border: 1px solid var(--border); }
 
-    /* Filter Controls */
     .filter-header { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
     .filter-control { display: flex; align-items: center; gap: 8px; width: 100%; max-width: 380px; }
     .select-dropdown {
-      flex: 1;
-      width: 100%;
-      background: var(--surface);
-      color: var(--text);
-      border: 1px solid var(--border);
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      outline: none;
+      flex: 1; width: 100%; background: var(--surface); color: var(--text); border: 1px solid var(--border);
+      padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; outline: none;
     }
   </style>
 </head>
@@ -259,13 +139,16 @@
       <div class="subtitle">The Deflaters Analytics Lab</div>
       <h1>WEEK 1 EXECUTIVE AUDIT</h1>
     </div>
-    <div class="header-badge">Season 2026 (Weeks 1–1)</div>
+    <div class="header-controls">
+      <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()">☀️ Light Mode</button>
+      <div class="header-badge">Season 2026 (Weeks 1–1)</div>
+    </div>
   </div>
 
   <div class="awards-grid">
     <div class="award-card gold">
       <div>
-        <div class="award-tag" style="color: var(--gold);">💰 Week 1 High Point Bounty</div>
+        <div class="award-tag" style="color: var(--gold);">💰 Week 1 Team Bounty</div>
         <div class="award-title">Make Fantasy Great Again (jeremy bayless)</div>
         <div class="award-desc">Paced the entire league with <b>0.0 pts</b> to take down the weekly cash payout!</div>
       </div>
@@ -389,7 +272,7 @@
           <td data-label="Coaching Eff"><b>100.0%</b></td>
         </tr>
         <tr>
-          <td class="team-cell"><span class="rank-num">#8</span> The American Dream (Miles Spainhower) <span class="badge badge-champ" title="2025 League Champion">🥇 25 Champ</span></td>
+          <td class="team-cell"><span class="rank-num">#8</span> The American Dream (Miles Spainhower) <span class="badge badge-champ" title="2025 Champion">🥇 '25 Champ</span></td>
           <td data-label="Result"><span class="badge badge-loss">T</span></td>
           <td data-label="Score"><b>0.0</b> <span style="font-size: 11px; color: var(--dim);">(-117.9)</span></td>
           <td data-label="Opponent">55 TDs 55 Punts 55 FGs 55 INTs (Eric King) <span style="color: var(--muted); font-size: 11px;">(0.0)</span></td>
@@ -407,7 +290,7 @@
           <td data-label="Coaching Eff"><b>100.0%</b></td>
         </tr>
         <tr>
-          <td class="team-cell"><span class="rank-num">#10</span> Skatteboo boo (Kurt Claycomb)</td>
+          <td class="team-cell"><span class="rank-num">#10</span> Skatteboo boo (Kurt Claycomb) <span class="badge badge-bronze" title="2025 3rd Place">🥉 '25 3rd Pl</span></td>
           <td data-label="Result"><span class="badge badge-loss">T</span></td>
           <td data-label="Score"><b>0.0</b> <span style="font-size: 11px; color: var(--dim);">(-123.2)</span></td>
           <td data-label="Opponent">Team Draft order (Wes Colson) <span style="color: var(--muted); font-size: 11px;">(0.0)</span></td>
@@ -425,7 +308,7 @@
           <td data-label="Coaching Eff"><b>100.0%</b></td>
         </tr>
         <tr>
-          <td class="team-cell"><span class="rank-num">#12</span> Puka Time (trentan busey) <span class="badge badge-silver" title="2025 Runner-Up">🥈 25 Runner-Up</span></td>
+          <td class="team-cell"><span class="rank-num">#12</span> Puka Time (trentan busey) <span class="badge badge-silver" title="2025 Runner-Up">🥈 '25 Runner-Up</span></td>
           <td data-label="Result"><span class="badge badge-loss">T</span></td>
           <td data-label="Score"><b>0.0</b> <span style="font-size: 11px; color: var(--dim);">(-135.8)</span></td>
           <td data-label="Opponent">Team Freedom (Roman Bayless) <span style="color: var(--muted); font-size: 11px;">(0.0)</span></td>
@@ -524,7 +407,7 @@
           <td data-label="Avg Opp PA"><b>0.0</b></td>
         </tr>
         <tr>
-          <td class="team-cell"><span class="rank-num">#8</span> The American Dream (Miles Spainhower) <span class="badge badge-champ" title="2025 League Champion">🥇 25 Champ</span></td>
+          <td class="team-cell"><span class="rank-num">#8</span> The American Dream (Miles Spainhower) <span class="badge badge-champ" title="2025 Champion">🥇 '25 Champ</span></td>
           <td data-label="Actual W-L"><b>0–0</b></td>
           <td data-label="All-Play">0–0</td>
           <td data-label="All-Play %"><b>0.000</b></td>
@@ -544,7 +427,7 @@
           <td data-label="Avg Opp PA"><b>0.0</b></td>
         </tr>
         <tr>
-          <td class="team-cell"><span class="rank-num">#10</span> Skatteboo boo (Kurt Claycomb)</td>
+          <td class="team-cell"><span class="rank-num">#10</span> Skatteboo boo (Kurt Claycomb) <span class="badge badge-bronze" title="2025 3rd Place">🥉 '25 3rd Pl</span></td>
           <td data-label="Actual W-L"><b>0–0</b></td>
           <td data-label="All-Play">0–0</td>
           <td data-label="All-Play %"><b>0.000</b></td>
@@ -564,7 +447,7 @@
           <td data-label="Avg Opp PA"><b>0.0</b></td>
         </tr>
         <tr>
-          <td class="team-cell"><span class="rank-num">#12</span> Puka Time (trentan busey) <span class="badge badge-silver" title="2025 Runner-Up">🥈 25 Runner-Up</span></td>
+          <td class="team-cell"><span class="rank-num">#12</span> Puka Time (trentan busey) <span class="badge badge-silver" title="2025 Runner-Up">🥈 '25 Runner-Up</span></td>
           <td data-label="Actual W-L"><b>0–0</b></td>
           <td data-label="All-Play">0–0</td>
           <td data-label="All-Play %"><b>0.000</b></td>
@@ -582,7 +465,7 @@
     
     <div class="table-container">
       <div class="filter-header">
-        <div style="font-size: 14px; font-weight: 800; color: #fff;">⚔️ All-Time Manager Rivalry Records</div>
+        <div style="font-size: 14px; font-weight: 800; color: var(--text);">⚔️ All-Time Manager Rivalry Records</div>
         <div class="filter-control">
           <select id="mgrFilter" class="select-dropdown" onchange="filterRivalries(this.value)">
             <option value="ALL">Show All Rivalries</option><option value="Billy Haid">Billy Haid</option><option value="Eric King">Eric King</option><option value="Jared Schneider">Jared Schneider</option><option value="Kurt Claycomb">Kurt Claycomb</option><option value="Miles Spainhower">Miles Spainhower</option><option value="Robert Kendall">Robert Kendall</option><option value="Roman Bayless">Roman Bayless</option><option value="Ron Baker">Ron Baker</option><option value="TRAVIS GIBSON">TRAVIS GIBSON</option><option value="Wes Colson">Wes Colson</option><option value="jeremy bayless">jeremy bayless</option><option value="trentan busey">trentan busey</option>
@@ -1068,7 +951,7 @@
 
     <!-- SEASON MATCHUP SCHEDULE LOG -->
     <div class="table-container">
-      <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: #fff; font-size: 14px;">
+      <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 14px;">
         📅 Season 2026 Completed Matchup Log
       </div>
       <table class="responsive-table">
@@ -1084,42 +967,42 @@
         <tbody>
           <tr>
             <td class="team-cell" style="color: var(--accent);">Week 1 Matchup</td>
-            <td data-label="Winner" style="font-weight: 700; color: #fff;">Make Fantasy Great Again (jeremy bayless)</td>
+            <td data-label="Winner" style="font-weight: 700; color: var(--text);">Make Fantasy Great Again (jeremy bayless)</td>
             <td data-label="Score" style="font-weight: 700; color: var(--green);">0.0 – 0.0</td>
             <td data-label="Loser" style="color: var(--muted);">Team Bakesmode (Ron Baker)</td>
             <td data-label="Margin" style="font-weight: 700; color: var(--accent);">+0.0 pts</td>
           </tr>
           <tr>
             <td class="team-cell" style="color: var(--accent);">Week 1 Matchup</td>
-            <td data-label="Winner" style="font-weight: 700; color: #fff;">Flock Around and Find Out (Jared Schneider)</td>
+            <td data-label="Winner" style="font-weight: 700; color: var(--text);">Flock Around and Find Out (Jared Schneider)</td>
             <td data-label="Score" style="font-weight: 700; color: var(--green);">0.0 – 0.0</td>
             <td data-label="Loser" style="color: var(--muted);">Team Kendall (Robert Kendall)</td>
             <td data-label="Margin" style="font-weight: 700; color: var(--accent);">+0.0 pts</td>
           </tr>
           <tr>
             <td class="team-cell" style="color: var(--accent);">Week 1 Matchup</td>
-            <td data-label="Winner" style="font-weight: 700; color: #fff;">Blue Medical Tent (Billy Haid)</td>
+            <td data-label="Winner" style="font-weight: 700; color: var(--text);">Blue Medical Tent (Billy Haid)</td>
             <td data-label="Score" style="font-weight: 700; color: var(--green);">0.0 – 0.0</td>
             <td data-label="Loser" style="color: var(--muted);">THE G-MEN (TRAVIS GIBSON)</td>
             <td data-label="Margin" style="font-weight: 700; color: var(--accent);">+0.0 pts</td>
           </tr>
           <tr>
             <td class="team-cell" style="color: var(--accent);">Week 1 Matchup</td>
-            <td data-label="Winner" style="font-weight: 700; color: #fff;">55 TDs 55 Punts 55 FGs 55 INTs (Eric King)</td>
+            <td data-label="Winner" style="font-weight: 700; color: var(--text);">55 TDs 55 Punts 55 FGs 55 INTs (Eric King)</td>
             <td data-label="Score" style="font-weight: 700; color: var(--green);">0.0 – 0.0</td>
             <td data-label="Loser" style="color: var(--muted);">The American Dream (Miles Spainhower)</td>
             <td data-label="Margin" style="font-weight: 700; color: var(--accent);">+0.0 pts</td>
           </tr>
           <tr>
             <td class="team-cell" style="color: var(--accent);">Week 1 Matchup</td>
-            <td data-label="Winner" style="font-weight: 700; color: #fff;">Team Draft order (Wes Colson)</td>
+            <td data-label="Winner" style="font-weight: 700; color: var(--text);">Team Draft order (Wes Colson)</td>
             <td data-label="Score" style="font-weight: 700; color: var(--green);">0.0 – 0.0</td>
             <td data-label="Loser" style="color: var(--muted);">Skatteboo boo (Kurt Claycomb)</td>
             <td data-label="Margin" style="font-weight: 700; color: var(--accent);">+0.0 pts</td>
           </tr>
           <tr>
             <td class="team-cell" style="color: var(--accent);">Week 1 Matchup</td>
-            <td data-label="Winner" style="font-weight: 700; color: #fff;">Team Freedom (Roman Bayless)</td>
+            <td data-label="Winner" style="font-weight: 700; color: var(--text);">Team Freedom (Roman Bayless)</td>
             <td data-label="Score" style="font-weight: 700; color: var(--green);">0.0 – 0.0</td>
             <td data-label="Loser" style="color: var(--muted);">Puka Time (trentan busey)</td>
             <td data-label="Margin" style="font-weight: 700; color: var(--accent);">+0.0 pts</td>
@@ -1131,8 +1014,68 @@
   </div>
 
   <!-- TAB 4: PAYOUTS & POSITIONAL RECORDS -->
-  <div id="view-payouts" style="display: none;">
-    <div style="font-size: 15px; font-weight: 800; margin-bottom: 10px; color: #fff;">🔥 Single-Game Positional Records (Season Highs)</div>
+  <div id="view-payouts" style="display: none; display: flex; flex-direction: column; gap: 16px;">
+    
+    <!-- SEASON CASH BOUNTIES -->
+    <div style="font-size: 15px; font-weight: 800; color: var(--text);">🏆 Season High Point Cash Bounties</div>
+    <div class="awards-grid">
+      <div class="award-card gold">
+        <div>
+          <div class="award-tag" style="color: var(--gold);">👑 Season Points Leader (Total PF)</div>
+          <div class="award-title">Make Fantasy Great Again (jeremy bayless)</div>
+          <div class="award-desc">Pacing the entire season with <b>0.0 Total PF</b> to lead the overall scoring payout!</div>
+        </div>
+        <div style="margin-top: 8px;"><span class="badge badge-gold">Season PF Crown</span></div>
+      </div>
+
+      <div class="award-card blue">
+        <div>
+          <div class="award-tag" style="color: var(--accent);">⚡ Single-Game Team Record</div>
+          <div class="award-title">Make Fantasy Great Again (jeremy bayless)</div>
+          <div class="award-desc">Hung <b>0.0 pts</b> in Week 1 for the single highest team score of the year.</div>
+        </div>
+        <div style="margin-top: 8px;"><span class="badge badge-neutral">Single-Week High</span></div>
+      </div>
+
+      <div class="award-card green">
+        <div>
+          <div class="award-tag" style="color: var(--green);">🌟 Single-Game Starter Record</div>
+          <div class="award-title">Jaxon Smith-Njigba (WR)</div>
+          <div class="award-desc">Erupted for <b>0 pts</b> in Week 1 for Make Fantasy Great Again (jeremy bayless).</div>
+        </div>
+        <div style="margin-top: 8px;"><span class="badge badge-lucky">Season Player High</span></div>
+      </div>
+    </div>
+
+    <!-- WEEKLY CASH PAYOUTS TABLE -->
+    <div class="table-container">
+      <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 14px;">
+        💵 Weekly High Scorer Cash Ledger (Team & Starter Payouts)
+      </div>
+      <table class="responsive-table">
+        <thead>
+          <tr>
+            <th>Week</th>
+            <th>Team High Winner ($)</th>
+            <th>Score</th>
+            <th>Starter High Winner ($)</th>
+            <th>Player Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="team-cell" style="color: var(--accent);">Week 1 Payouts</td>
+            <td data-label="Team High Winner"><b>Make Fantasy Great Again (jeremy bayless)</b></td>
+            <td data-label="Team Score" style="font-weight: 800; color: var(--gold);">0.0 pts</td>
+            <td data-label="Starter High Winner"><b>Jaxon Smith-Njigba (WR) - Make Fantasy Great Again (jeremy bayless)</b></td>
+            <td data-label="Player Score" style="font-weight: 800; color: var(--green);">0 pts</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- POSITIONAL HIGH WATER MARKS -->
+    <div style="font-size: 15px; font-weight: 800; color: var(--text); margin-top: 8px;">🔥 Single-Game Positional Records (Season Highs)</div>
     <div class="records-grid">
       <div class="record-card">
         <div class="record-pos">QB Record</div>
@@ -1166,35 +1109,27 @@
       </div>
     </div>
 
-    <div class="table-container">
-      <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: #fff; font-size: 14px;">💵 Weekly High Scorer Cash Ledger</div>
-      <table class="responsive-table">
-        <thead>
-          <tr>
-            <th>Week</th>
-            <th>High Point Winner</th>
-            <th>Score</th>
-            <th>Matchup Opponent</th>
-            <th>Opp Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="team-cell" style="color: var(--accent);">Week 1 Payout</td>
-            <td data-label="Winner" style="font-weight: 700; color: #fff;">Make Fantasy Great Again (jeremy bayless)</td>
-            <td data-label="Score" style="font-weight: 800; color: var(--gold);">0.0 pts</td>
-            <td data-label="Opponent">vs Team Bakesmode (Ron Baker)</td>
-            <td data-label="Opp Score" style="color: var(--muted);">0.0 pts</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
   </div>
 
   <!-- TAB 5: HALL OF CHAMPIONS -->
   <div id="view-halloffame" class="table-container" style="display: none;">
-    <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: #fff; font-size: 14px;">🏆 Historical Podium (Gold, Silver, Bronze)</div>
+    <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 14px;">🏆 Historical Podium (Gold, Silver, Bronze)</div>
     <div class="podium-grid">
+        <div class="podium-card">
+          <div class="podium-year">2026 Season</div>
+          <div class="podium-row">
+            <span>🥇 <b>Gold (Champion)</b></span>
+            <span style="color: var(--gold); font-weight: 700;">Team Freedom (Roman Bayless)</span>
+          </div>
+          <div class="podium-row">
+            <span>🥈 <b>Silver (Runner-Up)</b></span>
+            <span style="color: var(--silver); font-weight: 700;">Team Kendall (Robert Kendall)</span>
+          </div>
+          <div class="podium-row">
+            <span>🥉 <b>Bronze (3rd Place)</b></span>
+            <span style="color: var(--bronze); font-weight: 700;">Team Draft order (Wes Colson)</span>
+          </div>
+        </div>
         <div class="podium-card">
           <div class="podium-year">2025 Season</div>
           <div class="podium-row">
@@ -1204,6 +1139,36 @@
           <div class="podium-row">
             <span>🥈 <b>Silver (Runner-Up)</b></span>
             <span style="color: var(--silver); font-weight: 700;">Puka Time (trentan busey)</span>
+          </div>
+          <div class="podium-row">
+            <span>🥉 <b>Bronze (3rd Place)</b></span>
+            <span style="color: var(--bronze); font-weight: 700;">No Punt Intended  (Kurt Claycomb)</span>
+          </div>
+        </div>
+        <div class="podium-card">
+          <div class="podium-year">2024 Season</div>
+          <div class="podium-row">
+            <span>🥇 <b>Gold (Champion)</b></span>
+            <span style="color: var(--gold); font-weight: 700;">The American Dream (Miles Spainhower)</span>
+          </div>
+          <div class="podium-row">
+            <span>🥈 <b>Silver (Runner-Up)</b></span>
+            <span style="color: var(--silver); font-weight: 700;">Team Kendall (Robert Kendall)</span>
+          </div>
+          <div class="podium-row">
+            <span>🥉 <b>Bronze (3rd Place)</b></span>
+            <span style="color: var(--bronze); font-weight: 700;">Team Bakesmode (Ron Baker)</span>
+          </div>
+        </div>
+        <div class="podium-card">
+          <div class="podium-year">2023 Season</div>
+          <div class="podium-row">
+            <span>🥇 <b>Gold (Champion)</b></span>
+            <span style="color: var(--gold); font-weight: 700;">Team Draft order (Wes Colson)</span>
+          </div>
+          <div class="podium-row">
+            <span>🥈 <b>Silver (Runner-Up)</b></span>
+            <span style="color: var(--silver); font-weight: 700;">O-Bijan Kenobi (Roman Bayless)</span>
           </div>
           <div class="podium-row">
             <span>🥉 <b>Bronze (3rd Place)</b></span>
@@ -1228,70 +1193,70 @@
       <tbody>
         <tr>
           <td class="team-cell"><span class="rank-num">#1</span> Make Fantasy Great Again (jeremy bayless)</td>
-          <td data-label="Player" style="color: #fff; font-weight: 600;">George Kittle</td>
+          <td data-label="Player" style="color: var(--text); font-weight: 600;">George Kittle</td>
           <td data-label="Pos"><span class="badge badge-neutral">TE</span></td>
           <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0 pts</td>
           <td data-label="Projection" style="color: var(--muted);">8.36 pts</td>
         </tr>
         <tr>
           <td class="team-cell"><span class="rank-num">#2</span> Make Fantasy Great Again (jeremy bayless)</td>
-          <td data-label="Player" style="color: #fff; font-weight: 600;">Jordan Mason</td>
+          <td data-label="Player" style="color: var(--text); font-weight: 600;">Jordan Mason</td>
           <td data-label="Pos"><span class="badge badge-neutral">RB</span></td>
           <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0 pts</td>
           <td data-label="Projection" style="color: var(--muted);">8.72 pts</td>
         </tr>
         <tr>
           <td class="team-cell"><span class="rank-num">#3</span> Team Bakesmode (Ron Baker)</td>
-          <td data-label="Player" style="color: #fff; font-weight: 600;">Christian Watson</td>
+          <td data-label="Player" style="color: var(--text); font-weight: 600;">Christian Watson</td>
           <td data-label="Pos"><span class="badge badge-neutral">WR</span></td>
           <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0 pts</td>
           <td data-label="Projection" style="color: var(--muted);">11.06 pts</td>
         </tr>
         <tr>
           <td class="team-cell"><span class="rank-num">#4</span> Blue Medical Tent (Billy Haid)</td>
-          <td data-label="Player" style="color: #fff; font-weight: 600;">Kenny Gainwell</td>
+          <td data-label="Player" style="color: var(--text); font-weight: 600;">Kenny Gainwell</td>
           <td data-label="Pos"><span class="badge badge-neutral">RB</span></td>
           <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0 pts</td>
           <td data-label="Projection" style="color: var(--muted);">10.79 pts</td>
         </tr>
         <tr>
           <td class="team-cell"><span class="rank-num">#5</span> THE G-MEN (TRAVIS GIBSON)</td>
-          <td data-label="Player" style="color: #fff; font-weight: 600;">Aaron Jones Sr.</td>
+          <td data-label="Player" style="color: var(--text); font-weight: 600;">Aaron Jones Sr.</td>
           <td data-label="Pos"><span class="badge badge-neutral">RB</span></td>
           <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0 pts</td>
           <td data-label="Projection" style="color: var(--muted);">10.27 pts</td>
         </tr>
         <tr>
           <td class="team-cell"><span class="rank-num">#6</span> THE G-MEN (TRAVIS GIBSON)</td>
-          <td data-label="Player" style="color: #fff; font-weight: 600;">Deebo Samuel Sr.</td>
+          <td data-label="Player" style="color: var(--text); font-weight: 600;">Deebo Samuel Sr.</td>
           <td data-label="Pos"><span class="badge badge-neutral">WR</span></td>
           <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0 pts</td>
           <td data-label="Projection" style="color: var(--muted);">10.93 pts</td>
         </tr>
         <tr>
-          <td class="team-cell"><span class="rank-num">#7</span> The American Dream (Miles Spainhower) <span class="badge badge-champ" title="2025 League Champion">🥇 25 Champ</span></td>
-          <td data-label="Player" style="color: #fff; font-weight: 600;">Josh Jacobs</td>
+          <td class="team-cell"><span class="rank-num">#7</span> The American Dream (Miles Spainhower) <span class="badge badge-champ" title="2025 Champion">🥇 '25 Champ</span></td>
+          <td data-label="Player" style="color: var(--text); font-weight: 600;">Josh Jacobs</td>
           <td data-label="Pos"><span class="badge badge-neutral">RB</span></td>
           <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0 pts</td>
           <td data-label="Projection" style="color: var(--muted);">0.0 pts</td>
         </tr>
         <tr>
-          <td class="team-cell"><span class="rank-num">#8</span> The American Dream (Miles Spainhower) <span class="badge badge-champ" title="2025 League Champion">🥇 25 Champ</span></td>
-          <td data-label="Player" style="color: #fff; font-weight: 600;">Alvin Kamara</td>
+          <td class="team-cell"><span class="rank-num">#8</span> The American Dream (Miles Spainhower) <span class="badge badge-champ" title="2025 Champion">🥇 '25 Champ</span></td>
+          <td data-label="Player" style="color: var(--text); font-weight: 600;">Alvin Kamara</td>
           <td data-label="Pos"><span class="badge badge-neutral">RB</span></td>
           <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0 pts</td>
           <td data-label="Projection" style="color: var(--muted);">0.0 pts</td>
         </tr>
         <tr>
           <td class="team-cell"><span class="rank-num">#9</span> Team Draft order (Wes Colson)</td>
-          <td data-label="Player" style="color: #fff; font-weight: 600;">Chuba Hubbard</td>
+          <td data-label="Player" style="color: var(--text); font-weight: 600;">Chuba Hubbard</td>
           <td data-label="Pos"><span class="badge badge-neutral">RB</span></td>
           <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0 pts</td>
           <td data-label="Projection" style="color: var(--muted);">12.25 pts</td>
         </tr>
         <tr>
-          <td class="team-cell"><span class="rank-num">#10</span> Skatteboo boo (Kurt Claycomb)</td>
-          <td data-label="Player" style="color: #fff; font-weight: 600;">Sam LaPorta</td>
+          <td class="team-cell"><span class="rank-num">#10</span> Skatteboo boo (Kurt Claycomb) <span class="badge badge-bronze" title="2025 3rd Place">🥉 '25 3rd Pl</span></td>
+          <td data-label="Player" style="color: var(--text); font-weight: 600;">Sam LaPorta</td>
           <td data-label="Pos"><span class="badge badge-neutral">TE</span></td>
           <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0 pts</td>
           <td data-label="Projection" style="color: var(--muted);">10.95 pts</td>
@@ -1302,7 +1267,7 @@
 
   <!-- TAB 7: STAT DECODERS (THE GLOSSARY) -->
   <div id="view-glossary" class="table-container" style="display: none;">
-    <div style="padding: 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: #fff; font-size: 15px;">
+    <div style="padding: 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
       📖 The Deflaters Analytics Handbook
     </div>
     <div class="glossary-grid">
@@ -1384,7 +1349,7 @@
     
     var activeEl = document.getElementById('view-' + viewName);
     if (activeEl) {
-      if (viewName === 'h2h') {
+      if (viewName === 'h2h' || viewName === 'payouts') {
         activeEl.style.display = 'flex';
       } else {
         activeEl.style.display = 'block';
@@ -1411,6 +1376,27 @@
       }
     }
   }
+
+  function toggleTheme() {
+    var isLight = document.body.classList.toggle('light-mode');
+    localStorage.setItem('ff_theme', isLight ? 'light' : 'dark');
+    updateThemeBtn(isLight);
+  }
+
+  function updateThemeBtn(isLight) {
+    var btn = document.getElementById('theme-toggle');
+    if (btn) {
+      btn.innerHTML = isLight ? '🌙 Dark Mode' : '☀️ Light Mode';
+    }
+  }
+
+  (function() {
+    var savedTheme = localStorage.getItem('ff_theme');
+    if (savedTheme === 'light') {
+      document.body.classList.add('light-mode');
+      updateThemeBtn(true);
+    }
+  })();
 </script>
 </body>
 </html>
