@@ -132,23 +132,22 @@ def sync_champions_and_finishes(current_year):
   if "finishes" not in all_time: all_time["finishes"] = {}
   all_time["champions"].update(HISTORICAL_CHAMPIONS_OVERRIDE)
 
+  # Force sync for all past years including 2025
   for y in range(2023, current_year + 1):
     y_str = str(y)
     try:
       past_league = League(league_id=LEAGUE_ID, year=y, espn_s2=ESPN_S2, swid=SWID)
       curr_wk = getattr(past_league, "current_week", 1)
+      
+      # If current year is ongoing and hasn't finished playoffs, skip locking champion
       if y == current_year:
         standings = [getattr(t, "final_standing", 0) for t in past_league.teams]
         if curr_wk <= 17 or not any(s == 1 for s in standings):
-          all_time["champions"].pop(y_str, None)
-          all_time["finishes"].pop(y_str, None)
           continue
 
       ranked_teams = sorted(past_league.teams, key=lambda t: (getattr(t, "final_standing", 99) if getattr(t, "final_standing", 0) > 0 else 99, getattr(t, "standing", 99), -getattr(t, "points_for", 0)))
       season_finishes = {get_manager_name(t): (getattr(t, "final_standing", 0) if 0 < getattr(t, "final_standing", 0) <= len(past_league.teams) else idx) for idx, t in enumerate(ranked_teams, 1) if get_manager_name(t) != "Manager"}
       all_time["finishes"][y_str] = season_finishes
-
-      if all_time["champions"].get(y_str, {}).get("gold") and all_time["champions"][y_str].get("gold") != "TBD": continue
 
       gold_team = next((t for t in past_league.teams if getattr(t, "final_standing", 0) == 1), None)
       silver_team = next((t for t in past_league.teams if getattr(t, "final_standing", 0) == 2), None)
@@ -168,7 +167,12 @@ def sync_champions_and_finishes(current_year):
         mgr = get_manager_name(t)
         return f"{t.team_name} ({mgr})" if mgr != "Manager" else t.team_name
 
-      all_time["champions"][y_str] = {"gold": format_champ_entry(gold_team), "silver": format_champ_entry(silver_team), "bronze": format_champ_entry(bronze_team), "last": format_champ_entry(last_team)}
+      all_time["champions"][y_str] = {
+          "gold": format_champ_entry(gold_team),
+          "silver": format_champ_entry(silver_team),
+          "bronze": format_champ_entry(bronze_team),
+          "last": format_champ_entry(last_team)
+      }
     except Exception as e: print(f"Historical query for Season {y} skipped: {e}")
 
   save_history(ALL_TIME_FILE, all_time)
@@ -266,15 +270,15 @@ def main():
 
   save_history(history_file, history)
 
-  # Sync all-time records
+  # Sync all-time records & champions (forcing 2025 sync)
   all_time_data = sync_historical_h2h(YEAR)
   champions, finishes_data = sync_champions_and_finishes(YEAR)
   leaderboard = compute_all_time_leaderboard(champions, current_managers, finishes_data)
+  
   prior_year_str = str(YEAR - 1)
   reigning = champions.get(prior_year_str, {})
   reigning["year"] = prior_year_str
 
-  # Save comprehensive global data bundle for index.html
   seasons_data = load_history(SEASONS_DATA_FILE, {})
   seasons_data[str(YEAR)] = history.get("weeks", {})
   save_history(SEASONS_DATA_FILE, seasons_data)
@@ -288,7 +292,7 @@ def main():
       "matchups": all_time_data.get("matchups", {})
   }
   save_history(GLOBAL_DATA_FILE, global_bundle)
-  print("Data engine execution complete. global_dashboard_data.json updated.")
+  print("Data engine execution complete. 2025 Champions synced & global data updated.")
 
 
 if __name__ == "__main__":
