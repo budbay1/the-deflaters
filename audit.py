@@ -243,7 +243,7 @@ def sync_historical_season_weeks(target_year):
                   "W" if a_act > h_act else ("L" if a_act < h_act else "T")
               ),
               "coach_eff": (
-                  round((a_act / a_opt) * 100, 1) if a_opt > 0 else 100.0
+                  round((a_act / a_opt) * 100, 1) if a_act > 0 else 100.0
               ),
               "players": a_players,
           })
@@ -1311,8 +1311,8 @@ def generate_html_report(
 </div>
 
 <script>
-  var seasonsData = {{}};
-  var reigningBadges = JSON.parse(document.getElementById('reigning-badges-data').textContent || '{{}}');
+  var seasonsData = {};
+  var reigningBadges = JSON.parse(document.getElementById('reigning-badges-data').textContent || '{}');
 
   var currentYear = '{active_year}';
   var currentWeek = '{latest_week_num}';
@@ -1320,31 +1320,31 @@ def generate_html_report(
   var h2hScope = 'current';
   var hofScope = 'current';
 
-  function initApp() {{
+  function initApp() {
     fetch('seasons_data.json')
-      .then(function(res) {{ return res.json(); }})
-      .then(function(data) {{
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
         seasonsData = data;
         setupSeasonDropdown();
-      }})
-      .catch(function(err) {{
-        console.error('Could not load seasons_data.json, falling back to empty state:', err);
-        seasonsData = {{}};
+      })
+      .catch(function(err) {
+        console.error('Could not load seasons_data.json:', err);
+        seasonsData = {};
         setupSeasonDropdown();
-      }});
-  }}
+      });
+  }
 
-  function setupSeasonDropdown() {{
+  function setupSeasonDropdown() {
     var seasonSel = document.getElementById('seasonSelect');
     seasonSel.innerHTML = '';
 
-    var years = Object.keys(seasonsData).sort(function(a, b) {{ return b - a; }});
-    if (years.length === 0) {{
+    var years = Object.keys(seasonsData).sort(function(a, b) { return b - a; });
+    if (years.length === 0) {
       years = [currentYear];
-      seasonsData[currentYear] = {{}};
-    }}
+      seasonsData[currentYear] = {};
+    }
 
-    years.forEach(function(yr) {{
+    years.forEach(function(yr) {
       var opt = document.createElement('option');
       opt.value = yr;
       opt.textContent = yr + ' Season';
@@ -1353,80 +1353,80 @@ def generate_html_report(
     });
 
     populateWeeksForYear(currentYear, currentWeek);
-  }}
+  }
 
-  function populateWeeksForYear(yr, selectedWk) {{
+  function populateWeeksForYear(yr, selectedWk) {
     var weekSel = document.getElementById('weekSelect');
     weekSel.innerHTML = '';
 
-    var weeksObj = seasonsData[yr] || {{}};
-    var weeks = Object.keys(weeksObj).map(Number).sort(function(a, b) {{ return b - a; }});
+    var weeksObj = seasonsData[yr] || {};
+    var weeks = Object.keys(weeksObj).map(Number).sort(function(a, b) { return b - a; });
 
-    if (weeks.length === 0) {{
+    if (weeks.length === 0) {
       weeks = [1];
-    }}
+    }
 
     var targetWk = selectedWk ? parseInt(selectedWk) : weeks[0];
 
-    weeks.forEach(function(w) {{
+    weeks.forEach(function(w) {
       var opt = document.createElement('option');
       opt.value = w;
       opt.textContent = 'Week ' + w;
       if (w === targetWk) opt.selected = true;
       weekSel.appendChild(opt);
-    }});
+    });
 
     currentYear = yr;
     currentWeek = targetWk.toString();
     renderAllViews();
-  }}
+  }
 
-  function onSeasonChange(newYr) {{
+  function onSeasonChange(newYr) {
     populateWeeksForYear(newYr, null);
-  }}
+  }
 
-  function onWeekChange(newWk) {{
+  function onWeekChange(newWk) {
     currentWeek = newWk.toString();
     renderAllViews();
-  }}
+  }
 
-  function renderBadge(label) {{
+  function renderBadge(label) {
     if (!reigningBadges) return label;
     var yrShort = (reigningBadges.year || '25').slice(-2);
-    function matches(target) {{
+    function matches(target) {
       if (!target || target === 'TBD') return false;
       var tClean = target.toLowerCase().trim();
       var lClean = label.toLowerCase().trim();
       if (tClean.indexOf(lClean) !== -1 || lClean.indexOf(tClean) !== -1) return true;
-      if (target.indexOf('(') !== -1 && target.indexOf(')') !== -1) {{
+      if (target.indexOf('(') !== -1 && target.indexOf(')') !== -1) {
         var mgr = target.split('(').pop().split(')')[0].trim().toLowerCase();
         if (mgr && mgr !== 'manager' && lClean.indexOf(mgr) !== -1) return true;
-      }}
+      }
       return false;
-    }}
-    if (matches(reigningBadges.gold)) return label + ' <span class="badge badge-champ">🥇 \\'' + yrShort + ' Champ</span>';
-    if (matches(reigningBadges.silver)) return label + ' <span class="badge badge-silver">🥈 \\'' + yrShort + ' Runner-Up</span>';
-    if (matches(reigningBadges.bronze)) return label + ' <span class="badge badge-bronze">🥉 \\'' + yrShort + ' 3rd Pl</span>';
-    if (matches(reigningBadges.last)) return label + ' <span class="badge badge-bitch">💩 \\'' + yrShort + ' League Bitch</span>';
+    }
+    if (matches(reigningBadges.gold)) return label + ' <span class="badge badge-champ">🥇 \'' + yrShort + ' Champ</span>';
+    if (matches(reigningBadges.silver)) return label + ' <span class="badge badge-silver">🥈 \'' + yrShort + ' Runner-Up</span>';
+    if (matches(reigningBadges.bronze)) return label + ' <span class="badge badge-bronze">🥉 \'' + yrShort + ' 3rd Pl</span>';
+    if (matches(reigningBadges.last)) return label + ' <span class="badge badge-bitch">💩 \'' + yrShort + ' League Bitch</span>';
     return label;
-  }}
+  }
 
-  function renderAllViews() {{
-    var yrData = seasonsData[currentYear] || {{}};
+  function renderAllViews() {
+    var yrData = seasonsData[currentYear] || {};
     var wkData = yrData[currentWeek] || [];
 
     document.getElementById('headerSummaryTitle').innerText = currentYear + ' WEEK ' + currentWeek + ' SUMMARY';
     document.getElementById('tabBtnWeek').innerText = '📅 Week ' + currentWeek + ' Summary';
     document.getElementById('tabBtnSeason').innerText = '📈 ' + currentYear + ' Season Trends';
 
-    var sorted = wkData.slice().sort(function(a, b) {{
+    var sorted = wkData.slice().sort(function(a, b) {
       if (b.all_play_w !== a.all_play_w) return b.all_play_w - a.all_play_w;
       return b.actual - a.actual;
-    }});
+    });
 
     var tbody = document.getElementById('weekTableBody');
     tbody.innerHTML = '';
-    sorted.forEach(function(t, idx) {{
+    sorted.forEach(function(t, idx) {
       var deltaClass = t.luck_delta > 0 ? 'badge-lucky' : (t.luck_delta < 0 ? 'badge-unlucky' : 'badge-neutral');
       var resBadge = t.result === 'W' ? 'badge-win' : 'badge-loss';
       var tr = document.createElement('tr');
@@ -1439,32 +1439,32 @@ def generate_html_report(
         '<td data-label="Luck Δ"><span class="badge ' + deltaClass + '">' + (t.luck_delta > 0 ? '+' : '') + t.luck_delta.toFixed(3) + '</span></td>' +
         '<td data-label="Coaching Eff"><b>' + t.coach_eff.toFixed(1) + '%</b></td>';
       tbody.appendChild(tr);
-    }});
+    });
 
     renderWeeklyAwards(sorted);
     renderBenchBlunders(wkData);
     renderSeasonTrends(yrData);
-  }}
+  }
 
-  function renderWeeklyAwards(sortedWkData) {{
+  function renderWeeklyAwards(sortedWkData) {
     var awardsContainer = document.getElementById('dynamicAwardsGrid');
-    if (!sortedWkData || sortedWkData.length === 0) {{
+    if (!sortedWkData || sortedWkData.length === 0) {
       awardsContainer.innerHTML = '<div style="color: var(--muted); padding: 12px;">No box scores available for this week.</div>';
       return;
-    }}
+    }
 
     var bounty = sortedWkData[0];
-    var buzzsaw = sortedWkData.slice().sort(function(a, b) {{ return a.luck_delta - b.luck_delta; }})[0];
-    var horseshoe = sortedWkData.slice().sort(function(a, b) {{ return b.luck_delta - a.luck_delta; }})[0];
-    var tactician = sortedWkData.slice().sort(function(a, b) {{ return b.coach_eff - a.coach_eff; }})[0];
+    var buzzsaw = sortedWkData.slice().sort(function(a, b) { return a.luck_delta - b.luck_delta; })[0];
+    var horseshoe = sortedWkData.slice().sort(function(a, b) { return b.luck_delta - a.luck_delta; })[0];
+    var tactician = sortedWkData.slice().sort(function(a, b) { return b.coach_eff - a.coach_eff; })[0];
 
     var allStarters = [];
-    sortedWkData.forEach(function(t) {{
-      t.players.forEach(function(p) {{
-        if (p.started) allStarters.push({{ player: p.name, pos: p.pos, pts: p.pts, team: t.team }});
-      }});
-    }});
-    var anchor = allStarters.length > 0 ? allStarters.sort(function(a, b) {{ return a.pts - b.pts; }})[0] : null;
+    sortedWkData.forEach(function(t) {
+      t.players.forEach(function(p) {
+        if (p.started) allStarters.push({ player: p.name, pos: p.pos, pts: p.pts, team: t.team });
+      });
+    });
+    var anchor = allStarters.length > 0 ? allStarters.sort(function(a, b) { return a.pts - b.pts; })[0] : null;
 
     awardsContainer.innerHTML = 
       '<div class="award-card gold">' +
@@ -1513,20 +1513,20 @@ def generate_html_report(
       '</div>';
   }
 
-  function renderBenchBlunders(wkData) {{
+  function renderBenchBlunders(wkData) {
     var blunders = [];
-    wkData.forEach(function(t) {{
-      t.players.forEach(function(p) {{
-        if (p.audit === 'Costly Bench') {{
-          blunders.push({{ team: t.team, name: p.name, pos: p.pos, pts: p.pts, proj: p.proj }});
-        }}
-      }});
-    }});
-    blunders.sort(function(a, b) {{ return b.pts - a.pts; }});
+    wkData.forEach(function(t) {
+      t.players.forEach(function(p) {
+        if (p.audit === 'Costly Bench') {
+          blunders.push({ team: t.team, name: p.name, pos: p.pos, pts: p.pts, proj: p.proj });
+        }
+      });
+    });
+    blunders.sort(function(a, b) { return b.pts - a.pts; });
 
     var bbody = document.getElementById('blundersTableBody');
     bbody.innerHTML = '';
-    blunders.slice(0, 10).forEach(function(b, idx) {{
+    blunders.slice(0, 10).forEach(function(b, idx) {
       var btr = document.createElement('tr');
       btr.innerHTML = 
         '<td class="team-cell"><span class="rank-num">#' + (idx + 1) + '</span> ' + renderBadge(b.team) + '</td>' +
@@ -1535,24 +1535,24 @@ def generate_html_report(
         '<td data-label="Points Left" style="font-weight: 800; color: var(--amber);">' + b.pts.toFixed(2) + ' pts</td>' +
         '<td data-label="Projection" style="color: var(--muted);">' + b.proj.toFixed(2) + ' pts</td>';
       bbody.appendChild(btr);
-    }});
-  }}
+    });
+  }
 
-  function renderSeasonTrends(yrWeeksObj) {{
-    var stats = {{}};
-    var weeks = Object.keys(yrWeeksObj).map(Number).sort(function(a, b) {{ return a - b; }});
+  function renderSeasonTrends(yrWeeksObj) {
+    var stats = {};
+    var weeks = Object.keys(yrWeeksObj).map(Number).sort(function(a, b) { return a - b; });
 
-    weeks.forEach(function(w) {{
+    weeks.forEach(function(w) {
       var matchups = yrWeeksObj[w] || [];
-      matchups.forEach(function(m) {{
+      matchups.forEach(function(m) {
         var tm = m.team;
-        if (!stats[tm]) {{
-          stats[tm] = {{
+        if (!stats[tm]) {
+          stats[tm] = {
             team: tm, actual_w: 0, actual_l: 0, all_play_w: 0, all_play_l: 0,
             pf: 0.0, pa: 0.0, scores: [], pine_tax: 0.0,
             opp_surges: 0, opp_streak: 0, cardiac_w: 0, cardiac_l: 0
-          }};
-        }}
+          };
+        }
         var s = stats[tm];
         s.pf += m.actual;
         s.pa += m.opp_actual;
@@ -1564,346 +1564,26 @@ def generate_html_report(
         s.all_play_l += m.all_play_l;
         s.pine_tax += (m.optimal - m.actual);
 
-        if (Math.abs(m.actual - m.opp_actual) <= 5.0) {{
+        if (Math.abs(m.actual - m.opp_actual) <= 5.0) {
           if (m.result === 'W') s.cardiac_w++;
           else if (m.result === 'L') s.cardiac_l++;
-        }}
+        }
 
-        if (m.opp_actual > (m.opp_proj || m.opp_actual)) {{
+        if (m.opp_actual > (m.opp_proj || m.opp_actual)) {
           s.opp_surges++;
           s.opp_streak++;
-        }} else {{
+        } else {
           s.opp_streak = 0;
-        }}
-      }});
-    }});
+        }
+      });
+    });
 
     var rows = Object.values(stats);
-    rows.forEach(function(s) {{
-      var totAP = s.all_play_w + s.all_play_l;
-      var totAct = s.actual_w + s.actual_l;
-      s.all_play_pct = totAP > 0 ? (s.all_play_w / totAP) : 0.0;
-      var actPct = totAct > 0 ? (s.actual_w / totAct) : 0.0;
-      s.luck_delta = actPct - s.all_play_pct;
-      s.avg_pa = weeks.length > 0 ? (s.pa / weeks.length) : 0.0;
+$\text{if } \text{\_\_name\_\_} == \text{"\_\_main\_\_"}$
 
-      var pfSq = Math.pow(s.pf, 2);
-      var paSq = Math.pow(s.pa, 2);
-      var denom = pfSq + paSq;
-      s.pyth_wins = denom > 0 ? (pfSq / denom) * totAct : 0.0;
-      s.pyth_delta = s.actual_w - s.pyth_wins;
+A stray closing curly brace (`}`) was left at the end of the line, and Python requires a colon (`:`) instead to open the block. 
 
-      if (s.scores.length > 1) {{
-        var mean = s.scores.reduce(function(a, b) {{ return a + b; }}, 0) / s.scores.length;
-        var variance = s.scores.reduce(function(a, b) {{ return a + Math.pow(b - mean, 2); }}, 0) / (s.scores.length - 1);
-        s.volatility_sd = Math.sqrt(variance);
-        s.volatility_tag = s.volatility_sd >= 18 ? 'Boom/Bust' : (s.volatility_sd <= 12 ? 'Steady Floor' : 'Balanced');
-      }} else {{
-        s.volatility_sd = 0.0;
-        s.volatility_tag = 'Baseline';
-      }}
-    }});
+Update line 1909 to:
 
-    rows.sort(function(a, b) {{
-      if (b.all_play_w !== a.all_play_w) return b.all_play_w - a.all_play_w;
-      return b.pf - a.pf;
-    }});
-
-    var sbody = document.getElementById('seasonTableBody');
-    sbody.innerHTML = '';
-    rows.forEach(function(s, idx) {{
-      var deltaClass = s.luck_delta > 0 ? 'badge-lucky' : (s.luck_delta < 0 ? 'badge-unlucky' : 'badge-neutral');
-      var pythColor = s.pyth_delta > 0.5 ? 'var(--green)' : (s.pyth_delta < -0.5 ? 'var(--red)' : 'var(--muted)');
-      var pythDiff = (s.pyth_delta > 0 ? '+' : '') + s.pyth_delta.toFixed(1);
-      var streakStr = s.opp_streak >= 2 ? '<b>' + s.opp_streak + ' st!</b>' : s.opp_streak + ' st';
-
-      var tr = document.createElement('tr');
-      tr.innerHTML = 
-        '<td class="team-cell"><span class="rank-num">#' + (idx + 1) + '</span> ' + renderBadge(s.team) + '</td>' +
-        '<td data-label="Actual W-L"><b>' + s.actual_w + '–' + s.actual_l + '</b></td>' +
-        '<td data-label="Pyth Wins"><b>' + s.pyth_wins.toFixed(1) + '</b> <span style="font-size: 11px; color: ' + pythColor + ';">(' + pythDiff + ')</span></td>' +
-        '<td data-label="All-Play">' + s.all_play_w + '–' + s.all_play_l + ' <span style="font-size: 11px; color: var(--dim);">(' + s.all_play_pct.toFixed(3) + ')</span></td>' +
-        '<td data-label="Season Luck Δ"><span class="badge ' + deltaClass + '">' + (s.luck_delta > 0 ? '+' : '') + s.luck_delta.toFixed(3) + '</span></td>' +
-        '<td data-label="Volatility">±' + s.volatility_sd.toFixed(1) + ' <span class="badge badge-neutral" style="font-size: 10px; padding: 1px 6px;">' + s.volatility_tag + '</span></td>' +
-        '<td data-label="Cardiac Rec"><b>' + s.cardiac_w + '–' + s.cardiac_l + '</b></td>' +
-        '<td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">' + s.pine_tax.toFixed(2) + ' pts</td>' +
-        '<td data-label="Opp Surges">' + s.opp_surges + '/' + weeks.length + ' wks (' + streakStr + ')</td>' +
-        '<td data-label="Avg Opp PA"><b>' + s.avg_pa.toFixed(2) + '</b></td>';
-      sbody.appendChild(tr);
-    }});
-  }}
-
-  function switchTab(viewName) {{
-    var tabs = ['week', 'season', 'h2h', 'payouts', 'halloffame', 'blunders', 'glossary'];
-    tabs.forEach(function(tab) {{
-      var el = document.getElementById('view-' + tab);
-      if (el) el.style.display = 'none';
-    }});
-
-    document.querySelectorAll('.tab-btn').forEach(function(btn) {{
-      btn.classList.remove('active');
-    }});
-
-    var activeEl = document.getElementById('view-' + viewName);
-    if (activeEl) {{
-      if (viewName === 'h2h' || viewName === 'payouts' || viewName === 'halloffame') {{
-        activeEl.style.display = 'flex';
-      }} else {{
-        activeEl.style.display = 'block';
-      }}
-    }}
-
-    if (window.event && window.event.target && window.event.target.classList.contains('tab-btn')) {{
-      window.event.target.classList.add('active');
-    }}
-  }}
-
-  function setH2HScope(scope) {{
-    h2hScope = scope;
-    document.getElementById('scopeCurrentBtn').classList.toggle('active', scope === 'current');
-    document.getElementById('scopeAllBtn').classList.toggle('active', scope === 'all');
-    
-    var select = document.getElementById('mgrFilter');
-    if (select) {{
-      Array.from(select.options).forEach(function(opt) {{
-        if (opt.value === 'ALL') return;
-        var isCur = opt.getAttribute('data-is-current') === 'true';
-        if (scope === 'current' && !isCur) {{
-          opt.style.display = 'none';
-          if (select.value === opt.value) select.value = 'ALL';
-        }} else {{
-          opt.style.display = '';
-        }}
-      }});
-    }}
-    applyH2HFilters();
-  }}
-
-  function applyH2HFilters() {{
-    var select = document.getElementById('mgrFilter');
-    var mgr = select ? select.value : 'ALL';
-    document.querySelectorAll('.rivalry-row').forEach(function(r) {{
-      var m1 = r.getAttribute('data-m1');
-      var m2 = r.getAttribute('data-m2');
-      var isCur = r.getAttribute('data-current') === 'true';
-      var matchesScope = (h2hScope === 'all' || isCur);
-      var matchesMgr = (mgr === 'ALL' || m1 === mgr || m2 === mgr);
-      r.style.display = (matchesScope && matchesMgr) ? '' : 'none';
-    }});
-  }}
-
-  function setHOFScope(scope) {{
-    hofScope = scope;
-    document.getElementById('hofScopeCurrentBtn').classList.toggle('active', scope === 'current');
-    document.getElementById('hofScopeAllBtn').classList.toggle('active', scope === 'all');
-    
-    document.querySelectorAll('.hof-row').forEach(function(r) {{
-      var isCur = r.getAttribute('data-current') === 'true';
-      r.style.display = (scope === 'current' && !isCur) ? 'none' : '';
-    }});
-  }}
-
-  function toggleTheme() {{
-    var isLight = document.body.classList.toggle('light-mode');
-    localStorage.setItem('ff_theme', isLight ? 'light' : 'dark');
-    updateThemeBtn(isLight);
-  }}
-
-  function updateThemeBtn(isLight) {{
-    var btn = document.getElementById('theme-toggle');
-    if (btn) btn.innerHTML = isLight ? '🌙 Dark Mode' : '☀️ Light Mode';
-  }}
-
-  window.addEventListener('DOMContentLoaded', function() {{
-    var savedTheme = localStorage.getItem('ff_theme');
-    if (savedTheme === 'light') {{
-      document.body.classList.add('light-mode');
-      updateThemeBtn(true);
-    }}
-    initApp();
-    setH2HScope('current');
-    setHOFScope('current');
-  }});
-</script>
-</body>
-</html>"""
-
-  with open("index.html", "w") as f:
-    f.write(html)
-
-
-def main():
-  global WEEK
-  print(
-      f"Connecting to ESPN Fantasy API for League {LEAGUE_ID} (Active Season"
-      f" {YEAR})..."
-  )
-  league = League(league_id=LEAGUE_ID, year=YEAR, espn_s2=ESPN_S2, swid=SWID)
-
-  if not WEEK:
-    WEEK = max(1, getattr(league, "current_week", 1) - 1)
-    print(f"No week input provided. Auto-detected completed week: Week {WEEK}")
-
-  current_managers = sorted(
-      list(
-          set(
-              get_manager_name(t)
-              for t in league.teams
-              if get_manager_name(t) != "Manager"
-          )
-      )
-  )
-
-  available_years = [2023, 2024, 2025, YEAR]
-  for y in [2023, 2024, 2025]:
-    sync_historical_season_weeks(y)
-
-  history_file = f"league_history_{YEAR}.json"
-  history = load_history(history_file, {"year": YEAR, "weeks": {}})
-
-  for w in range(1, WEEK + 1):
-    w_str = str(w)
-    needs_ingest = (
-        w_str not in history["weeks"]
-        or not history["weeks"][w_str]
-        or "manager" not in history["weeks"][w_str][0]
-    )
-    if needs_ingest:
-      box_scores = league.box_scores(week=w)
-      if not box_scores:
-        continue
-      w_teams = []
-      for match in box_scores:
-        h_act, a_act = round(match.home_score, 2), round(match.away_score, 2)
-        if h_act == 0 and a_act == 0:
-          continue
-        h_proj = round(
-            sum(
-                p.projected_points
-                for p in match.home_lineup
-                if p.slot_position not in ["BE", "IR"]
-            ),
-            2,
-        )
-        a_proj = round(
-            sum(
-                p.projected_points
-                for p in match.away_lineup
-                if p.slot_position not in ["BE", "IR"]
-            ),
-            2,
-        )
-        h_players, h_opt = audit_roster(match.home_lineup, ROSTER_SLOTS, h_act)
-        a_players, a_opt = audit_roster(match.away_lineup, ROSTER_SLOTS, a_act)
-        h_mgr = get_manager_name(match.home_team)
-        a_mgr = get_manager_name(match.away_team)
-        home_label = (
-            f"{match.home_team.team_name} ({h_mgr})"
-            if h_mgr != "Manager"
-            else match.home_team.team_name
-        )
-        away_label = (
-            f"{match.away_team.team_name} ({a_mgr})"
-            if a_mgr != "Manager"
-            else match.away_team.team_name
-        )
-
-        w_teams.append({
-            "team": home_label,
-            "manager": h_mgr,
-            "opp": away_label,
-            "opp_manager": a_mgr,
-            "actual": h_act,
-            "proj": h_proj,
-            "diff": round(h_act - h_proj, 2),
-            "opp_actual": a_act,
-            "opp_proj": a_proj,
-            "optimal": h_opt,
-            "result": (
-                "W" if h_act > a_act else ("L" if h_act < a_act else "T")
-            ),
-            "coach_eff": (
-                round((h_act / h_opt) * 100, 1) if h_opt > 0 else 100.0
-            ),
-            "players": h_players,
-        })
-        w_teams.append({
-            "team": away_label,
-            "manager": a_mgr,
-            "opp": home_label,
-            "opp_manager": h_mgr,
-            "actual": a_act,
-            "proj": a_proj,
-            "diff": round(a_act - a_proj, 2),
-            "opp_actual": h_act,
-            "opp_proj": h_proj,
-            "optimal": a_opt,
-            "result": (
-                "W" if a_act > h_act else ("L" if a_act < h_act else "T")
-            ),
-            "coach_eff": (
-                round((a_act / a_opt) * 100, 1) if a_opt > 0 else 100.0
-            ),
-            "players": a_players,
-        })
-
-      if w_teams:
-        all_scores = [t["actual"] for t in w_teams]
-        total_opps = len(w_teams) - 1
-        for t in w_teams:
-          t["all_play_w"] = sum(1 for s in all_scores if t["actual"] > s)
-          t["all_play_l"] = sum(1 for s in all_scores if t["actual"] < s)
-          t["luck_delta"] = round(
-              (1.0 if t["result"] == "W" else 0.0)
-              - (t["all_play_w"] / total_opps),
-              3,
-          )
-        history["weeks"][w_str] = w_teams
-
-  save_history(history_file, history)
-
-  master_seasons_db = {}
-  for y in available_years:
-    fpath = f"league_history_{y}.json"
-    if os.path.exists(fpath):
-      season_data = load_history(fpath, {})
-      if season_data.get("weeks"):
-        master_seasons_db[str(y)] = season_data["weeks"]
-
-  save_history("seasons_data.json", master_seasons_db)
-
-  (
-      _,
-      _,
-      _,
-      position_records,
-      season_payout_leaders,
-  ) = compute_records_and_payouts(history)
-  sync_historical_h2h(YEAR)
-  champions, finishes_data = sync_champions_and_finishes(YEAR)
-  leaderboard = compute_all_time_leaderboard(
-      champions, current_managers, finishes_data
-  )
-  reigning = get_reigning_badges(champions, YEAR)
-  rivalries, managers_list, season_log = update_and_compute_h2h(YEAR)
-
-  generate_html_report(
-      YEAR,
-      WEEK,
-      position_records,
-      season_payout_leaders,
-      champions,
-      leaderboard,
-      reigning,
-      rivalries,
-      managers_list,
-      current_managers,
-      season_log,
-  )
-  print(
-      "Clean build complete! seasons_data.json decoupled, DOM loading bugs"
-      " eradicated."
-  )
-
-
-if __name__ == "main"}
+```python
+if __name__ == "__main__":
