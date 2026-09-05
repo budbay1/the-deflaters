@@ -23,15 +23,13 @@ ROSTER_SLOTS = {
 HISTORY_FILE = f"league_history_{YEAR}.json"
 ALL_TIME_FILE = "league_history_alltime.json"
 
-# Manual legacy archive for seasons prior to automation
 HISTORICAL_CHAMPIONS_OVERRIDE = {
-    # "2024": {"gold": "Team Name (Owner A)", "silver": "Team Name (Owner B)", "bronze": "Team Name (Owner C)"},
-    # "2023": {"gold": "Team Name (Owner D)", "silver": "Team Name (Owner E)", "bronze": "Team Name (Owner F)"},
+    # "2024": {"gold": "Team (Manager)", "silver": "Team (Manager)", "bronze": "Team (Manager)"}
 }
 
 
 def get_manager_name(team):
-  """Extracts human or display name from ESPN metadata."""
+  """Extracts human name or display name from ESPN metadata."""
   if hasattr(team, "owners") and team.owners:
     owner = team.owners[0]
     if isinstance(owner, dict):
@@ -187,7 +185,7 @@ def compute_records_and_payouts(history):
 
 
 def sync_champions(league, current_year):
-  all_time = load_history(ALL_TIME_FILE, {"champions": {}})
+  all_time = load_history(ALL_TIME_FILE, {"champions": {}, "matchups": {}})
   all_time["champions"].update(HISTORICAL_CHAMPIONS_OVERRIDE)
 
   try:
@@ -216,6 +214,157 @@ def sync_champions(league, current_year):
 
   save_history(ALL_TIME_FILE, all_time)
   return all_time["champions"]
+
+
+def get_reigning_badges(champions, current_year):
+  prior_year_str = str(current_year - 1)
+  prior_podium = champions.get(prior_year_str, {})
+  return {
+      "gold": prior_podium.get("gold", ""),
+      "silver": prior_podium.get("silver", ""),
+      "bronze": prior_podium.get("bronze", ""),
+  }
+
+
+def render_team_badge(team_label, reigning):
+  """Appends persistent reigning medal pills next to manager names."""
+  medals = ""
+  if reigning.get("gold") and reigning["gold"] in team_label:
+    medals += (
+        ' <span class="badge badge-champ" title="2025 League Champion">🥇'
+        " 25 Champ</span>"
+    )
+  elif reigning.get("silver") and reigning["silver"] in team_label:
+    medals += (
+        ' <span class="badge badge-silver" title="2025 Runner-Up">🥈 25'
+        " Runner-Up</span>"
+    )
+  elif reigning.get("bronze") and reigning["bronze"] in team_label:
+    medals += (
+        ' <span class="badge badge-bronze" title="2025 3rd Place">🥉 25 3rd'
+        " Pl</span>"
+    )
+  return f"{team_label}{medals}"
+
+
+def update_and_compute_h2h(history, current_year):
+  """Syncs all matchups to all-time memory and computes seasonal & lifetime H2H records."""
+  all_time = load_history(ALL_TIME_FILE, {"champions": {}, "matchups": {}})
+  if "matchups" not in all_time:
+    all_time["matchups"] = {}
+
+  # 1. Ingest matchups into permanent all-time archive
+  for w_str, matchups in history["weeks"].items():
+    w = int(w_str)
+    for m in matchups:
+      # Use sorted manager pairs to create a single canonical matchup key per game
+      mgr = m.get("manager", "Unknown")
+      opp_mgr = m.get("opp_manager", "Unknown")
+      if mgr == "Unknown" or opp_mgr == "Unknown":
+        continue
+
+      pair = sorted([mgr, opp_mgr])
+      match_id = f"{current_year}_W{w}_{pair[0]}_vs_{pair[1]}"
+
+      if match_id not in all_time["matchups"]:
+        all_time["matchups"][match_id] = {
+            "year": current_year,
+            "week": w,
+            "m1": mgr,
+            "t1": m["team"],
+            "s1": m["actual"],
+            "m2": opp_mgr,
+            "t2": m["opp"],
+            "s2": m["opp_actual"],
+        }
+
+  save_history(ALL_TIME_FILE, all_time)
+
+  # 2. Compute aggregate pairwise stats
+  rivalries = {}
+  managers_set = set()
+  season_log = []
+
+  for m_id, g in all_time["matchups"].items():
+    m1, m2 = g["m1"], g["m2"]
+    s1, s2 = g["s1"], g["s2"]
+    y, w = g["year"], g["week"]
+    managers_set.add(m1)
+    managers_set.add(m2)
+
+    pair_key = tuple(sorted([m1, m2]))
+    if pair_key not in rivalries:
+      rivalries[pair_key] = {
+          "m1": pair_key[0],
+          "m2": pair_key[1],
+          "m1_wins": 0,
+          "m2_wins": 0,
+          "ties": 0,
+          "m1_pf": 0.0,
+          "m2_pf": 0.0,
+          "season_m1_wins": 0,
+          "season_m2_wins": 0,
+          "season_ties": 0,
+          "last_meet": None,
+      }
+
+    r = rivalries[pair_key]
+    r["last_meet"] = {
+        "year": y,
+        "week": w,
+        "m1": m1,
+        "s1": s1,
+        "m2": m2,
+        "s2": s2,
+    }
+
+    if s1 > s2:
+      if m1 == r["m1"]:
+        r["m1_wins"] += 1
+      else:
+        r["m2_wins"] += 1
+      if y == current_year:
+        if m1 == r["m1"]:
+          r["season_m1_wins"] += 1
+        else:
+          r["season_m2_wins"] += 1
+    elif s2 > s1:
+      if m2 == r["m2"]:
+        r["m2_wins"] += 1
+      else:
+        r["m1_wins"] += 1
+      if y == current_year:
+        if m2 == r["m2"]:
+          r["season_m2_wins"] += 1
+        else:
+          r["season_m1_wins"] += 1
+    else:
+      r["ties"] += 1
+      if y == current_year:
+        r["season_ties"] += 1
+
+    if m1 == r["m1"]:
+      r["m1_pf"] += s1
+      r["m2_pf"] += s2
+    else:
+      r["m1_pf"] += s2
+      r["m2_pf"] += s1
+
+    if y == current_year:
+      season_log.append({
+          "week": w,
+          "m1": m1,
+          "t1": g["t1"],
+          "s1": s1,
+          "m2": m2,
+          "t2": g["t2"],
+          "s2": s2,
+          "margin": round(abs(s1 - s2), 2),
+          "winner": m1 if s1 > s2 else (m2 if s2 > s1 else "Tie"),
+      })
+
+  season_log.sort(key=lambda x: (x["week"], -x["margin"]))
+  return rivalries, sorted(list(managers_set)), season_log
 
 
 def compute_trends(history):
@@ -262,7 +411,6 @@ def compute_trends(history):
       else:
         stat["curr_opp_surge_streak"] = 0
 
-
   total_weeks = len(weeks_sorted)
   for team, s in team_trends.items():
     tot_ap = s["all_play_w"] + s["all_play_l"]
@@ -290,6 +438,10 @@ def generate_html_report(
     bounty_counts,
     position_records,
     champions,
+    reigning,
+    rivalries,
+    managers_list,
+    season_log,
 ):
   sorted_week = sorted(
       current_week_data, key=lambda x: (x["all_play_w"], x["actual"]), reverse=True
@@ -366,11 +518,12 @@ def generate_html_report(
       --amber: #f59e0b; --amber-bg: rgba(245, 158, 11, 0.12);
       --purple: #a855f7; --purple-bg: rgba(168, 85, 247, 0.12);
       --gold: #fbbf24; --gold-bg: rgba(251, 191, 36, 0.15);
-      --silver: #cbd5e1; --bronze: #d97706;
+      --silver: #cbd5e1; --silver-bg: rgba(203, 213, 225, 0.15);
+      --bronze: #d97706; --bronze-bg: rgba(217, 119, 6, 0.15);
     }}
     * {{ box-sizing: border-box; margin: 0; padding: 0; }}
     body {{ font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; background: var(--bg); color: var(--text); padding: 24px 12px; }}
-    .wrapper {{ max-width: 1060px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }}
+    .wrapper {{ max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }}
     
     .header {{
       background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
@@ -399,19 +552,24 @@ def generate_html_report(
     .table-scroll {{ overflow-x: auto; }}
     table {{ width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }}
     th {{ background: #0d1424; color: var(--muted); font-weight: 700; font-size: 11px; text-transform: uppercase; padding: 14px 16px; border-bottom: 1px solid var(--border); white-space: nowrap; }}
+    th .sub-th {{ display: block; font-size: 9px; color: var(--dim); font-weight: normal; text-transform: none; margin-top: 2px; }}
     td {{ padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: middle; white-space: nowrap; }}
     tr:last-child td {{ border-bottom: none; }}
     tr:hover td {{ background: rgba(255,255,255,0.015); }}
     
     .team-name {{ font-weight: 700; color: #fff; }}
     .rank-num {{ font-size: 12px; color: var(--dim); font-weight: 800; width: 20px; }}
-    .badge {{ display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; }}
+    
+    .badge {{ display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; gap: 4px; }}
     .badge-win {{ background: var(--green-bg); color: var(--green); }}
     .badge-loss {{ background: var(--red-bg); color: var(--red); }}
     .badge-lucky {{ background: var(--green-bg); color: var(--green); }}
     .badge-unlucky {{ background: var(--red-bg); color: var(--red); }}
     .badge-neutral {{ background: rgba(255,255,255,0.06); color: var(--muted); }}
     .badge-gold {{ background: var(--gold-bg); color: var(--gold); border: 1px solid rgba(251, 191, 36, 0.3); }}
+    .badge-champ {{ background: var(--gold-bg); color: var(--gold); border: 1px solid rgba(251, 191, 36, 0.4); font-size: 10px; padding: 2px 6px; }}
+    .badge-silver {{ background: var(--silver-bg); color: var(--silver); border: 1px solid rgba(203, 213, 225, 0.4); font-size: 10px; padding: 2px 6px; }}
+    .badge-bronze {{ background: var(--bronze-bg); color: var(--bronze); border: 1px solid rgba(217, 119, 6, 0.4); font-size: 10px; padding: 2px 6px; }}
 
     .podium-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; padding: 20px; }}
     .podium-card {{ background: #0d1424; border: 1px solid var(--border); border-radius: 14px; padding: 18px; }}
@@ -423,6 +581,16 @@ def generate_html_report(
     .record-pos {{ font-size: 11px; font-weight: 800; color: var(--accent); text-transform: uppercase; margin-bottom: 4px; }}
     .record-pts {{ font-size: 22px; font-weight: 800; color: #fff; }}
     .record-holder {{ font-size: 12px; color: var(--muted); margin-top: 4px; }}
+
+    .glossary-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; padding: 24px; }}
+    .glossary-card {{ background: #0d1424; border: 1px solid var(--border); border-radius: 14px; padding: 20px; }}
+    .glossary-title {{ font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }}
+    .glossary-desc {{ font-size: 13px; color: var(--muted); line-height: 1.5; }}
+    .glossary-example {{ margin-top: 10px; padding: 8px 12px; background: var(--surface); border-radius: 8px; font-size: 12px; color: var(--text); border-left: 3px solid var(--accent); }}
+
+    /* H2H Filter Header */
+    .filter-header {{ padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }}
+    .select-dropdown {{ background: var(--surface); color: var(--text); border: 1px solid var(--border); padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; outline: none; }}
   </style>
 </head>
 <body>
@@ -438,9 +606,9 @@ def generate_html_report(
   <div class="awards-grid">
     <div class="award-card gold">
       <div>
-        <div class="award-tag" style="color: var(--gold);">💰 Week {curr_bounty['week'] if curr_bounty else week_num} High Point Payout</div>
-        <div class="award-title">{curr_bounty['team'] if curr_bounty else 'None'}</div>
-        <div class="award-desc">Paced the entire league with <b>{curr_bounty['pts'] if curr_bounty else 0} pts</b> this week to take home the weekly cash payout!</div>
+        <div class="award-tag" style="color: var(--gold);">💰 Week {curr_bounty['week'] if curr_bounty else week_num} High Point Bounty</div>
+        <div class="award-title">{render_team_badge(curr_bounty['team'] if curr_bounty else 'None', reigning)}</div>
+        <div class="award-desc">Paced the entire league with <b>{curr_bounty['pts'] if curr_bounty else 0} pts</b> to take down the weekly cash payout!</div>
       </div>
       <div style="margin-top: 10px;"><span class="badge badge-gold">Weekly Bounty Winner</span></div>
     </div>
@@ -448,8 +616,8 @@ def generate_html_report(
     <div class="award-card red">
       <div>
         <div class="award-tag" style="color: var(--red);">💀 The Buzzsaw Victim</div>
-        <div class="award-title">{buzzsaw['team']}</div>
-        <div class="award-desc">Dropped {buzzsaw['actual']} pts ({buzzsaw['all_play_w']}–{buzzsaw['all_play_l']} All-Play), but lost to {buzzsaw['opp']} ({buzzsaw['opp_actual']} pts).</div>
+        <div class="award-title">{render_team_badge(buzzsaw['team'], reigning)}</div>
+        <div class="award-desc">Dropped {buzzsaw['actual']} pts ({buzzsaw['all_play_w']}–{buzzsaw['all_play_l']} All-Play), but took an L to {buzzsaw['opp']} ({buzzsaw['opp_actual']} pts).</div>
       </div>
       <div style="margin-top: 10px;"><span class="badge badge-unlucky">Luck Δ: {buzzsaw['luck_delta']:+.3f}</span></div>
     </div>
@@ -457,8 +625,8 @@ def generate_html_report(
     <div class="award-card green">
       <div>
         <div class="award-tag" style="color: var(--green);">🍀 Grand Theft Victory</div>
-        <div class="award-title">{horseshoe['team']}</div>
-        <div class="award-desc">Squeaked by with only {horseshoe['actual']} pts ({horseshoe['all_play_w']}–{horseshoe['all_play_l']} All-Play) thanks to opponent collapse.</div>
+        <div class="award-title">{render_team_badge(horseshoe['team'], reigning)}</div>
+        <div class="award-desc">Squeaked by with {horseshoe['actual']} pts ({horseshoe['all_play_w']}–{horseshoe['all_play_l']} All-Play) thanks to opponent meltdown.</div>
       </div>
       <div style="margin-top: 10px;"><span class="badge badge-lucky">Luck Δ: {horseshoe['luck_delta']:+.3f}</span></div>
     </div>
@@ -466,8 +634,8 @@ def generate_html_report(
     <div class="award-card blue">
       <div>
         <div class="award-tag" style="color: var(--accent);">🧠 Master Tactician</div>
-        <div class="award-title">{tactician['team']}</div>
-        <div class="award-desc">Optimal lineup execution of <b>{tactician['coach_eff']}%</b> ({tactician['actual']} of {tactician['optimal']} pts).</div>
+        <div class="award-title">{render_team_badge(tactician['team'], reigning)}</div>
+        <div class="award-desc">Optimal starting execution of <b>{tactician['coach_eff']}%</b> ({tactician['actual']} of {tactician['optimal']} optimal pts).</div>
       </div>
       <div style="margin-top: 10px;"><span class="badge badge-neutral">Lineup Mastery</span></div>
     </div>
@@ -476,16 +644,29 @@ def generate_html_report(
   <div class="tab-bar">
     <button class="tab-btn active" onclick="switchTab('week')">📅 Week {week_num} Audit</button>
     <button class="tab-btn" onclick="switchTab('season')">📈 Season Trends</button>
+    <button class="tab-btn" onclick="switchTab('h2h')">⚔️ Head-to-Head</button>
     <button class="tab-btn" onclick="switchTab('payouts')">💰 Weekly Payouts & Records</button>
     <button class="tab-btn" onclick="switchTab('halloffame')">🏆 Hall of Champions</button>
     <button class="tab-btn" onclick="switchTab('blunders')">🤡 Bench Blunders</button>
+    <button class="tab-btn" onclick="switchTab('glossary')">📖 Stat Decoders</button>
   </div>
 
-  <!-- TAB 1: WEEKLY AUDIT -->
+  <!-- TAB 1: WEEK AUDIT -->
   <div id="view-week" class="table-container">
     <div class="table-scroll">
       <table>
-        <thead><tr><th>Rank</th><th>Team</th><th>Result</th><th>Score</th><th>Opponent</th><th>All-Play</th><th>Luck Δ</th><th>Coaching Eff</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Team</th>
+            <th>Result</th>
+            <th>Score<span class="sub-th">(vs Proj)</span></th>
+            <th>Opponent<span class="sub-th">(Score)</span></th>
+            <th>All-Play<span class="sub-th">Record</span></th>
+            <th>Luck Δ<span class="sub-th">Schedule Break</span></th>
+            <th>Coaching Eff<span class="sub-th">Optimal Pts %</span></th>
+          </tr>
+        </thead>
         <tbody>"""
 
   for idx, t in enumerate(sorted_week, 1):
@@ -495,10 +676,11 @@ def generate_html_report(
         else ("badge-unlucky" if t["luck_delta"] < 0 else "badge-neutral")
     )
     res_badge = "badge-win" if t["result"] == "W" else "badge-loss"
+    decorated_team = render_team_badge(t["team"], reigning)
     html += f"""
           <tr>
             <td class="rank-num">{idx}</td>
-            <td class="team-name">{t['team']}</td>
+            <td class="team-name">{decorated_team}</td>
             <td><span class="badge {res_badge}">{t['result']}</span></td>
             <td style="font-weight: 700;">{t['actual']} <span style="font-size: 11px; color: var(--dim); font-weight: normal;">({t['diff']:+0.1f})</span></td>
             <td>{t['opp']} <span style="color: var(--muted); font-size: 11px;">({t['opp_actual']})</span></td>
@@ -522,12 +704,12 @@ def generate_html_report(
             <th>Rank</th>
             <th>Team</th>
             <th>Actual W-L</th>
-            <th>All-Play W-L</th>
+            <th>All-Play<span class="sub-th">True Strength</span></th>
             <th>All-Play %</th>
-            <th>Season Luck Δ</th>
-            <th>Pine Tax (Pts Lost)</th>
-            <th>Opp Surges Faced</th>
-            <th>Avg Opp PA</th>
+            <th>Season Luck Δ<span class="sub-th">Net Fortune</span></th>
+            <th>Pine Tax<span class="sub-th">Total Pts Lost</span></th>
+            <th>Opp Surges Faced<span class="sub-th">Over Proj (Active Streak)</span></th>
+            <th>Avg Opp PA<span class="sub-th">Matchup Gauntlet</span></th>
           </tr>
         </thead>
         <tbody>"""
@@ -538,26 +720,131 @@ def generate_html_report(
         if s["luck_delta"] > 0
         else ("badge-unlucky" if s["luck_delta"] < 0 else "badge-neutral")
     )
+    decorated_team = render_team_badge(s["team"], reigning)
+    streak_badge = (
+        f"<b>{s['curr_opp_surge_streak']} straight!</b>"
+        if s["curr_opp_surge_streak"] >= 2
+        else f"{s['curr_opp_surge_streak']} st"
+    )
     html += f"""
           <tr>
             <td class="rank-num">{idx}</td>
-            <td class="team-name">{s['team']}</td>
+            <td class="team-name">{decorated_team}</td>
             <td><b>{s['actual_w']}–{s['actual_l']}</b></td>
             <td>{s['all_play_w']}–{s['all_play_l']}</td>
             <td><b>{s['all_play_pct']:.3f}</b></td>
             <td><span class="badge {c_delta_class}">{s['luck_delta']:+.3f}</span></td>
-            <td style="color: var(--amber); font-weight: 700;">{s['pine_tax']}</td>
-            <td>{s['opp_over_proj_count']}/{total_weeks} wks ({s['curr_opp_surge_streak']} st)</td>
+            <td style="color: var(--amber); font-weight: 700;">{s['pine_tax']} pts</td>
+            <td>{s['opp_over_proj_count']}/{total_weeks} wks ({streak_badge})</td>
             <td style="font-weight: 700;">{s['avg_pa']}</td>
           </tr>"""
 
-  html += """
+  html += f"""
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- TAB 3: WEEKLY PAYOUTS & POSITIONAL RECORDS -->
+  <!-- TAB 3: HEAD-TO-HEAD LOG & MATRIX -->
+  <div id="view-h2h" style="display: none;">
+    
+    <div class="table-container" style="margin-bottom: 24px;">
+      <div class="filter-header">
+        <div style="font-size: 15px; font-weight: 800; color: #fff;">⚔️ All-Time Manager Rivalry Records</div>
+        <div>
+          <label style="font-size: 12px; color: var(--muted); font-weight: 700; margin-right: 8px;">Filter by Manager:</label>
+          <select id="mgrFilter" class="select-dropdown" onchange="filterRivalries(this.value)">
+            <option value="ALL">Show All Rivalries</option>"""
+
+  for mgr in managers_list:
+    html += f"""<option value="{mgr}">{mgr}</option>"""
+
+  html += """
+          </select>
+        </div>
+      </div>
+      <div class="table-scroll">
+        <table id="rivalryTable">
+          <thead>
+            <tr>
+              <th>Rivalry Matchup</th>
+              <th>All-Time Series</th>
+              <th>Season Series</th>
+              <th>Total Points (PF vs PA)</th>
+              <th>Last Meeting</th>
+            </tr>
+          </thead>
+          <tbody>"""
+
+  for pair_key, r in rivalries.items():
+    m1, m2 = r["m1"], r["m2"]
+    m1_w, m2_w = r["m1_wins"], r["m2_wins"]
+    sm1_w, sm2_w = r["season_m1_wins"], r["season_m2_wins"]
+    last = r["last_meet"]
+    last_str = (
+        f"{last['year']} Wk {last['week']}: {last['m1']} ({last['s1']}) vs"
+        f" {last['m2']} ({last['s2']})"
+        if last
+        else "N/A"
+    )
+
+    html += f"""
+            <tr class="rivalry-row" data-m1="{m1}" data-m2="{m2}">
+              <td class="team-name"><b>{m1}</b> vs <b>{m2}</b></td>
+              <td><b>{m1_w}–{m2_w}</b></td>
+              <td>{sm1_w}–{sm2_w}</td>
+              <td>{r['m1_pf']:.1f} vs {r['m2_pf']:.1f}</td>
+              <td style="color: var(--muted); font-size: 12px;">{last_str}</td>
+            </tr>"""
+
+  html += f"""
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SEASON MATCHUP SCHEDULE LOG -->
+    <div class="table-container">
+      <div style="padding: 16px 20px; font-weight: 800; border-bottom: 1px solid var(--border); color: #fff;">
+        📅 Season {YEAR} Completed Matchup Log
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Week</th>
+              <th>Winner</th>
+              <th>Score</th>
+              <th>Loser</th>
+              <th>Margin</th>
+            </tr>
+          </thead>
+          <tbody>"""
+
+  for g in season_log:
+    winner_team = g["t1"] if g["s1"] >= g["s2"] else g["t2"]
+    winner_score = max(g["s1"], g["s2"])
+    loser_team = g["t2"] if g["s1"] >= g["s2"] else g["t1"]
+    loser_score = min(g["s1"], g["s2"])
+
+    html += f"""
+            <tr>
+              <td style="font-weight: 800; color: var(--accent);">Week {g['week']}</td>
+              <td class="team-name">{winner_team}</td>
+              <td style="font-weight: 700; color: var(--green);">{winner_score} – {loser_score}</td>
+              <td style="color: var(--muted);">{loser_team}</td>
+              <td style="font-weight: 700; color: var(--accent);">+{g['margin']} pts</td>
+            </tr>"""
+
+  html += """
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TAB 4: PAYOUTS & POSITIONAL RECORDS -->
   <div id="view-payouts" style="display: none;">
     <div style="font-size: 16px; font-weight: 800; margin-bottom: 12px; color: #fff;">🔥 Single-Game Positional Records (Season Highs)</div>
     <div class="records-grid">"""
@@ -581,10 +868,11 @@ def generate_html_report(
           <tbody>"""
 
   for b in weekly_bounties:
+    dec_team = render_team_badge(b["team"], reigning)
     html += f"""
             <tr>
               <td style="font-weight: 800; color: var(--accent);">Week {b['week']}</td>
-              <td class="team-name">{b['team']}</td>
+              <td class="team-name">{dec_team}</td>
               <td style="font-weight: 800; color: var(--gold);">{b['pts']} pts</td>
               <td>vs {b['opp']}</td>
               <td style="color: var(--muted);">{b['opp_pts']} pts</td>
@@ -597,14 +885,14 @@ def generate_html_report(
     </div>
   </div>
 
-  <!-- TAB 4: HALL OF CHAMPIONS -->
+  <!-- TAB 5: HALL OF CHAMPIONS -->
   <div id="view-halloffame" class="table-container" style="display: none;">
     <div style="padding: 16px 20px; font-weight: 800; border-bottom: 1px solid var(--border); color: #fff;">🏆 Historical Podium (Gold, Silver, Bronze)</div>
     <div class="podium-grid">"""
 
   sorted_champs = sorted(champions.keys(), reverse=True)
   if not sorted_champs:
-    html += """<div style="padding: 24px; color: var(--muted);">No historical seasons locked in yet. They will appear here automatically when seasons finish or are entered into history.</div>"""
+    html += """<div style="padding: 24px; color: var(--muted);">No historical podium records locked in yet.</div>"""
   else:
     for c_year in sorted_champs:
       p = champions[c_year]
@@ -629,7 +917,7 @@ def generate_html_report(
     </div>
   </div>
 
-  <!-- TAB 5: BENCH BLUNDERS -->
+  <!-- TAB 6: BENCH BLUNDERS -->
   <div id="view-blunders" class="table-container" style="display: none;">
     <div class="table-scroll">
       <table>
@@ -637,10 +925,11 @@ def generate_html_report(
         <tbody>"""
 
   for idx, b in enumerate(all_blunders[:10], 1):
+    dec_team = render_team_badge(b["team"], reigning)
     html += f"""
           <tr>
             <td class="rank-num">{idx}</td>
-            <td class="team-name">{b['team']}</td>
+            <td class="team-name">{dec_team}</td>
             <td style="color: #fff; font-weight: 600;">{b['name']}</td>
             <td><span class="badge badge-neutral">{b['pos']}</span></td>
             <td style="font-weight: 800; color: var(--amber);">{b['pts']} pts</td>
@@ -652,11 +941,80 @@ def generate_html_report(
       </table>
     </div>
   </div>
+
+  <!-- TAB 7: STAT DECODERS (THE GLOSSARY) -->
+  <div id="view-glossary" class="table-container" style="display: none;">
+    <div style="padding: 18px 24px; font-weight: 800; border-bottom: 1px solid var(--border); color: #fff; font-size: 16px;">
+      📖 The Deflaters Analytics Handbook
+    </div>
+    <div class="glossary-grid">
+      
+      <div class="glossary-card">
+        <div class="glossary-title">🪵 Pine Tax (Cumulative Bench Cost)</div>
+        <div class="glossary-desc">
+          The total number of real points surrendered to your bench across the season. It calculates the difference between your team's <b>Optimal Score</b> and your <b>Actual Score</b> each week.
+        </div>
+        <div class="glossary-example">
+          <b>Example:</b> You started an RB who scored 4.2 pts while leaving an RB with 18.2 on your bench. That is <b>14.0 pts</b> added to your Pine Tax.
+        </div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-title">🧲 Opp Surges Faced & Streak (X st)</div>
+        <div class="glossary-desc">
+          Tracks how many times an opponent significantly outperformed their projected ESPN score when facing you. The <b>(X st)</b> callout denotes their <b>current consecutive streak</b> of facing surging opponents.
+        </div>
+        <div class="glossary-example">
+          <b>Example:</b> <code>6/14 wks (3 straight!)</code> means your opponent beat their projection 6 times this year, and you are currently in a 3-week stretch where opponents are spiking against you.
+        </div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-title">🍀 Luck Delta (Δ)</div>
+        <div class="glossary-desc">
+          Quantifies schedule luck by measuring the gap between your <b>Actual Win %</b> and your <b>All-Play Win %</b>.
+        </div>
+        <div class="glossary-example">
+          <b>+0.450 (Lucky):</b> Escaping with wins despite bottom-half scoring.<br>
+          <b>-0.500 (Unlucky):</b> Putting up top scores but getting buzzsawed by the #1 scorer.
+        </div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-title">🌐 All-Play Record</div>
+        <div class="glossary-desc">
+          What your record would be if you played <b>every other team in the league</b> every single week. It strips away schedule bias to reveal your roster's true scoring caliber.
+        </div>
+        <div class="glossary-example">
+          In a 12-team league, going 11–0 in All-Play means you put up the absolute highest score of the week.
+        </div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-title">🧠 Coaching Efficiency %</div>
+        <div class="glossary-desc">
+          The percentage of maximum possible points you successfully started. Calculated as: <code>(Actual Score ÷ Optimal Lineup Score) × 100</code>.
+        </div>
+        <div class="glossary-example">
+          A score of <b>100%</b> means you started the mathematically best possible lineup out of everyone on your roster.
+        </div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-title">🛡️ Avg Opp PA (Matchup Gauntlet)</div>
+        <div class="glossary-desc">
+          Average Points Against per game. Teams at the top of this list have faced the most brutal schedules in the league, regardless of their win-loss record.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </div>
 
 <script>
   function switchTab(viewName) {
-    ['week', 'season', 'payouts', 'halloffame', 'blunders'].forEach(tab => {
+    ['week', 'season', 'h2h', 'payouts', 'halloffame', 'blunders', 'glossary'].forEach(tab => {
       var el = document.getElementById('view-' + tab);
       if (el) el.style.display = 'none';
     });
@@ -665,6 +1023,23 @@ def generate_html_report(
     var activeEl = document.getElementById('view-' + viewName);
     if (activeEl) activeEl.style.display = 'block';
     if (event && event.target) event.target.classList.add('active');
+  }
+
+  function filterRivalries(mgr) {
+    var rows = document.querySelectorAll('.rivalry-row');
+    rows.forEach(r => {
+      if (mgr === 'ALL') {
+        r.style.display = '';
+      } else {
+        var m1 = r.getAttribute('data-m1');
+        var m2 = r.getAttribute('data-m2');
+        if (m1 === mgr || m2 === mgr) {
+          r.style.display = '';
+        } else {
+          r.style.display = 'none';
+        }
+      }
+    });
   }
 </script>
 </body>
@@ -688,6 +1063,7 @@ def main():
         w_str not in history["weeks"]
         or not history["weeks"][w_str]
         or "opp_proj" not in history["weeks"][w_str][0]
+        or "manager" not in history["weeks"][w_str][0]
     )
     if needs_ingest:
       print(f"Ingesting & processing Week {w}...")
@@ -734,7 +1110,11 @@ def main():
 
         w_teams.append({
             "team": home_label,
+            "team_raw": match.home_team.team_name,
+            "manager": h_mgr,
             "opp": away_label,
+            "opp_raw": match.away_team.team_name,
+            "opp_manager": a_mgr,
             "actual": h_act,
             "proj": h_proj,
             "diff": round(h_act - h_proj, 2),
@@ -752,7 +1132,11 @@ def main():
 
         w_teams.append({
             "team": away_label,
+            "team_raw": match.away_team.team_name,
+            "manager": a_mgr,
             "opp": home_label,
+            "opp_raw": match.home_team.team_name,
+            "opp_manager": h_mgr,
             "actual": a_act,
             "proj": a_proj,
             "diff": round(a_act - a_proj, 2),
@@ -788,7 +1172,10 @@ def main():
   weekly_bounties, bounty_counts, position_records = (
       compute_records_and_payouts(history)
   )
+
   champions = sync_champions(league, YEAR)
+  reigning = get_reigning_badges(champions, YEAR)
+  rivalries, managers_list, season_log = update_and_compute_h2h(history, YEAR)
 
   generate_html_report(
       WEEK,
@@ -799,8 +1186,15 @@ def main():
       bounty_counts,
       position_records,
       champions,
+      reigning,
+      rivalries,
+      managers_list,
+      season_log,
   )
-  print("Audit complete! Saved history and generated index.html")
+  print(
+      "Audit complete! Generated index.html with Head-to-Head rivalries &"
+      " logs."
+  )
 
 
 if __name__ == "__main__":
