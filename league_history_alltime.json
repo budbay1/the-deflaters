@@ -5,5 +5,847 @@
       "silver": "Puka Time (trentan busey)",
       "bronze": "No Punt Intended  (Kurt Claycomb)"
     }
+  },
+  "matchups": {
+    "2025_W1_Ron Baker_vs_jeremy bayless": {
+      "year": 2025,
+      "week": 1,
+      "m1": "jeremy bayless",
+      "t1": "Rejected Kamala (jeremy bayless)",
+      "s1": 104.22,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode (Ron Baker)",
+      "s2": 125.48
+    },
+    "2025_W1_Jared Schneider_vs_Robert Kendall": {
+      "year": 2025,
+      "week": 1,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed (Jared Schneider)",
+      "s1": 117.84,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall (Robert Kendall)",
+      "s2": 114.52
+    },
+    "2025_W1_Billy Haid_vs_TRAVIS GIBSON": {
+      "year": 2025,
+      "week": 1,
+      "m1": "Billy Haid",
+      "t1": "Off In the Corner (Billy Haid)",
+      "s1": 134.56,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN (TRAVIS GIBSON)",
+      "s2": 92.5
+    },
+    "2025_W1_Eric King_vs_Miles Spainhower": {
+      "year": 2025,
+      "week": 1,
+      "m1": "Eric King",
+      "t1": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
+      "s1": 99.98,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream (Miles Spainhower)",
+      "s2": 98.72
+    },
+    "2025_W1_Kurt Claycomb_vs_Wes Colson": {
+      "year": 2025,
+      "week": 1,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order (Wes Colson)",
+      "s1": 125.42,
+      "m2": "Kurt Claycomb",
+      "t2": "No Punt Intended  (Kurt Claycomb)",
+      "s2": 150.36
+    },
+    "2025_W1_Roman Bayless_vs_trentan busey": {
+      "year": 2025,
+      "week": 1,
+      "m1": "Roman Bayless",
+      "t1": "Team Freedom (Roman Bayless)",
+      "s1": 58.44,
+      "m2": "trentan busey",
+      "t2": "Puka Time (trentan busey)",
+      "s2": 81.62
+    },
+    "2025_W2_Robert Kendall_vs_Ron Baker": {
+      "year": 2025,
+      "week": 2,
+      "m1": "Ron Baker",
+      "t1": "Team Bakesmode (Ron Baker)",
+      "s1": 163.98,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall (Robert Kendall)",
+      "s2": 105.98
+    },
+    "2025_W2_TRAVIS GIBSON_vs_jeremy bayless": {
+      "year": 2025,
+      "week": 2,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN (TRAVIS GIBSON)",
+      "s1": 131.66,
+      "m2": "jeremy bayless",
+      "t2": "Rejected Kamala (jeremy bayless)",
+      "s2": 124.5
+    },
+    "2025_W2_Billy Haid_vs_Jared Schneider": {
+      "year": 2025,
+      "week": 2,
+      "m1": "Billy Haid",
+      "t1": "Off In the Corner (Billy Haid)",
+      "s1": 131.6,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed (Jared Schneider)",
+      "s2": 75.6
+    },
+    "2025_W2_Kurt Claycomb_vs_Miles Spainhower": {
+      "year": 2025,
+      "week": 2,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream (Miles Spainhower)",
+      "s1": 66.34,
+      "m2": "Kurt Claycomb",
+      "t2": "No Punt Intended  (Kurt Claycomb)",
+      "s2": 157.44
+    },
+    "2025_W2_Eric King_vs_trentan busey": {
+      "year": 2025,
+      "week": 2,
+      "m1": "trentan busey",
+      "t1": "Puka Time (trentan busey)",
+      "s1": 104.24,
+      "m2": "Eric King",
+      "t2": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
+      "s2": 94.94
+    },
+    "2025_W2_Roman Bayless_vs_Wes Colson": {
+      "year": 2025,
+      "week": 2,
+      "m1": "Roman Bayless",
+      "t1": "Team Freedom (Roman Bayless)",
+      "s1": 163.02,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order (Wes Colson)",
+      "s2": 113.34
+    },
+    "2025_W3_Ron Baker_vs_TRAVIS GIBSON": {
+      "year": 2025,
+      "week": 3,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN (TRAVIS GIBSON)",
+      "s1": 74.98,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode (Ron Baker)",
+      "s2": 107.52
+    },
+    "2025_W3_Billy Haid_vs_Robert Kendall": {
+      "year": 2025,
+      "week": 3,
+      "m1": "Robert Kendall",
+      "t1": "Team Kendall (Robert Kendall)",
+      "s1": 115.4,
+      "m2": "Billy Haid",
+      "t2": "Off In the Corner (Billy Haid)",
+      "s2": 131.72
+    },
+    "2025_W3_Jared Schneider_vs_jeremy bayless": {
+      "year": 2025,
+      "week": 3,
+      "m1": "jeremy bayless",
+      "t1": "Rejected Kamala (jeremy bayless)",
+      "s1": 108.46,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed (Jared Schneider)",
+      "s2": 101.64
+    },
+    "2025_W3_Miles Spainhower_vs_trentan busey": {
+      "year": 2025,
+      "week": 3,
+      "m1": "trentan busey",
+      "t1": "Puka Time (trentan busey)",
+      "s1": 116.34,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream (Miles Spainhower)",
+      "s2": 92.08
+    },
+    "2025_W3_Kurt Claycomb_vs_Roman Bayless": {
+      "year": 2025,
+      "week": 3,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended  (Kurt Claycomb)",
+      "s1": 127.84,
+      "m2": "Roman Bayless",
+      "t2": "Team Freedom (Roman Bayless)",
+      "s2": 158.42
+    },
+    "2025_W3_Eric King_vs_Wes Colson": {
+      "year": 2025,
+      "week": 3,
+      "m1": "Eric King",
+      "t1": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
+      "s1": 135.64,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order (Wes Colson)",
+      "s2": 113.86
+    },
+    "2025_W4_Billy Haid_vs_Ron Baker": {
+      "year": 2025,
+      "week": 4,
+      "m1": "Ron Baker",
+      "t1": "Team Bakesmode (Ron Baker)",
+      "s1": 91.38,
+      "m2": "Billy Haid",
+      "t2": "Off In the Corner (Billy Haid)",
+      "s2": 142.58
+    },
+    "2025_W4_Jared Schneider_vs_TRAVIS GIBSON": {
+      "year": 2025,
+      "week": 4,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed (Jared Schneider)",
+      "s1": 119.18,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN (TRAVIS GIBSON)",
+      "s2": 122.42
+    },
+    "2025_W4_Robert Kendall_vs_jeremy bayless": {
+      "year": 2025,
+      "week": 4,
+      "m1": "jeremy bayless",
+      "t1": "Rejected Kamala (jeremy bayless)",
+      "s1": 133.92,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall (Robert Kendall)",
+      "s2": 134.1
+    },
+    "2025_W4_Miles Spainhower_vs_Roman Bayless": {
+      "year": 2025,
+      "week": 4,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream (Miles Spainhower)",
+      "s1": 132.36,
+      "m2": "Roman Bayless",
+      "t2": "Team Freedom (Roman Bayless)",
+      "s2": 107.68
+    },
+    "2025_W4_Wes Colson_vs_trentan busey": {
+      "year": 2025,
+      "week": 4,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order (Wes Colson)",
+      "s1": 129.76,
+      "m2": "trentan busey",
+      "t2": "Puka Time (trentan busey)",
+      "s2": 111.9
+    },
+    "2025_W4_Eric King_vs_Kurt Claycomb": {
+      "year": 2025,
+      "week": 4,
+      "m1": "Eric King",
+      "t1": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
+      "s1": 114.5,
+      "m2": "Kurt Claycomb",
+      "t2": "No Punt Intended  (Kurt Claycomb)",
+      "s2": 147.26
+    },
+    "2025_W5_Jared Schneider_vs_Ron Baker": {
+      "year": 2025,
+      "week": 5,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed (Jared Schneider)",
+      "s1": 116.7,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode (Ron Baker)",
+      "s2": 109.72
+    },
+    "2025_W5_Billy Haid_vs_jeremy bayless": {
+      "year": 2025,
+      "week": 5,
+      "m1": "Billy Haid",
+      "t1": "Off In the Corner (Billy Haid)",
+      "s1": 154.02,
+      "m2": "jeremy bayless",
+      "t2": "Rejected Kamala (jeremy bayless)",
+      "s2": 138.44
+    },
+    "2025_W5_Robert Kendall_vs_TRAVIS GIBSON": {
+      "year": 2025,
+      "week": 5,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN (TRAVIS GIBSON)",
+      "s1": 119.82,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall (Robert Kendall)",
+      "s2": 84.84
+    },
+    "2025_W5_Miles Spainhower_vs_Wes Colson": {
+      "year": 2025,
+      "week": 5,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order (Wes Colson)",
+      "s1": 94.0,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream (Miles Spainhower)",
+      "s2": 124.82
+    },
+    "2025_W5_Eric King_vs_Roman Bayless": {
+      "year": 2025,
+      "week": 5,
+      "m1": "Roman Bayless",
+      "t1": "Team Freedom (Roman Bayless)",
+      "s1": 134.2,
+      "m2": "Eric King",
+      "t2": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
+      "s2": 59.5
+    },
+    "2025_W5_Kurt Claycomb_vs_trentan busey": {
+      "year": 2025,
+      "week": 5,
+      "m1": "trentan busey",
+      "t1": "Puka Time (trentan busey)",
+      "s1": 185.08,
+      "m2": "Kurt Claycomb",
+      "t2": "No Punt Intended  (Kurt Claycomb)",
+      "s2": 140.32
+    },
+    "2025_W6_Miles Spainhower_vs_Ron Baker": {
+      "year": 2025,
+      "week": 6,
+      "m1": "Ron Baker",
+      "t1": "Team Bakesmode (Ron Baker)",
+      "s1": 181.62,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream (Miles Spainhower)",
+      "s2": 85.24
+    },
+    "2025_W6_Eric King_vs_jeremy bayless": {
+      "year": 2025,
+      "week": 6,
+      "m1": "jeremy bayless",
+      "t1": "Rejected Kamala (jeremy bayless)",
+      "s1": 96.0,
+      "m2": "Eric King",
+      "t2": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
+      "s2": 89.02
+    },
+    "2025_W6_Kurt Claycomb_vs_Robert Kendall": {
+      "year": 2025,
+      "week": 6,
+      "m1": "Robert Kendall",
+      "t1": "Team Kendall (Robert Kendall)",
+      "s1": 100.96,
+      "m2": "Kurt Claycomb",
+      "t2": "No Punt Intended  (Kurt Claycomb)",
+      "s2": 141.3
+    },
+    "2025_W6_TRAVIS GIBSON_vs_trentan busey": {
+      "year": 2025,
+      "week": 6,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN (TRAVIS GIBSON)",
+      "s1": 113.92,
+      "m2": "trentan busey",
+      "t2": "Puka Time (trentan busey)",
+      "s2": 130.74
+    },
+    "2025_W6_Billy Haid_vs_Roman Bayless": {
+      "year": 2025,
+      "week": 6,
+      "m1": "Billy Haid",
+      "t1": "Off In the Corner (Billy Haid)",
+      "s1": 90.5,
+      "m2": "Roman Bayless",
+      "t2": "Team Freedom (Roman Bayless)",
+      "s2": 72.36
+    },
+    "2025_W6_Jared Schneider_vs_Wes Colson": {
+      "year": 2025,
+      "week": 6,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed (Jared Schneider)",
+      "s1": 80.88,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order (Wes Colson)",
+      "s2": 116.04
+    },
+    "2025_W7_Miles Spainhower_vs_jeremy bayless": {
+      "year": 2025,
+      "week": 7,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream (Miles Spainhower)",
+      "s1": 139.28,
+      "m2": "jeremy bayless",
+      "t2": "Rejected Kamala (jeremy bayless)",
+      "s2": 81.34
+    },
+    "2025_W7_Eric King_vs_Robert Kendall": {
+      "year": 2025,
+      "week": 7,
+      "m1": "Eric King",
+      "t1": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
+      "s1": 130.84,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall (Robert Kendall)",
+      "s2": 130.4
+    },
+    "2025_W7_Kurt Claycomb_vs_TRAVIS GIBSON": {
+      "year": 2025,
+      "week": 7,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended  (Kurt Claycomb)",
+      "s1": 146.48,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN (TRAVIS GIBSON)",
+      "s2": 136.84
+    },
+    "2025_W7_Billy Haid_vs_trentan busey": {
+      "year": 2025,
+      "week": 7,
+      "m1": "trentan busey",
+      "t1": "Puka Time (trentan busey)",
+      "s1": 127.66,
+      "m2": "Billy Haid",
+      "t2": "Off In the Corner (Billy Haid)",
+      "s2": 158.68
+    },
+    "2025_W7_Jared Schneider_vs_Roman Bayless": {
+      "year": 2025,
+      "week": 7,
+      "m1": "Roman Bayless",
+      "t1": "Team Freedom (Roman Bayless)",
+      "s1": 142.76,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed (Jared Schneider)",
+      "s2": 105.42
+    },
+    "2025_W7_Ron Baker_vs_Wes Colson": {
+      "year": 2025,
+      "week": 7,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order (Wes Colson)",
+      "s1": 104.86,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode (Ron Baker)",
+      "s2": 90.48
+    },
+    "2025_W8_Miles Spainhower_vs_Robert Kendall": {
+      "year": 2025,
+      "week": 8,
+      "m1": "Robert Kendall",
+      "t1": "Team Kendall (Robert Kendall)",
+      "s1": 129.54,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream (Miles Spainhower)",
+      "s2": 153.58
+    },
+    "2025_W8_Eric King_vs_TRAVIS GIBSON": {
+      "year": 2025,
+      "week": 8,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN (TRAVIS GIBSON)",
+      "s1": 129.2,
+      "m2": "Eric King",
+      "t2": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
+      "s2": 115.46
+    },
+    "2025_W8_Billy Haid_vs_Kurt Claycomb": {
+      "year": 2025,
+      "week": 8,
+      "m1": "Billy Haid",
+      "t1": "Off In the Corner (Billy Haid)",
+      "s1": 106.32,
+      "m2": "Kurt Claycomb",
+      "t2": "No Punt Intended  (Kurt Claycomb)",
+      "s2": 157.22
+    },
+    "2025_W8_Jared Schneider_vs_trentan busey": {
+      "year": 2025,
+      "week": 8,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed (Jared Schneider)",
+      "s1": 87.72,
+      "m2": "trentan busey",
+      "t2": "Puka Time (trentan busey)",
+      "s2": 88.22
+    },
+    "2025_W8_Roman Bayless_vs_Ron Baker": {
+      "year": 2025,
+      "week": 8,
+      "m1": "Ron Baker",
+      "t1": "Team Bakesmode (Ron Baker)",
+      "s1": 122.62,
+      "m2": "Roman Bayless",
+      "t2": "Team Freedom (Roman Bayless)",
+      "s2": 78.68
+    },
+    "2025_W8_Wes Colson_vs_jeremy bayless": {
+      "year": 2025,
+      "week": 8,
+      "m1": "jeremy bayless",
+      "t1": "Rejected Kamala (jeremy bayless)",
+      "s1": 115.84,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order (Wes Colson)",
+      "s2": 106.62
+    },
+    "2025_W9_Miles Spainhower_vs_TRAVIS GIBSON": {
+      "year": 2025,
+      "week": 9,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream (Miles Spainhower)",
+      "s1": 128.2,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN (TRAVIS GIBSON)",
+      "s2": 134.82
+    },
+    "2025_W9_Billy Haid_vs_Eric King": {
+      "year": 2025,
+      "week": 9,
+      "m1": "Eric King",
+      "t1": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
+      "s1": 111.1,
+      "m2": "Billy Haid",
+      "t2": "Off In the Corner (Billy Haid)",
+      "s2": 158.06
+    },
+    "2025_W9_Jared Schneider_vs_Kurt Claycomb": {
+      "year": 2025,
+      "week": 9,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended  (Kurt Claycomb)",
+      "s1": 96.26,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed (Jared Schneider)",
+      "s2": 115.48
+    },
+    "2025_W9_Ron Baker_vs_trentan busey": {
+      "year": 2025,
+      "week": 9,
+      "m1": "trentan busey",
+      "t1": "Puka Time (trentan busey)",
+      "s1": 124.8,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode (Ron Baker)",
+      "s2": 97.8
+    },
+    "2025_W9_Roman Bayless_vs_jeremy bayless": {
+      "year": 2025,
+      "week": 9,
+      "m1": "Roman Bayless",
+      "t1": "Team Freedom (Roman Bayless)",
+      "s1": 113.62,
+      "m2": "jeremy bayless",
+      "t2": "Rejected Kamala (jeremy bayless)",
+      "s2": 91.22
+    },
+    "2025_W9_Robert Kendall_vs_Wes Colson": {
+      "year": 2025,
+      "week": 9,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order (Wes Colson)",
+      "s1": 95.28,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall (Robert Kendall)",
+      "s2": 181.58
+    },
+    "2025_W10_Billy Haid_vs_Miles Spainhower": {
+      "year": 2025,
+      "week": 10,
+      "m1": "Billy Haid",
+      "t1": "Off In the Corner (Billy Haid)",
+      "s1": 107.84,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream (Miles Spainhower)",
+      "s2": 125.4
+    },
+    "2025_W10_Eric King_vs_Jared Schneider": {
+      "year": 2025,
+      "week": 10,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed (Jared Schneider)",
+      "s1": 113.7,
+      "m2": "Eric King",
+      "t2": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
+      "s2": 101.32
+    },
+    "2025_W10_Kurt Claycomb_vs_Ron Baker": {
+      "year": 2025,
+      "week": 10,
+      "m1": "Ron Baker",
+      "t1": "Team Bakesmode (Ron Baker)",
+      "s1": 116.72,
+      "m2": "Kurt Claycomb",
+      "t2": "No Punt Intended  (Kurt Claycomb)",
+      "s2": 179.02
+    },
+    "2025_W10_jeremy bayless_vs_trentan busey": {
+      "year": 2025,
+      "week": 10,
+      "m1": "jeremy bayless",
+      "t1": "Rejected Kamala (jeremy bayless)",
+      "s1": 115.02,
+      "m2": "trentan busey",
+      "t2": "Puka Time (trentan busey)",
+      "s2": 136.82
+    },
+    "2025_W10_Robert Kendall_vs_Roman Bayless": {
+      "year": 2025,
+      "week": 10,
+      "m1": "Robert Kendall",
+      "t1": "Team Kendall (Robert Kendall)",
+      "s1": 75.0,
+      "m2": "Roman Bayless",
+      "t2": "Team Freedom (Roman Bayless)",
+      "s2": 99.9
+    },
+    "2025_W10_TRAVIS GIBSON_vs_Wes Colson": {
+      "year": 2025,
+      "week": 10,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN (TRAVIS GIBSON)",
+      "s1": 140.2,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order (Wes Colson)",
+      "s2": 125.3
+    },
+    "2025_W11_Jared Schneider_vs_Miles Spainhower": {
+      "year": 2025,
+      "week": 11,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream (Miles Spainhower)",
+      "s1": 118.9,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed (Jared Schneider)",
+      "s2": 113.1
+    },
+    "2025_W11_Eric King_vs_Ron Baker": {
+      "year": 2025,
+      "week": 11,
+      "m1": "Eric King",
+      "t1": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
+      "s1": 90.2,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode (Ron Baker)",
+      "s2": 108.82
+    },
+    "2025_W11_Kurt Claycomb_vs_jeremy bayless": {
+      "year": 2025,
+      "week": 11,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended  (Kurt Claycomb)",
+      "s1": 126.18,
+      "m2": "jeremy bayless",
+      "t2": "Rejected Kamala (jeremy bayless)",
+      "s2": 89.14
+    },
+    "2025_W11_Robert Kendall_vs_trentan busey": {
+      "year": 2025,
+      "week": 11,
+      "m1": "trentan busey",
+      "t1": "Puka Time (trentan busey)",
+      "s1": 123.12,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall (Robert Kendall)",
+      "s2": 101.24
+    },
+    "2025_W11_Roman Bayless_vs_TRAVIS GIBSON": {
+      "year": 2025,
+      "week": 11,
+      "m1": "Roman Bayless",
+      "t1": "Team Freedom (Roman Bayless)",
+      "s1": 80.1,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN (TRAVIS GIBSON)",
+      "s2": 101.4
+    },
+    "2025_W11_Billy Haid_vs_Wes Colson": {
+      "year": 2025,
+      "week": 11,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order (Wes Colson)",
+      "s1": 92.2,
+      "m2": "Billy Haid",
+      "t2": "Off In the Corner (Billy Haid)",
+      "s2": 92.72
+    },
+    "2025_W12_Miles Spainhower_vs_Ron Baker": {
+      "year": 2025,
+      "week": 12,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream (Miles Spainhower)",
+      "s1": 113.72,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode (Ron Baker)",
+      "s2": 129.46
+    },
+    "2025_W12_Eric King_vs_jeremy bayless": {
+      "year": 2025,
+      "week": 12,
+      "m1": "Eric King",
+      "t1": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
+      "s1": 138.86,
+      "m2": "jeremy bayless",
+      "t2": "Rejected Kamala (jeremy bayless)",
+      "s2": 134.68
+    },
+    "2025_W12_Kurt Claycomb_vs_Robert Kendall": {
+      "year": 2025,
+      "week": 12,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended  (Kurt Claycomb)",
+      "s1": 75.26,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall (Robert Kendall)",
+      "s2": 138.3
+    },
+    "2025_W12_TRAVIS GIBSON_vs_trentan busey": {
+      "year": 2025,
+      "week": 12,
+      "m1": "trentan busey",
+      "t1": "Puka Time (trentan busey)",
+      "s1": 121.44,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN (TRAVIS GIBSON)",
+      "s2": 93.26
+    },
+    "2025_W12_Billy Haid_vs_Roman Bayless": {
+      "year": 2025,
+      "week": 12,
+      "m1": "Roman Bayless",
+      "t1": "Team Freedom (Roman Bayless)",
+      "s1": 128.78,
+      "m2": "Billy Haid",
+      "t2": "Off In the Corner (Billy Haid)",
+      "s2": 118.82
+    },
+    "2025_W12_Jared Schneider_vs_Wes Colson": {
+      "year": 2025,
+      "week": 12,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order (Wes Colson)",
+      "s1": 137.4,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed (Jared Schneider)",
+      "s2": 98.6
+    },
+    "2025_W13_Miles Spainhower_vs_jeremy bayless": {
+      "year": 2025,
+      "week": 13,
+      "m1": "jeremy bayless",
+      "t1": "Rejected Kamala (jeremy bayless)",
+      "s1": 91.42,
+      "m2": "Miles Spainhower",
+      "t2": "The American Dream (Miles Spainhower)",
+      "s2": 117.62
+    },
+    "2025_W13_Eric King_vs_Robert Kendall": {
+      "year": 2025,
+      "week": 13,
+      "m1": "Robert Kendall",
+      "t1": "Team Kendall (Robert Kendall)",
+      "s1": 84.28,
+      "m2": "Eric King",
+      "t2": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
+      "s2": 95.6
+    },
+    "2025_W13_Kurt Claycomb_vs_TRAVIS GIBSON": {
+      "year": 2025,
+      "week": 13,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN (TRAVIS GIBSON)",
+      "s1": 142.64,
+      "m2": "Kurt Claycomb",
+      "t2": "No Punt Intended  (Kurt Claycomb)",
+      "s2": 141.68
+    },
+    "2025_W13_Billy Haid_vs_trentan busey": {
+      "year": 2025,
+      "week": 13,
+      "m1": "Billy Haid",
+      "t1": "Off In the Corner (Billy Haid)",
+      "s1": 78.24,
+      "m2": "trentan busey",
+      "t2": "Puka Time (trentan busey)",
+      "s2": 108.14
+    },
+    "2025_W13_Jared Schneider_vs_Roman Bayless": {
+      "year": 2025,
+      "week": 13,
+      "m1": "Jared Schneider",
+      "t1": "Team Unvaxxed (Jared Schneider)",
+      "s1": 91.74,
+      "m2": "Roman Bayless",
+      "t2": "Team Freedom (Roman Bayless)",
+      "s2": 124.14
+    },
+    "2025_W13_Ron Baker_vs_Wes Colson": {
+      "year": 2025,
+      "week": 13,
+      "m1": "Ron Baker",
+      "t1": "Team Bakesmode (Ron Baker)",
+      "s1": 98.94,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order (Wes Colson)",
+      "s2": 125.58
+    },
+    "2025_W14_Miles Spainhower_vs_Robert Kendall": {
+      "year": 2025,
+      "week": 14,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream (Miles Spainhower)",
+      "s1": 122.14,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall (Robert Kendall)",
+      "s2": 97.02
+    },
+    "2025_W14_Eric King_vs_TRAVIS GIBSON": {
+      "year": 2025,
+      "week": 14,
+      "m1": "Eric King",
+      "t1": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
+      "s1": 99.8,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN (TRAVIS GIBSON)",
+      "s2": 116.26
+    },
+    "2025_W14_Billy Haid_vs_Kurt Claycomb": {
+      "year": 2025,
+      "week": 14,
+      "m1": "Kurt Claycomb",
+      "t1": "No Punt Intended  (Kurt Claycomb)",
+      "s1": 143.52,
+      "m2": "Billy Haid",
+      "t2": "Off In the Corner (Billy Haid)",
+      "s2": 98.06
+    },
+    "2025_W14_Jared Schneider_vs_trentan busey": {
+      "year": 2025,
+      "week": 14,
+      "m1": "trentan busey",
+      "t1": "Puka Time (trentan busey)",
+      "s1": 155.12,
+      "m2": "Jared Schneider",
+      "t2": "Team Unvaxxed (Jared Schneider)",
+      "s2": 38.04
+    },
+    "2025_W14_Roman Bayless_vs_Ron Baker": {
+      "year": 2025,
+      "week": 14,
+      "m1": "Roman Bayless",
+      "t1": "Team Freedom (Roman Bayless)",
+      "s1": 133.98,
+      "m2": "Ron Baker",
+      "t2": "Team Bakesmode (Ron Baker)",
+      "s2": 133.66
+    },
+    "2025_W14_Wes Colson_vs_jeremy bayless": {
+      "year": 2025,
+      "week": 14,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order (Wes Colson)",
+      "s1": 91.32,
+      "m2": "jeremy bayless",
+      "t2": "Rejected Kamala (jeremy bayless)",
+      "s2": 118.8
+    }
   }
 }
