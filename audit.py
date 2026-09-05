@@ -787,22 +787,25 @@ def generate_html_report(
   h_lscore = f"{heartbreaker_game['loser_score']:.2f}" if heartbreaker_game else '0.00'
   h_week = heartbreaker_game['week'] if heartbreaker_game else '0'
 
-  serialized_reigning = json.dumps(reigning)
-  active_meta = json.dumps({"year": str(active_year), "week": str(latest_week_num)})
-  
-  # Safely serialize python lists/dicts so JavaScript can read them without string quote injection bugs
-  serialized_managers = json.dumps([{"manager": m, "is_current": m in current_managers} for m in managers_list])
-  serialized_rivalries = json.dumps([{
-      "m1": r["m1"], "m2": r["m2"],
-      "m1_wins": r["m1_wins"], "m2_wins": r["m2_wins"],
-      "season_m1_wins": r["season_m1_wins"], "season_m2_wins": r["season_m2_wins"],
-      "m1_pf": r["m1_pf"], "m2_pf": r["m2_pf"],
-      "is_current": r["m1"] in current_managers and r["m2"] in current_managers,
-      "last_meet": f"{r['last_meet']['year']} Wk {r['last_meet']['week']}: {r['last_meet']['m1']} ({r['last_meet']['s1']:.2f}) vs {r['last_meet']['m2']} ({r['last_meet']['s2']:.2f})" if r['last_meet'] else "N/A"
-  } for r in rivalries.values()])
-  
-  serialized_leaderboard = json.dumps(leaderboard)
-  serialized_season_log = json.dumps(season_log)
+  dashboard_payload = {
+      "reigning": reigning,
+      "active_meta": {"year": str(active_year), "week": str(latest_week_num)},
+      "managers": [{"manager": m, "is_current": m in current_managers} for m in managers_list],
+      "rivalries": [{
+          "m1": r["m1"], "m2": r["m2"],
+          "m1_wins": r["m1_wins"], "m2_wins": r["m2_wins"],
+          "season_m1_wins": r["season_m1_wins"], "season_m2_wins": r["season_m2_wins"],
+          "m1_pf": r["m1_pf"], "m2_pf": r["m2_pf"],
+          "is_current": r["m1"] in current_managers and r["m2"] in current_managers,
+          "last_meet": f"{r['last_meet']['year']} Wk {r['last_meet']['week']}: {r['last_meet']['m1']} ({r['last_meet']['s1']:.2f}) vs {r['last_meet']['m2']} ({r['last_meet']['s2']:.2f})" if r['last_meet'] else "N/A"
+      } for r in rivalries.values()],
+      "season_log": season_log,
+      "leaderboard": leaderboard,
+      "champions": champions,
+      "position_records": position_records,
+      "season_payout_leaders": season_payout_leaders
+  }
+  save_history("dashboard_data.json", dashboard_payload)
 
   html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -952,31 +955,11 @@ def generate_html_report(
 </head>
 <body>
 
-<script id="reigning-badges-data" type="application/json">
-{serialized_reigning}
-</script>
-
-<script id="active-meta-data" type="application/json">
-{active_meta}
-</script>
-
-<script id="managers-data" type="application/json">
-{serialized_managers}
-</script>
-
-<script id="rivalries-data" type="application/json">
-{serialized_rivalries}
-</script>
-
-<script id="season-log-data" type="application/json">
-{serialized_season_log}
-</script>
-
 <div class="wrapper">
   <div class="header">
     <div>
       <div class="subtitle">The Deflaters Analytics Lab</div>
-      <h1 id="headerSummaryTitle">WEEK {latest_week_num} SUMMARY</h1>
+      <h1 id="headerSummaryTitle">DASHBOARD LOADING...</h1>
     </div>
     <div class="header-controls">
       <div class="selector-group">
@@ -1075,8 +1058,8 @@ def generate_html_report(
 
     <!-- SEASON MATCHUP SCHEDULE LOG -->
     <div class="table-container">
-      <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 14px;">
-        📅 Season {active_year} Completed Matchup Log
+      <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 14px;" id="seasonLogHeader">
+        📅 Season Matchup Log
       </div>
       <table class="responsive-table">
         <thead>
@@ -1098,72 +1081,15 @@ def generate_html_report(
   <div id="view-payouts" style="display: none; flex-direction: column; gap: 16px;">
     
     <div style="font-size: 15px; font-weight: 800; color: var(--text);">🏆 Season High Point Cash Bounties</div>
-    <div class="awards-grid">
-      <div class="award-card gold">
-        <div>
-          <div class="award-tag" style="color: var(--gold);">👑 Season Points Leader (Total PF)</div>
-          <div class="award-title">{render_team_badge(season_payout_leaders['pf_leader_team'], reigning)}</div>
-          <div class="award-desc">Pacing the season with <b>{season_payout_leaders['pf_leader_pts']:.2f} Total PF</b> to lead the overall scoring payout!</div>
-        </div>
-        <div style="margin-top: 8px;"><span class="badge badge-gold">Season PF Crown</span></div>
-      </div>
-
-      <div class="award-card blue">
-        <div>
-          <div class="award-tag" style="color: var(--accent);">⚡ Single-Game Team Record</div>
-          <div class="award-title">{render_team_badge(season_payout_leaders['high_game_team'], reigning)}</div>
-          <div class="award-desc">Hung <b>{season_payout_leaders['high_game_pts']:.2f} pts</b> in Week {season_payout_leaders['high_game_week']} for the highest team score of the year.</div>
-        </div>
-        <div style="margin-top: 8px;"><span class="badge badge-neutral">Single-Week High</span></div>
-      </div>
-
-      <div class="award-card green">
-        <div>
-          <div class="award-tag" style="color: var(--green);">🌟 Single-Game Starter Record</div>
-          <div class="award-title">{season_payout_leaders['high_player']} ({season_payout_leaders['high_player_pos']})</div>
-          <div class="award-desc">Erupted for <b>{season_payout_leaders['high_player_pts']:.2f} pts</b> in Week {season_payout_leaders['high_player_week']} for {season_payout_leaders['high_player_team']}.</div>
-        </div>
-        <div style="margin-top: 8px;"><span class="badge badge-lucky">Season Player High</span></div>
-      </div>
-    </div>
+    <div class="awards-grid" id="payoutBountiesGrid"></div>
 
     <!-- EXTREMES OF WAR -->
     <div style="font-size: 15px; font-weight: 800; color: var(--text); margin-top: 4px;">⚔️ Extremes of War (Season Highs & Heartbreaks)</div>
-    <div class="awards-grid">
-      <div class="award-card red">
-        <div>
-          <div class="award-tag" style="color: var(--red);">🔨 The Gavel (Largest Blowout)</div>
-          <div class="award-title">{b_winner} ({b_margin} pts)</div>
-          <div class="award-desc">Demolished {b_loser} ({b_wscore} to {b_lscore}) in Week {b_week}.</div>
-        </div>
-        <div style="margin-top: 8px;"><span class="badge badge-unlucky">Biggest Massacre</span></div>
-      </div>
-
-      <div class="award-card green">
-        <div>
-          <div class="award-tag" style="color: var(--green);">🪙 The Coin Flip (Closest Finish)</div>
-          <div class="award-title">Decided by {h_margin} pts</div>
-          <div class="award-desc">{h_winner} ({h_wscore}) survived against {h_loser} ({h_lscore}) in Week {h_week}.</div>
-        </div>
-        <div style="margin-top: 8px;"><span class="badge badge-lucky">Nail Biter of the Year</span></div>
-      </div>
-    </div>
+    <div class="awards-grid" id="extremesGrid"></div>
 
     <!-- POSITIONAL HIGH WATER MARKS -->
     <div style="font-size: 15px; font-weight: 800; color: var(--text); margin-top: 8px;">🔥 Single-Game Positional Records (Season Highs)</div>
-    <div class="records-grid">"""
-
-  for pos, rec in position_records.items():
-    rec_display = f"{rec['pts']:.2f}" if rec["pts"] > -50 else "0.00"
-    html += f"""
-      <div class="record-card">
-        <div class="record-pos">{pos} Record</div>
-        <div class="record-pts">{rec_display}</div>
-        <div class="record-holder">{rec['player']}<br><span style="color: var(--dim);">{rec['team']} (Wk {rec['week']})</span></div>
-      </div>"""
-
-  html += """
-    </div>
+    <div class="records-grid" id="positionRecordsGrid"></div>
 
   </div>
 
@@ -1248,32 +1174,30 @@ def generate_html_report(
 
 <script>
   var seasonsData = {};
-  var reigningBadges = JSON.parse(document.getElementById('reigning-badges-data').textContent || '{}');
-  var activeMeta = JSON.parse(document.getElementById('active-meta-data').textContent || '{"year": "2026", "week": "1"}');
-  var managersList = JSON.parse(document.getElementById('managers-data').textContent || '[]');
-  var rivalriesData = JSON.parse(document.getElementById('rivalries-data').textContent || '[]');
-  var seasonLogData = JSON.parse(document.getElementById('season-log-data').textContent || '[]');
-
-  var currentYear = activeMeta.year;
-  var currentWeek = activeMeta.week;
-
+  var dashData = {};
+  var reigningBadges = {};
+  var currentYear = '2026';
+  var currentWeek = '1';
   var h2hScope = 'current';
   var hofScope = 'current';
 
   function initApp() {
-    fetch('seasons_data.json')
-      .then(function(res) { return res.json(); })
-      .then(function(data) {
-        seasonsData = data;
-        setupSeasonDropdown();
-        populateStaticDropdownsAndTables();
-      })
-      .catch(function(err) {
-        console.error('Could not load seasons_data.json:', err);
-        seasonsData = {};
-        setupSeasonDropdown();
-        populateStaticDropdownsAndTables();
-      });
+    Promise.all([
+      fetch('seasons_data.json').then(function(res) { return res.json(); }).catch(function() { return {}; }),
+      fetch('dashboard_data.json').then(function(res) { return res.json(); }).catch(function() { return {}; })
+    ]).then(function(results) {
+      seasonsData = results[0];
+      dashData = results[1];
+      
+      if (dashData.reigning) reigningBadges = dashData.reigning;
+      if (dashData.active_meta) {
+        currentYear = dashData.active_meta.year;
+        currentWeek = dashData.active_meta.week;
+      }
+
+      setupSeasonDropdown();
+      populateStaticDashboardElements();
+    });
   }
 
   function setupSeasonDropdown() {
@@ -1355,11 +1279,13 @@ def generate_html_report(
     return label;
   }
 
-  function populateStaticDropdownsAndTables() {
+  function populateStaticDashboardElements() {
+    if (!dashData) return;
+
     var mgrFilter = document.getElementById('mgrFilter');
-    if (mgrFilter) {
+    if (mgrFilter && dashData.managers) {
       mgrFilter.innerHTML = '<option value="ALL">Show All Rivalries</option>';
-      managersList.forEach(function(m) {
+      dashData.managers.forEach(function(m) {
         var opt = document.createElement('option');
         opt.value = m.manager;
         opt.setAttribute('data-is-current', m.is_current ? 'true' : 'false');
@@ -1369,9 +1295,9 @@ def generate_html_report(
     }
 
     var rBody = document.getElementById('rivalryTableBody');
-    if (rBody) {
+    if (rBody && dashData.rivalries) {
       rBody.innerHTML = '';
-      rivalriesData.forEach(function(r) {
+      dashData.rivalries.forEach(function(r) {
         var tr = document.createElement('tr');
         tr.className = 'rivalry-row';
         tr.setAttribute('data-m1', r.m1);
@@ -1387,10 +1313,12 @@ def generate_html_report(
       });
     }
 
+    var logHeader = document.getElementById('seasonLogHeader');
+    if (logHeader) logHeader.innerText = '📅 Season Matchup Log';
     var logBody = document.getElementById('seasonLogTableBody');
-    if (logBody) {
+    if (logBody && dashData.season_log) {
       logBody.innerHTML = '';
-      seasonLogData.forEach(function(g) {
+      dashData.season_log.forEach(function(g) {
         var tr = document.createElement('tr');
         tr.innerHTML = 
           '<td class="team-cell" style="color: var(--accent);">Week ' + g.week + ' Matchup</td>' +
@@ -1399,6 +1327,89 @@ def generate_html_report(
           '<td data-label="Loser" style="color: var(--muted);">' + g.loser_team + '</td>' +
           '<td data-label="Margin" style="font-weight: 700; color: var(--accent);">+' + g.margin.toFixed(2) + ' pts</td>';
         logBody.appendChild(tr);
+      });
+    }
+
+    var bountiesGrid = document.getElementById('payoutBountiesGrid');
+    if (bountiesGrid && dashData.season_payout_leaders) {
+      var p = dashData.season_payout_leaders;
+      bountiesGrid.innerHTML = 
+        '<div class="award-card gold">' +
+          '<div><div class="award-tag" style="color: var(--gold);">👑 Season Points Leader (Total PF)</div>' +
+          '<div class="award-title">' + renderBadge(p.pf_leader_team) + '</div>' +
+          '<div class="award-desc">Pacing the season with <b>' + p.pf_leader_pts.toFixed(2) + ' Total PF</b>!</div></div>' +
+          '<div style="margin-top: 8px;"><span class="badge badge-gold">Season PF Crown</span></div>' +
+        '</div>' +
+        '<div class="award-card blue">' +
+          '<div><div class="award-tag" style="color: var(--accent);">⚡ Single-Game Team Record</div>' +
+          '<div class="award-title">' + renderBadge(p.high_game_team) + '</div>' +
+          '<div class="award-desc">Hung <b>' + p.high_game_pts.toFixed(2) + ' pts</b> in Week ' + p.high_game_week + '.</div></div>' +
+          '<div style="margin-top: 8px;"><span class="badge badge-neutral">Single-Week High</span></div>' +
+        '</div>' +
+        '<div class="award-card green">' +
+          '<div><div class="award-tag" style="color: var(--green);">🌟 Single-Game Starter Record</div>' +
+          '<div class="award-title">' + p.high_player + ' (' + p.high_player_pos + ')</div>' +
+          '<div class="award-desc">Erupted for <b>' + p.high_player_pts.toFixed(2) + ' pts</b> in Week ' + p.high_player_week + ' for ' + p.high_player_team + '.</div></div>' +
+          '<div style="margin-top: 8px;"><span class="badge badge-lucky">Season Player High</span></div>' +
+        '</div>';
+    }
+
+    var hofBody = document.getElementById('hofTableBody');
+    if (hofBody && dashData.leaderboard) {
+      hofBody.innerHTML = '';
+      dashData.leaderboard.forEach(function(row) {
+        var statusBadge = row.is_current ? ' <span class="badge badge-neutral" style="font-size: 9px; padding: 1px 5px;">Active</span>' : ' <span class="badge badge-neutral" style="font-size: 9px; padding: 1px 5px; opacity: 0.6;">Alumni</span>';
+        var avgStr = row.avg_finish !== null ? '<b>' + row.avg_finish.toFixed(1) + '</b> <span style="font-size: 11px; color: var(--dim);">(' + row.seasons_count + ' yrs)</span>' : '<span style="color: var(--muted);">—</span>';
+        var tr = document.createElement('tr');
+        tr.className = 'hof-row';
+        tr.setAttribute('data-current', row.is_current ? 'true' : 'false');
+        tr.innerHTML = 
+          '<td class="team-cell"><div><b>' + row.manager + '</b>' + statusBadge + '<div style="font-size: 11px; color: var(--muted); font-weight: normal; margin-top: 2px;">Most Recent: ' + row.most_recent + '</div></div></td>' +
+          '<td data-label="🥇 1st (Gold)"><b>' + row.gold + '</b></td>' +
+          '<td data-label="🥈 2nd (Silver)"><b>' + row.silver + '</b></td>' +
+          '<td data-label="🥉 3rd (Bronze)"><b>' + row.bronze + '</b></td>' +
+          '<td data-label="💩 League Bitch" style="color: #ef4444; font-weight: 700;">' + row.last + '</td>' +
+          '<td data-label="Total Podiums"><span class="badge badge-neutral"><b>' + row.total_podiums + '</b></span></td>' +
+          '<td data-label="📊 Avg Finish">' + avgStr + '</td>';
+        hofBody.appendChild(tr);
+      });
+    }
+
+    var podiumGrid = document.getElementById('podiumGrid');
+    if (podiumGrid && dashData.champions) {
+      podiumGrid.innerHTML = '';
+      var sortedChamps = Object.keys(dashData.champions).sort(function(a, b) { return b - a; });
+      if (sortedChamps.length === 0) {
+        podiumGrid.innerHTML = '<div style="padding: 20px; color: var(--muted);">No historical podium records locked in yet.</div>';
+      } else {
+        sortedChamps.forEach(function(cYear) {
+          var p = dashData.champions[cYear];
+          var div = document.createElement('div');
+          div.className = 'podium-card';
+          div.innerHTML = 
+            '<div class="podium-year">' + cYear + ' Season</div>' +
+            '<div class="podium-row"><span>🥇 <b>Gold</b></span><span style="color: var(--gold); font-weight: 700;">' + (p.gold || 'TBD') + '</span></div>' +
+            '<div class="podium-row"><span>🥈 <b>Silver</b></span><span style="color: var(--silver); font-weight: 700;">' + (p.silver || 'TBD') + '</span></div>' +
+            '<div class="podium-row"><span>🥉 <b>Bronze</b></span><span style="color: var(--bronze); font-weight: 700;">' + (p.bronze || 'TBD') + '</span></div>' +
+            '<div class="podium-row" style="border-top: 1px dashed var(--border); margin-top: 6px; padding-top: 8px;"><span style="color: #ef4444;">💩 <b>Last</b></span><span style="color: #ef4444; font-weight: 700;">' + (p.last || 'TBD') + '</span></div>';
+          podiumGrid.appendChild(div);
+        });
+      }
+    }
+
+    var posGrid = document.getElementById('positionRecordsGrid');
+    if (posGrid && dashData.position_records) {
+      posGrid.innerHTML = '';
+      Object.keys(dashData.position_records).forEach(function(pos) {
+        var rec = dashData.position_records[pos];
+        var recDisplay = rec.pts > -50 ? rec.pts.toFixed(2) : '0.00';
+        var div = document.createElement('div');
+        div.className = 'record-card';
+        div.innerHTML = 
+          '<div class="record-pos">' + pos + ' Record</div>' +
+          '<div class="record-pts">' + recDisplay + '</div>' +
+          '<div class="record-holder">' + rec.player + '<br><span style="color: var(--dim);">' + rec.team + ' (Wk ' + rec.week + ')</span></div>';
+        posGrid.appendChild(div);
       });
     }
   }
@@ -1470,47 +1481,33 @@ def generate_html_report(
 
     awardsContainer.innerHTML = 
       '<div class="award-card gold">' +
-        '<div>' +
-          '<div class="award-tag" style="color: var(--gold);">💰 Weekly Team Bounty</div>' +
-          '<div class="award-title">' + renderBadge(bounty.team) + '</div>' +
-          '<div class="award-desc">Paced the league with <b>' + bounty.actual.toFixed(2) + ' pts</b> to claim high score!</div>' +
-        '</div>' +
+        '<div><div class="award-tag" style="color: var(--gold);">💰 Weekly Team Bounty</div>' +
+        '<div class="award-title">' + renderBadge(bounty.team) + '</div>' +
+        '<div class="award-desc">Paced the league with <b>' + bounty.actual.toFixed(2) + ' pts</b> to claim high score!</div></div>' +
         '<div style="margin-top: 8px;"><span class="badge badge-gold">Bounty Winner</span></div>' +
       '</div>' +
-
       '<div class="award-card red">' +
-        '<div>' +
-          '<div class="award-tag" style="color: var(--red);">💀 The Buzzsaw Victim</div>' +
-          '<div class="award-title">' + renderBadge(buzzsaw.team) + '</div>' +
-          '<div class="award-desc">Dropped ' + buzzsaw.actual.toFixed(2) + ' pts (' + buzzsaw.all_play_w + '–' + buzzsaw.all_play_l + ' All-Play), but lost to ' + buzzsaw.opp + '.</div>' +
-        '</div>' +
+        '<div><div class="award-tag" style="color: var(--red);">💀 The Buzzsaw Victim</div>' +
+        '<div class="award-title">' + renderBadge(buzzsaw.team) + '</div>' +
+        '<div class="award-desc">Dropped ' + buzzsaw.actual.toFixed(2) + ' pts (' + buzzsaw.all_play_w + '–' + buzzsaw.all_play_l + ' All-Play), but lost to ' + buzzsaw.opp + '.</div></div>' +
         '<div style="margin-top: 8px;"><span class="badge badge-unlucky">Luck Δ: ' + (buzzsaw.luck_delta > 0 ? '+' : '') + buzzsaw.luck_delta.toFixed(3) + '</span></div>' +
       '</div>' +
-
       '<div class="award-card green">' +
-        '<div>' +
-          '<div class="award-tag" style="color: var(--green);">🍀 Grand Theft Victory</div>' +
-          '<div class="award-title">' + renderBadge(horseshoe.team) + '</div>' +
-          '<div class="award-desc">Squeaked out a win with ' + horseshoe.actual.toFixed(2) + ' pts (' + horseshoe.all_play_w + '–' + horseshoe.all_play_l + ' All-Play).</div>' +
-        '</div>' +
+        '<div><div class="award-tag" style="color: var(--green);">🍀 Grand Theft Victory</div>' +
+        '<div class="award-title">' + renderBadge(horseshoe.team) + '</div>' +
+        '<div class="award-desc">Squeaked out a win with ' + horseshoe.actual.toFixed(2) + ' pts (' + horseshoe.all_play_w + '–' + horseshoe.all_play_l + ' All-Play).</div></div>' +
         '<div style="margin-top: 8px;"><span class="badge badge-lucky">Luck Δ: ' + (horseshoe.luck_delta > 0 ? '+' : '') + horseshoe.luck_delta.toFixed(3) + '</span></div>' +
       '</div>' +
-
       '<div class="award-card blue">' +
-        '<div>' +
-          '<div class="award-tag" style="color: var(--accent);">🧠 Master Tactician</div>' +
-          '<div class="award-title">' + renderBadge(tactician.team) + '</div>' +
-          '<div class="award-desc">Optimal starting execution of <b>' + tactician.coach_eff.toFixed(1) + '%</b> (' + tactician.actual.toFixed(2) + ' of ' + tactician.optimal.toFixed(2) + ' pts).</div>' +
-        '</div>' +
+        '<div><div class="award-tag" style="color: var(--accent);">🧠 Master Tactician</div>' +
+        '<div class="award-title">' + renderBadge(tactician.team) + '</div>' +
+        '<div class="award-desc">Optimal starting execution of <b>' + tactician.coach_eff.toFixed(1) + '%</b> (' + tactician.actual.toFixed(2) + ' of ' + tactician.optimal.toFixed(2) + ' pts).</div></div>' +
         '<div style="margin-top: 8px;"><span class="badge badge-neutral">Lineup Mastery</span></div>' +
       '</div>' +
-
       '<div class="award-card zinc">' +
-        '<div>' +
-          '<div class="award-tag" style="color: var(--dim);">⚓ The Anchor (Lead Weight)</div>' +
-          '<div class="award-title">' + (anchor ? anchor.player + ' (' + anchor.pos + ')' : 'None') + '</div>' +
-          '<div class="award-desc">Posted a league-low <b>' + (anchor ? anchor.pts.toFixed(2) : '0.00') + ' pts</b> in the starting lineup for ' + (anchor ? anchor.team : 'None') + '.</div>' +
-        '</div>' +
+        '<div><div class="award-tag" style="color: var(--dim);">⚓ The Anchor (Lead Weight)</div>' +
+        '<div class="award-title">' + (anchor ? anchor.player + ' (' + anchor.pos + ')' : 'None') + '</div>' +
+        '<div class="award-desc">Posted a league-low <b>' + (anchor ? anchor.pts.toFixed(2) : '0.00') + ' pts</b> in the starting lineup for ' + (anchor ? anchor.team : 'None') + '.</div></div>' +
         '<div style="margin-top: 8px;"><span class="badge badge-neutral">Lowest Starter</span></div>' +
       '</div>';
   }
