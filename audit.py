@@ -789,6 +789,20 @@ def generate_html_report(
 
   serialized_reigning = json.dumps(reigning)
   active_meta = json.dumps({"year": str(active_year), "week": str(latest_week_num)})
+  
+  # Safely serialize python lists/dicts so JavaScript can read them without string quote injection bugs
+  serialized_managers = json.dumps([{"manager": m, "is_current": m in current_managers} for m in managers_list])
+  serialized_rivalries = json.dumps([{
+      "m1": r["m1"], "m2": r["m2"],
+      "m1_wins": r["m1_wins"], "m2_wins": r["m2_wins"],
+      "season_m1_wins": r["season_m1_wins"], "season_m2_wins": r["season_m2_wins"],
+      "m1_pf": r["m1_pf"], "m2_pf": r["m2_pf"],
+      "is_current": r["m1"] in current_managers and r["m2"] in current_managers,
+      "last_meet": f"{r['last_meet']['year']} Wk {r['last_meet']['week']}: {r['last_meet']['m1']} ({r['last_meet']['s1']:.2f}) vs {r['last_meet']['m2']} ({r['last_meet']['s2']:.2f})" if r['last_meet'] else "N/A"
+  } for r in rivalries.values()])
+  
+  serialized_leaderboard = json.dumps(leaderboard)
+  serialized_season_log = json.dumps(season_log)
 
   html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -946,6 +960,18 @@ def generate_html_report(
 {active_meta}
 </script>
 
+<script id="managers-data" type="application/json">
+{serialized_managers}
+</script>
+
+<script id="rivalries-data" type="application/json">
+{serialized_rivalries}
+</script>
+
+<script id="season-log-data" type="application/json">
+{serialized_season_log}
+</script>
+
 <div class="wrapper">
   <div class="header">
     <div>
@@ -1029,14 +1055,7 @@ def generate_html_report(
         </div>
         <div class="filter-control">
           <select id="mgrFilter" class="select-dropdown" onchange="applyH2HFilters()">
-            <option value="ALL">Show All Rivalries</option>"""
-
-  for mgr in managers_list:
-    is_cur = mgr in current_managers
-    tag = " (Former)" if not is_cur else ""
-    html += f"""<option value="{mgr}" data-is-current="{'true' if is_cur else 'false'}">{mgr}{tag}</option>"""
-
-  html += """
+            <option value="ALL">Show All Rivalries</option>
           </select>
         </div>
       </div>
@@ -1050,32 +1069,7 @@ def generate_html_report(
             <th>Last Meeting</th>
           </tr>
         </thead>
-        <tbody>"""
-
-  for pair_key, r in rivalries.items():
-    m1, m2 = r["m1"], r["m2"]
-    is_both_current = m1 in current_managers and m2 in current_managers
-    m1_w, m2_w = r["m1_wins"], r["m2_wins"]
-    sm1_w, sm2_w = r["season_m1_wins"], r["season_m2_wins"]
-    last = r["last_meet"]
-    last_str = (
-        f"{last['year']} Wk {last['week']}: {last['m1']} ({last['s1']:.2f}) vs"
-        f" {last['m2']} ({last['s2']:.2f})"
-        if last
-        else "N/A"
-    )
-
-    html += f"""
-          <tr class="rivalry-row" data-m1="{m1}" data-m2="{m2}" data-current="{'true' if is_both_current else 'false'}">
-            <td class="team-cell">{m1} vs {m2}</td>
-            <td data-label="All-Time Series"><b>{m1_w}–{m2_w}</b></td>
-            <td data-label="Season Series">{sm1_w}–{sm2_w}</td>
-            <td data-label="PF vs PA">{r['m1_pf']:.2f} – {r['m2_pf']:.2f}</td>
-            <td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">{last_str}</td>
-          </tr>"""
-
-  html += f"""
-        </tbody>
+        <tbody id="rivalryTableBody"></tbody>
       </table>
     </div>
 
@@ -1094,20 +1088,7 @@ def generate_html_report(
             <th>Margin</th>
           </tr>
         </thead>
-        <tbody>"""
-
-  for g in season_log:
-    html += f"""
-          <tr>
-            <td class="team-cell" style="color: var(--accent);">Week {g['week']} Matchup</td>
-            <td data-label="Winner" style="font-weight: 700; color: var(--text);">{g['winner_team']}</td>
-            <td data-label="Score" style="font-weight: 700; color: var(--green);">{g['winner_score']:.2f} – {g['loser_score']:.2f}</td>
-            <td data-label="Loser" style="color: var(--muted);">{g['loser_team']}</td>
-            <td data-label="Margin" style="font-weight: 700; color: var(--accent);">+{g['margin']:.2f} pts</td>
-          </tr>"""
-
-  html += f"""
-        </tbody>
+        <tbody id="seasonLogTableBody"></tbody>
       </table>
     </div>
 
@@ -1208,45 +1189,7 @@ def generate_html_report(
             <th>📊 Avg Finish<span class="sub-th">(2023–Pres)</span></th>
           </tr>
         </thead>
-        <tbody>"""
-
-  for row in leaderboard:
-    status_badge = (
-        ' <span class="badge badge-neutral" style="font-size: 9px; padding: 1px'
-        ' 5px;">Active</span>'
-        if row["is_current"]
-        else (
-            ' <span class="badge badge-neutral" style="font-size: 9px; padding:'
-            ' 1px 5px; opacity: 0.6;">Alumni</span>'
-        )
-    )
-    if row["avg_finish"] is not None:
-      avg_str = (
-          f"<b>{row['avg_finish']:.1f}</b> <span style=\"font-size: 11px;"
-          f" color: var(--dim); font-weight: normal;\">({row['seasons_count']}"
-          " yrs)</span>"
-      )
-    else:
-      avg_str = '<span style="color: var(--muted);">—</span>'
-
-    html += f"""
-          <tr class="hof-row" data-current="{'true' if row['is_current'] else 'false'}">
-            <td class="team-cell">
-              <div>
-                <b>{row['manager']}</b>{status_badge}
-                <div style="font-size: 11px; color: var(--muted); font-weight: normal; margin-top: 2px;">Most Recent: {row['most_recent']}</div>
-              </div>
-            </td>
-            <td data-label="🥇 1st (Gold)"><b>{row['gold']}</b></td>
-            <td data-label="🥈 2nd (Silver)"><b>{row['silver']}</b></td>
-            <td data-label="🥉 3rd (Bronze)"><b>{row['bronze']}</b></td>
-            <td data-label="💩 League Bitch" style="color: #ef4444; font-weight: 700;">{row['last']}</td>
-            <td data-label="Total Podiums"><span class="badge badge-neutral"><b>{row['total_podiums']}</b></span></td>
-            <td data-label="📊 Avg Finish">{avg_str}</td>
-          </tr>"""
-
-  html += """
-        </tbody>
+        <tbody id="hofTableBody"></tbody>
       </table>
     </div>
 
@@ -1255,37 +1198,7 @@ def generate_html_report(
       <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 14px;">
         🏆 Historical Season Podiums (Finalized Seasons)
       </div>
-      <div class="podium-grid">"""
-
-  sorted_champs = sorted(champions.keys(), reverse=True)
-  if not sorted_champs:
-    html += """<div style="padding: 20px; color: var(--muted);">No historical podium records locked in yet.</div>"""
-  else:
-    for c_year in sorted_champs:
-      p = champions[c_year]
-      html += f"""
-        <div class="podium-card">
-          <div class="podium-year">{c_year} Season</div>
-          <div class="podium-row">
-            <span>🥇 <b>Gold (Champion)</b></span>
-            <span style="color: var(--gold); font-weight: 700;">{p.get('gold', 'TBD')}</span>
-          </div>
-          <div class="podium-row">
-            <span>🥈 <b>Silver (Runner-Up)</b></span>
-            <span style="color: var(--silver); font-weight: 700;">{p.get('silver', 'TBD')}</span>
-          </div>
-          <div class="podium-row">
-            <span>🥉 <b>Bronze (3rd Place)</b></span>
-            <span style="color: var(--bronze); font-weight: 700;">{p.get('bronze', 'TBD')}</span>
-          </div>
-          <div class="podium-row" style="border-top: 1px dashed var(--border); margin-top: 6px; padding-top: 8px;">
-            <span style="color: #ef4444;">💩 <b>League Bitch (Last)</b></span>
-            <span style="color: #ef4444; font-weight: 700;">{p.get('last', 'TBD')}</span>
-          </div>
-        </div>"""
-
-  html += """
-      </div>
+      <div class="podium-grid" id="podiumGrid"></div>
     </div>
 
   </div>
@@ -1337,6 +1250,9 @@ def generate_html_report(
   var seasonsData = {};
   var reigningBadges = JSON.parse(document.getElementById('reigning-badges-data').textContent || '{}');
   var activeMeta = JSON.parse(document.getElementById('active-meta-data').textContent || '{"year": "2026", "week": "1"}');
+  var managersList = JSON.parse(document.getElementById('managers-data').textContent || '[]');
+  var rivalriesData = JSON.parse(document.getElementById('rivalries-data').textContent || '[]');
+  var seasonLogData = JSON.parse(document.getElementById('season-log-data').textContent || '[]');
 
   var currentYear = activeMeta.year;
   var currentWeek = activeMeta.week;
@@ -1350,16 +1266,19 @@ def generate_html_report(
       .then(function(data) {
         seasonsData = data;
         setupSeasonDropdown();
+        populateStaticDropdownsAndTables();
       })
       .catch(function(err) {
         console.error('Could not load seasons_data.json:', err);
         seasonsData = {};
         setupSeasonDropdown();
+        populateStaticDropdownsAndTables();
       });
   }
 
   function setupSeasonDropdown() {
     var seasonSel = document.getElementById('seasonSelect');
+    if (!seasonSel) return;
     seasonSel.innerHTML = '';
 
     var years = Object.keys(seasonsData).sort(function(a, b) { return b - a; });
@@ -1381,6 +1300,7 @@ def generate_html_report(
 
   function populateWeeksForYear(yr, selectedWk) {
     var weekSel = document.getElementById('weekSelect');
+    if (!weekSel) return;
     weekSel.innerHTML = '';
 
     var weeksObj = seasonsData[yr] || {};
@@ -1433,6 +1353,54 @@ def generate_html_report(
     if (matches(reigningBadges.bronze)) return label + ' <span class="badge badge-bronze">🥉 \'' + yrShort + ' 3rd Pl</span>';
     if (matches(reigningBadges.last)) return label + ' <span class="badge badge-bitch">💩 \'' + yrShort + ' League Bitch</span>';
     return label;
+  }
+
+  function populateStaticDropdownsAndTables() {
+    var mgrFilter = document.getElementById('mgrFilter');
+    if (mgrFilter) {
+      mgrFilter.innerHTML = '<option value="ALL">Show All Rivalries</option>';
+      managersList.forEach(function(m) {
+        var opt = document.createElement('option');
+        opt.value = m.manager;
+        opt.setAttribute('data-is-current', m.is_current ? 'true' : 'false');
+        opt.textContent = m.manager + (m.is_current ? '' : ' (Former)');
+        mgrFilter.appendChild(opt);
+      });
+    }
+
+    var rBody = document.getElementById('rivalryTableBody');
+    if (rBody) {
+      rBody.innerHTML = '';
+      rivalriesData.forEach(function(r) {
+        var tr = document.createElement('tr');
+        tr.className = 'rivalry-row';
+        tr.setAttribute('data-m1', r.m1);
+        tr.setAttribute('data-m2', r.m2);
+        tr.setAttribute('data-current', r.is_current ? 'true' : 'false');
+        tr.innerHTML = 
+          '<td class="team-cell">' + r.m1 + ' vs ' + r.m2 + '</td>' +
+          '<td data-label="All-Time Series"><b>' + r.m1_wins + '–' + r.m2_wins + '</b></td>' +
+          '<td data-label="Season Series">' + r.season_m1_wins + '–' + r.season_m2_wins + '</td>' +
+          '<td data-label="PF vs PA">' + r.m1_pf.toFixed(2) + ' – ' + r.m2_pf.toFixed(2) + '</td>' +
+          '<td data-label="Last Meeting" style="color: var(--muted); font-size: 11px;">' + r.last_meet + '</td>';
+        rBody.appendChild(tr);
+      });
+    }
+
+    var logBody = document.getElementById('seasonLogTableBody');
+    if (logBody) {
+      logBody.innerHTML = '';
+      seasonLogData.forEach(function(g) {
+        var tr = document.createElement('tr');
+        tr.innerHTML = 
+          '<td class="team-cell" style="color: var(--accent);">Week ' + g.week + ' Matchup</td>' +
+          '<td data-label="Winner" style="font-weight: 700; color: var(--text);">' + g.winner_team + '</td>' +
+          '<td data-label="Score" style="font-weight: 700; color: var(--green);">' + g.winner_score.toFixed(2) + ' – ' + g.loser_score.toFixed(2) + '</td>' +
+          '<td data-label="Loser" style="color: var(--muted);">' + g.loser_team + '</td>' +
+          '<td data-label="Margin" style="font-weight: 700; color: var(--accent);">+' + g.margin.toFixed(2) + ' pts</td>';
+        logBody.appendChild(tr);
+      });
+    }
   }
 
   function renderAllViews() {
