@@ -1,5 +1,6 @@
 import json
 import os
+import statistics
 from espn_api.football import League
 
 # Credentials pulled from GitHub Secrets
@@ -157,6 +158,7 @@ def save_history(filepath, data):
 def compute_records_and_payouts(history):
   weekly_team_bounties = []
   weekly_player_bounties = []
+  weekly_anchors = []
   position_records = {
       pos: {"pts": -99.0, "player": "None", "team": "None", "week": 0}
       for pos in ["QB", "RB", "WR", "TE", "K", "D/ST"]
@@ -169,6 +171,7 @@ def compute_records_and_payouts(history):
     if not matchups:
       continue
 
+    # 1. Weekly High Team Points
     high_match = max(matchups, key=lambda x: x["actual"])
     weekly_team_bounties.append({
         "week": w,
@@ -178,6 +181,7 @@ def compute_records_and_payouts(history):
         "opp_pts": high_match["opp_actual"],
     })
 
+    # 2. Weekly High Individual Starter & Weekly Anchor (Lowest Starter)
     starters_this_week = []
     for team_entry in matchups:
       team_name = team_entry["team"]
@@ -202,6 +206,9 @@ def compute_records_and_payouts(history):
     if starters_this_week:
       high_starter = max(starters_this_week, key=lambda x: x["pts"])
       weekly_player_bounties.append(high_starter)
+
+      low_starter = min(starters_this_week, key=lambda x: x["pts"])
+      weekly_anchors.append(low_starter)
 
   season_high_team_game = (
       max(weekly_team_bounties, key=lambda x: x["pts"])
@@ -260,6 +267,7 @@ def compute_records_and_payouts(history):
   return (
       weekly_team_bounties,
       weekly_player_bounties,
+      weekly_anchors,
       position_records,
       season_payout_leaders,
   )
@@ -473,7 +481,6 @@ def compute_all_time_leaderboard(champions, current_managers, finishes_data):
   """Computes total podium and placement counts per manager, ensuring ALL current managers are listed."""
   mgr_stats = {}
 
-  # 1. Guarantee all current managers appear on the ledger
   for m in current_managers:
     mgr_stats[m] = {
         "manager": m,
@@ -530,7 +537,6 @@ def compute_all_time_leaderboard(champions, current_managers, finishes_data):
       mgr_stats[m_last]["last"] += 1
       mgr_stats[m_last]["most_recent"] = f"💩 League Bitch ({y})"
 
-  # 2. Attach recorded finishes from all finalized seasons
   for y_str, y_finishes in finishes_data.items():
     for m, place in y_finishes.items():
       if m not in mgr_stats:
@@ -752,6 +758,10 @@ def update_and_compute_h2h(history, current_year):
           "s2": s2,
           "margin": round(abs(s1 - s2), 2),
           "winner": m1 if s1 > s2 else (m2 if s2 > s1 else "Tie"),
+          "winner_team": g["t1"] if s1 >= s2 else g["t2"],
+          "winner_score": max(s1, s2),
+          "loser_team": g["t2"] if s1 >= s2 else g["t1"],
+          "loser_score": min(s1, s2),
       })
 
   season_log.sort(key=lambda x: (x["week"], -x["margin"]))
@@ -779,24 +789,39 @@ def compute_trends(history):
             "pine_tax": 0.0,
             "opp_over_proj_count": 0,
             "curr_opp_surge_streak": 0,
+            "cardiac_w": 0,
+            "cardiac_l": 0,
+            "scores": [],
         }
 
       stat = team_trends[team]
-      stat["pf"] += entry["actual"]
-      stat["pa"] += entry["opp_actual"]
+      act = entry["actual"]
+      opp_act = entry["opp_actual"]
+
+      stat["pf"] += act
+      stat["pa"] += opp_act
+      stat["scores"].append(act)
+
       if entry["result"] == "W":
         stat["actual_w"] += 1
       elif entry["result"] == "L":
         stat["actual_l"] += 1
 
+      # Cardiac Index: games decided by 5.00 points or fewer
+      margin = abs(act - opp_act)
+      if margin <= 5.00:
+        if entry["result"] == "W":
+          stat["cardiac_w"] += 1
+        elif entry["result"] == "L":
+          stat["cardiac_l"] += 1
+
       stat["all_play_w"] += entry["all_play_w"]
       stat["all_play_l"] += entry["all_play_l"]
       stat["eff_history"].append(entry["coach_eff"])
-      stat["pine_tax"] += round(entry["optimal"] - entry["actual"], 2)
+      stat["pine_tax"] += round(entry["optimal"] - act, 2)
 
-      opp_actual = entry.get("opp_actual", 0.0)
-      opp_proj = entry.get("opp_proj", opp_actual)
-      if round(opp_actual - opp_proj, 2) > 0:
+      opp_proj = entry.get("opp_proj", opp_act)
+      if round(opp_act - opp_proj, 2) > 0:
         stat["opp_over_proj_count"] += 1
         stat["curr_opp_surge_streak"] += 1
       else:
@@ -817,6 +842,27 @@ def compute_trends(history):
     s["avg_pa"] = round(s["pa"] / total_weeks, 2) if total_weeks else 0.0
     s["pine_tax"] = round(s["pine_tax"], 2)
 
+    # Pythagorean Expected Wins
+    pf_sq = s["pf"] ** 2
+    pa_sq = s["pa"] ** 2
+    denom = pf_sq + pa_sq
+    s["pyth_wins"] = round((pf_sq / denom) * tot_act, 1) if denom > 0 else 0.0
+    s["pyth_delta"] = round(s["actual_w"] - s["pyth_wins"], 1)
+
+    # Score Volatility (Standard Deviation)
+    if len(s["scores"]) > 1:
+      sd = round(statistics.stdev(s["scores"]), 1)
+      s["volatility_sd"] = sd
+      if sd >= 18.0:
+        s["volatility_tag"] = "Boom/Bust"
+      elif sd <= 12.0:
+        s["volatility_tag"] = "Steady Floor"
+      else:
+        s["volatility_tag"] = "Balanced"
+    else:
+      s["volatility_sd"] = 0.0
+      s["volatility_tag"] = "Baseline"
+
   return team_trends, total_weeks
 
 
@@ -827,6 +873,7 @@ def generate_html_report(
     total_weeks,
     weekly_team_bounties,
     weekly_player_bounties,
+    weekly_anchors,
     position_records,
     season_payout_leaders,
     champions,
@@ -895,12 +942,25 @@ def generate_html_report(
       or (weekly_team_bounties[-1] if weekly_team_bounties else None)
   )
 
+  curr_anchor = (
+      next((a for a in weekly_anchors if a["week"] == week_num), None)
+      or (weekly_anchors[-1] if weekly_anchors else None)
+  )
+
+  # Extremes of War: Largest blowout vs closest heartbreaker
+  blowout_game = (
+      max(season_log, key=lambda x: x["margin"]) if season_log else None
+  )
+  heartbreaker_game = (
+      min(season_log, key=lambda x: x["margin"]) if season_log else None
+  )
+
   html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <title>The Deflaters // Week {week_num} Ledger</title>
+  <title>The Deflaters // Week {week_num} Summary</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -953,12 +1013,13 @@ def generate_html_report(
     }}
     .theme-toggle-btn:hover {{ background: rgba(255, 255, 255, 0.2); }}
 
-    .awards-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }}
+    .awards-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }}
     .award-card {{ background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }}
     .award-card.red {{ border-left: 4px solid var(--red); }}
     .award-card.green {{ border-left: 4px solid var(--green); }}
     .award-card.blue {{ border-left: 4px solid var(--accent); }}
     .award-card.gold {{ border-left: 4px solid var(--gold); }}
+    .award-card.zinc {{ border-left: 4px solid var(--dim); }}
     .award-tag {{ font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }}
     .award-title {{ font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 4px; word-break: break-word; }}
     .award-desc {{ font-size: 13px; color: var(--muted); line-height: 1.4; }}
@@ -1039,7 +1100,7 @@ def generate_html_report(
   <div class="header">
     <div>
       <div class="subtitle">The Deflaters Analytics Lab</div>
-      <h1>WEEK {week_num} EXECUTIVE AUDIT</h1>
+      <h1>WEEK {week_num} SUMMARY</h1>
     </div>
     <div class="header-controls">
       <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()">☀️ Light Mode</button>
@@ -1047,6 +1108,7 @@ def generate_html_report(
     </div>
   </div>
 
+  <!-- AWARDS & SUPERLATIVES GRID (TOP 5) -->
   <div class="awards-grid">
     <div class="award-card gold">
       <div>
@@ -1083,10 +1145,19 @@ def generate_html_report(
       </div>
       <div style="margin-top: 8px;"><span class="badge badge-neutral">Lineup Mastery</span></div>
     </div>
+
+    <div class="award-card zinc">
+      <div>
+        <div class="award-tag" style="color: var(--dim);">⚓ The Anchor Award (Lead Weight)</div>
+        <div class="award-title">{curr_anchor['player'] if curr_anchor else 'None'} ({curr_anchor['pos'] if curr_anchor else ''})</div>
+        <div class="award-desc">Hung a league-low <b>{curr_anchor['pts']:.2f} pts</b> in the starting lineup for {curr_anchor['team'] if curr_anchor else 'None'}.</div>
+      </div>
+      <div style="margin-top: 8px;"><span class="badge badge-neutral">Lowest Starter of Wk</span></div>
+    </div>
   </div>
 
   <div class="tab-bar">
-    <button class="tab-btn active" onclick="switchTab('week')">📅 Week {week_num} Audit</button>
+    <button class="tab-btn active" onclick="switchTab('week')">📅 Week {week_num} Summary</button>
     <button class="tab-btn" onclick="switchTab('season')">📈 Season Trends</button>
     <button class="tab-btn" onclick="switchTab('h2h')">⚔️ Head-to-Head</button>
     <button class="tab-btn" onclick="switchTab('payouts')">💰 Payouts & Records</button>
@@ -1135,19 +1206,21 @@ def generate_html_report(
     </table>
   </div>
 
-  <!-- TAB 2: SEASON TRENDS -->
+  <!-- TAB 2: SEASON TRENDS (EXPANDED WITH CARDIAC, PYTHAGOREAN, AND VOLATILITY) -->
   <div id="view-season" class="table-container" style="display: none;">
     <table class="responsive-table">
       <thead>
         <tr>
           <th>Rank / Team</th>
           <th>Actual W-L</th>
-          <th>All-Play<span class="sub-th">True Strength</span></th>
-          <th>All-Play %</th>
-          <th>Season Luck Δ<span class="sub-th">Net Fortune</span></th>
-          <th>Pine Tax<span class="sub-th">Total Pts Lost</span></th>
-          <th>Opp Surges Faced<span class="sub-th">Over Proj (Streak)</span></th>
-          <th>Avg Opp PA<span class="sub-th">Matchup Gauntlet</span></th>
+          <th>Pyth Exp Wins<span class="sub-th">True Record (Δ)</span></th>
+          <th>All-Play<span class="sub-th">Record (%)</span></th>
+          <th>Season Luck Δ</th>
+          <th>Volatility (σ)<span class="sub-th">Consistency Archetype</span></th>
+          <th>Cardiac Rec<span class="sub-th">Games ≤ 5 pts</span></th>
+          <th>Pine Tax<span class="sub-th">Pts Lost</span></th>
+          <th>Opp Surges<span class="sub-th">Faced (Streak)</span></th>
+          <th>Avg Opp PA</th>
         </tr>
       </thead>
       <tbody>"""
@@ -1164,13 +1237,25 @@ def generate_html_report(
         if s["curr_opp_surge_streak"] >= 2
         else f"{s['curr_opp_surge_streak']} st"
     )
+
+    pyth_diff_str = (
+        f"+{s['pyth_delta']:.1f}" if s["pyth_delta"] > 0 else f"{s['pyth_delta']:.1f}"
+    )
+    pyth_color = (
+        "var(--green)"
+        if s["pyth_delta"] > 0.5
+        else ("var(--red)" if s["pyth_delta"] < -0.5 else "var(--muted)")
+    )
+
     html += f"""
         <tr>
           <td class="team-cell"><span class="rank-num">#{idx}</span> {decorated_team}</td>
           <td data-label="Actual W-L"><b>{s['actual_w']}–{s['actual_l']}</b></td>
-          <td data-label="All-Play">{s['all_play_w']}–{s['all_play_l']}</td>
-          <td data-label="All-Play %"><b>{s['all_play_pct']:.3f}</b></td>
+          <td data-label="Pyth Wins"><b>{s['pyth_wins']:.1f}</b> <span style="font-size: 11px; color: {pyth_color};">({pyth_diff_str})</span></td>
+          <td data-label="All-Play">{s['all_play_w']}–{s['all_play_l']} <span style="font-size: 11px; color: var(--dim);">({s['all_play_pct']:.3f})</span></td>
           <td data-label="Season Luck Δ"><span class="badge {c_delta_class}">{s['luck_delta']:+.3f}</span></td>
+          <td data-label="Volatility">±{s['volatility_sd']:.1f} <span class="badge badge-neutral" style="font-size: 10px; padding: 1px 6px;">{s['volatility_tag']}</span></td>
+          <td data-label="Cardiac Rec"><b>{s['cardiac_w']}–{s['cardiac_l']}</b></td>
           <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">{s['pine_tax']:.2f} pts</td>
           <td data-label="Opp Surges">{s['opp_over_proj_count']}/{total_weeks} wks ({streak_badge})</td>
           <td data-label="Avg Opp PA"><b>{s['avg_pa']:.2f}</b></td>
@@ -1263,17 +1348,12 @@ def generate_html_report(
         <tbody>"""
 
   for g in season_log:
-    winner_team = g["t1"] if g["s1"] >= g["s2"] else g["t2"]
-    winner_score = max(g["s1"], g["s2"])
-    loser_team = g["t2"] if g["s1"] >= g["s2"] else g["t1"]
-    loser_score = min(g["s1"], g["s2"])
-
     html += f"""
           <tr>
             <td class="team-cell" style="color: var(--accent);">Week {g['week']} Matchup</td>
-            <td data-label="Winner" style="font-weight: 700; color: var(--text);">{winner_team}</td>
-            <td data-label="Score" style="font-weight: 700; color: var(--green);">{winner_score:.2f} – {loser_score:.2f}</td>
-            <td data-label="Loser" style="color: var(--muted);">{loser_team}</td>
+            <td data-label="Winner" style="font-weight: 700; color: var(--text);">{g['winner_team']}</td>
+            <td data-label="Score" style="font-weight: 700; color: var(--green);">{g['winner_score']:.2f} – {g['loser_score']:.2f}</td>
+            <td data-label="Loser" style="color: var(--muted);">{g['loser_team']}</td>
             <td data-label="Margin" style="font-weight: 700; color: var(--accent);">+{g['margin']:.2f} pts</td>
           </tr>"""
 
@@ -1284,7 +1364,7 @@ def generate_html_report(
 
   </div>
 
-  <!-- TAB 4: PAYOUTS & POSITIONAL RECORDS -->
+  <!-- TAB 4: PAYOUTS, EXTREMES OF WAR & POSITIONAL RECORDS -->
   <div id="view-payouts" style="display: none; display: flex; flex-direction: column; gap: 16px;">
     
     <!-- SEASON CASH BOUNTIES -->
@@ -1318,19 +1398,43 @@ def generate_html_report(
       </div>
     </div>
 
-    <!-- WEEKLY CASH PAYOUTS TABLE -->
+    <!-- EXTREMES OF WAR (THE GAVEL & THE COIN FLIP) -->
+    <div style="font-size: 15px; font-weight: 800; color: var(--text); margin-top: 4px;">⚔️ Extremes of War (Season Highs & Heartbreaks)</div>
+    <div class="awards-grid">
+      <div class="award-card red">
+        <div>
+          <div class="award-tag" style="color: var(--red);">🔨 The Gavel (Largest Blowout)</div>
+          <div class="award-title">{blowout_game['winner_team'] if blowout_game else 'None'} (+{blowout_game['margin']:.2f} pts)</div>
+          <div class="award-desc">Demolished {blowout_game['loser_team'] if blowout_game else 'None'} ({blowout_game['winner_score']:.2f} to {blowout_game['loser_score']:.2f}) in Week {blowout_game['week'] if blowout_game else '0'}.</div>
+        </div>
+        <div style="margin-top: 8px;"><span class="badge badge-unlucky">Biggest Massacre</span></div>
+      </div>
+
+      <div class="award-card green">
+        <div>
+          <div class="award-tag" style="color: var(--green);">🪙 The Coin Flip (Closest Finish)</div>
+          <div class="award-title">Decided by {heartbreaker_game['margin']:.2f} pts</div>
+          <div class="award-desc">{heartbreaker_game['winner_team'] if heartbreaker_game else 'None'} ({heartbreaker_game['winner_score']:.2f}) survived against {heartbreaker_game['loser_team'] if heartbreaker_game else 'None'} ({heartbreaker_game['loser_score']:.2f}) in Week {heartbreaker_game['week'] if heartbreaker_game else '0'}.</div>
+        </div>
+        <div style="margin-top: 8px;"><span class="badge badge-lucky">Nail Biter of the Year</span></div>
+      </div>
+    </div>
+
+    <!-- WEEKLY CASH PAYOUTS TABLE (INCLUDES ANCHOR) -->
     <div class="table-container">
       <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 14px;">
-        💵 Weekly High Scorer Cash Ledger (Team & Starter Payouts)
+        💵 Weekly High Scorer Cash Ledger & The Anchor (Lead Weight)
       </div>
       <table class="responsive-table">
         <thead>
           <tr>
             <th>Week</th>
-            <th>Team High Winner ($)</th>
+            <th>Team High ($)</th>
             <th>Score</th>
-            <th>Starter High Winner ($)</th>
-            <th>Player Score</th>
+            <th>Starter High ($)</th>
+            <th>High Score</th>
+            <th>⚓ Anchor (Lead Weight)</th>
+            <th>Low Score</th>
           </tr>
         </thead>
         <tbody>"""
@@ -1339,19 +1443,26 @@ def generate_html_report(
     pb = next(
         (p for p in weekly_player_bounties if p["week"] == tb["week"]), None
     )
+    anc = next((a for a in weekly_anchors if a["week"] == tb["week"]), None)
+
     dec_team = render_team_badge(tb["team"], reigning)
-    pb_str = (
-        f"{pb['player']} ({pb['pos']}) - {pb['team']}" if pb else "None"
-    )
+    pb_str = f"{pb['player']} ({pb['pos']}) - {pb['team']}" if pb else "None"
     pb_pts = f"{pb['pts']:.2f} pts" if pb else "-"
+
+    anc_str = (
+        f"{anc['player']} ({anc['pos']}) - {anc['team']}" if anc else "None"
+    )
+    anc_pts = f"{anc['pts']:.2f} pts" if anc else "-"
 
     html += f"""
           <tr>
-            <td class="team-cell" style="color: var(--accent);">Week {tb['week']} Payouts</td>
+            <td class="team-cell" style="color: var(--accent);">Week {tb['week']} Ledger</td>
             <td data-label="Team High Winner"><b>{dec_team}</b></td>
             <td data-label="Team Score" style="font-weight: 800; color: var(--gold);">{tb['pts']:.2f} pts</td>
             <td data-label="Starter High Winner"><b>{pb_str}</b></td>
-            <td data-label="Player Score" style="font-weight: 800; color: var(--green);">{pb_pts}</td>
+            <td data-label="Starter High" style="font-weight: 800; color: var(--green);">{pb_pts}</td>
+            <td data-label="Anchor Starter" style="color: var(--muted);">{anc_str}</td>
+            <td data-label="Anchor Score" style="font-weight: 800; color: var(--red);">{anc_pts}</td>
           </tr>"""
 
   html += """
@@ -1509,7 +1620,7 @@ def generate_html_report(
     </table>
   </div>
 
-  <!-- TAB 7: STAT DECODERS (THE GLOSSARY) -->
+  <!-- TAB 7: STAT DECODERS (COMPREHENSIVE HANDBOOK) -->
   <div id="view-glossary" class="table-container" style="display: none;">
     <div style="padding: 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
       📖 The Deflaters Analytics Handbook
@@ -1517,9 +1628,61 @@ def generate_html_report(
     <div class="glossary-grid">
       
       <div class="glossary-card">
+        <div class="glossary-title">🫀 The Cardiac Index (Clutch vs. Cursed)</div>
+        <div class="glossary-desc">
+          Tracks team record in tight, high-pressure games decided by <b>5.00 points or fewer</b>. Identifies who has ice in their veins versus who is snakebitten by heartbreakers.
+        </div>
+        <div class="glossary-example">
+          <b>Example:</b> A 3–0 record means you routinely win nail-biters; a 0–3 record means you've suffered 3 brutal losses by a single play.
+        </div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-title">📊 Scoring Volatility (σ StdDev)</div>
+        <div class="glossary-desc">
+          Statistical standard deviation of your weekly scoring totals. Measures whether your lineup is predictable or chaotic.
+        </div>
+        <div class="glossary-example">
+          <b>Steady Floor (σ &lt; 12):</b> Scores almost the exact same points every week.<br>
+          <b>Boom/Bust (σ &gt; 18):</b> Alternates between 160-pt explosions and 75-pt duds.
+        </div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-title">📐 Pythagorean Expected Wins</div>
+        <div class="glossary-desc">
+          Adapts Bill James's sports formula: <code>(PF² ÷ [PF² + PA²]) × Games</code>. Calculates what your win-loss record <i>should</i> be based solely on point differential.
+        </div>
+        <div class="glossary-example">
+          <b>Example:</b> An 8–2 team with only 5.8 Pythagorean expected wins is living on borrowed time and schedule luck.
+        </div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-title">🔨 Extremes of War (Gavel & Coin Flip)</div>
+        <div class="glossary-desc">
+          Tracks the absolute matchup boundaries of the season.
+        </div>
+        <div class="glossary-example">
+          <b>The Gavel:</b> Largest blowout of the year (biggest margin of victory).<br>
+          <b>The Coin Flip:</b> Closest game of the year (smallest margin of victory).
+        </div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-title">⚓ The Anchor Award (Lead Weight)</div>
+        <div class="glossary-desc">
+          The anti-bounty award given each week to the single lowest-scoring active starter across the entire league (benched players excluded).
+        </div>
+        <div class="glossary-example">
+          <b>Example:</b> Starting a kicker or defense that puts up -3.00 points, or a WR who posts a 1-catch, 4-yard dud (1.40 pts).
+        </div>
+      </div>
+
+      <div class="glossary-card">
         <div class="glossary-title">🪵 Pine Tax (Cumulative Bench Cost)</div>
         <div class="glossary-desc">
-          Total real points surrendered to your bench across the season. It calculates the difference between your team's <b>Optimal Score</b> and your <b>Actual Score</b> each week.
+          Total real points surrendered to your bench across the season. Calculates the difference between your team's <b>Optimal Score</b> and your <b>Actual Score</b> each week.
         </div>
         <div class="glossary-example">
           <b>Example:</b> Started an RB who scored 4.20 pts while leaving an RB with 18.20 on the bench. That is <b>14.00 pts</b> added to your Pine Tax.
@@ -1824,6 +1987,7 @@ def main():
   (
       weekly_team_bounties,
       weekly_player_bounties,
+      weekly_anchors,
       position_records,
       season_payout_leaders,
   ) = compute_records_and_payouts(history)
@@ -1845,6 +2009,7 @@ def main():
       total_weeks,
       weekly_team_bounties,
       weekly_player_bounties,
+      weekly_anchors,
       position_records,
       season_payout_leaders,
       champions,
@@ -1856,8 +2021,8 @@ def main():
       season_log,
   )
   print(
-      "Audit complete! Hall of champions leaderboard, average finishes,"
-      " current/all H2H compiled."
+      "Summary build complete! Cardiac index, Pythagorean records, Volatility,"
+      " Anchor, and Extremes of War compiled."
   )
 
 
