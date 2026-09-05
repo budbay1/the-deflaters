@@ -171,7 +171,6 @@ def compute_records_and_payouts(history):
     if not matchups:
       continue
 
-    # 1. Weekly High Team Points
     high_match = max(matchups, key=lambda x: x["actual"])
     weekly_team_bounties.append({
         "week": w,
@@ -181,7 +180,6 @@ def compute_records_and_payouts(history):
         "opp_pts": high_match["opp_actual"],
     })
 
-    # 2. Weekly High Individual Starter & Weekly Anchor (Lowest Starter)
     starters_this_week = []
     for team_entry in matchups:
       team_name = team_entry["team"]
@@ -364,7 +362,6 @@ def sync_champions_and_finishes(current_year):
       )
       curr_wk = getattr(past_league, "current_week", 1)
 
-      # Suppress in-progress season until the entire championship has finalized
       if y == current_year:
         standings = [
             getattr(t, "final_standing", 0) for t in past_league.teams
@@ -807,7 +804,6 @@ def compute_trends(history):
       elif entry["result"] == "L":
         stat["actual_l"] += 1
 
-      # Cardiac Index: games decided by 5.00 points or fewer
       margin = abs(act - opp_act)
       if margin <= 5.00:
         if entry["result"] == "W":
@@ -842,14 +838,12 @@ def compute_trends(history):
     s["avg_pa"] = round(s["pa"] / total_weeks, 2) if total_weeks else 0.0
     s["pine_tax"] = round(s["pine_tax"], 2)
 
-    # Pythagorean Expected Wins
     pf_sq = s["pf"] ** 2
     pa_sq = s["pa"] ** 2
     denom = pf_sq + pa_sq
     s["pyth_wins"] = round((pf_sq / denom) * tot_act, 1) if denom > 0 else 0.0
     s["pyth_delta"] = round(s["actual_w"] - s["pyth_wins"], 1)
 
-    # Score Volatility (Standard Deviation)
     if len(s["scores"]) > 1:
       sd = round(statistics.stdev(s["scores"]), 1)
       s["volatility_sd"] = sd
@@ -867,8 +861,8 @@ def compute_trends(history):
 
 
 def generate_html_report(
-    week_num,
-    current_week_data,
+    latest_week_num,
+    history_weeks,
     trends_data,
     total_weeks,
     weekly_team_bounties,
@@ -884,70 +878,12 @@ def generate_html_report(
     current_managers,
     season_log,
 ):
-  sorted_week = sorted(
-      current_week_data, key=lambda x: (x["all_play_w"], x["actual"]), reverse=True
-  )
   sorted_trends = sorted(
       trends_data.values(),
       key=lambda x: (x["all_play_w"], x["pf"]),
       reverse=True,
   )
 
-  buzzsaw = min(
-      current_week_data,
-      key=lambda x: x["luck_delta"],
-      default={
-          "team": "None",
-          "actual": 0.0,
-          "opp": "None",
-          "opp_actual": 0.0,
-          "all_play_w": 0,
-          "all_play_l": 0,
-          "luck_delta": 0.0,
-      },
-  )
-  horseshoe = max(
-      current_week_data,
-      key=lambda x: x["luck_delta"],
-      default={
-          "team": "None",
-          "actual": 0.0,
-          "opp": "None",
-          "opp_actual": 0.0,
-          "all_play_w": 0,
-          "all_play_l": 0,
-          "luck_delta": 0.0,
-      },
-  )
-  tactician = max(
-      current_week_data,
-      key=lambda x: x["coach_eff"],
-      default={
-          "team": "None",
-          "coach_eff": 100.0,
-          "actual": 0.0,
-          "optimal": 0.0,
-      },
-  )
-
-  all_blunders = []
-  for t in current_week_data:
-    for p in t["players"]:
-      if p["audit"] == "Costly Bench":
-        all_blunders.append({"team": t["team"], **p})
-  all_blunders.sort(key=lambda x: x["pts"], reverse=True)
-
-  curr_bounty = (
-      next((b for b in weekly_team_bounties if b["week"] == week_num), None)
-      or (weekly_team_bounties[-1] if weekly_team_bounties else None)
-  )
-
-  curr_anchor = (
-      next((a for a in weekly_anchors if a["week"] == week_num), None)
-      or (weekly_anchors[-1] if weekly_anchors else None)
-  )
-
-  # Extremes of War: Largest blowout vs closest heartbreaker
   blowout_game = (
       max(season_log, key=lambda x: x["margin"]) if season_log else None
   )
@@ -955,12 +891,17 @@ def generate_html_report(
       min(season_log, key=lambda x: x["margin"]) if season_log else None
   )
 
+  # Prepare JSON payloads for client-side weekly switching
+  weeks_json = json.dumps(history_weeks)
+  bounties_json = json.dumps(weekly_team_bounties)
+  anchors_json = json.dumps(weekly_anchors)
+
   html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <title>The Deflaters // Week {week_num} Summary</title>
+  <title>The Deflaters // Weekly Summary & History</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -1004,8 +945,17 @@ def generate_html_report(
     .header h1 {{ font-size: 22px; font-weight: 800; color: #fff; }}
     .header .subtitle {{ color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 11px; letter-spacing: 1.5px; margin-bottom: 2px; }}
     .header-controls {{ display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }}
-    .header-badge {{ background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.25); color: var(--accent); padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }}
     
+    .week-selector-container {{
+      display: inline-flex; align-items: center; background: rgba(0, 0, 0, 0.25); border: 1px solid var(--border);
+      padding: 4px 8px; border-radius: 12px; gap: 8px;
+    }}
+    .week-selector-label {{ font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--accent); }}
+    .week-select {{
+      background: var(--surface); color: var(--text); border: 1px solid var(--border);
+      padding: 4px 8px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; outline: none;
+    }}
+
     .theme-toggle-btn {{
       background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
       color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700;
@@ -1090,7 +1040,7 @@ def generate_html_report(
       flex: 1; width: 100%; background: var(--surface); color: var(--text); border: 1px solid var(--border);
       padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; outline: none;
     }}
-    .h2h-scope-bar {{ display: inline-flex; background: var(--surface); padding: 3px; border-radius: 10px; border: 1px solid var(--border); }}
+    .toggle-scope-bar {{ display: inline-flex; background: var(--surface); padding: 3px; border-radius: 10px; border: 1px solid var(--border); }}
     .scope-btn {{ background: transparent; border: 1px solid transparent; color: var(--muted); padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s; }}
     .scope-btn.active {{ background: var(--card); color: var(--text); border-color: var(--border); box-shadow: 0 1px 4px rgba(0,0,0,0.15); }}
   </style>
@@ -1100,64 +1050,30 @@ def generate_html_report(
   <div class="header">
     <div>
       <div class="subtitle">The Deflaters Analytics Lab</div>
-      <h1>WEEK {week_num} SUMMARY</h1>
+      <h1 id="headerSummaryTitle">WEEK {latest_week_num} SUMMARY</h1>
     </div>
     <div class="header-controls">
+      <div class="week-selector-container">
+        <span class="week-selector-label">Audit Week:</span>
+        <select id="activeWeekSelect" class="week-select" onchange="renderSelectedWeek(this.value)">"""
+
+  sorted_wks = sorted([int(w) for w in history_weeks.keys()], reverse=True)
+  for w in sorted_wks:
+    selected = "selected" if w == latest_week_num else ""
+    html += f"""<option value="{w}" {selected}>Season {YEAR} - Week {w}</option>"""
+
+  html += f"""
+        </select>
+      </div>
       <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()">☀️ Light Mode</button>
-      <div class="header-badge">Season {YEAR} (Weeks 1–{total_weeks})</div>
     </div>
   </div>
 
-  <!-- AWARDS & SUPERLATIVES GRID (TOP 5) -->
-  <div class="awards-grid">
-    <div class="award-card gold">
-      <div>
-        <div class="award-tag" style="color: var(--gold);">💰 Week {curr_bounty['week'] if curr_bounty else week_num} Team Bounty</div>
-        <div class="award-title">{render_team_badge(curr_bounty['team'] if curr_bounty else 'None', reigning)}</div>
-        <div class="award-desc">Paced the entire league with <b>{curr_bounty['pts']:.2f} pts</b> to take down the weekly cash payout!</div>
-      </div>
-      <div style="margin-top: 8px;"><span class="badge badge-gold">Weekly Bounty Winner</span></div>
-    </div>
-
-    <div class="award-card red">
-      <div>
-        <div class="award-tag" style="color: var(--red);">💀 The Buzzsaw Victim</div>
-        <div class="award-title">{render_team_badge(buzzsaw['team'], reigning)}</div>
-        <div class="award-desc">Dropped {buzzsaw['actual']:.2f} pts ({buzzsaw['all_play_w']}–{buzzsaw['all_play_l']} All-Play), but took an L to {buzzsaw['opp']} ({buzzsaw['opp_actual']:.2f} pts).</div>
-      </div>
-      <div style="margin-top: 8px;"><span class="badge badge-unlucky">Luck Δ: {buzzsaw['luck_delta']:+.3f}</span></div>
-    </div>
-
-    <div class="award-card green">
-      <div>
-        <div class="award-tag" style="color: var(--green);">🍀 Grand Theft Victory</div>
-        <div class="award-title">{render_team_badge(horseshoe['team'], reigning)}</div>
-        <div class="award-desc">Squeaked by with {horseshoe['actual']:.2f} pts ({horseshoe['all_play_w']}–{horseshoe['all_play_l']} All-Play) thanks to opponent meltdown.</div>
-      </div>
-      <div style="margin-top: 8px;"><span class="badge badge-lucky">Luck Δ: {horseshoe['luck_delta']:+.3f}</span></div>
-    </div>
-
-    <div class="award-card blue">
-      <div>
-        <div class="award-tag" style="color: var(--accent);">🧠 Master Tactician</div>
-        <div class="award-title">{render_team_badge(tactician['team'], reigning)}</div>
-        <div class="award-desc">Optimal starting execution of <b>{tactician['coach_eff']}%</b> ({tactician['actual']:.2f} of {tactician['optimal']:.2f} optimal pts).</div>
-      </div>
-      <div style="margin-top: 8px;"><span class="badge badge-neutral">Lineup Mastery</span></div>
-    </div>
-
-    <div class="award-card zinc">
-      <div>
-        <div class="award-tag" style="color: var(--dim);">⚓ The Anchor Award (Lead Weight)</div>
-        <div class="award-title">{curr_anchor['player'] if curr_anchor else 'None'} ({curr_anchor['pos'] if curr_anchor else ''})</div>
-        <div class="award-desc">Hung a league-low <b>{curr_anchor['pts']:.2f} pts</b> in the starting lineup for {curr_anchor['team'] if curr_anchor else 'None'}.</div>
-      </div>
-      <div style="margin-top: 8px;"><span class="badge badge-neutral">Lowest Starter of Wk</span></div>
-    </div>
-  </div>
+  <!-- DYNAMIC AWARDS & SUPERLATIVES GRID (CONTROLLED BY DROPDOWN) -->
+  <div class="awards-grid" id="dynamicAwardsGrid"></div>
 
   <div class="tab-bar">
-    <button class="tab-btn active" onclick="switchTab('week')">📅 Week {week_num} Summary</button>
+    <button class="tab-btn active" onclick="switchTab('week')" id="tabBtnWeek">📅 Week {latest_week_num} Summary</button>
     <button class="tab-btn" onclick="switchTab('season')">📈 Season Trends</button>
     <button class="tab-btn" onclick="switchTab('h2h')">⚔️ Head-to-Head</button>
     <button class="tab-btn" onclick="switchTab('payouts')">💰 Payouts & Records</button>
@@ -1166,7 +1082,7 @@ def generate_html_report(
     <button class="tab-btn" onclick="switchTab('glossary')">📖 Stat Decoders</button>
   </div>
 
-  <!-- TAB 1: WEEK AUDIT -->
+  <!-- TAB 1: WEEK SUMMARY (DYNAMICALLY POPULATED) -->
   <div id="view-week" class="table-container">
     <table class="responsive-table">
       <thead>
@@ -1180,33 +1096,11 @@ def generate_html_report(
           <th>Coaching Eff<span class="sub-th">Optimal Pts %</span></th>
         </tr>
       </thead>
-      <tbody>"""
-
-  for idx, t in enumerate(sorted_week, 1):
-    delta_class = (
-        "badge-lucky"
-        if t["luck_delta"] > 0
-        else ("badge-unlucky" if t["luck_delta"] < 0 else "badge-neutral")
-    )
-    res_badge = "badge-win" if t["result"] == "W" else "badge-loss"
-    decorated_team = render_team_badge(t["team"], reigning)
-    html += f"""
-        <tr>
-          <td class="team-cell"><span class="rank-num">#{idx}</span> {decorated_team}</td>
-          <td data-label="Result"><span class="badge {res_badge}">{t['result']}</span></td>
-          <td data-label="Score"><b>{t['actual']:.2f}</b> <span style="font-size: 11px; color: var(--dim);">({t['diff']:+.2f})</span></td>
-          <td data-label="Opponent">{t['opp']} <span style="color: var(--muted); font-size: 11px;">({t['opp_actual']:.2f})</span></td>
-          <td data-label="All-Play"><b>{t['all_play_w']}</b>–{t['all_play_l']}</td>
-          <td data-label="Luck Δ"><span class="badge {delta_class}">{t['luck_delta']:+.3f}</span></td>
-          <td data-label="Coaching Eff"><b>{t['coach_eff']}%</b></td>
-        </tr>"""
-
-  html += f"""
-      </tbody>
+      <tbody id="weekTableBody"></tbody>
     </table>
   </div>
 
-  <!-- TAB 2: SEASON TRENDS (EXPANDED WITH CARDIAC, PYTHAGOREAN, AND VOLATILITY) -->
+  <!-- TAB 2: SEASON TRENDS -->
   <div id="view-season" class="table-container" style="display: none;">
     <table class="responsive-table">
       <thead>
@@ -1273,7 +1167,7 @@ def generate_html_report(
       <div class="filter-header">
         <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
           <div style="font-size: 14px; font-weight: 800; color: var(--text);">⚔️ Head-to-Head Rivalry Records (2023–Present)</div>
-          <div class="h2h-scope-bar">
+          <div class="toggle-scope-bar">
             <button id="scopeCurrentBtn" class="scope-btn active" onclick="setH2HScope('current')">👥 Current Managers</button>
             <button id="scopeAllBtn" class="scope-btn" onclick="setH2HScope('all')">🌐 All-Time (Inc. Former)</button>
           </div>
@@ -1398,7 +1292,7 @@ def generate_html_report(
       </div>
     </div>
 
-    <!-- EXTREMES OF WAR (THE GAVEL & THE COIN FLIP) -->
+    <!-- EXTREMES OF WAR -->
     <div style="font-size: 15px; font-weight: 800; color: var(--text); margin-top: 4px;">⚔️ Extremes of War (Season Highs & Heartbreaks)</div>
     <div class="awards-grid">
       <div class="award-card red">
@@ -1420,7 +1314,7 @@ def generate_html_report(
       </div>
     </div>
 
-    <!-- WEEKLY CASH PAYOUTS TABLE (INCLUDES ANCHOR) -->
+    <!-- WEEKLY CASH PAYOUTS TABLE -->
     <div class="table-container">
       <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 14px;">
         💵 Weekly High Scorer Cash Ledger & The Anchor (Lead Weight)
@@ -1488,13 +1382,17 @@ def generate_html_report(
 
   </div>
 
-  <!-- TAB 5: HALL OF CHAMPIONS -->
+  <!-- TAB 5: HALL OF CHAMPIONS (WITH CURRENT VS ALL TOGGLE) -->
   <div id="view-halloffame" style="display: none; display: flex; flex-direction: column; gap: 20px;">
     
     <!-- ALL-TIME FRANCHISE PLACEMENT & SHAME TABLE -->
     <div class="table-container">
-      <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
-        🏛️ All-Time Franchise Trophy & Placement Ledger (2023–Present)
+      <div class="filter-header">
+        <div style="font-size: 15px; font-weight: 800; color: var(--text);">🏛️ All-Time Franchise Trophy & Placement Ledger (2023–Present)</div>
+        <div class="toggle-scope-bar">
+          <button id="hofScopeCurrentBtn" class="scope-btn active" onclick="setHOFScope('current')">👥 Current Managers</button>
+          <button id="hofScopeAllBtn" class="scope-btn" onclick="setHOFScope('all')">🌐 All-Time (Inc. Former)</button>
+        </div>
       </div>
       <table class="responsive-table">
         <thead>
@@ -1530,7 +1428,7 @@ def generate_html_report(
       avg_str = '<span style="color: var(--muted);">—</span>'
 
     html += f"""
-          <tr>
+          <tr class="hof-row" data-current="{'true' if row['is_current'] else 'false'}">
             <td class="team-cell">
               <div>
                 <b>{row['manager']}</b>{status_badge}
@@ -1584,13 +1482,13 @@ def generate_html_report(
           </div>
         </div>"""
 
-  html += f"""
+  html += """
       </div>
     </div>
 
   </div>
 
-  <!-- TAB 6: BENCH BLUNDERS -->
+  <!-- TAB 6: BENCH BLUNDERS (DYNAMICALLY POPULATED) -->
   <div id="view-blunders" class="table-container" style="display: none;">
     <table class="responsive-table">
       <thead>
@@ -1602,25 +1500,11 @@ def generate_html_report(
           <th>Projection</th>
         </tr>
       </thead>
-      <tbody>"""
-
-  for idx, b in enumerate(all_blunders[:10], 1):
-    dec_team = render_team_badge(b["team"], reigning)
-    html += f"""
-        <tr>
-          <td class="team-cell"><span class="rank-num">#{idx}</span> {dec_team}</td>
-          <td data-label="Player" style="color: var(--text); font-weight: 600;">{b['name']}</td>
-          <td data-label="Pos"><span class="badge badge-neutral">{b['pos']}</span></td>
-          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">{b['pts']:.2f} pts</td>
-          <td data-label="Projection" style="color: var(--muted);">{b['proj']:.2f} pts</td>
-        </tr>"""
-
-  html += """
-      </tbody>
+      <tbody id="blundersTableBody"></tbody>
     </table>
   </div>
 
-  <!-- TAB 7: STAT DECODERS (COMPREHENSIVE HANDBOOK) -->
+  <!-- TAB 7: STAT DECODERS (THE GLOSSARY) -->
   <div id="view-glossary" class="table-container" style="display: none;">
     <div style="padding: 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
       📖 The Deflaters Analytics Handbook
@@ -1743,33 +1627,170 @@ def generate_html_report(
 </div>
 
 <script>
-  var h2hScope = 'current';
+  var rawWeeksData = {weeks_json};
+  var rawBounties = {bounties_json};
+  var rawAnchors = {anchors_json};
+  var reigningBadges = {json.dumps(reigning)};
 
-  function switchTab(viewName) {
+  var h2hScope = 'current';
+  var hofScope = 'current';
+
+  function renderSelectedWeek(wkStr) {{
+    var wkData = rawWeeksData[wkStr] || [];
+    if (wkData.length === 0) return;
+
+    document.getElementById('headerSummaryTitle').innerText = 'WEEK ' + wkStr + ' SUMMARY';
+    document.getElementById('tabBtnWeek').innerText = '📅 Week ' + wkStr + ' Summary';
+
+    // Sort by all-play wins desc, actual score desc
+    var sorted = wkData.slice().sort(function(a, b) {{
+      if (b.all_play_w !== a.all_play_w) return b.all_play_w - a.all_play_w;
+      return b.actual - a.actual;
+    }});
+
+    // Build Table Body
+    var tbody = document.getElementById('weekTableBody');
+    tbody.innerHTML = '';
+    sorted.forEach(function(t, idx) {{
+      var deltaClass = t.luck_delta > 0 ? 'badge-lucky' : (t.luck_delta < 0 ? 'badge-unlucky' : 'badge-neutral');
+      var resBadge = t.result === 'W' ? 'badge-win' : 'badge-loss';
+      var tr = document.createElement('tr');
+      tr.innerHTML = 
+        '<td class="team-cell"><span class="rank-num">#' + (idx + 1) + '</span> ' + renderBadge(t.team) + '</td>' +
+        '<td data-label="Result"><span class="badge ' + resBadge + '">' + t.result + '</span></td>' +
+        '<td data-label="Score"><b>' + t.actual.toFixed(2) + '</b> <span style="font-size: 11px; color: var(--dim);">(' + (t.diff > 0 ? '+' : '') + t.diff.toFixed(2) + ')</span></td>' +
+        '<td data-label="Opponent">' + t.opp + ' <span style="color: var(--muted); font-size: 11px;">(' + t.opp_actual.toFixed(2) + ')</span></td>' +
+        '<td data-label="All-Play"><b>' + t.all_play_w + '</b>–' + t.all_play_l + '</td>' +
+        '<td data-label="Luck Δ"><span class="badge ' + deltaClass + '">' + (t.luck_delta > 0 ? '+' : '') + t.luck_delta.toFixed(3) + '</span></td>' +
+        '<td data-label="Coaching Eff"><b>' + t.coach_eff.toFixed(1) + '%</b></td>';
+      tbody.appendChild(tr);
+    }});
+
+    // Top Cards
+    var bounty = rawBounties.find(function(b) {{ return b.week === parseInt(wkStr); }}) || sorted[0];
+    var anchor = rawAnchors.find(function(a) {{ return a.week === parseInt(wkStr); }});
+
+    var buzzsaw = sorted.slice().sort(function(a, b) {{ return a.luck_delta - b.luck_delta; }})[0];
+    var horseshoe = sorted.slice().sort(function(a, b) {{ return b.luck_delta - a.luck_delta; }})[0];
+    var tactician = sorted.slice().sort(function(a, b) {{ return b.coach_eff - a.coach_eff; }})[0];
+
+    var awardsContainer = document.getElementById('dynamicAwardsGrid');
+    awardsContainer.innerHTML = 
+      '<div class="award-card gold">' +
+        '<div>' +
+          '<div class="award-tag" style="color: var(--gold);">💰 Week ' + wkStr + ' Team Bounty</div>' +
+          '<div class="award-title">' + renderBadge(bounty.team) + '</div>' +
+          '<div class="award-desc">Paced the entire league with <b>' + bounty.pts.toFixed(2) + ' pts</b> to take down the weekly cash payout!</div>' +
+        '</div>' +
+        '<div style="margin-top: 8px;"><span class="badge badge-gold">Weekly Bounty Winner</span></div>' +
+      '</div>' +
+
+      '<div class="award-card red">' +
+        '<div>' +
+          '<div class="award-tag" style="color: var(--red);">💀 The Buzzsaw Victim</div>' +
+          '<div class="award-title">' + renderBadge(buzzsaw.team) + '</div>' +
+          '<div class="award-desc">Dropped ' + buzzsaw.actual.toFixed(2) + ' pts (' + buzzsaw.all_play_w + '–' + buzzsaw.all_play_l + ' All-Play), but took an L to ' + buzzsaw.opp + ' (' + buzzsaw.opp_actual.toFixed(2) + ' pts).</div>' +
+        '</div>' +
+        '<div style="margin-top: 8px;"><span class="badge badge-unlucky">Luck Δ: ' + (buzzsaw.luck_delta > 0 ? '+' : '') + buzzsaw.luck_delta.toFixed(3) + '</span></div>' +
+      '</div>' +
+
+      '<div class="award-card green">' +
+        '<div>' +
+          '<div class="award-tag" style="color: var(--green);">🍀 Grand Theft Victory</div>' +
+          '<div class="award-title">' + renderBadge(horseshoe.team) + '</div>' +
+          '<div class="award-desc">Squeaked by with ' + horseshoe.actual.toFixed(2) + ' pts (' + horseshoe.all_play_w + '–' + horseshoe.all_play_l + ' All-Play) thanks to opponent meltdown.</div>' +
+        '</div>' +
+        '<div style="margin-top: 8px;"><span class="badge badge-lucky">Luck Δ: ' + (horseshoe.luck_delta > 0 ? '+' : '') + horseshoe.luck_delta.toFixed(3) + '</span></div>' +
+      '</div>' +
+
+      '<div class="award-card blue">' +
+        '<div>' +
+          '<div class="award-tag" style="color: var(--accent);">🧠 Master Tactician</div>' +
+          '<div class="award-title">' + renderBadge(tactician.team) + '</div>' +
+          '<div class="award-desc">Optimal starting execution of <b>' + tactician.coach_eff.toFixed(1) + '%</b> (' + tactician.actual.toFixed(2) + ' of ' + tactician.optimal.toFixed(2) + ' optimal pts).</div>' +
+        '</div>' +
+        '<div style="margin-top: 8px;"><span class="badge badge-neutral">Lineup Mastery</span></div>' +
+      '</div>' +
+
+      '<div class="award-card zinc">' +
+        '<div>' +
+          '<div class="award-tag" style="color: var(--dim);">⚓ The Anchor Award (Lead Weight)</div>' +
+          '<div class="award-title">' + (anchor ? anchor.player + ' (' + anchor.pos + ')' : 'None') + '</div>' +
+          '<div class="award-desc">Hung a league-low <b>' + (anchor ? anchor.pts.toFixed(2) : '0.00') + ' pts</b> in the starting lineup for ' + (anchor ? anchor.team : 'None') + '.</div>' +
+        '</div>' +
+        '<div style="margin-top: 8px;"><span class="badge badge-neutral">Lowest Starter of Wk</span></div>' +
+      '</div>';
+
+    // Bench Blunders for this week
+    var blunders = [];
+    wkData.forEach(function(t) {{
+      t.players.forEach(function(p) {{
+        if (p.audit === 'Costly Bench') {{
+          blunders.push({{ team: t.team, name: p.name, pos: p.pos, pts: p.pts, proj: p.proj }});
+        }}
+      }});
+    }});
+    blunders.sort(function(a, b) {{ return b.pts - a.pts; }});
+
+    var bbody = document.getElementById('blundersTableBody');
+    bbody.innerHTML = '';
+    blunders.slice(0, 10).forEach(function(b, idx) {{
+      var btr = document.createElement('tr');
+      btr.innerHTML = 
+        '<td class="team-cell"><span class="rank-num">#' + (idx + 1) + '</span> ' + renderBadge(b.team) + '</td>' +
+        '<td data-label="Player" style="color: var(--text); font-weight: 600;">' + b.name + '</td>' +
+        '<td data-label="Pos"><span class="badge badge-neutral">' + b.pos + '</span></td>' +
+        '<td data-label="Points Left" style="font-weight: 800; color: var(--amber);">' + b.pts.toFixed(2) + ' pts</td>' +
+        '<td data-label="Projection" style="color: var(--muted);">' + b.proj.toFixed(2) + ' pts</td>';
+      bbody.appendChild(btr);
+    }});
+  }}
+
+  function renderBadge(label) {{
+    if (!reigningBadges) return label;
+    var yrShort = (reigningBadges.year || '25').slice(-2);
+    function matches(target) {{
+      if (!target || target === 'TBD') return false;
+      var tClean = target.toLowerCase().trim();
+      var lClean = label.toLowerCase().trim();
+      if (tClean.indexOf(lClean) !== -1 || lClean.indexOf(tClean) !== -1) return true;
+      if (target.indexOf('(') !== -1 && target.indexOf(')') !== -1) {{
+        var mgr = target.split('(').pop().split(')')[0].trim().toLowerCase();
+        if (mgr && mgr !== 'manager' && lClean.indexOf(mgr) !== -1) return true;
+      }}
+      return false;
+    }}
+    if (matches(reigningBadges.gold)) return label + ' <span class="badge badge-champ">🥇 \\'' + yrShort + ' Champ</span>';
+    if (matches(reigningBadges.silver)) return label + ' <span class="badge badge-silver">🥈 \\'' + yrShort + ' Runner-Up</span>';
+    if (matches(reigningBadges.bronze)) return label + ' <span class="badge badge-bronze">🥉 \\'' + yrShort + ' 3rd Pl</span>';
+    if (matches(reigningBadges.last)) return label + ' <span class="badge badge-bitch">💩 \\'' + yrShort + ' League Bitch</span>';
+    return label;
+  }}
+
+  function switchTab(viewName) {{
     var tabs = ['week', 'season', 'h2h', 'payouts', 'halloffame', 'blunders', 'glossary'];
-    for (var i = 0; i < tabs.length; i++) {
+    for (var i = 0; i < tabs.length; i++) {{
       var el = document.getElementById('view-' + tabs[i]);
       if (el) el.style.display = 'none';
-    }
+    }}
     var btns = document.querySelectorAll('.tab-btn');
-    for (var j = 0; j < btns.length; j++) {
+    for (var j = 0; j < btns.length; j++) {{
       btns[j].classList.remove('active');
-    }
-    
+    }}
     var activeEl = document.getElementById('view-' + viewName);
-    if (activeEl) {
-      if (viewName === 'h2h' || viewName === 'payouts' || viewName === 'halloffame') {
+    if (activeEl) {{
+      if (viewName === 'h2h' || viewName === 'payouts' || viewName === 'halloffame') {{
         activeEl.style.display = 'flex';
-      } else {
+      }} else {{
         activeEl.style.display = 'block';
-      }
-    }
-    if (event && event.target) {
+      }}
+    }}
+    if (event && event.target && event.target.classList.contains('tab-btn')) {{
       event.target.classList.add('active');
-    }
-  }
+    }}
+  }}
 
-  function setH2HScope(scope) {
+  function setH2HScope(scope) {{
     h2hScope = scope;
     var curBtn = document.getElementById('scopeCurrentBtn');
     var allBtn = document.getElementById('scopeAllBtn');
@@ -1777,66 +1798,77 @@ def generate_html_report(
     if (allBtn) allBtn.classList.toggle('active', scope === 'all');
     
     var select = document.getElementById('mgrFilter');
-    if (select) {
+    if (select) {{
       var options = select.querySelectorAll('option');
-      options.forEach(function(opt) {
+      options.forEach(function(opt) {{
         if (opt.value === 'ALL') return;
         var isCurrent = opt.getAttribute('data-is-current') === 'true';
-        if (scope === 'current' && !isCurrent) {
+        if (scope === 'current' && !isCurrent) {{
           opt.style.display = 'none';
-          if (select.value === opt.value) {
-            select.value = 'ALL';
-          }
-        } else {
+          if (select.value === opt.value) select.value = 'ALL';
+        }} else {{
           opt.style.display = '';
-        }
-      });
-    }
-
+        }}
+      }});
+    }}
     applyH2HFilters();
-  }
+  }}
 
-  function applyH2HFilters() {
+  function applyH2HFilters() {{
     var select = document.getElementById('mgrFilter');
     var mgr = select ? select.value : 'ALL';
     var rows = document.querySelectorAll('.rivalry-row');
-    rows.forEach(function(r) {
+    rows.forEach(function(r) {{
       var m1 = r.getAttribute('data-m1');
       var m2 = r.getAttribute('data-m2');
       var isCurrent = r.getAttribute('data-current') === 'true';
-
       var matchesScope = (h2hScope === 'all' || isCurrent);
       var matchesMgr = (mgr === 'ALL' || m1 === mgr || m2 === mgr);
+      r.style.display = (matchesScope && matchesMgr) ? '' : 'none';
+    }});
+  }}
 
-      if (matchesScope && matchesMgr) {
-        r.style.display = '';
-      } else {
+  function setHOFScope(scope) {{
+    hofScope = scope;
+    var curBtn = document.getElementById('hofScopeCurrentBtn');
+    var allBtn = document.getElementById('hofScopeAllBtn');
+    if (curBtn) curBtn.classList.toggle('active', scope === 'current');
+    if (allBtn) allBtn.classList.toggle('active', scope === 'all');
+    
+    var rows = document.querySelectorAll('.hof-row');
+    rows.forEach(function(r) {{
+      var isCurrent = r.getAttribute('data-current') === 'true';
+      if (scope === 'current' && !isCurrent) {{
         r.style.display = 'none';
-      }
-    });
-  }
+      }} else {{
+        r.style.display = '';
+      }}
+    }});
+  }}
 
-  function toggleTheme() {
+  function toggleTheme() {{
     var isLight = document.body.classList.toggle('light-mode');
     localStorage.setItem('ff_theme', isLight ? 'light' : 'dark');
     updateThemeBtn(isLight);
-  }
+  }}
 
-  function updateThemeBtn(isLight) {
+  function updateThemeBtn(isLight) {{
     var btn = document.getElementById('theme-toggle');
-    if (btn) {
+    if (btn) {{
       btn.innerHTML = isLight ? '🌙 Dark Mode' : '☀️ Light Mode';
-    }
-  }
+    }}
+  }}
 
-  (function() {
+  (function() {{
     var savedTheme = localStorage.getItem('ff_theme');
-    if (savedTheme === 'light') {
+    if (savedTheme === 'light') {{
       document.body.classList.add('light-mode');
       updateThemeBtn(true);
-    }
+    }}
     setH2HScope('current');
-  })();
+    setHOFScope('current');
+    renderSelectedWeek('{latest_week_num}');
+  }})();
 </script>
 </body>
 </html>"""
@@ -1857,7 +1889,6 @@ def main():
     WEEK = max(1, getattr(league, "current_week", 1) - 1)
     print(f"No week input provided. Auto-detected completed week: Week {WEEK}")
 
-  # Extract list of current managers in active league
   current_managers = sorted(
       list(
           set(
@@ -1982,7 +2013,6 @@ def main():
 
   save_history(history_file, history)
 
-  current_week_data = history["weeks"].get(str(WEEK), [])
   trends_data, total_weeks = compute_trends(history)
   (
       weekly_team_bounties,
@@ -2004,7 +2034,7 @@ def main():
 
   generate_html_report(
       WEEK,
-      current_week_data,
+      history["weeks"],
       trends_data,
       total_weeks,
       weekly_team_bounties,
@@ -2021,8 +2051,8 @@ def main():
       season_log,
   )
   print(
-      "Summary build complete! Cardiac index, Pythagorean records, Volatility,"
-      " Anchor, and Extremes of War compiled."
+      "Audit complete! Dynamic week switcher, HOF Current/All filter, and"
+      " summary engine compiled."
   )
 
 
