@@ -115,7 +115,8 @@ def compute_records_and_payouts(weeks_obj):
           starters_this_week.append({"week": w, "player": p["name"], "pos": p["pos"], "pts": p["pts"], "team": team_name})
 
     if starters_this_week:
-      weekly_player_bounties.append(max(starters_this_week, key=lambda x: x["pts"]))
+      top_player = max(starters_this_week, key=lambda x: x["pts"])
+      weekly_player_bounties.append(top_player)
       weekly_anchors.append(min(starters_this_week, key=lambda x: x["pts"]))
 
   team_totals = {}
@@ -181,12 +182,8 @@ def sync_champions_and_finishes(current_year):
     y_str = str(y)
     try:
       past_league = League(league_id=LEAGUE_ID, year=y, espn_s2=ESPN_S2, swid=SWID)
-      curr_wk = getattr(past_league, "current_week", 1)
-      if y == current_year:
-        standings = [getattr(t, "final_standing", 0) for t in past_league.teams]
-        if curr_wk <= 17 or not any(s == 1 for s in standings):
-          continue
-
+      
+      # Robust extraction of standings prioritizing final_standing or regular standing
       ranked_teams = sorted(past_league.teams, key=lambda t: (getattr(t, "final_standing", 99) if getattr(t, "final_standing", 0) > 0 else 99, getattr(t, "standing", 99), -getattr(t, "points_for", 0)))
       season_finishes = {get_manager_name(t): (getattr(t, "final_standing", 0) if 0 < getattr(t, "final_standing", 0) <= len(past_league.teams) else idx) for idx, t in enumerate(ranked_teams, 1) if get_manager_name(t) != "Manager"}
       all_time["finishes"][y_str] = season_finishes
@@ -194,15 +191,14 @@ def sync_champions_and_finishes(current_year):
       gold_team = next((t for t in past_league.teams if getattr(t, "final_standing", 0) == 1), None)
       silver_team = next((t for t in past_league.teams if getattr(t, "final_standing", 0) == 2), None)
       bronze_team = next((t for t in past_league.teams if getattr(t, "final_standing", 0) == 3), None)
-      remaining = [t for t in past_league.teams if t != gold_team and t != silver_team]
+      remaining = [t for t in past_league.teams if t != gold_team and t != silver_team and t != bronze_team]
       remaining.sort(key=lambda t: (getattr(t, "final_standing", 99) if getattr(t, "final_standing", 0) > 0 else 99, getattr(t, "standing", 99), -getattr(t, "points_for", 0)))
 
-      if not gold_team and past_league.teams: gold_team = remaining.pop(0)
-      if not silver_team and remaining: silver_team = remaining.pop(0)
-      if not bronze_team and remaining: bronze_team = remaining.pop(0)
+      if not gold_team and ranked_teams: gold_team = ranked_teams[0]
+      if not silver_team and len(ranked_teams) > 1: silver_team = ranked_teams[1]
+      if not bronze_team and len(ranked_teams) > 2: bronze_team = ranked_teams[2]
 
-      valid_standings = [t for t in past_league.teams if getattr(t, "final_standing", 0) > 0]
-      last_team = max(valid_standings, key=lambda t: t.final_standing) if valid_standings else max(past_league.teams, key=lambda t: (getattr(t, "standing", 0), -getattr(t, "points_for", 0)))
+      last_team = ranked_teams[-1] if ranked_teams else None
 
       def format_champ_entry(t):
         if not t: return "TBD"
@@ -312,7 +308,6 @@ def main():
 
   save_history(history_file, history)
 
-  # Compute payout leaders and bounties per season
   all_time_data = sync_historical_h2h(YEAR)
   champions, finishes_data = sync_champions_and_finishes(YEAR)
   leaderboard = compute_all_time_leaderboard(champions, current_managers, finishes_data)
@@ -325,15 +320,44 @@ def main():
   seasons_data[str(YEAR)] = history.get("weeks", {})
   save_history(SEASONS_DATA_FILE, seasons_data)
 
-  # Compute bounties for each season archive
   season_payouts_all = {}
   weekly_bounties_all = {}
+  weekly_player_bounties_all = {}
   weekly_anchors_all = {}
   for yr_key, weeks_dict in seasons_data.items():
     tb, pb, an, sp = compute_records_and_payouts(weeks_dict)
     season_payouts_all[yr_key] = sp
     weekly_bounties_all[yr_key] = tb
+    weekly_player_bounties_all[yr_key] = pb
     weekly_anchors_all[yr_key] = an
+
+  # Compute All-Time League Records across all seasons
+  all_time_high_team = {"team": "None", "pts": 0.0, "week": 0, "year": 0}
+  all_time_high_player = {"player": "None", "team": "None", "pts": 0.0, "week": 0, "year": 0, "pos": ""}
+  all_time_high_season_pf = {"team": "None", "pts": 0.0, "year": 0}
+  all_time_high_pa = {"team": "None", "pa": 0.0, "opp": "None", "week": 0, "year": 0}
+
+  for yr_key, weeks_dict in seasons_data.items():
+    yr_int = int(yr_key)
+    team_season_pf = {}
+    for w_str, matchups in weeks_dict.items():
+      w_int = int(w_str)
+      for m in matchups:
+        # Track team points against
+        if m["opp_actual"] > all_time_high_pa["pa"]:
+          all_time_high_pa = {"team": m["team"], "pa": m["opp_actual"], "opp": m["opp"], "week": w_int, "year": yr_int}
+
+        team_season_pf[m["team"]] = team_season_pf.get(m["team"], 0.0) + m["actual"]
+        if m["actual"] > all_time_high_team["pts"]:
+          all_time_high_team = {"team": m["team"], "pts": m["actual"], "week": w_int, "year": yr_int}
+
+        for p in m.get("players", []):
+          if p["started"] and p["pts"] > all_time_high_player["pts"]:
+            all_time_high_player = {"player": p["name"], "team": m["team"], "pts": p["pts"], "week": w_int, "year": yr_int, "pos": p["pos"]}
+
+    for tm, pf_val in team_season_pf.items():
+      if pf_val > all_time_high_season_pf["pts"]:
+        all_time_high_season_pf = {"team": tm, "pts": round(pf_val, 2), "year": yr_int}
 
   global_bundle = {
       "seasons_data": seasons_data,
@@ -344,10 +368,17 @@ def main():
       "matchups": all_time_data.get("matchups", {}),
       "season_payouts": season_payouts_all,
       "weekly_bounties": weekly_bounties_all,
-      "weekly_anchors": weekly_anchors_all
+      "weekly_player_bounties": weekly_player_bounties_all,
+      "weekly_anchors": weekly_anchors_all,
+      "all_time_records": {
+          "high_team_game": all_time_high_team,
+          "high_player_game": all_time_high_player,
+          "high_season_pf": all_time_high_season_pf,
+          "high_points_against": all_time_high_pa
+      }
   }
   save_history(GLOBAL_DATA_FILE, global_bundle)
-  print("Data engine execution complete. Bounties, Cardiac Index, and Volatility compiled.")
+  print("Data engine execution complete. All-time records & weekly lists compiled.")
 
 
 if __name__ == "__main__":
