@@ -32672,5 +32672,281 @@
       "t2": "Rejected Kamala",
       "s2": 79.7
     }
+  },
+  "season_payouts": {
+    "2025": {
+      "pf_leader_team": "No Punt Intended  (Kurt Claycomb)",
+      "pf_leader_pts": 2184.96,
+      "high_game_team": "Puka Time (trentan busey)",
+      "high_game_pts": 185.08,
+      "high_game_week": 5,
+      "high_player": "Trevor Lawrence",
+      "high_player_pts": 54.3,
+      "high_player_pos": "QB",
+      "high_player_team": "Team Unvaxxed (Jared Schneider)",
+      "high_player_week": 15
+    },
+    "2026": {
+      "pf_leader_team": "Make Fantasy Great Again (jeremy bayless)",
+      "pf_leader_pts": 0.0,
+      "high_game_team": "Make Fantasy Great Again (jeremy bayless)",
+      "high_game_pts": 0.0,
+      "high_game_week": 1,
+      "high_player": "Jaxon Smith-Njigba",
+      "high_player_pts": 0,
+      "high_player_pos": "WR",
+      "high_player_team": "Make Fantasy Great Again (jeremy bayless)",
+      "high_player_week": 1
+    }
+  },
+  "weekly_bounties": {
+    "2025": [
+      {
+        "week": 1,
+        "team": "No Punt Intended  (Kurt Claycomb)",
+        "pts": 150.36,
+        "opp": "Team Draft order (Wes Colson)",
+        "opp_pts": 125.42
+      },
+      {
+        "week": 2,
+        "team": "Team Bakesmode (Ron Baker)",
+        "pts": 163.98,
+        "opp": "Team Kendall (Robert Kendall)",
+        "opp_pts": 105.98
+      },
+      {
+        "week": 3,
+        "team": "Team Freedom (Roman Bayless)",
+        "pts": 158.42,
+        "opp": "No Punt Intended  (Kurt Claycomb)",
+        "opp_pts": 127.84
+      },
+      {
+        "week": 4,
+        "team": "No Punt Intended  (Kurt Claycomb)",
+        "pts": 147.26,
+        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
+        "opp_pts": 114.5
+      },
+      {
+        "week": 5,
+        "team": "Puka Time (trentan busey)",
+        "pts": 185.08,
+        "opp": "No Punt Intended  (Kurt Claycomb)",
+        "opp_pts": 140.32
+      },
+      {
+        "week": 6,
+        "team": "Team Bakesmode (Ron Baker)",
+        "pts": 181.62,
+        "opp": "The American Dream (Miles Spainhower)",
+        "opp_pts": 85.24
+      },
+      {
+        "week": 7,
+        "team": "Off In the Corner (Billy Haid)",
+        "pts": 158.68,
+        "opp": "Puka Time (trentan busey)",
+        "opp_pts": 127.66
+      },
+      {
+        "week": 8,
+        "team": "No Punt Intended  (Kurt Claycomb)",
+        "pts": 157.22,
+        "opp": "Off In the Corner (Billy Haid)",
+        "opp_pts": 106.32
+      },
+      {
+        "week": 9,
+        "team": "Team Kendall (Robert Kendall)",
+        "pts": 181.58,
+        "opp": "Team Draft order (Wes Colson)",
+        "opp_pts": 95.28
+      },
+      {
+        "week": 10,
+        "team": "No Punt Intended  (Kurt Claycomb)",
+        "pts": 179.02,
+        "opp": "Team Bakesmode (Ron Baker)",
+        "opp_pts": 116.72
+      },
+      {
+        "week": 11,
+        "team": "No Punt Intended  (Kurt Claycomb)",
+        "pts": 126.18,
+        "opp": "Rejected Kamala (jeremy bayless)",
+        "opp_pts": 89.14
+      },
+      {
+        "week": 12,
+        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
+        "pts": 138.86,
+        "opp": "Rejected Kamala (jeremy bayless)",
+        "opp_pts": 134.68
+      },
+      {
+        "week": 13,
+        "team": "THE G-MEN (TRAVIS GIBSON)",
+        "pts": 142.64,
+        "opp": "No Punt Intended  (Kurt Claycomb)",
+        "opp_pts": 141.68
+      },
+      {
+        "week": 14,
+        "team": "Puka Time (trentan busey)",
+        "pts": 155.12,
+        "opp": "Team Unvaxxed (Jared Schneider)",
+        "opp_pts": 38.04
+      },
+      {
+        "week": 15,
+        "team": "Team Unvaxxed (Jared Schneider)",
+        "pts": 185.02,
+        "opp": "Team Kendall (Robert Kendall)",
+        "opp_pts": 93.46
+      },
+      {
+        "week": 16,
+        "team": "Puka Time (trentan busey)",
+        "pts": 164.7,
+        "opp": "THE G-MEN (TRAVIS GIBSON)",
+        "opp_pts": 114.86
+      }
+    ],
+    "2026": [
+      {
+        "week": 1,
+        "team": "Make Fantasy Great Again (jeremy bayless)",
+        "pts": 0.0,
+        "opp": "Team Bakesmode (Ron Baker)",
+        "opp_pts": 0.0
+      }
+    ]
+  },
+  "weekly_anchors": {
+    "2025": [
+      {
+        "week": 1,
+        "player": "Buccaneers D/ST",
+        "pos": "D/ST",
+        "pts": 0.0,
+        "team": "Off In the Corner (Billy Haid)"
+      },
+      {
+        "week": 2,
+        "player": "Broncos D/ST",
+        "pos": "D/ST",
+        "pts": -5.0,
+        "team": "THE G-MEN (TRAVIS GIBSON)"
+      },
+      {
+        "week": 3,
+        "player": "Parker Romo",
+        "pos": "K",
+        "pts": -2.0,
+        "team": "THE G-MEN (TRAVIS GIBSON)"
+      },
+      {
+        "week": 4,
+        "player": "Packers D/ST",
+        "pos": "D/ST",
+        "pts": -5.0,
+        "team": "Puka Time (trentan busey)"
+      },
+      {
+        "week": 5,
+        "player": "Seahawks D/ST",
+        "pos": "D/ST",
+        "pts": -5.0,
+        "team": "No Punt Intended  (Kurt Claycomb)"
+      },
+      {
+        "week": 6,
+        "player": "Cam Little",
+        "pos": "K",
+        "pts": -1.0,
+        "team": "Team Kendall (Robert Kendall)"
+      },
+      {
+        "week": 7,
+        "player": "Steelers D/ST",
+        "pos": "D/ST",
+        "pts": -4.0,
+        "team": "Team Bakesmode (Ron Baker)"
+      },
+      {
+        "week": 8,
+        "player": "Bengals D/ST",
+        "pos": "D/ST",
+        "pts": -9.0,
+        "team": "THE G-MEN (TRAVIS GIBSON)"
+      },
+      {
+        "week": 9,
+        "player": "Rome Odunze",
+        "pos": "WR",
+        "pts": 0.0,
+        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)"
+      },
+      {
+        "week": 10,
+        "player": "Giants D/ST",
+        "pos": "D/ST",
+        "pts": -1.0,
+        "team": "Team Freedom (Roman Bayless)"
+      },
+      {
+        "week": 11,
+        "player": "Chargers D/ST",
+        "pos": "D/ST",
+        "pts": -1.0,
+        "team": "No Punt Intended  (Kurt Claycomb)"
+      },
+      {
+        "week": 12,
+        "player": "Lions D/ST",
+        "pos": "D/ST",
+        "pts": -3.0,
+        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)"
+      },
+      {
+        "week": 13,
+        "player": "Lions D/ST",
+        "pos": "D/ST",
+        "pts": -2.0,
+        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)"
+      },
+      {
+        "week": 14,
+        "player": "Ravens D/ST",
+        "pos": "D/ST",
+        "pts": 0.0,
+        "team": "Team Unvaxxed (Jared Schneider)"
+      },
+      {
+        "week": 15,
+        "player": "Buccaneers D/ST",
+        "pos": "D/ST",
+        "pts": -3.0,
+        "team": "The American Dream (Miles Spainhower)"
+      },
+      {
+        "week": 16,
+        "player": "Cowboys D/ST",
+        "pos": "D/ST",
+        "pts": -6.0,
+        "team": "Team Freedom (Roman Bayless)"
+      }
+    ],
+    "2026": [
+      {
+        "week": 1,
+        "player": "Jaxon Smith-Njigba",
+        "pos": "WR",
+        "pts": 0,
+        "team": "Make Fantasy Great Again (jeremy bayless)"
+      }
+    ]
   }
 }
