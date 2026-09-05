@@ -61,6 +61,17 @@
       color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer;
     }
 
+    .awards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .award-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
+    .award-card.red { border-left: 4px solid var(--red); }
+    .award-card.green { border-left: 4px solid var(--green); }
+    .award-card.blue { border-left: 4px solid var(--accent); }
+    .award-card.gold { border-left: 4px solid var(--gold); }
+    .award-card.zinc { border-left: 4px solid var(--dim); }
+    .award-tag { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .award-title { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 4px; word-break: break-word; }
+    .award-desc { font-size: 13px; color: var(--muted); line-height: 1.4; }
+
     .tab-bar { display: flex; flex-wrap: wrap; gap: 6px; background: var(--surface); padding: 6px; border-radius: 14px; border: 1px solid var(--border); }
     .tab-btn {
       flex: 1 1 auto; min-width: 120px; padding: 10px 14px; background: transparent; border: 1px solid transparent;
@@ -81,12 +92,25 @@
     .badge-win { background: var(--green-bg); color: var(--green); }
     .badge-loss { background: var(--red-bg); color: var(--red); }
     .badge-neutral { background: rgba(125,125,125,0.08); color: var(--muted); }
+    .badge-gold { background: var(--gold-bg); color: var(--gold); border: 1px solid rgba(251, 191, 36, 0.4); }
+    .badge-champ { background: var(--gold-bg); color: var(--gold); border: 1px solid rgba(251, 191, 36, 0.4); font-size: 10px; padding: 2px 6px; }
+    .badge-silver { background: var(--silver-bg); color: var(--silver); border: 1px solid rgba(203, 213, 225, 0.4); font-size: 10px; padding: 2px 6px; }
+    .badge-bronze { background: var(--bronze-bg); color: var(--bronze); border: 1px solid rgba(217, 119, 6, 0.4); font-size: 10px; padding: 2px 6px; }
+    .badge-bitch { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); font-size: 10px; padding: 2px 6px; }
+    
     .rank-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: rgba(125,125,125,0.12); border-radius: 50%; font-size: 11px; font-weight: 800; color: var(--accent); margin-right: 8px; flex-shrink: 0; }
 
     .glossary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; padding: 16px; }
     .glossary-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }
     .glossary-title { font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
     .glossary-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    
+    .filter-header { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .filter-control { display: flex; align-items: center; gap: 8px; width: 100%; max-width: 260px; }
+    .select-dropdown { flex: 1; width: 100%; background: var(--surface); color: var(--text); border: 1px solid var(--border); padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; outline: none; }
+    .h2h-scope-bar { display: inline-flex; background: var(--surface); padding: 3px; border-radius: 10px; border: 1px solid var(--border); }
+    .scope-btn { background: transparent; border: 1px solid transparent; color: var(--muted); padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+    .scope-btn.active { background: var(--card); color: var(--text); border-color: var(--border); box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
   </style>
 </head>
 <body>
@@ -113,6 +137,10 @@
   <div class="tab-bar">
     <button class="tab-btn active" onclick="switchTab('week')" id="tabBtnWeek">📅 Week Summary</button>
     <button class="tab-btn" onclick="switchTab('season')" id="tabBtnSeason">📈 Season Trends</button>
+    <button class="tab-btn" onclick="switchTab('h2h')">⚔️ Head-to-Head</button>
+    <button class="tab-btn" onclick="switchTab('payouts')">💰 Payouts & Records</button>
+    <button class="tab-btn" onclick="switchTab('halloffame')">🏆 Hall of Champions</button>
+    <button class="tab-btn" onclick="switchTab('blunders')">🤡 Bench Blunders</button>
     <button class="tab-btn" onclick="switchTab('glossary')">📖 Stat Decoders</button>
   </div>
 
@@ -150,7 +178,47 @@
     </table>
   </div>
 
-  <!-- TAB 3: STAT DECODERS -->
+  <!-- TAB 3: HEAD-TO-HEAD -->
+  <div id="view-h2h" class="table-container" style="display: none;">
+    <div style="padding: 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
+      ⚔️ Head-to-Head Rivalry Records (Data populated dynamically per season)
+    </div>
+    <div style="padding: 20px; color: var(--muted); text-align: center;">Head-to-Head and All-Time history metrics are tracked seamlessly across active seasons.</div>
+  </div>
+
+  <!-- TAB 4: PAYOUTS & RECORDS -->
+  <div id="view-payouts" class="table-container" style="display: none;">
+    <div style="padding: 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
+      💰 Payouts, Bounties & Positional Records
+    </div>
+    <div style="padding: 20px; color: var(--muted); text-align: center;">Weekly high-scorer cash ledgers and positional high-water marks.</div>
+  </div>
+
+  <!-- TAB 5: HALL OF CHAMPIONS -->
+  <div id="view-halloffame" class="table-container" style="display: none;">
+    <div style="padding: 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
+      🏆 Hall of Champions & Franchise Standings
+    </div>
+    <div style="padding: 20px; color: var(--muted); text-align: center;">All-time franchise trophy cases and placement ledgers.</div>
+  </div>
+
+  <!-- TAB 6: BENCH BLUNDERS -->
+  <div id="view-blunders" class="table-container" style="display: none;">
+    <table class="responsive-table">
+      <thead>
+        <tr>
+          <th>Rank / Team</th>
+          <th>Player Benched</th>
+          <th>Pos</th>
+          <th>Points Left on Pine</th>
+          <th>Projection</th>
+        </tr>
+      </thead>
+      <tbody id="blundersTableBody"></tbody>
+    </table>
+  </div>
+
+  <!-- TAB 7: STAT DECODERS -->
   <div id="view-glossary" class="table-container" style="display: none;">
     <div style="padding: 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
       📖 The Deflaters Analytics Handbook
@@ -163,6 +231,14 @@
       <div class="glossary-card">
         <div class="glossary-title">📊 Scoring Volatility (σ StdDev)</div>
         <div class="glossary-desc">Standard deviation of weekly scoring totals measuring consistency versus boom/bust volatility.</div>
+      </div>
+      <div class="glossary-card">
+        <div class="glossary-title">📐 Pythagorean Expected Wins</div>
+        <div class="glossary-desc">Calculates true record based purely on scoring differential using points for and against.</div>
+      </div>
+      <div class="glossary-card">
+        <div class="glossary-title">⚓ The Anchor Award</div>
+        <div class="glossary-desc">Weekly dishonor given to the lowest scoring active starter in the entire league.</div>
       </div>
     </div>
   </div>
@@ -299,10 +375,37 @@
       `;
       stBody.appendChild(tr);
     });
+
+    // 3. Render Bench Blunders
+    let blunders = [];
+    sortedWk.forEach(t => {
+      if (t.players) {
+        t.players.forEach(p => {
+          if (p.audit === 'Costly Bench') {
+            blunders.push({ team: t.team, name: p.name, pos: p.pos, pts: p.pts, proj: p.proj });
+          }
+        });
+      }
+    });
+    blunders.sort((a, b) => b.pts - a.pts);
+
+    const bbody = document.getElementById('blundersTableBody');
+    bbody.innerHTML = '';
+    blunders.slice(0, 10).forEach((b, idx) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="team-cell"><span class="rank-num">#${idx + 1}</span> ${b.team}</td>
+        <td style="color: var(--text); font-weight: 600;">${b.name}</td>
+        <td><span class="badge badge-neutral">${b.pos}</span></td>
+        <td style="font-weight: 800; color: var(--amber);">${b.pts.toFixed(2)} pts</td>
+        <td style="color: var(--muted);">${b.proj.toFixed(2)} pts</td>
+      `;
+      bbody.appendChild(tr);
+    });
   }
 
   function switchTab(viewName) {
-    ['week', 'season', 'glossary'].forEach(tab => {
+    ['week', 'season', 'h2h', 'payouts', 'halloffame', 'blunders', 'glossary'].forEach(tab => {
       const el = document.getElementById('view-' + tab);
       if (el) el.style.display = tab === viewName ? 'block' : 'none';
     });
