@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <title>The Deflaters // Week 1 Ledger</title>
+  <title>The Deflaters // Weekly Summary & History</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -47,8 +47,17 @@
     .header h1 { font-size: 22px; font-weight: 800; color: #fff; }
     .header .subtitle { color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 11px; letter-spacing: 1.5px; margin-bottom: 2px; }
     .header-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .header-badge { background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.25); color: var(--accent); padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
     
+    .week-selector-container {
+      display: inline-flex; align-items: center; background: rgba(0, 0, 0, 0.25); border: 1px solid var(--border);
+      padding: 4px 8px; border-radius: 12px; gap: 8px;
+    }
+    .week-selector-label { font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--accent); }
+    .week-select {
+      background: var(--surface); color: var(--text); border: 1px solid var(--border);
+      padding: 4px 8px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; outline: none;
+    }
+
     .theme-toggle-btn {
       background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
       color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700;
@@ -56,12 +65,13 @@
     }
     .theme-toggle-btn:hover { background: rgba(255, 255, 255, 0.2); }
 
-    .awards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+    .awards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
     .award-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
     .award-card.red { border-left: 4px solid var(--red); }
     .award-card.green { border-left: 4px solid var(--green); }
     .award-card.blue { border-left: 4px solid var(--accent); }
     .award-card.gold { border-left: 4px solid var(--gold); }
+    .award-card.zinc { border-left: 4px solid var(--dim); }
     .award-tag { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
     .award-title { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 4px; word-break: break-word; }
     .award-desc { font-size: 13px; color: var(--muted); line-height: 1.4; }
@@ -132,7 +142,7 @@
       flex: 1; width: 100%; background: var(--surface); color: var(--text); border: 1px solid var(--border);
       padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; outline: none;
     }
-    .h2h-scope-bar { display: inline-flex; background: var(--surface); padding: 3px; border-radius: 10px; border: 1px solid var(--border); }
+    .toggle-scope-bar { display: inline-flex; background: var(--surface); padding: 3px; border-radius: 10px; border: 1px solid var(--border); }
     .scope-btn { background: transparent; border: 1px solid transparent; color: var(--muted); padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
     .scope-btn.active { background: var(--card); color: var(--text); border-color: var(--border); box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
   </style>
@@ -142,54 +152,23 @@
   <div class="header">
     <div>
       <div class="subtitle">The Deflaters Analytics Lab</div>
-      <h1>WEEK 1 EXECUTIVE AUDIT</h1>
+      <h1 id="headerSummaryTitle">WEEK 1 SUMMARY</h1>
     </div>
     <div class="header-controls">
+      <div class="week-selector-container">
+        <span class="week-selector-label">Audit Week:</span>
+        <select id="activeWeekSelect" class="week-select" onchange="renderSelectedWeek(this.value)"><option value="1" selected>Season 2026 - Week 1</option>
+        </select>
+      </div>
       <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()">☀️ Light Mode</button>
-      <div class="header-badge">Season 2026 (Weeks 1–1)</div>
     </div>
   </div>
 
-  <div class="awards-grid">
-    <div class="award-card gold">
-      <div>
-        <div class="award-tag" style="color: var(--gold);">💰 Week 1 Team Bounty</div>
-        <div class="award-title">Make Fantasy Great Again (jeremy bayless) <span class="badge badge-bitch" title="2025 League Bitch (Last Place)">💩 '25 League Bitch</span></div>
-        <div class="award-desc">Paced the entire league with <b>0.00 pts</b> to take down the weekly cash payout!</div>
-      </div>
-      <div style="margin-top: 8px;"><span class="badge badge-gold">Weekly Bounty Winner</span></div>
-    </div>
-
-    <div class="award-card red">
-      <div>
-        <div class="award-tag" style="color: var(--red);">💀 The Buzzsaw Victim</div>
-        <div class="award-title">Make Fantasy Great Again (jeremy bayless) <span class="badge badge-bitch" title="2025 League Bitch (Last Place)">💩 '25 League Bitch</span></div>
-        <div class="award-desc">Dropped 0.00 pts (0–0 All-Play), but took an L to Team Bakesmode (Ron Baker) (0.00 pts).</div>
-      </div>
-      <div style="margin-top: 8px;"><span class="badge badge-unlucky">Luck Δ: +0.000</span></div>
-    </div>
-
-    <div class="award-card green">
-      <div>
-        <div class="award-tag" style="color: var(--green);">🍀 Grand Theft Victory</div>
-        <div class="award-title">Make Fantasy Great Again (jeremy bayless) <span class="badge badge-bitch" title="2025 League Bitch (Last Place)">💩 '25 League Bitch</span></div>
-        <div class="award-desc">Squeaked by with 0.00 pts (0–0 All-Play) thanks to opponent meltdown.</div>
-      </div>
-      <div style="margin-top: 8px;"><span class="badge badge-lucky">Luck Δ: +0.000</span></div>
-    </div>
-
-    <div class="award-card blue">
-      <div>
-        <div class="award-tag" style="color: var(--accent);">🧠 Master Tactician</div>
-        <div class="award-title">Make Fantasy Great Again (jeremy bayless) <span class="badge badge-bitch" title="2025 League Bitch (Last Place)">💩 '25 League Bitch</span></div>
-        <div class="award-desc">Optimal starting execution of <b>100.0%</b> (0.00 of 0.00 optimal pts).</div>
-      </div>
-      <div style="margin-top: 8px;"><span class="badge badge-neutral">Lineup Mastery</span></div>
-    </div>
-  </div>
+  <!-- DYNAMIC AWARDS & SUPERLATIVES GRID (CONTROLLED BY DROPDOWN) -->
+  <div class="awards-grid" id="dynamicAwardsGrid"></div>
 
   <div class="tab-bar">
-    <button class="tab-btn active" onclick="switchTab('week')">📅 Week 1 Audit</button>
+    <button class="tab-btn active" onclick="switchTab('week')" id="tabBtnWeek">📅 Week 1 Summary</button>
     <button class="tab-btn" onclick="switchTab('season')">📈 Season Trends</button>
     <button class="tab-btn" onclick="switchTab('h2h')">⚔️ Head-to-Head</button>
     <button class="tab-btn" onclick="switchTab('payouts')">💰 Payouts & Records</button>
@@ -198,7 +177,7 @@
     <button class="tab-btn" onclick="switchTab('glossary')">📖 Stat Decoders</button>
   </div>
 
-  <!-- TAB 1: WEEK AUDIT -->
+  <!-- TAB 1: WEEK SUMMARY (DYNAMICALLY POPULATED) -->
   <div id="view-week" class="table-container">
     <table class="responsive-table">
       <thead>
@@ -212,116 +191,7 @@
           <th>Coaching Eff<span class="sub-th">Optimal Pts %</span></th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td class="team-cell"><span class="rank-num">#1</span> Make Fantasy Great Again (jeremy bayless) <span class="badge badge-bitch" title="2025 League Bitch (Last Place)">💩 '25 League Bitch</span></td>
-          <td data-label="Result"><span class="badge badge-loss">T</span></td>
-          <td data-label="Score"><b>0.00</b> <span style="font-size: 11px; color: var(--dim);">(-129.84)</span></td>
-          <td data-label="Opponent">Team Bakesmode (Ron Baker) <span style="color: var(--muted); font-size: 11px;">(0.00)</span></td>
-          <td data-label="All-Play"><b>0</b>–0</td>
-          <td data-label="Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
-          <td data-label="Coaching Eff"><b>100.0%</b></td>
-        </tr>
-        <tr>
-          <td class="team-cell"><span class="rank-num">#2</span> Team Bakesmode (Ron Baker)</td>
-          <td data-label="Result"><span class="badge badge-loss">T</span></td>
-          <td data-label="Score"><b>0.00</b> <span style="font-size: 11px; color: var(--dim);">(-133.88)</span></td>
-          <td data-label="Opponent">Make Fantasy Great Again (jeremy bayless) <span style="color: var(--muted); font-size: 11px;">(0.00)</span></td>
-          <td data-label="All-Play"><b>0</b>–0</td>
-          <td data-label="Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
-          <td data-label="Coaching Eff"><b>100.0%</b></td>
-        </tr>
-        <tr>
-          <td class="team-cell"><span class="rank-num">#3</span> Flock Around and Find Out (Jared Schneider)</td>
-          <td data-label="Result"><span class="badge badge-loss">T</span></td>
-          <td data-label="Score"><b>0.00</b> <span style="font-size: 11px; color: var(--dim);">(-122.44)</span></td>
-          <td data-label="Opponent">Team Kendall (Robert Kendall) <span style="color: var(--muted); font-size: 11px;">(0.00)</span></td>
-          <td data-label="All-Play"><b>0</b>–0</td>
-          <td data-label="Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
-          <td data-label="Coaching Eff"><b>100.0%</b></td>
-        </tr>
-        <tr>
-          <td class="team-cell"><span class="rank-num">#4</span> Team Kendall (Robert Kendall)</td>
-          <td data-label="Result"><span class="badge badge-loss">T</span></td>
-          <td data-label="Score"><b>0.00</b> <span style="font-size: 11px; color: var(--dim);">(-135.03)</span></td>
-          <td data-label="Opponent">Flock Around and Find Out (Jared Schneider) <span style="color: var(--muted); font-size: 11px;">(0.00)</span></td>
-          <td data-label="All-Play"><b>0</b>–0</td>
-          <td data-label="Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
-          <td data-label="Coaching Eff"><b>100.0%</b></td>
-        </tr>
-        <tr>
-          <td class="team-cell"><span class="rank-num">#5</span> Blue Medical Tent (Billy Haid)</td>
-          <td data-label="Result"><span class="badge badge-loss">T</span></td>
-          <td data-label="Score"><b>0.00</b> <span style="font-size: 11px; color: var(--dim);">(-127.33)</span></td>
-          <td data-label="Opponent">THE G-MEN (TRAVIS GIBSON) <span style="color: var(--muted); font-size: 11px;">(0.00)</span></td>
-          <td data-label="All-Play"><b>0</b>–0</td>
-          <td data-label="Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
-          <td data-label="Coaching Eff"><b>100.0%</b></td>
-        </tr>
-        <tr>
-          <td class="team-cell"><span class="rank-num">#6</span> THE G-MEN (TRAVIS GIBSON)</td>
-          <td data-label="Result"><span class="badge badge-loss">T</span></td>
-          <td data-label="Score"><b>0.00</b> <span style="font-size: 11px; color: var(--dim);">(-123.15)</span></td>
-          <td data-label="Opponent">Blue Medical Tent (Billy Haid) <span style="color: var(--muted); font-size: 11px;">(0.00)</span></td>
-          <td data-label="All-Play"><b>0</b>–0</td>
-          <td data-label="Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
-          <td data-label="Coaching Eff"><b>100.0%</b></td>
-        </tr>
-        <tr>
-          <td class="team-cell"><span class="rank-num">#7</span> 55 TDs 55 Punts 55 FGs 55 INTs (Eric King)</td>
-          <td data-label="Result"><span class="badge badge-loss">T</span></td>
-          <td data-label="Score"><b>0.00</b> <span style="font-size: 11px; color: var(--dim);">(-134.21)</span></td>
-          <td data-label="Opponent">The American Dream (Miles Spainhower) <span style="color: var(--muted); font-size: 11px;">(0.00)</span></td>
-          <td data-label="All-Play"><b>0</b>–0</td>
-          <td data-label="Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
-          <td data-label="Coaching Eff"><b>100.0%</b></td>
-        </tr>
-        <tr>
-          <td class="team-cell"><span class="rank-num">#8</span> The American Dream (Miles Spainhower) <span class="badge badge-champ" title="2025 Champion">🥇 '25 Champ</span></td>
-          <td data-label="Result"><span class="badge badge-loss">T</span></td>
-          <td data-label="Score"><b>0.00</b> <span style="font-size: 11px; color: var(--dim);">(-117.86)</span></td>
-          <td data-label="Opponent">55 TDs 55 Punts 55 FGs 55 INTs (Eric King) <span style="color: var(--muted); font-size: 11px;">(0.00)</span></td>
-          <td data-label="All-Play"><b>0</b>–0</td>
-          <td data-label="Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
-          <td data-label="Coaching Eff"><b>100.0%</b></td>
-        </tr>
-        <tr>
-          <td class="team-cell"><span class="rank-num">#9</span> Team Draft order (Wes Colson)</td>
-          <td data-label="Result"><span class="badge badge-loss">T</span></td>
-          <td data-label="Score"><b>0.00</b> <span style="font-size: 11px; color: var(--dim);">(-140.05)</span></td>
-          <td data-label="Opponent">Skatteboo boo (Kurt Claycomb) <span style="color: var(--muted); font-size: 11px;">(0.00)</span></td>
-          <td data-label="All-Play"><b>0</b>–0</td>
-          <td data-label="Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
-          <td data-label="Coaching Eff"><b>100.0%</b></td>
-        </tr>
-        <tr>
-          <td class="team-cell"><span class="rank-num">#10</span> Skatteboo boo (Kurt Claycomb) <span class="badge badge-bronze" title="2025 3rd Place">🥉 '25 3rd Pl</span></td>
-          <td data-label="Result"><span class="badge badge-loss">T</span></td>
-          <td data-label="Score"><b>0.00</b> <span style="font-size: 11px; color: var(--dim);">(-123.22)</span></td>
-          <td data-label="Opponent">Team Draft order (Wes Colson) <span style="color: var(--muted); font-size: 11px;">(0.00)</span></td>
-          <td data-label="All-Play"><b>0</b>–0</td>
-          <td data-label="Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
-          <td data-label="Coaching Eff"><b>100.0%</b></td>
-        </tr>
-        <tr>
-          <td class="team-cell"><span class="rank-num">#11</span> Team Freedom (Roman Bayless)</td>
-          <td data-label="Result"><span class="badge badge-loss">T</span></td>
-          <td data-label="Score"><b>0.00</b> <span style="font-size: 11px; color: var(--dim);">(-137.04)</span></td>
-          <td data-label="Opponent">Puka Time (trentan busey) <span style="color: var(--muted); font-size: 11px;">(0.00)</span></td>
-          <td data-label="All-Play"><b>0</b>–0</td>
-          <td data-label="Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
-          <td data-label="Coaching Eff"><b>100.0%</b></td>
-        </tr>
-        <tr>
-          <td class="team-cell"><span class="rank-num">#12</span> Puka Time (trentan busey) <span class="badge badge-silver" title="2025 Runner-Up">🥈 '25 Runner-Up</span></td>
-          <td data-label="Result"><span class="badge badge-loss">T</span></td>
-          <td data-label="Score"><b>0.00</b> <span style="font-size: 11px; color: var(--dim);">(-135.79)</span></td>
-          <td data-label="Opponent">Team Freedom (Roman Bayless) <span style="color: var(--muted); font-size: 11px;">(0.00)</span></td>
-          <td data-label="All-Play"><b>0</b>–0</td>
-          <td data-label="Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
-          <td data-label="Coaching Eff"><b>100.0%</b></td>
-        </tr>
-      </tbody>
+      <tbody id="weekTableBody"></tbody>
     </table>
   </div>
 
@@ -332,21 +202,25 @@
         <tr>
           <th>Rank / Team</th>
           <th>Actual W-L</th>
-          <th>All-Play<span class="sub-th">True Strength</span></th>
-          <th>All-Play %</th>
-          <th>Season Luck Δ<span class="sub-th">Net Fortune</span></th>
-          <th>Pine Tax<span class="sub-th">Total Pts Lost</span></th>
-          <th>Opp Surges Faced<span class="sub-th">Over Proj (Streak)</span></th>
-          <th>Avg Opp PA<span class="sub-th">Matchup Gauntlet</span></th>
+          <th>Pyth Exp Wins<span class="sub-th">True Record (Δ)</span></th>
+          <th>All-Play<span class="sub-th">Record (%)</span></th>
+          <th>Season Luck Δ</th>
+          <th>Volatility (σ)<span class="sub-th">Consistency Archetype</span></th>
+          <th>Cardiac Rec<span class="sub-th">Games ≤ 5 pts</span></th>
+          <th>Pine Tax<span class="sub-th">Pts Lost</span></th>
+          <th>Opp Surges<span class="sub-th">Faced (Streak)</span></th>
+          <th>Avg Opp PA</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td class="team-cell"><span class="rank-num">#1</span> Make Fantasy Great Again (jeremy bayless) <span class="badge badge-bitch" title="2025 League Bitch (Last Place)">💩 '25 League Bitch</span></td>
           <td data-label="Actual W-L"><b>0–0</b></td>
-          <td data-label="All-Play">0–0</td>
-          <td data-label="All-Play %"><b>0.000</b></td>
+          <td data-label="Pyth Wins"><b>0.0</b> <span style="font-size: 11px; color: var(--muted);">(0.0)</span></td>
+          <td data-label="All-Play">0–0 <span style="font-size: 11px; color: var(--dim);">(0.000)</span></td>
           <td data-label="Season Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
+          <td data-label="Volatility">±0.0 <span class="badge badge-neutral" style="font-size: 10px; padding: 1px 6px;">Baseline</span></td>
+          <td data-label="Cardiac Rec"><b>0–0</b></td>
           <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.00 pts</td>
           <td data-label="Opp Surges">0/1 wks (0 st)</td>
           <td data-label="Avg Opp PA"><b>0.00</b></td>
@@ -354,9 +228,11 @@
         <tr>
           <td class="team-cell"><span class="rank-num">#2</span> Team Bakesmode (Ron Baker)</td>
           <td data-label="Actual W-L"><b>0–0</b></td>
-          <td data-label="All-Play">0–0</td>
-          <td data-label="All-Play %"><b>0.000</b></td>
+          <td data-label="Pyth Wins"><b>0.0</b> <span style="font-size: 11px; color: var(--muted);">(0.0)</span></td>
+          <td data-label="All-Play">0–0 <span style="font-size: 11px; color: var(--dim);">(0.000)</span></td>
           <td data-label="Season Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
+          <td data-label="Volatility">±0.0 <span class="badge badge-neutral" style="font-size: 10px; padding: 1px 6px;">Baseline</span></td>
+          <td data-label="Cardiac Rec"><b>0–0</b></td>
           <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.00 pts</td>
           <td data-label="Opp Surges">0/1 wks (0 st)</td>
           <td data-label="Avg Opp PA"><b>0.00</b></td>
@@ -364,9 +240,11 @@
         <tr>
           <td class="team-cell"><span class="rank-num">#3</span> Flock Around and Find Out (Jared Schneider)</td>
           <td data-label="Actual W-L"><b>0–0</b></td>
-          <td data-label="All-Play">0–0</td>
-          <td data-label="All-Play %"><b>0.000</b></td>
+          <td data-label="Pyth Wins"><b>0.0</b> <span style="font-size: 11px; color: var(--muted);">(0.0)</span></td>
+          <td data-label="All-Play">0–0 <span style="font-size: 11px; color: var(--dim);">(0.000)</span></td>
           <td data-label="Season Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
+          <td data-label="Volatility">±0.0 <span class="badge badge-neutral" style="font-size: 10px; padding: 1px 6px;">Baseline</span></td>
+          <td data-label="Cardiac Rec"><b>0–0</b></td>
           <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.00 pts</td>
           <td data-label="Opp Surges">0/1 wks (0 st)</td>
           <td data-label="Avg Opp PA"><b>0.00</b></td>
@@ -374,9 +252,11 @@
         <tr>
           <td class="team-cell"><span class="rank-num">#4</span> Team Kendall (Robert Kendall)</td>
           <td data-label="Actual W-L"><b>0–0</b></td>
-          <td data-label="All-Play">0–0</td>
-          <td data-label="All-Play %"><b>0.000</b></td>
+          <td data-label="Pyth Wins"><b>0.0</b> <span style="font-size: 11px; color: var(--muted);">(0.0)</span></td>
+          <td data-label="All-Play">0–0 <span style="font-size: 11px; color: var(--dim);">(0.000)</span></td>
           <td data-label="Season Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
+          <td data-label="Volatility">±0.0 <span class="badge badge-neutral" style="font-size: 10px; padding: 1px 6px;">Baseline</span></td>
+          <td data-label="Cardiac Rec"><b>0–0</b></td>
           <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.00 pts</td>
           <td data-label="Opp Surges">0/1 wks (0 st)</td>
           <td data-label="Avg Opp PA"><b>0.00</b></td>
@@ -384,9 +264,11 @@
         <tr>
           <td class="team-cell"><span class="rank-num">#5</span> Blue Medical Tent (Billy Haid)</td>
           <td data-label="Actual W-L"><b>0–0</b></td>
-          <td data-label="All-Play">0–0</td>
-          <td data-label="All-Play %"><b>0.000</b></td>
+          <td data-label="Pyth Wins"><b>0.0</b> <span style="font-size: 11px; color: var(--muted);">(0.0)</span></td>
+          <td data-label="All-Play">0–0 <span style="font-size: 11px; color: var(--dim);">(0.000)</span></td>
           <td data-label="Season Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
+          <td data-label="Volatility">±0.0 <span class="badge badge-neutral" style="font-size: 10px; padding: 1px 6px;">Baseline</span></td>
+          <td data-label="Cardiac Rec"><b>0–0</b></td>
           <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.00 pts</td>
           <td data-label="Opp Surges">0/1 wks (0 st)</td>
           <td data-label="Avg Opp PA"><b>0.00</b></td>
@@ -394,9 +276,11 @@
         <tr>
           <td class="team-cell"><span class="rank-num">#6</span> THE G-MEN (TRAVIS GIBSON)</td>
           <td data-label="Actual W-L"><b>0–0</b></td>
-          <td data-label="All-Play">0–0</td>
-          <td data-label="All-Play %"><b>0.000</b></td>
+          <td data-label="Pyth Wins"><b>0.0</b> <span style="font-size: 11px; color: var(--muted);">(0.0)</span></td>
+          <td data-label="All-Play">0–0 <span style="font-size: 11px; color: var(--dim);">(0.000)</span></td>
           <td data-label="Season Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
+          <td data-label="Volatility">±0.0 <span class="badge badge-neutral" style="font-size: 10px; padding: 1px 6px;">Baseline</span></td>
+          <td data-label="Cardiac Rec"><b>0–0</b></td>
           <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.00 pts</td>
           <td data-label="Opp Surges">0/1 wks (0 st)</td>
           <td data-label="Avg Opp PA"><b>0.00</b></td>
@@ -404,9 +288,11 @@
         <tr>
           <td class="team-cell"><span class="rank-num">#7</span> 55 TDs 55 Punts 55 FGs 55 INTs (Eric King)</td>
           <td data-label="Actual W-L"><b>0–0</b></td>
-          <td data-label="All-Play">0–0</td>
-          <td data-label="All-Play %"><b>0.000</b></td>
+          <td data-label="Pyth Wins"><b>0.0</b> <span style="font-size: 11px; color: var(--muted);">(0.0)</span></td>
+          <td data-label="All-Play">0–0 <span style="font-size: 11px; color: var(--dim);">(0.000)</span></td>
           <td data-label="Season Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
+          <td data-label="Volatility">±0.0 <span class="badge badge-neutral" style="font-size: 10px; padding: 1px 6px;">Baseline</span></td>
+          <td data-label="Cardiac Rec"><b>0–0</b></td>
           <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.00 pts</td>
           <td data-label="Opp Surges">0/1 wks (0 st)</td>
           <td data-label="Avg Opp PA"><b>0.00</b></td>
@@ -414,9 +300,11 @@
         <tr>
           <td class="team-cell"><span class="rank-num">#8</span> The American Dream (Miles Spainhower) <span class="badge badge-champ" title="2025 Champion">🥇 '25 Champ</span></td>
           <td data-label="Actual W-L"><b>0–0</b></td>
-          <td data-label="All-Play">0–0</td>
-          <td data-label="All-Play %"><b>0.000</b></td>
+          <td data-label="Pyth Wins"><b>0.0</b> <span style="font-size: 11px; color: var(--muted);">(0.0)</span></td>
+          <td data-label="All-Play">0–0 <span style="font-size: 11px; color: var(--dim);">(0.000)</span></td>
           <td data-label="Season Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
+          <td data-label="Volatility">±0.0 <span class="badge badge-neutral" style="font-size: 10px; padding: 1px 6px;">Baseline</span></td>
+          <td data-label="Cardiac Rec"><b>0–0</b></td>
           <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.00 pts</td>
           <td data-label="Opp Surges">0/1 wks (0 st)</td>
           <td data-label="Avg Opp PA"><b>0.00</b></td>
@@ -424,9 +312,11 @@
         <tr>
           <td class="team-cell"><span class="rank-num">#9</span> Team Draft order (Wes Colson)</td>
           <td data-label="Actual W-L"><b>0–0</b></td>
-          <td data-label="All-Play">0–0</td>
-          <td data-label="All-Play %"><b>0.000</b></td>
+          <td data-label="Pyth Wins"><b>0.0</b> <span style="font-size: 11px; color: var(--muted);">(0.0)</span></td>
+          <td data-label="All-Play">0–0 <span style="font-size: 11px; color: var(--dim);">(0.000)</span></td>
           <td data-label="Season Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
+          <td data-label="Volatility">±0.0 <span class="badge badge-neutral" style="font-size: 10px; padding: 1px 6px;">Baseline</span></td>
+          <td data-label="Cardiac Rec"><b>0–0</b></td>
           <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.00 pts</td>
           <td data-label="Opp Surges">0/1 wks (0 st)</td>
           <td data-label="Avg Opp PA"><b>0.00</b></td>
@@ -434,9 +324,11 @@
         <tr>
           <td class="team-cell"><span class="rank-num">#10</span> Skatteboo boo (Kurt Claycomb) <span class="badge badge-bronze" title="2025 3rd Place">🥉 '25 3rd Pl</span></td>
           <td data-label="Actual W-L"><b>0–0</b></td>
-          <td data-label="All-Play">0–0</td>
-          <td data-label="All-Play %"><b>0.000</b></td>
+          <td data-label="Pyth Wins"><b>0.0</b> <span style="font-size: 11px; color: var(--muted);">(0.0)</span></td>
+          <td data-label="All-Play">0–0 <span style="font-size: 11px; color: var(--dim);">(0.000)</span></td>
           <td data-label="Season Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
+          <td data-label="Volatility">±0.0 <span class="badge badge-neutral" style="font-size: 10px; padding: 1px 6px;">Baseline</span></td>
+          <td data-label="Cardiac Rec"><b>0–0</b></td>
           <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.00 pts</td>
           <td data-label="Opp Surges">0/1 wks (0 st)</td>
           <td data-label="Avg Opp PA"><b>0.00</b></td>
@@ -444,9 +336,11 @@
         <tr>
           <td class="team-cell"><span class="rank-num">#11</span> Team Freedom (Roman Bayless)</td>
           <td data-label="Actual W-L"><b>0–0</b></td>
-          <td data-label="All-Play">0–0</td>
-          <td data-label="All-Play %"><b>0.000</b></td>
+          <td data-label="Pyth Wins"><b>0.0</b> <span style="font-size: 11px; color: var(--muted);">(0.0)</span></td>
+          <td data-label="All-Play">0–0 <span style="font-size: 11px; color: var(--dim);">(0.000)</span></td>
           <td data-label="Season Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
+          <td data-label="Volatility">±0.0 <span class="badge badge-neutral" style="font-size: 10px; padding: 1px 6px;">Baseline</span></td>
+          <td data-label="Cardiac Rec"><b>0–0</b></td>
           <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.00 pts</td>
           <td data-label="Opp Surges">0/1 wks (0 st)</td>
           <td data-label="Avg Opp PA"><b>0.00</b></td>
@@ -454,9 +348,11 @@
         <tr>
           <td class="team-cell"><span class="rank-num">#12</span> Puka Time (trentan busey) <span class="badge badge-silver" title="2025 Runner-Up">🥈 '25 Runner-Up</span></td>
           <td data-label="Actual W-L"><b>0–0</b></td>
-          <td data-label="All-Play">0–0</td>
-          <td data-label="All-Play %"><b>0.000</b></td>
+          <td data-label="Pyth Wins"><b>0.0</b> <span style="font-size: 11px; color: var(--muted);">(0.0)</span></td>
+          <td data-label="All-Play">0–0 <span style="font-size: 11px; color: var(--dim);">(0.000)</span></td>
           <td data-label="Season Luck Δ"><span class="badge badge-neutral">+0.000</span></td>
+          <td data-label="Volatility">±0.0 <span class="badge badge-neutral" style="font-size: 10px; padding: 1px 6px;">Baseline</span></td>
+          <td data-label="Cardiac Rec"><b>0–0</b></td>
           <td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">0.00 pts</td>
           <td data-label="Opp Surges">0/1 wks (0 st)</td>
           <td data-label="Avg Opp PA"><b>0.00</b></td>
@@ -472,7 +368,7 @@
       <div class="filter-header">
         <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
           <div style="font-size: 14px; font-weight: 800; color: var(--text);">⚔️ Head-to-Head Rivalry Records (2023–Present)</div>
-          <div class="h2h-scope-bar">
+          <div class="toggle-scope-bar">
             <button id="scopeCurrentBtn" class="scope-btn active" onclick="setH2HScope('current')">👥 Current Managers</button>
             <button id="scopeAllBtn" class="scope-btn" onclick="setH2HScope('all')">🌐 All-Time (Inc. Former)</button>
           </div>
@@ -1101,7 +997,7 @@
 
   </div>
 
-  <!-- TAB 4: PAYOUTS & POSITIONAL RECORDS -->
+  <!-- TAB 4: PAYOUTS, EXTREMES OF WAR & POSITIONAL RECORDS -->
   <div id="view-payouts" style="display: none; display: flex; flex-direction: column; gap: 16px;">
     
     <!-- SEASON CASH BOUNTIES -->
@@ -1135,28 +1031,54 @@
       </div>
     </div>
 
+    <!-- EXTREMES OF WAR -->
+    <div style="font-size: 15px; font-weight: 800; color: var(--text); margin-top: 4px;">⚔️ Extremes of War (Season Highs & Heartbreaks)</div>
+    <div class="awards-grid">
+      <div class="award-card red">
+        <div>
+          <div class="award-tag" style="color: var(--red);">🔨 The Gavel (Largest Blowout)</div>
+          <div class="award-title">Make Fantasy Great Again (jeremy bayless) (+0.00 pts)</div>
+          <div class="award-desc">Demolished Team Bakesmode (Ron Baker) (0.00 to 0.00) in Week 1.</div>
+        </div>
+        <div style="margin-top: 8px;"><span class="badge badge-unlucky">Biggest Massacre</span></div>
+      </div>
+
+      <div class="award-card green">
+        <div>
+          <div class="award-tag" style="color: var(--green);">🪙 The Coin Flip (Closest Finish)</div>
+          <div class="award-title">Decided by 0.00 pts</div>
+          <div class="award-desc">Make Fantasy Great Again (jeremy bayless) (0.00) survived against Team Bakesmode (Ron Baker) (0.00) in Week 1.</div>
+        </div>
+        <div style="margin-top: 8px;"><span class="badge badge-lucky">Nail Biter of the Year</span></div>
+      </div>
+    </div>
+
     <!-- WEEKLY CASH PAYOUTS TABLE -->
     <div class="table-container">
       <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 14px;">
-        💵 Weekly High Scorer Cash Ledger (Team & Starter Payouts)
+        💵 Weekly High Scorer Cash Ledger & The Anchor (Lead Weight)
       </div>
       <table class="responsive-table">
         <thead>
           <tr>
             <th>Week</th>
-            <th>Team High Winner ($)</th>
+            <th>Team High ($)</th>
             <th>Score</th>
-            <th>Starter High Winner ($)</th>
-            <th>Player Score</th>
+            <th>Starter High ($)</th>
+            <th>High Score</th>
+            <th>⚓ Anchor (Lead Weight)</th>
+            <th>Low Score</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="team-cell" style="color: var(--accent);">Week 1 Payouts</td>
+            <td class="team-cell" style="color: var(--accent);">Week 1 Ledger</td>
             <td data-label="Team High Winner"><b>Make Fantasy Great Again (jeremy bayless) <span class="badge badge-bitch" title="2025 League Bitch (Last Place)">💩 '25 League Bitch</span></b></td>
             <td data-label="Team Score" style="font-weight: 800; color: var(--gold);">0.00 pts</td>
             <td data-label="Starter High Winner"><b>Jaxon Smith-Njigba (WR) - Make Fantasy Great Again (jeremy bayless)</b></td>
-            <td data-label="Player Score" style="font-weight: 800; color: var(--green);">0.00 pts</td>
+            <td data-label="Starter High" style="font-weight: 800; color: var(--green);">0.00 pts</td>
+            <td data-label="Anchor Starter" style="color: var(--muted);">Jaxon Smith-Njigba (WR) - Make Fantasy Great Again (jeremy bayless)</td>
+            <td data-label="Anchor Score" style="font-weight: 800; color: var(--red);">0.00 pts</td>
           </tr>
         </tbody>
       </table>
@@ -1199,13 +1121,17 @@
 
   </div>
 
-  <!-- TAB 5: HALL OF CHAMPIONS -->
+  <!-- TAB 5: HALL OF CHAMPIONS (WITH CURRENT VS ALL TOGGLE) -->
   <div id="view-halloffame" style="display: none; display: flex; flex-direction: column; gap: 20px;">
     
     <!-- ALL-TIME FRANCHISE PLACEMENT & SHAME TABLE -->
     <div class="table-container">
-      <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
-        🏛️ All-Time Franchise Trophy & Placement Ledger (2023–Present)
+      <div class="filter-header">
+        <div style="font-size: 15px; font-weight: 800; color: var(--text);">🏛️ All-Time Franchise Trophy & Placement Ledger (2023–Present)</div>
+        <div class="toggle-scope-bar">
+          <button id="hofScopeCurrentBtn" class="scope-btn active" onclick="setHOFScope('current')">👥 Current Managers</button>
+          <button id="hofScopeAllBtn" class="scope-btn" onclick="setHOFScope('all')">🌐 All-Time (Inc. Former)</button>
+        </div>
       </div>
       <table class="responsive-table">
         <thead>
@@ -1220,7 +1146,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr class="hof-row" data-current="true">
             <td class="team-cell">
               <div>
                 <b>Miles Spainhower</b> <span class="badge badge-neutral" style="font-size: 9px; padding: 1px 5px;">Active</span>
@@ -1234,7 +1160,7 @@
             <td data-label="Total Podiums"><span class="badge badge-neutral"><b>2</b></span></td>
             <td data-label="📊 Avg Finish"><b>3.7</b> <span style="font-size: 11px; color: var(--dim); font-weight: normal;">(3 yrs)</span></td>
           </tr>
-          <tr>
+          <tr class="hof-row" data-current="true">
             <td class="team-cell">
               <div>
                 <b>Wes Colson</b> <span class="badge badge-neutral" style="font-size: 9px; padding: 1px 5px;">Active</span>
@@ -1248,7 +1174,7 @@
             <td data-label="Total Podiums"><span class="badge badge-neutral"><b>1</b></span></td>
             <td data-label="📊 Avg Finish"><b>4.7</b> <span style="font-size: 11px; color: var(--dim); font-weight: normal;">(3 yrs)</span></td>
           </tr>
-          <tr>
+          <tr class="hof-row" data-current="true">
             <td class="team-cell">
               <div>
                 <b>Roman Bayless</b> <span class="badge badge-neutral" style="font-size: 9px; padding: 1px 5px;">Active</span>
@@ -1262,7 +1188,7 @@
             <td data-label="Total Podiums"><span class="badge badge-neutral"><b>1</b></span></td>
             <td data-label="📊 Avg Finish"><b>4.7</b> <span style="font-size: 11px; color: var(--dim); font-weight: normal;">(3 yrs)</span></td>
           </tr>
-          <tr>
+          <tr class="hof-row" data-current="true">
             <td class="team-cell">
               <div>
                 <b>trentan busey</b> <span class="badge badge-neutral" style="font-size: 9px; padding: 1px 5px;">Active</span>
@@ -1276,7 +1202,7 @@
             <td data-label="Total Podiums"><span class="badge badge-neutral"><b>1</b></span></td>
             <td data-label="📊 Avg Finish"><b>5.7</b> <span style="font-size: 11px; color: var(--dim); font-weight: normal;">(3 yrs)</span></td>
           </tr>
-          <tr>
+          <tr class="hof-row" data-current="true">
             <td class="team-cell">
               <div>
                 <b>Robert Kendall</b> <span class="badge badge-neutral" style="font-size: 9px; padding: 1px 5px;">Active</span>
@@ -1290,7 +1216,7 @@
             <td data-label="Total Podiums"><span class="badge badge-neutral"><b>1</b></span></td>
             <td data-label="📊 Avg Finish"><b>7.0</b> <span style="font-size: 11px; color: var(--dim); font-weight: normal;">(3 yrs)</span></td>
           </tr>
-          <tr>
+          <tr class="hof-row" data-current="true">
             <td class="team-cell">
               <div>
                 <b>Kurt Claycomb</b> <span class="badge badge-neutral" style="font-size: 9px; padding: 1px 5px;">Active</span>
@@ -1304,7 +1230,7 @@
             <td data-label="Total Podiums"><span class="badge badge-neutral"><b>2</b></span></td>
             <td data-label="📊 Avg Finish"><b>5.7</b> <span style="font-size: 11px; color: var(--dim); font-weight: normal;">(3 yrs)</span></td>
           </tr>
-          <tr>
+          <tr class="hof-row" data-current="true">
             <td class="team-cell">
               <div>
                 <b>Ron Baker</b> <span class="badge badge-neutral" style="font-size: 9px; padding: 1px 5px;">Active</span>
@@ -1318,7 +1244,7 @@
             <td data-label="Total Podiums"><span class="badge badge-neutral"><b>1</b></span></td>
             <td data-label="📊 Avg Finish"><b>7.3</b> <span style="font-size: 11px; color: var(--dim); font-weight: normal;">(3 yrs)</span></td>
           </tr>
-          <tr>
+          <tr class="hof-row" data-current="true">
             <td class="team-cell">
               <div>
                 <b>TRAVIS GIBSON</b> <span class="badge badge-neutral" style="font-size: 9px; padding: 1px 5px;">Active</span>
@@ -1332,7 +1258,7 @@
             <td data-label="Total Podiums"><span class="badge badge-neutral"><b>0</b></span></td>
             <td data-label="📊 Avg Finish"><b>5.7</b> <span style="font-size: 11px; color: var(--dim); font-weight: normal;">(3 yrs)</span></td>
           </tr>
-          <tr>
+          <tr class="hof-row" data-current="true">
             <td class="team-cell">
               <div>
                 <b>Jared Schneider</b> <span class="badge badge-neutral" style="font-size: 9px; padding: 1px 5px;">Active</span>
@@ -1346,7 +1272,7 @@
             <td data-label="Total Podiums"><span class="badge badge-neutral"><b>0</b></span></td>
             <td data-label="📊 Avg Finish"><b>7.3</b> <span style="font-size: 11px; color: var(--dim); font-weight: normal;">(3 yrs)</span></td>
           </tr>
-          <tr>
+          <tr class="hof-row" data-current="true">
             <td class="team-cell">
               <div>
                 <b>Billy Haid</b> <span class="badge badge-neutral" style="font-size: 9px; padding: 1px 5px;">Active</span>
@@ -1360,7 +1286,7 @@
             <td data-label="Total Podiums"><span class="badge badge-neutral"><b>0</b></span></td>
             <td data-label="📊 Avg Finish"><b>8.0</b> <span style="font-size: 11px; color: var(--dim); font-weight: normal;">(1 yrs)</span></td>
           </tr>
-          <tr>
+          <tr class="hof-row" data-current="false">
             <td class="team-cell">
               <div>
                 <b>Curtis Thornton</b> <span class="badge badge-neutral" style="font-size: 9px; padding: 1px 5px; opacity: 0.6;">Alumni</span>
@@ -1374,7 +1300,7 @@
             <td data-label="Total Podiums"><span class="badge badge-neutral"><b>0</b></span></td>
             <td data-label="📊 Avg Finish"><b>8.0</b> <span style="font-size: 11px; color: var(--dim); font-weight: normal;">(2 yrs)</span></td>
           </tr>
-          <tr>
+          <tr class="hof-row" data-current="true">
             <td class="team-cell">
               <div>
                 <b>Eric King</b> <span class="badge badge-neutral" style="font-size: 9px; padding: 1px 5px;">Active</span>
@@ -1388,7 +1314,7 @@
             <td data-label="Total Podiums"><span class="badge badge-neutral"><b>0</b></span></td>
             <td data-label="📊 Avg Finish"><b>9.0</b> <span style="font-size: 11px; color: var(--dim); font-weight: normal;">(3 yrs)</span></td>
           </tr>
-          <tr>
+          <tr class="hof-row" data-current="true">
             <td class="team-cell">
               <div>
                 <b>jeremy bayless</b> <span class="badge badge-neutral" style="font-size: 9px; padding: 1px 5px;">Active</span>
@@ -1474,7 +1400,7 @@
 
   </div>
 
-  <!-- TAB 6: BENCH BLUNDERS -->
+  <!-- TAB 6: BENCH BLUNDERS (DYNAMICALLY POPULATED) -->
   <div id="view-blunders" class="table-container" style="display: none;">
     <table class="responsive-table">
       <thead>
@@ -1486,78 +1412,7 @@
           <th>Projection</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td class="team-cell"><span class="rank-num">#1</span> Make Fantasy Great Again (jeremy bayless) <span class="badge badge-bitch" title="2025 League Bitch (Last Place)">💩 '25 League Bitch</span></td>
-          <td data-label="Player" style="color: var(--text); font-weight: 600;">George Kittle</td>
-          <td data-label="Pos"><span class="badge badge-neutral">TE</span></td>
-          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0.00 pts</td>
-          <td data-label="Projection" style="color: var(--muted);">8.36 pts</td>
-        </tr>
-        <tr>
-          <td class="team-cell"><span class="rank-num">#2</span> Make Fantasy Great Again (jeremy bayless) <span class="badge badge-bitch" title="2025 League Bitch (Last Place)">💩 '25 League Bitch</span></td>
-          <td data-label="Player" style="color: var(--text); font-weight: 600;">Jordan Mason</td>
-          <td data-label="Pos"><span class="badge badge-neutral">RB</span></td>
-          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0.00 pts</td>
-          <td data-label="Projection" style="color: var(--muted);">8.72 pts</td>
-        </tr>
-        <tr>
-          <td class="team-cell"><span class="rank-num">#3</span> Team Bakesmode (Ron Baker)</td>
-          <td data-label="Player" style="color: var(--text); font-weight: 600;">Christian Watson</td>
-          <td data-label="Pos"><span class="badge badge-neutral">WR</span></td>
-          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0.00 pts</td>
-          <td data-label="Projection" style="color: var(--muted);">11.06 pts</td>
-        </tr>
-        <tr>
-          <td class="team-cell"><span class="rank-num">#4</span> Blue Medical Tent (Billy Haid)</td>
-          <td data-label="Player" style="color: var(--text); font-weight: 600;">Kenny Gainwell</td>
-          <td data-label="Pos"><span class="badge badge-neutral">RB</span></td>
-          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0.00 pts</td>
-          <td data-label="Projection" style="color: var(--muted);">10.79 pts</td>
-        </tr>
-        <tr>
-          <td class="team-cell"><span class="rank-num">#5</span> THE G-MEN (TRAVIS GIBSON)</td>
-          <td data-label="Player" style="color: var(--text); font-weight: 600;">Aaron Jones Sr.</td>
-          <td data-label="Pos"><span class="badge badge-neutral">RB</span></td>
-          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0.00 pts</td>
-          <td data-label="Projection" style="color: var(--muted);">10.27 pts</td>
-        </tr>
-        <tr>
-          <td class="team-cell"><span class="rank-num">#6</span> THE G-MEN (TRAVIS GIBSON)</td>
-          <td data-label="Player" style="color: var(--text); font-weight: 600;">Deebo Samuel Sr.</td>
-          <td data-label="Pos"><span class="badge badge-neutral">WR</span></td>
-          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0.00 pts</td>
-          <td data-label="Projection" style="color: var(--muted);">10.93 pts</td>
-        </tr>
-        <tr>
-          <td class="team-cell"><span class="rank-num">#7</span> The American Dream (Miles Spainhower) <span class="badge badge-champ" title="2025 Champion">🥇 '25 Champ</span></td>
-          <td data-label="Player" style="color: var(--text); font-weight: 600;">Josh Jacobs</td>
-          <td data-label="Pos"><span class="badge badge-neutral">RB</span></td>
-          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0.00 pts</td>
-          <td data-label="Projection" style="color: var(--muted);">0.00 pts</td>
-        </tr>
-        <tr>
-          <td class="team-cell"><span class="rank-num">#8</span> The American Dream (Miles Spainhower) <span class="badge badge-champ" title="2025 Champion">🥇 '25 Champ</span></td>
-          <td data-label="Player" style="color: var(--text); font-weight: 600;">Alvin Kamara</td>
-          <td data-label="Pos"><span class="badge badge-neutral">RB</span></td>
-          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0.00 pts</td>
-          <td data-label="Projection" style="color: var(--muted);">0.00 pts</td>
-        </tr>
-        <tr>
-          <td class="team-cell"><span class="rank-num">#9</span> Team Draft order (Wes Colson)</td>
-          <td data-label="Player" style="color: var(--text); font-weight: 600;">Chuba Hubbard</td>
-          <td data-label="Pos"><span class="badge badge-neutral">RB</span></td>
-          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0.00 pts</td>
-          <td data-label="Projection" style="color: var(--muted);">12.25 pts</td>
-        </tr>
-        <tr>
-          <td class="team-cell"><span class="rank-num">#10</span> Skatteboo boo (Kurt Claycomb) <span class="badge badge-bronze" title="2025 3rd Place">🥉 '25 3rd Pl</span></td>
-          <td data-label="Player" style="color: var(--text); font-weight: 600;">Sam LaPorta</td>
-          <td data-label="Pos"><span class="badge badge-neutral">TE</span></td>
-          <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">0.00 pts</td>
-          <td data-label="Projection" style="color: var(--muted);">10.95 pts</td>
-        </tr>
-      </tbody>
+      <tbody id="blundersTableBody"></tbody>
     </table>
   </div>
 
@@ -1569,9 +1424,61 @@
     <div class="glossary-grid">
       
       <div class="glossary-card">
+        <div class="glossary-title">🫀 The Cardiac Index (Clutch vs. Cursed)</div>
+        <div class="glossary-desc">
+          Tracks team record in tight, high-pressure games decided by <b>5.00 points or fewer</b>. Identifies who has ice in their veins versus who is snakebitten by heartbreakers.
+        </div>
+        <div class="glossary-example">
+          <b>Example:</b> A 3–0 record means you routinely win nail-biters; a 0–3 record means you've suffered 3 brutal losses by a single play.
+        </div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-title">📊 Scoring Volatility (σ StdDev)</div>
+        <div class="glossary-desc">
+          Statistical standard deviation of your weekly scoring totals. Measures whether your lineup is predictable or chaotic.
+        </div>
+        <div class="glossary-example">
+          <b>Steady Floor (σ &lt; 12):</b> Scores almost the exact same points every week.<br>
+          <b>Boom/Bust (σ &gt; 18):</b> Alternates between 160-pt explosions and 75-pt duds.
+        </div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-title">📐 Pythagorean Expected Wins</div>
+        <div class="glossary-desc">
+          Adapts Bill James's sports formula: <code>(PF² ÷ [PF² + PA²]) × Games</code>. Calculates what your win-loss record <i>should</i> be based solely on point differential.
+        </div>
+        <div class="glossary-example">
+          <b>Example:</b> An 8–2 team with only 5.8 Pythagorean expected wins is living on borrowed time and schedule luck.
+        </div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-title">🔨 Extremes of War (Gavel & Coin Flip)</div>
+        <div class="glossary-desc">
+          Tracks the absolute matchup boundaries of the season.
+        </div>
+        <div class="glossary-example">
+          <b>The Gavel:</b> Largest blowout of the year (biggest margin of victory).<br>
+          <b>The Coin Flip:</b> Closest game of the year (smallest margin of victory).
+        </div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-title">⚓ The Anchor Award (Lead Weight)</div>
+        <div class="glossary-desc">
+          The anti-bounty award given each week to the single lowest-scoring active starter across the entire league (benched players excluded).
+        </div>
+        <div class="glossary-example">
+          <b>Example:</b> Starting a kicker or defense that puts up -3.00 points, or a WR who posts a 1-catch, 4-yard dud (1.40 pts).
+        </div>
+      </div>
+
+      <div class="glossary-card">
         <div class="glossary-title">🪵 Pine Tax (Cumulative Bench Cost)</div>
         <div class="glossary-desc">
-          Total real points surrendered to your bench across the season. It calculates the difference between your team's <b>Optimal Score</b> and your <b>Actual Score</b> each week.
+          Total real points surrendered to your bench across the season. Calculates the difference between your team's <b>Optimal Score</b> and your <b>Actual Score</b> each week.
         </div>
         <div class="glossary-example">
           <b>Example:</b> Started an RB who scored 4.20 pts while leaving an RB with 18.20 on the bench. That is <b>14.00 pts</b> added to your Pine Tax.
@@ -1632,33 +1539,170 @@
 </div>
 
 <script>
-  var h2hScope = 'current';
+  var rawWeeksData = {weeks_json};
+  var rawBounties = {bounties_json};
+  var rawAnchors = {anchors_json};
+  var reigningBadges = {json.dumps(reigning)};
 
-  function switchTab(viewName) {
+  var h2hScope = 'current';
+  var hofScope = 'current';
+
+  function renderSelectedWeek(wkStr) {{
+    var wkData = rawWeeksData[wkStr] || [];
+    if (wkData.length === 0) return;
+
+    document.getElementById('headerSummaryTitle').innerText = 'WEEK ' + wkStr + ' SUMMARY';
+    document.getElementById('tabBtnWeek').innerText = '📅 Week ' + wkStr + ' Summary';
+
+    // Sort by all-play wins desc, actual score desc
+    var sorted = wkData.slice().sort(function(a, b) {{
+      if (b.all_play_w !== a.all_play_w) return b.all_play_w - a.all_play_w;
+      return b.actual - a.actual;
+    }});
+
+    // Build Table Body
+    var tbody = document.getElementById('weekTableBody');
+    tbody.innerHTML = '';
+    sorted.forEach(function(t, idx) {{
+      var deltaClass = t.luck_delta > 0 ? 'badge-lucky' : (t.luck_delta < 0 ? 'badge-unlucky' : 'badge-neutral');
+      var resBadge = t.result === 'W' ? 'badge-win' : 'badge-loss';
+      var tr = document.createElement('tr');
+      tr.innerHTML = 
+        '<td class="team-cell"><span class="rank-num">#' + (idx + 1) + '</span> ' + renderBadge(t.team) + '</td>' +
+        '<td data-label="Result"><span class="badge ' + resBadge + '">' + t.result + '</span></td>' +
+        '<td data-label="Score"><b>' + t.actual.toFixed(2) + '</b> <span style="font-size: 11px; color: var(--dim);">(' + (t.diff > 0 ? '+' : '') + t.diff.toFixed(2) + ')</span></td>' +
+        '<td data-label="Opponent">' + t.opp + ' <span style="color: var(--muted); font-size: 11px;">(' + t.opp_actual.toFixed(2) + ')</span></td>' +
+        '<td data-label="All-Play"><b>' + t.all_play_w + '</b>–' + t.all_play_l + '</td>' +
+        '<td data-label="Luck Δ"><span class="badge ' + deltaClass + '">' + (t.luck_delta > 0 ? '+' : '') + t.luck_delta.toFixed(3) + '</span></td>' +
+        '<td data-label="Coaching Eff"><b>' + t.coach_eff.toFixed(1) + '%</b></td>';
+      tbody.appendChild(tr);
+    }});
+
+    // Top Cards
+    var bounty = rawBounties.find(function(b) {{ return b.week === parseInt(wkStr); }}) || sorted[0];
+    var anchor = rawAnchors.find(function(a) {{ return a.week === parseInt(wkStr); }});
+
+    var buzzsaw = sorted.slice().sort(function(a, b) {{ return a.luck_delta - b.luck_delta; }})[0];
+    var horseshoe = sorted.slice().sort(function(a, b) {{ return b.luck_delta - a.luck_delta; }})[0];
+    var tactician = sorted.slice().sort(function(a, b) {{ return b.coach_eff - a.coach_eff; }})[0];
+
+    var awardsContainer = document.getElementById('dynamicAwardsGrid');
+    awardsContainer.innerHTML = 
+      '<div class="award-card gold">' +
+        '<div>' +
+          '<div class="award-tag" style="color: var(--gold);">💰 Week ' + wkStr + ' Team Bounty</div>' +
+          '<div class="award-title">' + renderBadge(bounty.team) + '</div>' +
+          '<div class="award-desc">Paced the entire league with <b>' + bounty.pts.toFixed(2) + ' pts</b> to take down the weekly cash payout!</div>' +
+        '</div>' +
+        '<div style="margin-top: 8px;"><span class="badge badge-gold">Weekly Bounty Winner</span></div>' +
+      '</div>' +
+
+      '<div class="award-card red">' +
+        '<div>' +
+          '<div class="award-tag" style="color: var(--red);">💀 The Buzzsaw Victim</div>' +
+          '<div class="award-title">' + renderBadge(buzzsaw.team) + '</div>' +
+          '<div class="award-desc">Dropped ' + buzzsaw.actual.toFixed(2) + ' pts (' + buzzsaw.all_play_w + '–' + buzzsaw.all_play_l + ' All-Play), but took an L to ' + buzzsaw.opp + ' (' + buzzsaw.opp_actual.toFixed(2) + ' pts).</div>' +
+        '</div>' +
+        '<div style="margin-top: 8px;"><span class="badge badge-unlucky">Luck Δ: ' + (buzzsaw.luck_delta > 0 ? '+' : '') + buzzsaw.luck_delta.toFixed(3) + '</span></div>' +
+      '</div>' +
+
+      '<div class="award-card green">' +
+        '<div>' +
+          '<div class="award-tag" style="color: var(--green);">🍀 Grand Theft Victory</div>' +
+          '<div class="award-title">' + renderBadge(horseshoe.team) + '</div>' +
+          '<div class="award-desc">Squeaked by with ' + horseshoe.actual.toFixed(2) + ' pts (' + horseshoe.all_play_w + '–' + horseshoe.all_play_l + ' All-Play) thanks to opponent meltdown.</div>' +
+        '</div>' +
+        '<div style="margin-top: 8px;"><span class="badge badge-lucky">Luck Δ: ' + (horseshoe.luck_delta > 0 ? '+' : '') + horseshoe.luck_delta.toFixed(3) + '</span></div>' +
+      '</div>' +
+
+      '<div class="award-card blue">' +
+        '<div>' +
+          '<div class="award-tag" style="color: var(--accent);">🧠 Master Tactician</div>' +
+          '<div class="award-title">' + renderBadge(tactician.team) + '</div>' +
+          '<div class="award-desc">Optimal starting execution of <b>' + tactician.coach_eff.toFixed(1) + '%</b> (' + tactician.actual.toFixed(2) + ' of ' + tactician.optimal.toFixed(2) + ' optimal pts).</div>' +
+        '</div>' +
+        '<div style="margin-top: 8px;"><span class="badge badge-neutral">Lineup Mastery</span></div>' +
+      '</div>' +
+
+      '<div class="award-card zinc">' +
+        '<div>' +
+          '<div class="award-tag" style="color: var(--dim);">⚓ The Anchor Award (Lead Weight)</div>' +
+          '<div class="award-title">' + (anchor ? anchor.player + ' (' + anchor.pos + ')' : 'None') + '</div>' +
+          '<div class="award-desc">Hung a league-low <b>' + (anchor ? anchor.pts.toFixed(2) : '0.00') + ' pts</b> in the starting lineup for ' + (anchor ? anchor.team : 'None') + '.</div>' +
+        '</div>' +
+        '<div style="margin-top: 8px;"><span class="badge badge-neutral">Lowest Starter of Wk</span></div>' +
+      '</div>';
+
+    // Bench Blunders for this week
+    var blunders = [];
+    wkData.forEach(function(t) {{
+      t.players.forEach(function(p) {{
+        if (p.audit === 'Costly Bench') {{
+          blunders.push({{ team: t.team, name: p.name, pos: p.pos, pts: p.pts, proj: p.proj }});
+        }}
+      }});
+    }});
+    blunders.sort(function(a, b) {{ return b.pts - a.pts; }});
+
+    var bbody = document.getElementById('blundersTableBody');
+    bbody.innerHTML = '';
+    blunders.slice(0, 10).forEach(function(b, idx) {{
+      var btr = document.createElement('tr');
+      btr.innerHTML = 
+        '<td class="team-cell"><span class="rank-num">#' + (idx + 1) + '</span> ' + renderBadge(b.team) + '</td>' +
+        '<td data-label="Player" style="color: var(--text); font-weight: 600;">' + b.name + '</td>' +
+        '<td data-label="Pos"><span class="badge badge-neutral">' + b.pos + '</span></td>' +
+        '<td data-label="Points Left" style="font-weight: 800; color: var(--amber);">' + b.pts.toFixed(2) + ' pts</td>' +
+        '<td data-label="Projection" style="color: var(--muted);">' + b.proj.toFixed(2) + ' pts</td>';
+      bbody.appendChild(btr);
+    }});
+  }}
+
+  function renderBadge(label) {{
+    if (!reigningBadges) return label;
+    var yrShort = (reigningBadges.year || '25').slice(-2);
+    function matches(target) {{
+      if (!target || target === 'TBD') return false;
+      var tClean = target.toLowerCase().trim();
+      var lClean = label.toLowerCase().trim();
+      if (tClean.indexOf(lClean) !== -1 || lClean.indexOf(tClean) !== -1) return true;
+      if (target.indexOf('(') !== -1 && target.indexOf(')') !== -1) {{
+        var mgr = target.split('(').pop().split(')')[0].trim().toLowerCase();
+        if (mgr && mgr !== 'manager' && lClean.indexOf(mgr) !== -1) return true;
+      }}
+      return false;
+    }}
+    if (matches(reigningBadges.gold)) return label + ' <span class="badge badge-champ">🥇 \'' + yrShort + ' Champ</span>';
+    if (matches(reigningBadges.silver)) return label + ' <span class="badge badge-silver">🥈 \'' + yrShort + ' Runner-Up</span>';
+    if (matches(reigningBadges.bronze)) return label + ' <span class="badge badge-bronze">🥉 \'' + yrShort + ' 3rd Pl</span>';
+    if (matches(reigningBadges.last)) return label + ' <span class="badge badge-bitch">💩 \'' + yrShort + ' League Bitch</span>';
+    return label;
+  }}
+
+  function switchTab(viewName) {{
     var tabs = ['week', 'season', 'h2h', 'payouts', 'halloffame', 'blunders', 'glossary'];
-    for (var i = 0; i < tabs.length; i++) {
+    for (var i = 0; i < tabs.length; i++) {{
       var el = document.getElementById('view-' + tabs[i]);
       if (el) el.style.display = 'none';
-    }
+    }}
     var btns = document.querySelectorAll('.tab-btn');
-    for (var j = 0; j < btns.length; j++) {
+    for (var j = 0; j < btns.length; j++) {{
       btns[j].classList.remove('active');
-    }
-    
+    }}
     var activeEl = document.getElementById('view-' + viewName);
-    if (activeEl) {
-      if (viewName === 'h2h' || viewName === 'payouts' || viewName === 'halloffame') {
+    if (activeEl) {{
+      if (viewName === 'h2h' || viewName === 'payouts' || viewName === 'halloffame') {{
         activeEl.style.display = 'flex';
-      } else {
+      }} else {{
         activeEl.style.display = 'block';
-      }
-    }
-    if (event && event.target) {
+      }}
+    }}
+    if (event && event.target && event.target.classList.contains('tab-btn')) {{
       event.target.classList.add('active');
-    }
-  }
+    }}
+  }}
 
-  function setH2HScope(scope) {
+  function setH2HScope(scope) {{
     h2hScope = scope;
     var curBtn = document.getElementById('scopeCurrentBtn');
     var allBtn = document.getElementById('scopeAllBtn');
@@ -1666,66 +1710,77 @@
     if (allBtn) allBtn.classList.toggle('active', scope === 'all');
     
     var select = document.getElementById('mgrFilter');
-    if (select) {
+    if (select) {{
       var options = select.querySelectorAll('option');
-      options.forEach(function(opt) {
+      options.forEach(function(opt) {{
         if (opt.value === 'ALL') return;
         var isCurrent = opt.getAttribute('data-is-current') === 'true';
-        if (scope === 'current' && !isCurrent) {
+        if (scope === 'current' && !isCurrent) {{
           opt.style.display = 'none';
-          if (select.value === opt.value) {
-            select.value = 'ALL';
-          }
-        } else {
+          if (select.value === opt.value) select.value = 'ALL';
+        }} else {{
           opt.style.display = '';
-        }
-      });
-    }
-
+        }}
+      }});
+    }}
     applyH2HFilters();
-  }
+  }}
 
-  function applyH2HFilters() {
+  function applyH2HFilters() {{
     var select = document.getElementById('mgrFilter');
     var mgr = select ? select.value : 'ALL';
     var rows = document.querySelectorAll('.rivalry-row');
-    rows.forEach(function(r) {
+    rows.forEach(function(r) {{
       var m1 = r.getAttribute('data-m1');
       var m2 = r.getAttribute('data-m2');
       var isCurrent = r.getAttribute('data-current') === 'true';
-
       var matchesScope = (h2hScope === 'all' || isCurrent);
       var matchesMgr = (mgr === 'ALL' || m1 === mgr || m2 === mgr);
+      r.style.display = (matchesScope && matchesMgr) ? '' : 'none';
+    }});
+  }}
 
-      if (matchesScope && matchesMgr) {
-        r.style.display = '';
-      } else {
+  function setHOFScope(scope) {{
+    hofScope = scope;
+    var curBtn = document.getElementById('hofScopeCurrentBtn');
+    var allBtn = document.getElementById('hofScopeAllBtn');
+    if (curBtn) curBtn.classList.toggle('active', scope === 'current');
+    if (allBtn) allBtn.classList.toggle('active', scope === 'all');
+    
+    var rows = document.querySelectorAll('.hof-row');
+    rows.forEach(function(r) {{
+      var isCurrent = r.getAttribute('data-current') === 'true';
+      if (scope === 'current' && !isCurrent) {{
         r.style.display = 'none';
-      }
-    });
-  }
+      }} else {{
+        r.style.display = '';
+      }}
+    }});
+  }}
 
-  function toggleTheme() {
+  function toggleTheme() {{
     var isLight = document.body.classList.toggle('light-mode');
     localStorage.setItem('ff_theme', isLight ? 'light' : 'dark');
     updateThemeBtn(isLight);
-  }
+  }}
 
-  function updateThemeBtn(isLight) {
+  function updateThemeBtn(isLight) {{
     var btn = document.getElementById('theme-toggle');
-    if (btn) {
+    if (btn) {{
       btn.innerHTML = isLight ? '🌙 Dark Mode' : '☀️ Light Mode';
-    }
-  }
+    }}
+  }}
 
-  (function() {
+  (function() {{
     var savedTheme = localStorage.getItem('ff_theme');
-    if (savedTheme === 'light') {
+    if (savedTheme === 'light') {{
       document.body.classList.add('light-mode');
       updateThemeBtn(true);
-    }
+    }}
     setH2HScope('current');
-  })();
+    setHOFScope('current');
+    renderSelectedWeek('{latest_week_num}');
+  }})();
 </script>
 </body>
 </html>
