@@ -169,7 +169,6 @@ def compute_records_and_payouts(history):
     if not matchups:
       continue
 
-    # 1. Weekly High Team Points
     high_match = max(matchups, key=lambda x: x["actual"])
     weekly_team_bounties.append({
         "week": w,
@@ -179,7 +178,6 @@ def compute_records_and_payouts(history):
         "opp_pts": high_match["opp_actual"],
     })
 
-    # 2. Weekly High Individual Starter
     starters_this_week = []
     for team_entry in matchups:
       team_name = team_entry["team"]
@@ -205,7 +203,6 @@ def compute_records_and_payouts(history):
       high_starter = max(starters_this_week, key=lambda x: x["pts"])
       weekly_player_bounties.append(high_starter)
 
-  # 3. Season High Points Leaders
   season_high_team_game = (
       max(weekly_team_bounties, key=lambda x: x["pts"])
       if weekly_team_bounties
@@ -272,7 +269,12 @@ def sync_historical_h2h(current_year):
   """Reaches back to 2023 to backfill multi-year head-to-head records."""
   all_time = load_history(
       ALL_TIME_FILE,
-      {"champions": {}, "matchups": {}, "h2h_ingested_years": []},
+      {
+          "champions": {},
+          "matchups": {},
+          "finishes": {},
+          "h2h_ingested_years": [],
+      },
   )
   if "matchups" not in all_time:
     all_time["matchups"] = {}
@@ -328,14 +330,21 @@ def sync_historical_h2h(current_year):
   save_history(ALL_TIME_FILE, all_time)
 
 
-def sync_champions(current_year):
-  """Reaches back to 2023 to audit standings for 1st, 2nd, 3rd, and League Bitch (Last Place)."""
+def sync_champions_and_finishes(current_year):
+  """Reaches back to 2023 to audit standings for 1st, 2nd, 3rd, League Bitch, and all finishes."""
   all_time = load_history(
       ALL_TIME_FILE,
-      {"champions": {}, "matchups": {}, "h2h_ingested_years": []},
+      {
+          "champions": {},
+          "matchups": {},
+          "finishes": {},
+          "h2h_ingested_years": [],
+      },
   )
   if "champions" not in all_time:
     all_time["champions"] = {}
+  if "finishes" not in all_time:
+    all_time["finishes"] = {}
   all_time["champions"].update(HISTORICAL_CHAMPIONS_OVERRIDE)
 
   for y in range(2023, current_year + 1):
@@ -356,7 +365,31 @@ def sync_champions(current_year):
         if curr_wk <= 17 or not has_champion:
           if y_str in all_time["champions"]:
             del all_time["champions"][y_str]
+          if y_str in all_time["finishes"]:
+            del all_time["finishes"][y_str]
           continue
+
+      ranked_teams = sorted(
+          past_league.teams,
+          key=lambda t: (
+              getattr(t, "final_standing", 99)
+              if getattr(t, "final_standing", 0) > 0
+              else 99,
+              getattr(t, "standing", 99),
+              -getattr(t, "points_for", 0),
+          ),
+      )
+
+      season_finishes = {}
+      for rank_idx, t in enumerate(ranked_teams, 1):
+        mgr = get_manager_name(t)
+        if mgr != "Manager":
+          act_fs = getattr(t, "final_standing", 0)
+          final_place = (
+              act_fs if (0 < act_fs <= len(past_league.teams)) else rank_idx
+          )
+          season_finishes[mgr] = final_place
+      all_time["finishes"][y_str] = season_finishes
 
       existing = all_time["champions"].get(y_str, {})
       if (
@@ -368,10 +401,6 @@ def sync_champions(current_year):
           and existing.get("last") != "TBD"
       ):
         continue
-
-      print(
-          f"Auditing Season {y} for Gold, Silver, Bronze, and League Bitch..."
-      )
 
       gold_team = next(
           (t for t in past_league.teams if getattr(t, "final_standing", 0) == 1),
@@ -434,15 +463,30 @@ def sync_champions(current_year):
       }
       print(f"Season {y} Podium Locked -> {all_time['champions'][y_str]}")
     except Exception as e:
-      print(f"Historical query for Season {y} bypassed: {e}")
+      print(f"Historical query for Season {y} skipped: {e}")
 
   save_history(ALL_TIME_FILE, all_time)
-  return all_time["champions"]
+  return all_time["champions"], all_time.get("finishes", {})
 
 
-def compute_all_time_leaderboard(champions):
-  """Computes total podium and placement counts per manager with most recent placement note."""
+def compute_all_time_leaderboard(champions, current_managers, finishes_data):
+  """Computes total podium and placement counts per manager, ensuring ALL current managers are listed."""
   mgr_stats = {}
+
+  # 1. Guarantee all current managers appear on the ledger
+  for m in current_managers:
+    mgr_stats[m] = {
+        "manager": m,
+        "is_current": True,
+        "gold": 0,
+        "silver": 0,
+        "bronze": 0,
+        "last": 0,
+        "total_podiums": 0,
+        "most_recent": "No Podiums Yet",
+        "finishes": [],
+    }
+
   sorted_years = sorted([int(y) for y in champions.keys()])
 
   for y in sorted_years:
@@ -457,12 +501,14 @@ def compute_all_time_leaderboard(champions):
       if m != "Unknown" and m not in mgr_stats:
         mgr_stats[m] = {
             "manager": m,
+            "is_current": (m in current_managers),
             "gold": 0,
             "silver": 0,
             "bronze": 0,
             "last": 0,
             "total_podiums": 0,
-            "most_recent": "None",
+            "most_recent": "No Podiums Yet",
+            "finishes": [],
         }
 
     if m_gold != "Unknown":
@@ -484,12 +530,43 @@ def compute_all_time_leaderboard(champions):
       mgr_stats[m_last]["last"] += 1
       mgr_stats[m_last]["most_recent"] = f"💩 League Bitch ({y})"
 
+  # 2. Attach recorded finishes from all finalized seasons
+  for y_str, y_finishes in finishes_data.items():
+    for m, place in y_finishes.items():
+      if m not in mgr_stats:
+        mgr_stats[m] = {
+            "manager": m,
+            "is_current": (m in current_managers),
+            "gold": 0,
+            "silver": 0,
+            "bronze": 0,
+            "last": 0,
+            "total_podiums": 0,
+            "most_recent": "No Podiums Yet",
+            "finishes": [],
+        }
+      mgr_stats[m]["finishes"].append(place)
+
+  for m, data in mgr_stats.items():
+    if data["finishes"]:
+      data["avg_finish"] = round(
+          sum(data["finishes"]) / len(data["finishes"]), 1
+      )
+      data["seasons_count"] = len(data["finishes"])
+      data["avg_sort"] = data["avg_finish"]
+    else:
+      data["avg_finish"] = None
+      data["seasons_count"] = 0
+      data["avg_sort"] = 999.0
+
   leaderboard = sorted(
       mgr_stats.values(),
       key=lambda x: (
           -x["gold"],
           -x["silver"],
           -x["bronze"],
+          -x["total_podiums"],
+          x["avg_sort"],
           x["last"],
           x["manager"],
       ),
@@ -560,7 +637,12 @@ def update_and_compute_h2h(history, current_year):
   """Syncs current season matchups to all-time memory and computes lifetime H2H stats."""
   all_time = load_history(
       ALL_TIME_FILE,
-      {"champions": {}, "matchups": {}, "h2h_ingested_years": []},
+      {
+          "champions": {},
+          "matchups": {},
+          "finishes": {},
+          "h2h_ingested_years": [],
+      },
   )
   if "matchups" not in all_time:
     all_time["matchups"] = {}
@@ -752,6 +834,7 @@ def generate_html_report(
     reigning,
     rivalries,
     managers_list,
+    current_managers,
     season_log,
 ):
   sorted_week = sorted(
@@ -941,11 +1024,14 @@ def generate_html_report(
     .glossary-example {{ margin-top: 8px; padding: 8px 10px; background: var(--card); border-radius: 8px; font-size: 12px; color: var(--text); border-left: 3px solid var(--accent); border: 1px solid var(--border); }}
 
     .filter-header {{ padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }}
-    .filter-control {{ display: flex; align-items: center; gap: 8px; width: 100%; max-width: 380px; }}
+    .filter-control {{ display: flex; align-items: center; gap: 8px; width: 100%; max-width: 260px; }}
     .select-dropdown {{
       flex: 1; width: 100%; background: var(--surface); color: var(--text); border: 1px solid var(--border);
       padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; outline: none;
     }}
+    .h2h-scope-bar {{ display: inline-flex; background: var(--surface); padding: 3px; border-radius: 10px; border: 1px solid var(--border); }}
+    .scope-btn {{ background: transparent; border: 1px solid transparent; color: var(--muted); padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s; }}
+    .scope-btn.active {{ background: var(--card); color: var(--text); border-color: var(--border); box-shadow: 0 1px 4px rgba(0,0,0,0.15); }}
   </style>
 </head>
 <body>
@@ -1100,13 +1186,21 @@ def generate_html_report(
     
     <div class="table-container">
       <div class="filter-header">
-        <div style="font-size: 14px; font-weight: 800; color: var(--text);">⚔️ All-Time Manager Rivalry Records (2023–Present)</div>
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+          <div style="font-size: 14px; font-weight: 800; color: var(--text);">⚔️ Head-to-Head Rivalry Records (2023–Present)</div>
+          <div class="h2h-scope-bar">
+            <button id="scopeCurrentBtn" class="scope-btn active" onclick="setH2HScope('current')">👥 Current Managers</button>
+            <button id="scopeAllBtn" class="scope-btn" onclick="setH2HScope('all')">🌐 All-Time (Inc. Former)</button>
+          </div>
+        </div>
         <div class="filter-control">
-          <select id="mgrFilter" class="select-dropdown" onchange="filterRivalries(this.value)">
+          <select id="mgrFilter" class="select-dropdown" onchange="applyH2HFilters()">
             <option value="ALL">Show All Rivalries</option>"""
 
   for mgr in managers_list:
-    html += f"""<option value="{mgr}">{mgr}</option>"""
+    is_cur = mgr in current_managers
+    tag = " (Former)" if not is_cur else ""
+    html += f"""<option value="{mgr}" data-is-current="{'true' if is_cur else 'false'}">{mgr}{tag}</option>"""
 
   html += """
           </select>
@@ -1126,6 +1220,7 @@ def generate_html_report(
 
   for pair_key, r in rivalries.items():
     m1, m2 = r["m1"], r["m2"]
+    is_both_current = m1 in current_managers and m2 in current_managers
     m1_w, m2_w = r["m1_wins"], r["m2_wins"]
     sm1_w, sm2_w = r["season_m1_wins"], r["season_m2_wins"]
     last = r["last_meet"]
@@ -1137,7 +1232,7 @@ def generate_html_report(
     )
 
     html += f"""
-          <tr class="rivalry-row" data-m1="{m1}" data-m2="{m2}">
+          <tr class="rivalry-row" data-m1="{m1}" data-m2="{m2}" data-current="{'true' if is_both_current else 'false'}">
             <td class="team-cell">{m1} vs {m2}</td>
             <td data-label="All-Time Series"><b>{m1_w}–{m2_w}</b></td>
             <td data-label="Season Series">{sm1_w}–{sm2_w}</td>
@@ -1288,7 +1383,7 @@ def generate_html_report(
     <!-- ALL-TIME FRANCHISE PLACEMENT & SHAME TABLE -->
     <div class="table-container">
       <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
-        🏛️ All-Time Franchise Trophy & Shame Ledger (2023–Present)
+        🏛️ All-Time Franchise Trophy & Placement Ledger (2023–Present)
       </div>
       <table class="responsive-table">
         <thead>
@@ -1299,16 +1394,35 @@ def generate_html_report(
             <th>🥉 3rd (Bronze)</th>
             <th>💩 League Bitch</th>
             <th>Total Podiums</th>
+            <th>📊 Avg Finish<span class="sub-th">(2023–Pres)</span></th>
           </tr>
         </thead>
         <tbody>"""
 
   for row in leaderboard:
+    status_badge = (
+        ' <span class="badge badge-neutral" style="font-size: 9px; padding: 1px'
+        ' 5px;">Active</span>'
+        if row["is_current"]
+        else (
+            ' <span class="badge badge-neutral" style="font-size: 9px; padding:'
+            ' 1px 5px; opacity: 0.6;">Alumni</span>'
+        )
+    )
+    if row["avg_finish"] is not None:
+      avg_str = (
+          f"<b>{row['avg_finish']:.1f}</b> <span style=\"font-size: 11px;"
+          f" color: var(--dim); font-weight: normal;\">({row['seasons_count']}"
+          " yrs)</span>"
+      )
+    else:
+      avg_str = '<span style="color: var(--muted);">—</span>'
+
     html += f"""
           <tr>
             <td class="team-cell">
               <div>
-                <b>{row['manager']}</b>
+                <b>{row['manager']}</b>{status_badge}
                 <div style="font-size: 11px; color: var(--muted); font-weight: normal; margin-top: 2px;">Most Recent: {row['most_recent']}</div>
               </div>
             </td>
@@ -1317,6 +1431,7 @@ def generate_html_report(
             <td data-label="🥉 3rd (Bronze)"><b>{row['bronze']}</b></td>
             <td data-label="💩 League Bitch" style="color: #ef4444; font-weight: 700;">{row['last']}</td>
             <td data-label="Total Podiums"><span class="badge badge-neutral"><b>{row['total_podiums']}</b></span></td>
+            <td data-label="📊 Avg Finish">{avg_str}</td>
           </tr>"""
 
   html += """
@@ -1465,6 +1580,8 @@ def generate_html_report(
 </div>
 
 <script>
+  var h2hScope = 'current';
+
   function switchTab(viewName) {
     var tabs = ['week', 'season', 'h2h', 'payouts', 'halloffame', 'blunders', 'glossary'];
     for (var i = 0; i < tabs.length; i++) {
@@ -1489,21 +1606,51 @@ def generate_html_report(
     }
   }
 
-  function filterRivalries(mgr) {
-    var rows = document.querySelectorAll('.rivalry-row');
-    for (var i = 0; i < rows.length; i++) {
-      if (mgr === 'ALL') {
-        rows[i].style.display = '';
-      } else {
-        var m1 = rows[i].getAttribute('data-m1');
-        var m2 = rows[i].getAttribute('data-m2');
-        if (m1 === mgr || m2 === mgr) {
-          rows[i].style.display = '';
+  function setH2HScope(scope) {
+    h2hScope = scope;
+    var curBtn = document.getElementById('scopeCurrentBtn');
+    var allBtn = document.getElementById('scopeAllBtn');
+    if (curBtn) curBtn.classList.toggle('active', scope === 'current');
+    if (allBtn) allBtn.classList.toggle('active', scope === 'all');
+    
+    var select = document.getElementById('mgrFilter');
+    if (select) {
+      var options = select.querySelectorAll('option');
+      options.forEach(function(opt) {
+        if (opt.value === 'ALL') return;
+        var isCurrent = opt.getAttribute('data-is-current') === 'true';
+        if (scope === 'current' && !isCurrent) {
+          opt.style.display = 'none';
+          if (select.value === opt.value) {
+            select.value = 'ALL';
+          }
         } else {
-          rows[i].style.display = 'none';
+          opt.style.display = '';
         }
-      }
+      });
     }
+
+    applyH2HFilters();
+  }
+
+  function applyH2HFilters() {
+    var select = document.getElementById('mgrFilter');
+    var mgr = select ? select.value : 'ALL';
+    var rows = document.querySelectorAll('.rivalry-row');
+    rows.forEach(function(r) {
+      var m1 = r.getAttribute('data-m1');
+      var m2 = r.getAttribute('data-m2');
+      var isCurrent = r.getAttribute('data-current') === 'true';
+
+      var matchesScope = (h2hScope === 'all' || isCurrent);
+      var matchesMgr = (mgr === 'ALL' || m1 === mgr || m2 === mgr);
+
+      if (matchesScope && matchesMgr) {
+        r.style.display = '';
+      } else {
+        r.style.display = 'none';
+      }
+    });
   }
 
   function toggleTheme() {
@@ -1525,6 +1672,7 @@ def generate_html_report(
       document.body.classList.add('light-mode');
       updateThemeBtn(true);
     }
+    setH2HScope('current');
   })();
 </script>
 </body>
@@ -1545,6 +1693,17 @@ def main():
   if not WEEK:
     WEEK = max(1, getattr(league, "current_week", 1) - 1)
     print(f"No week input provided. Auto-detected completed week: Week {WEEK}")
+
+  # Extract list of current managers in active league
+  current_managers = sorted(
+      list(
+          set(
+              get_manager_name(t)
+              for t in league.teams
+              if get_manager_name(t) != "Manager"
+          )
+      )
+  )
 
   print(f"Processing season up to Week {WEEK}...")
   history_file = f"league_history_{YEAR}.json"
@@ -1672,8 +1831,10 @@ def main():
   # Backfill multi-year H2H matchups from 2023 onwards
   sync_historical_h2h(YEAR)
 
-  champions = sync_champions(YEAR)
-  leaderboard = compute_all_time_leaderboard(champions)
+  champions, finishes_data = sync_champions_and_finishes(YEAR)
+  leaderboard = compute_all_time_leaderboard(
+      champions, current_managers, finishes_data
+  )
   reigning = get_reigning_badges(champions, YEAR)
   rivalries, managers_list, season_log = update_and_compute_h2h(history, YEAR)
 
@@ -1691,11 +1852,12 @@ def main():
       reigning,
       rivalries,
       managers_list,
+      current_managers,
       season_log,
   )
   print(
-      "Audit complete! Hall of champions leaderboard, historical H2H, and"
-      " awards compiled."
+      "Audit complete! Hall of champions leaderboard, average finishes,"
+      " current/all H2H compiled."
   )
 
 
