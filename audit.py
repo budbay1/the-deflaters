@@ -14,17 +14,14 @@ YEAR = int(YEAR_ENV) if YEAR_ENV else 2026
 WEEK = int(WEEK_ENV) if WEEK_ENV else None
 
 ROSTER_SLOTS = {
-    "QB": 1,
-    "RB": 2,
-    "WR": 3,
-    "TE": 1,
-    "FLEX": 1,
-    "K": 1,
-    "D/ST": 1,
+    "QB": 1, "RB": 2, "WR": 3, "TE": 1, "FLEX": 1, "K": 1, "D/ST": 1,
 }
 
 ALL_TIME_FILE = "league_history_alltime.json"
 SEASONS_DATA_FILE = "seasons_data.json"
+GLOBAL_DATA_FILE = "global_dashboard_data.json"
+
+HISTORICAL_CHAMPIONS_OVERRIDE = {}
 
 
 def get_manager_name(team):
@@ -37,6 +34,14 @@ def get_manager_name(team):
       return full if full else owner.get("displayName", "Manager")
     return str(owner)
   return getattr(team, "owner", "Manager")
+
+
+def extract_manager_from_label(team_label):
+  if not team_label or team_label == "TBD":
+    return "Unknown"
+  if "(" in team_label and ")" in team_label:
+    return team_label.split("(")[-1].split(")")[0].strip()
+  return team_label.strip()
 
 
 def audit_roster(lineup, slots, actual_score):
@@ -55,8 +60,7 @@ def audit_roster(lineup, slots, actual_score):
 
   flex_pool = sorted(
       rbs[slots.get("RB", 2) :] + wrs[slots.get("WR", 3) :] + tes[slots.get("TE", 1) :],
-      key=lambda x: x.points,
-      reverse=True,
+      key=lambda x: x.points, reverse=True,
   )
   for p in flex_pool[: slots.get("FLEX", 1)]: optimal_ids.add(p.playerId)
   for p in ks[: slots.get("K", 1)]: optimal_ids.add(p.playerId)
@@ -93,6 +97,115 @@ def save_history(filepath, data):
     json.dump(data, f, indent=2)
 
 
+def sync_historical_h2h(current_year):
+  all_time = load_history(ALL_TIME_FILE, {"champions": {}, "matchups": {}, "finishes": {}, "h2h_ingested_years": []})
+  if "matchups" not in all_time: all_time["matchups"] = {}
+  if "h2h_ingested_years" not in all_time: all_time["h2h_ingested_years"] = []
+
+  for y in range(2023, current_year):
+    if y in all_time["h2h_ingested_years"]: continue
+    try:
+      past_league = League(league_id=LEAGUE_ID, year=y, espn_s2=ESPN_S2, swid=SWID)
+      for w in range(1, 19):
+        try:
+          b_scores = past_league.box_scores(week=w)
+          if not b_scores: continue
+          for match in b_scores:
+            h_act, a_act = round(match.home_score, 2), round(match.away_score, 2)
+            if h_act == 0 and a_act == 0: continue
+            h_mgr, a_mgr = get_manager_name(match.home_team), get_manager_name(match.away_team)
+            if h_mgr == "Manager" and a_mgr == "Manager": continue
+            pair = sorted([h_mgr, a_mgr])
+            m_id = f"{y}_W{w}_{pair[0]}_vs_{pair[1]}"
+            if m_id not in all_time["matchups"]:
+              all_time["matchups"][m_id] = {"year": y, "week": w, "m1": h_mgr, "t1": match.home_team.team_name, "s1": h_act, "m2": a_mgr, "t2": match.away_team.team_name, "s2": a_act}
+        except Exception: break
+      all_time["h2h_ingested_years"].append(y)
+    except Exception as e: print(f"Could not backfill Season {y} H2H: {e}")
+  save_history(ALL_TIME_FILE, all_time)
+  return all_time
+
+
+def sync_champions_and_finishes(current_year):
+  all_time = load_history(ALL_TIME_FILE, {"champions": {}, "matchups": {}, "finishes": {}, "h2h_ingested_years": []})
+  if "champions" not in all_time: all_time["champions"] = {}
+  if "finishes" not in all_time: all_time["finishes"] = {}
+  all_time["champions"].update(HISTORICAL_CHAMPIONS_OVERRIDE)
+
+  for y in range(2023, current_year + 1):
+    y_str = str(y)
+    try:
+      past_league = League(league_id=LEAGUE_ID, year=y, espn_s2=ESPN_S2, swid=SWID)
+      curr_wk = getattr(past_league, "current_week", 1)
+      if y == current_year:
+        standings = [getattr(t, "final_standing", 0) for t in past_league.teams]
+        if curr_wk <= 17 or not any(s == 1 for s in standings):
+          all_time["champions"].pop(y_str, None)
+          all_time["finishes"].pop(y_str, None)
+          continue
+
+      ranked_teams = sorted(past_league.teams, key=lambda t: (getattr(t, "final_standing", 99) if getattr(t, "final_standing", 0) > 0 else 99, getattr(t, "standing", 99), -getattr(t, "points_for", 0)))
+      season_finishes = {get_manager_name(t): (getattr(t, "final_standing", 0) if 0 < getattr(t, "final_standing", 0) <= len(past_league.teams) else idx) for idx, t in enumerate(ranked_teams, 1) if get_manager_name(t) != "Manager"}
+      all_time["finishes"][y_str] = season_finishes
+
+      if all_time["champions"].get(y_str, {}).get("gold") and all_time["champions"][y_str].get("gold") != "TBD": continue
+
+      gold_team = next((t for t in past_league.teams if getattr(t, "final_standing", 0) == 1), None)
+      silver_team = next((t for t in past_league.teams if getattr(t, "final_standing", 0) == 2), None)
+      bronze_team = next((t for t in past_league.teams if getattr(t, "final_standing", 0) == 3), None)
+      remaining = [t for t in past_league.teams if t != gold_team and t != silver_team]
+      remaining.sort(key=lambda t: (getattr(t, "final_standing", 99) if getattr(t, "final_standing", 0) > 0 else 99, getattr(t, "standing", 99), -getattr(t, "points_for", 0)))
+
+      if not gold_team and past_league.teams: gold_team = remaining.pop(0)
+      if not silver_team and remaining: silver_team = remaining.pop(0)
+      if not bronze_team and remaining: bronze_team = remaining.pop(0)
+
+      valid_standings = [t for t in past_league.teams if getattr(t, "final_standing", 0) > 0]
+      last_team = max(valid_standings, key=lambda t: t.final_standing) if valid_standings else max(past_league.teams, key=lambda t: (getattr(t, "standing", 0), -getattr(t, "points_for", 0)))
+
+      def format_champ_entry(t):
+        if not t: return "TBD"
+        mgr = get_manager_name(t)
+        return f"{t.team_name} ({mgr})" if mgr != "Manager" else t.team_name
+
+      all_time["champions"][y_str] = {"gold": format_champ_entry(gold_team), "silver": format_champ_entry(silver_team), "bronze": format_champ_entry(bronze_team), "last": format_champ_entry(last_team)}
+    except Exception as e: print(f"Historical query for Season {y} skipped: {e}")
+
+  save_history(ALL_TIME_FILE, all_time)
+  return all_time["champions"], all_time.get("finishes", {})
+
+
+def compute_all_time_leaderboard(champions, current_managers, finishes_data):
+  mgr_stats = {m: {"manager": m, "is_current": True, "gold": 0, "silver": 0, "bronze": 0, "last": 0, "total_podiums": 0, "most_recent": "No Podiums Yet", "finishes": []} for m in current_managers}
+  for y in sorted([int(y) for y in champions.keys()]):
+    p = champions[str(y)]
+    for m, cat in [(extract_manager_from_label(p.get("gold")), "gold"), (extract_manager_from_label(p.get("silver")), "silver"), (extract_manager_from_label(p.get("bronze")), "bronze"), (extract_manager_from_label(p.get("last")), "last")]:
+      if m != "Unknown":
+        if m not in mgr_stats: mgr_stats[m] = {"manager": m, "is_current": False, "gold": 0, "silver": 0, "bronze": 0, "last": 0, "total_podiums": 0, "most_recent": "No Podiums Yet", "finishes": []}
+        if cat != "last":
+          mgr_stats[m][cat] += 1
+          mgr_stats[m]["total_podiums"] += 1
+          mgr_stats[m]["most_recent"] = f"🥇 Gold ({y})" if cat == "gold" else (f"🥈 Silver ({y})" if cat == "silver" else f"🥉 Bronze ({y})")
+        else:
+          mgr_stats[m]["last"] += 1
+          mgr_stats[m]["most_recent"] = f"💩 League Bitch ({y})"
+
+  for y_str, y_finishes in finishes_data.items():
+    for m, place in y_finishes.items():
+      if m not in mgr_stats: mgr_stats[m] = {"manager": m, "is_current": False, "gold": 0, "silver": 0, "bronze": 0, "last": 0, "total_podiums": 0, "most_recent": "No Podiums Yet", "finishes": []}
+      mgr_stats[m]["finishes"].append(place)
+
+  for m, data in mgr_stats.items():
+    if data["finishes"]:
+      data["avg_finish"] = round(sum(data["finishes"]) / len(data["finishes"]), 1)
+      data["seasons_count"] = len(data["finishes"])
+      data["avg_sort"] = data["avg_finish"]
+    else:
+      data["avg_finish"], data["seasons_count"], data["avg_sort"] = None, 0, 999.0
+
+  return sorted(mgr_stats.values(), key=lambda x: (-x["gold"], -x["silver"], -x["bronze"], -x["total_podiums"], x["avg_sort"], x["last"], x["manager"]))
+
+
 def main():
   global WEEK
   print(f"Connecting to ESPN Fantasy API for League {LEAGUE_ID} (Season {YEAR})...")
@@ -102,14 +215,15 @@ def main():
     WEEK = max(1, getattr(league, "current_week", 1) - 1)
     print(f"Auto-detected completed week: Week {WEEK}")
 
+  current_managers = sorted(list(set(get_manager_name(t) for t in league.teams if get_manager_name(t) != "Manager")))
+
   history_file = f"league_history_{YEAR}.json"
   history = load_history(history_file, {"year": YEAR, "weeks": {}})
 
   for w in range(1, WEEK + 1):
     w_str = str(w)
     box_scores = league.box_scores(week=w)
-    if not box_scores:
-      continue
+    if not box_scores: continue
 
     w_teams = []
     for match in box_scores:
@@ -152,10 +266,29 @@ def main():
 
   save_history(history_file, history)
 
+  # Sync all-time records
+  all_time_data = sync_historical_h2h(YEAR)
+  champions, finishes_data = sync_champions_and_finishes(YEAR)
+  leaderboard = compute_all_time_leaderboard(champions, current_managers, finishes_data)
+  prior_year_str = str(YEAR - 1)
+  reigning = champions.get(prior_year_str, {})
+  reigning["year"] = prior_year_str
+
+  # Save comprehensive global data bundle for index.html
   seasons_data = load_history(SEASONS_DATA_FILE, {})
   seasons_data[str(YEAR)] = history.get("weeks", {})
   save_history(SEASONS_DATA_FILE, seasons_data)
-  print("Data engine execution complete. seasons_data.json updated.")
+
+  global_bundle = {
+      "seasons_data": seasons_data,
+      "champions": champions,
+      "leaderboard": leaderboard,
+      "reigning": reigning,
+      "current_managers": current_managers,
+      "matchups": all_time_data.get("matchups", {})
+  }
+  save_history(GLOBAL_DATA_FILE, global_bundle)
+  print("Data engine execution complete. global_dashboard_data.json updated.")
 
 
 if __name__ == "__main__":
