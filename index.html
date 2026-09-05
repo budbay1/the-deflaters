@@ -151,14 +151,14 @@
 </script>
 
 <script id="active-meta-data" type="application/json">
-{"year": "2025", "week": "14"}
+{"year": "2025", "week": "13"}
 </script>
 
 <div class="wrapper">
   <div class="header">
     <div>
       <div class="subtitle">The Deflaters Analytics Lab</div>
-      <h1 id="headerSummaryTitle">WEEK 14 SUMMARY</h1>
+      <h1 id="headerSummaryTitle">WEEK 13 SUMMARY</h1>
     </div>
     <div class="header-controls">
       <div class="selector-group">
@@ -2072,9 +2072,14 @@
     var yrData = seasonsData[currentYear] || {};
     var wkData = yrData[currentWeek] || [];
 
-    document.getElementById('headerSummaryTitle').innerText = currentYear + ' WEEK ' + currentWeek + ' SUMMARY';
-    document.getElementById('tabBtnWeek').innerText = '📅 Week ' + currentWeek + ' Summary';
-    document.getElementById('tabBtnSeason').innerText = '📈 ' + currentYear + ' Season Trends';
+    var summaryTitleEl = document.getElementById('headerSummaryTitle');
+    if (summaryTitleEl) summaryTitleEl.innerText = currentYear + ' WEEK ' + currentWeek + ' SUMMARY';
+    
+    var btnWeekEl = document.getElementById('tabBtnWeek');
+    if (btnWeekEl) btnWeekEl.innerText = '📅 Week ' + currentWeek + ' Summary';
+    
+    var btnSeasonEl = document.getElementById('tabBtnSeason');
+    if (btnSeasonEl) btnSeasonEl.innerText = '📈 ' + currentYear + ' Season Trends';
 
     var sorted = wkData.slice().sort(function(a, b) {
       if (b.all_play_w !== a.all_play_w) return b.all_play_w - a.all_play_w;
@@ -2082,21 +2087,23 @@
     });
 
     var tbody = document.getElementById('weekTableBody');
-    tbody.innerHTML = '';
-    sorted.forEach(function(t, idx) {
-      var deltaClass = t.luck_delta > 0 ? 'badge-lucky' : (t.luck_delta < 0 ? 'badge-unlucky' : 'badge-neutral');
-      var resBadge = t.result === 'W' ? 'badge-win' : 'badge-loss';
-      var tr = document.createElement('tr');
-      tr.innerHTML = 
-        '<td class="team-cell"><span class="rank-num">#' + (idx + 1) + '</span> ' + renderBadge(t.team) + '</td>' +
-        '<td data-label="Result"><span class="badge ' + resBadge + '">' + t.result + '</span></td>' +
-        '<td data-label="Score"><b>' + t.actual.toFixed(2) + '</b> <span style="font-size: 11px; color: var(--dim);">(' + (t.diff > 0 ? '+' : '') + t.diff.toFixed(2) + ')</span></td>' +
-        '<td data-label="Opponent">' + t.opp + ' <span style="color: var(--muted); font-size: 11px;">(' + t.opp_actual.toFixed(2) + ')</span></td>' +
-        '<td data-label="All-Play"><b>' + t.all_play_w + '</b>–' + t.all_play_l + '</td>' +
-        '<td data-label="Luck Δ"><span class="badge ' + deltaClass + '">' + (t.luck_delta > 0 ? '+' : '') + t.luck_delta.toFixed(3) + '</span></td>' +
-        '<td data-label="Coaching Eff"><b>' + t.coach_eff.toFixed(1) + '%</b></td>';
-      tbody.appendChild(tr);
-    });
+    if (tbody) {
+      tbody.innerHTML = '';
+      sorted.forEach(function(t, idx) {
+        var deltaClass = t.luck_delta > 0 ? 'badge-lucky' : (t.luck_delta < 0 ? 'badge-unlucky' : 'badge-neutral');
+        var resBadge = t.result === 'W' ? 'badge-win' : 'badge-loss';
+        var tr = document.createElement('tr');
+        tr.innerHTML = 
+          '<td class="team-cell"><span class="rank-num">#' + (idx + 1) + '</span> ' + renderBadge(t.team) + '</td>' +
+          '<td data-label="Result"><span class="badge ' + resBadge + '">' + t.result + '</span></td>' +
+          '<td data-label="Score"><b>' + t.actual.toFixed(2) + '</b> <span style="font-size: 11px; color: var(--dim);">(' + (t.diff > 0 ? '+' : '') + t.diff.toFixed(2) + ')</span></td>' +
+          '<td data-label="Opponent">' + t.opp + ' <span style="color: var(--muted); font-size: 11px;">(' + t.opp_actual.toFixed(2) + ')</span></td>' +
+          '<td data-label="All-Play"><b>' + t.all_play_w + '</b>–' + t.all_play_l + '</td>' +
+          '<td data-label="Luck Δ"><span class="badge ' + deltaClass + '">' + (t.luck_delta > 0 ? '+' : '') + t.luck_delta.toFixed(3) + '</span></td>' +
+          '<td data-label="Coaching Eff"><b>' + t.coach_eff.toFixed(1) + '%</b></td>';
+        tbody.appendChild(tr);
+      });
+    }
 
     renderWeeklyAwards(sorted);
     renderBenchBlunders(wkData);
@@ -2105,6 +2112,7 @@
 
   function renderWeeklyAwards(sortedWkData) {
     var awardsContainer = document.getElementById('dynamicAwardsGrid');
+    if (!awardsContainer) return;
     if (!sortedWkData || sortedWkData.length === 0) {
       awardsContainer.innerHTML = '<div style="color: var(--muted); padding: 12px;">No box scores available for this week.</div>';
       return;
@@ -2117,9 +2125,11 @@
 
     var allStarters = [];
     sortedWkData.forEach(function(t) {
-      t.players.forEach(function(p) {
-        if (p.started) allStarters.push({ player: p.name, pos: p.pos, pts: p.pts, team: t.team });
-      });
+      if (t.players) {
+        t.players.forEach(function(p) {
+          if (p.started) allStarters.push({ player: p.name, pos: p.pos, pts: p.pts, team: t.team });
+        });
+      }
     });
     var anchor = allStarters.length > 0 ? allStarters.sort(function(a, b) { return a.pts - b.pts; })[0] : null;
 
@@ -2173,15 +2183,18 @@
   function renderBenchBlunders(wkData) {
     var blunders = [];
     wkData.forEach(function(t) {
-      t.players.forEach(function(p) {
-        if (p.audit === 'Costly Bench') {
-          blunders.push({ team: t.team, name: p.name, pos: p.pos, pts: p.pts, proj: p.proj });
-        }
-      });
+      if (t.players) {
+        t.players.forEach(function(p) {
+          if (p.audit === 'Costly Bench') {
+            blunders.push({ team: t.team, name: p.name, pos: p.pos, pts: p.pts, proj: p.proj });
+          }
+        });
+      }
     });
     blunders.sort(function(a, b) { return b.pts - a.pts; });
 
     var bbody = document.getElementById('blundersTableBody');
+    if (!bbody) return;
     bbody.innerHTML = '';
     blunders.slice(0, 10).forEach(function(b, idx) {
       var btr = document.createElement('tr');
@@ -2236,8 +2249,6 @@
     });
 
     var rows = Object.values(stats);
-    var totalGames = weeks.length;
-
     rows.forEach(function(r) {
       var totalMatches = r.actual_w + r.actual_l;
       r.pyth_w = totalMatches > 0 ? (Math.pow(r.pf, 2) / (Math.pow(r.pf, 2) + Math.pow(r.pa, 2))) * totalMatches : 0;
@@ -2253,6 +2264,7 @@
     });
 
     var stBody = document.getElementById('seasonTableBody');
+    if (!stBody) return;
     stBody.innerHTML = '';
     rows.forEach(function(r, idx) {
       var totalMatches = r.actual_w + r.actual_l;
@@ -2301,20 +2313,24 @@
     });
     var btns = document.querySelectorAll('.tab-btn');
     btns.forEach(function(b) { b.classList.remove('active'); });
-    event.currentTarget.classList.add('active');
+    if (event && event.currentTarget) event.currentTarget.classList.add('active');
   }
 
   function setH2HScope(scope) {
     h2hScope = scope;
-    document.getElementById('scopeCurrentBtn').classList.toggle('active', scope === 'current');
-    document.getElementById('scopeAllBtn').classList.toggle('active', scope === 'all');
+    var curBtn = document.getElementById('scopeCurrentBtn');
+    var allBtn = document.getElementById('scopeAllBtn');
+    if (curBtn) curBtn.classList.toggle('active', scope === 'current');
+    if (allBtn) allBtn.classList.toggle('active', scope === 'all');
     applyH2HFilters();
   }
 
   function setHOFScope(scope) {
     hofScope = scope;
-    document.getElementById('hofScopeCurrentBtn').classList.toggle('active', scope === 'current');
-    document.getElementById('hofScopeAllBtn').classList.toggle('active', scope === 'all');
+    var curBtn = document.getElementById('hofScopeCurrentBtn');
+    var allBtn = document.getElementById('hofScopeAllBtn');
+    if (curBtn) curBtn.classList.toggle('active', scope === 'current');
+    if (allBtn) allBtn.classList.toggle('active', scope === 'all');
     
     var rows = document.querySelectorAll('.hof-row');
     rows.forEach(function(row) {
@@ -2328,7 +2344,8 @@
   }
 
   function applyH2HFilters() {
-    var selectedMgr = document.getElementById('mgrFilter').value;
+    var mgrFilterEl = document.getElementById('mgrFilter');
+    var selectedMgr = mgrFilterEl ? mgrFilterEl.value : 'ALL';
     var rows = document.querySelectorAll('.rivalry-row');
     
     rows.forEach(function(row) {
