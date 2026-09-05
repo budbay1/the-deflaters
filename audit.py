@@ -1709,6 +1709,13 @@ if __name__ == "__main__":
     print(f"Syncing historical season weeks for {current_year}...")
     season_data = sync_historical_season_weeks(current_year)
 
+    # Safe pre-season fallback: if the requested year has no weeks ingested yet,
+    # default to 2025 so your dashboard has rich data to render during manual workflow runs.
+    if not season_data.get("weeks") and current_year == 2026:
+        print("Current season has no completed weeks yet. Falling back to 2025 for data structure preview...")
+        current_year = 2025
+        season_data = sync_historical_season_weeks(current_year)
+
     all_seasons = {str(current_year): season_data.get("weeks", {})}
     if os.path.exists("seasons_data.json"):
         try:
