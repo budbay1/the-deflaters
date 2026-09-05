@@ -26,6 +26,7 @@ ROSTER_SLOTS = {
 }
 
 ALL_TIME_FILE = "league_history_alltime.json"
+SEASONS_DATA_FILE = "seasons_data.json"
 
 HISTORICAL_CHAMPIONS_OVERRIDE = {
     # "2022": {"gold": "Team (Manager)", "silver": "Team (Manager)", "bronze": "Team (Manager)", "last": "Team (Manager)"}
@@ -171,7 +172,6 @@ def compute_records_and_payouts(history):
     if not matchups:
       continue
 
-    # 1. Weekly High Team Points
     high_match = max(matchups, key=lambda x: x["actual"])
     weekly_team_bounties.append({
         "week": w,
@@ -181,7 +181,6 @@ def compute_records_and_payouts(history):
         "opp_pts": high_match["opp_actual"],
     })
 
-    # 2. Weekly High Individual Starter & Weekly Anchor (Lowest Starter)
     starters_this_week = []
     for team_entry in matchups:
       team_name = team_entry["team"]
@@ -274,7 +273,6 @@ def compute_records_and_payouts(history):
 
 
 def sync_historical_h2h(current_year):
-  """Reaches back to 2023 to backfill multi-year head-to-head records."""
   all_time = load_history(
       ALL_TIME_FILE,
       {
@@ -331,7 +329,6 @@ def sync_historical_h2h(current_year):
         except Exception:
           break
       all_time["h2h_ingested_years"].append(y)
-      print(f"Season {y} H2H matchups successfully indexed!")
     except Exception as e:
       print(f"Could not backfill Season {y} H2H: {e}")
 
@@ -339,7 +336,6 @@ def sync_historical_h2h(current_year):
 
 
 def sync_champions_and_finishes(current_year):
-  """Reaches back to 2023 to audit standings for 1st, 2nd, 3rd, League Bitch, and all finishes."""
   all_time = load_history(
       ALL_TIME_FILE,
       {
@@ -364,7 +360,6 @@ def sync_champions_and_finishes(current_year):
       )
       curr_wk = getattr(past_league, "current_week", 1)
 
-      # Suppress in-progress season until the entire championship has finalized
       if y == current_year:
         standings = [
             getattr(t, "final_standing", 0) for t in past_league.teams
@@ -469,7 +464,6 @@ def sync_champions_and_finishes(current_year):
           "bronze": format_champ_entry(bronze_team),
           "last": format_champ_entry(last_team),
       }
-      print(f"Season {y} Podium Locked -> {all_time['champions'][y_str]}")
     except Exception as e:
       print(f"Historical query for Season {y} skipped: {e}")
 
@@ -478,7 +472,6 @@ def sync_champions_and_finishes(current_year):
 
 
 def compute_all_time_leaderboard(champions, current_managers, finishes_data):
-  """Computes total podium and placement counts per manager, ensuring ALL current managers are listed."""
   mgr_stats = {}
 
   for m in current_managers:
@@ -593,7 +586,6 @@ def get_reigning_badges(champions, current_year):
 
 
 def render_team_badge(team_label, reigning):
-  """Appends persistent reigning medal or shame pills next to manager names."""
   if not reigning:
     return team_label
 
@@ -640,7 +632,6 @@ def render_team_badge(team_label, reigning):
 
 
 def update_and_compute_h2h(history, current_year):
-  """Syncs current season matchups to all-time memory and computes lifetime H2H stats."""
   all_time = load_history(
       ALL_TIME_FILE,
       {
@@ -807,7 +798,6 @@ def compute_trends(history):
       elif entry["result"] == "L":
         stat["actual_l"] += 1
 
-      # Cardiac Index: games decided by 5.00 points or fewer
       margin = abs(act - opp_act)
       if margin <= 5.00:
         if entry["result"] == "W":
@@ -842,14 +832,12 @@ def compute_trends(history):
     s["avg_pa"] = round(s["pa"] / total_weeks, 2) if total_weeks else 0.0
     s["pine_tax"] = round(s["pine_tax"], 2)
 
-    # Pythagorean Expected Wins
     pf_sq = s["pf"] ** 2
     pa_sq = s["pa"] ** 2
     denom = pf_sq + pa_sq
     s["pyth_wins"] = round((pf_sq / denom) * tot_act, 1) if denom > 0 else 0.0
     s["pyth_delta"] = round(s["actual_w"] - s["pyth_wins"], 1)
 
-    # Score Volatility (Standard Deviation)
     if len(s["scores"]) > 1:
       sd = round(statistics.stdev(s["scores"]), 1)
       s["volatility_sd"] = sd
@@ -884,6 +872,17 @@ def generate_html_report(
     current_managers,
     season_log,
 ):
+  # 1. Update and save multi-season archive for dynamic JavaScript dropdowns
+  seasons_data = load_history(SEASONS_DATA_FILE, {})
+  history_file = f"league_history_{YEAR}.json"
+  curr_history = load_history(history_file, {"year": YEAR, "weeks": {}})
+  seasons_data[str(YEAR)] = curr_history.get("weeks", {})
+  save_history(SEASONS_DATA_FILE, seasons_data)
+
+  serialized_seasons = json.dumps(seasons_data)
+  serialized_reigning = json.dumps(reigning)
+  active_meta = json.dumps({"year": str(YEAR), "week": str(week_num)})
+
   sorted_week = sorted(
       current_week_data, key=lambda x: (x["all_play_w"], x["actual"]), reverse=True
   )
@@ -947,7 +946,6 @@ def generate_html_report(
       or (weekly_anchors[-1] if weekly_anchors else None)
   )
 
-  # Extremes of War: Largest blowout vs closest heartbreaker
   blowout_game = (
       max(season_log, key=lambda x: x["margin"]) if season_log else None
   )
@@ -960,7 +958,7 @@ def generate_html_report(
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <title>The Deflaters // Week {week_num} Summary</title>
+  <title>The Deflaters // League Engine</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -1004,8 +1002,17 @@ def generate_html_report(
     .header h1 {{ font-size: 22px; font-weight: 800; color: #fff; }}
     .header .subtitle {{ color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 11px; letter-spacing: 1.5px; margin-bottom: 2px; }}
     .header-controls {{ display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }}
-    .header-badge {{ background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.25); color: var(--accent); padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }}
     
+    .selector-group {{
+      display: inline-flex; align-items: center; background: rgba(0, 0, 0, 0.25); border: 1px solid var(--border);
+      padding: 4px 8px; border-radius: 12px; gap: 8px;
+    }}
+    .selector-label {{ font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--accent); }}
+    .dropdown-select {{
+      background: var(--surface); color: var(--text); border: 1px solid var(--border);
+      padding: 4px 8px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; outline: none;
+    }}
+
     .theme-toggle-btn {{
       background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
       color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700;
@@ -1096,20 +1103,40 @@ def generate_html_report(
   </style>
 </head>
 <body>
+
+<script id="seasons-data-payload" type="application/json">
+{serialized_seasons}
+</script>
+
+<script id="reigning-badges-data" type="application/json">
+{serialized_reigning}
+</script>
+
+<script id="active-meta-data" type="application/json">
+{active_meta}
+</script>
+
 <div class="wrapper">
   <div class="header">
     <div>
       <div class="subtitle">The Deflaters Analytics Lab</div>
-      <h1>WEEK {week_num} SUMMARY</h1>
+      <h1 id="headerSummaryTitle">WEEK {week_num} SUMMARY</h1>
     </div>
     <div class="header-controls">
+      <div class="selector-group">
+        <span class="selector-label">Season:</span>
+        <select id="seasonSelect" class="dropdown-select" onchange="onSeasonChange(this.value)"></select>
+      </div>
+      <div class="selector-group">
+        <span class="selector-label">Week:</span>
+        <select id="weekSelect" class="dropdown-select" onchange="onWeekChange(this.value)"></select>
+      </div>
       <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()">☀️ Light Mode</button>
-      <div class="header-badge">Season {YEAR} (Weeks 1–{total_weeks})</div>
     </div>
   </div>
 
   <!-- AWARDS & SUPERLATIVES GRID (TOP 5) -->
-  <div class="awards-grid">
+  <div class="awards-grid" id="dynamicAwardsGrid">
     <div class="award-card gold">
       <div>
         <div class="award-tag" style="color: var(--gold);">💰 Week {curr_bounty['week'] if curr_bounty else week_num} Team Bounty</div>
@@ -1157,8 +1184,8 @@ def generate_html_report(
   </div>
 
   <div class="tab-bar">
-    <button class="tab-btn active" onclick="switchTab('week')">📅 Week {week_num} Summary</button>
-    <button class="tab-btn" onclick="switchTab('season')">📈 Season Trends</button>
+    <button class="tab-btn active" onclick="switchTab('week')" id="tabBtnWeek">📅 Week {week_num} Summary</button>
+    <button class="tab-btn" onclick="switchTab('season')" id="tabBtnSeason">📈 Season Trends</button>
     <button class="tab-btn" onclick="switchTab('h2h')">⚔️ Head-to-Head</button>
     <button class="tab-btn" onclick="switchTab('payouts')">💰 Payouts & Records</button>
     <button class="tab-btn" onclick="switchTab('halloffame')">🏆 Hall of Champions</button>
@@ -1180,7 +1207,7 @@ def generate_html_report(
           <th>Coaching Eff<span class="sub-th">Optimal Pts %</span></th>
         </tr>
       </thead>
-      <tbody>"""
+      <tbody id="weekTableBody">"""
 
   for idx, t in enumerate(sorted_week, 1):
     delta_class = (
@@ -1206,7 +1233,7 @@ def generate_html_report(
     </table>
   </div>
 
-  <!-- TAB 2: SEASON TRENDS (EXPANDED WITH CARDIAC, PYTHAGOREAN, AND VOLATILITY) -->
+  <!-- TAB 2: SEASON TRENDS -->
   <div id="view-season" class="table-container" style="display: none;">
     <table class="responsive-table">
       <thead>
@@ -1223,7 +1250,7 @@ def generate_html_report(
           <th>Avg Opp PA</th>
         </tr>
       </thead>
-      <tbody>"""
+      <tbody id="seasonTableBody">"""
 
   for idx, s in enumerate(sorted_trends, 1):
     c_delta_class = (
@@ -1333,7 +1360,7 @@ def generate_html_report(
     <!-- SEASON MATCHUP SCHEDULE LOG -->
     <div class="table-container">
       <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 14px;">
-        📅 Season {YEAR} Completed Matchup Log
+        📅 Season Completed Matchup Log
       </div>
       <table class="responsive-table">
         <thead>
@@ -1398,7 +1425,7 @@ def generate_html_report(
       </div>
     </div>
 
-    <!-- EXTREMES OF WAR (THE GAVEL & THE COIN FLIP) -->
+    <!-- EXTREMES OF WAR -->
     <div style="font-size: 15px; font-weight: 800; color: var(--text); margin-top: 4px;">⚔️ Extremes of War (Season Highs & Heartbreaks)</div>
     <div class="awards-grid">
       <div class="award-card red">
@@ -1420,7 +1447,7 @@ def generate_html_report(
       </div>
     </div>
 
-    <!-- WEEKLY CASH PAYOUTS TABLE (INCLUDES ANCHOR) -->
+    <!-- WEEKLY CASH PAYOUTS TABLE -->
     <div class="table-container">
       <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 14px;">
         💵 Weekly High Scorer Cash Ledger & The Anchor (Lead Weight)
@@ -1491,7 +1518,6 @@ def generate_html_report(
   <!-- TAB 5: HALL OF CHAMPIONS -->
   <div id="view-halloffame" style="display: none; display: flex; flex-direction: column; gap: 20px;">
     
-    <!-- ALL-TIME FRANCHISE PLACEMENT & SHAME TABLE -->
     <div class="table-container">
       <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
         🏛️ All-Time Franchise Trophy & Placement Ledger (2023–Present)
@@ -1550,7 +1576,6 @@ def generate_html_report(
       </table>
     </div>
 
-    <!-- HISTORICAL SEASON PODIUM CARDS -->
     <div class="table-container">
       <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 14px;">
         🏆 Historical Season Podiums (Finalized Seasons)
@@ -1602,7 +1627,7 @@ def generate_html_report(
           <th>Projection</th>
         </tr>
       </thead>
-      <tbody>"""
+      <tbody id="blundersTableBody">"""
 
   for idx, b in enumerate(all_blunders[:10], 1):
     dec_team = render_team_badge(b["team"], reigning)
@@ -1620,130 +1645,352 @@ def generate_html_report(
     </table>
   </div>
 
-  <!-- TAB 7: STAT DECODERS (COMPREHENSIVE HANDBOOK) -->
+  <!-- TAB 7: STAT DECODERS -->
   <div id="view-glossary" class="table-container" style="display: none;">
     <div style="padding: 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
       📖 The Deflaters Analytics Handbook
     </div>
     <div class="glossary-grid">
-      
       <div class="glossary-card">
-        <div class="glossary-title">🫀 The Cardiac Index (Clutch vs. Cursed)</div>
-        <div class="glossary-desc">
-          Tracks team record in tight, high-pressure games decided by <b>5.00 points or fewer</b>. Identifies who has ice in their veins versus who is snakebitten by heartbreakers.
-        </div>
-        <div class="glossary-example">
-          <b>Example:</b> A 3–0 record means you routinely win nail-biters; a 0–3 record means you've suffered 3 brutal losses by a single play.
-        </div>
+        <div class="glossary-title">🫀 The Cardiac Index</div>
+        <div class="glossary-desc">Tracks team record in tight games decided by <b>5.00 points or fewer</b>.</div>
       </div>
-
       <div class="glossary-card">
         <div class="glossary-title">📊 Scoring Volatility (σ StdDev)</div>
-        <div class="glossary-desc">
-          Statistical standard deviation of your weekly scoring totals. Measures whether your lineup is predictable or chaotic.
-        </div>
-        <div class="glossary-example">
-          <b>Steady Floor (σ &lt; 12):</b> Scores almost the exact same points every week.<br>
-          <b>Boom/Bust (σ &gt; 18):</b> Alternates between 160-pt explosions and 75-pt duds.
-        </div>
+        <div class="glossary-desc">Standard deviation of weekly totals. Highlights <b>Steady Floors</b> (&lt;12) vs. <b>Boom/Bust</b> squads (&gt;18).</div>
       </div>
-
       <div class="glossary-card">
         <div class="glossary-title">📐 Pythagorean Expected Wins</div>
-        <div class="glossary-desc">
-          Adapts Bill James's sports formula: <code>(PF² ÷ [PF² + PA²]) × Games</code>. Calculates what your win-loss record <i>should</i> be based solely on point differential.
-        </div>
-        <div class="glossary-example">
-          <b>Example:</b> An 8–2 team with only 5.8 Pythagorean expected wins is living on borrowed time and schedule luck.
-        </div>
+        <div class="glossary-desc">Formula: <code>(PF² ÷ [PF² + PA²]) × Games</code>. Calculates true record based purely on scoring differential.</div>
       </div>
-
       <div class="glossary-card">
-        <div class="glossary-title">🔨 Extremes of War (Gavel & Coin Flip)</div>
-        <div class="glossary-desc">
-          Tracks the absolute matchup boundaries of the season.
-        </div>
-        <div class="glossary-example">
-          <b>The Gavel:</b> Largest blowout of the year (biggest margin of victory).<br>
-          <b>The Coin Flip:</b> Closest game of the year (smallest margin of victory).
-        </div>
+        <div class="glossary-title">⚓ The Anchor Award</div>
+        <div class="glossary-desc">Weekly dishonor given to the lowest scoring active starter in the entire league.</div>
       </div>
-
-      <div class="glossary-card">
-        <div class="glossary-title">⚓ The Anchor Award (Lead Weight)</div>
-        <div class="glossary-desc">
-          The anti-bounty award given each week to the single lowest-scoring active starter across the entire league (benched players excluded).
-        </div>
-        <div class="glossary-example">
-          <b>Example:</b> Starting a kicker or defense that puts up -3.00 points, or a WR who posts a 1-catch, 4-yard dud (1.40 pts).
-        </div>
-      </div>
-
-      <div class="glossary-card">
-        <div class="glossary-title">🪵 Pine Tax (Cumulative Bench Cost)</div>
-        <div class="glossary-desc">
-          Total real points surrendered to your bench across the season. Calculates the difference between your team's <b>Optimal Score</b> and your <b>Actual Score</b> each week.
-        </div>
-        <div class="glossary-example">
-          <b>Example:</b> Started an RB who scored 4.20 pts while leaving an RB with 18.20 on the bench. That is <b>14.00 pts</b> added to your Pine Tax.
-        </div>
-      </div>
-
-      <div class="glossary-card">
-        <div class="glossary-title">🧲 Opp Surges Faced & Streak (X st)</div>
-        <div class="glossary-desc">
-          Tracks how many times an opponent significantly outperformed their projected ESPN score against you. The <b>(X st)</b> callout denotes their <b>current consecutive streak</b> of facing surging opponents.
-        </div>
-        <div class="glossary-example">
-          <b>Example:</b> <code>6/14 wks (3 st!)</code> means opponents beat projections 6 times, currently in a 3-week streak of opponent scoring explosions.
-        </div>
-      </div>
-
-      <div class="glossary-card">
-        <div class="glossary-title">🍀 Luck Delta (Δ)</div>
-        <div class="glossary-desc">
-          Quantifies schedule luck by measuring the gap between your <b>Actual Win %</b> and your <b>All-Play Win %</b>.
-        </div>
-        <div class="glossary-example">
-          <b>+0.450 (Lucky):</b> Winning despite bottom-half scoring.<br>
-          <b>-0.500 (Unlucky):</b> Top scoring neutralized by opponent gauntlet.
-        </div>
-      </div>
-
-      <div class="glossary-card">
-        <div class="glossary-title">🌐 All-Play Record</div>
-        <div class="glossary-desc">
-          What your record would be if you played <b>every other team in the league</b> every week. It strips away schedule luck to show pure roster strength.
-        </div>
-        <div class="glossary-example">
-          Going 11–0 in All-Play means you posted the highest score in the league that week.
-        </div>
-      </div>
-
-      <div class="glossary-card">
-        <div class="glossary-title">🧠 Coaching Efficiency %</div>
-        <div class="glossary-desc">
-          Percentage of maximum possible points started: <code>(Actual Score ÷ Optimal Lineup Score) × 100</code>.
-        </div>
-        <div class="glossary-example">
-          <b>100%</b> means you started the mathematically best possible lineup from your roster.
-        </div>
-      </div>
-
-      <div class="glossary-card">
-        <div class="glossary-title">🛡️ Avg Opp PA (Matchup Gauntlet)</div>
-        <div class="glossary-desc">
-          Average Points Against per game. Teams at the top face the toughest weekly scoring schedules in the league.
-        </div>
-      </div>
-
     </div>
   </div>
 
 </div>
 
 <script>
+  var seasonsData = JSON.parse(document.getElementById('seasons-data-payload').textContent || '{}');
+  var reigningBadges = JSON.parse(document.getElementById('reigning-badges-data').textContent || '{}');
+  var activeMeta = JSON.parse(document.getElementById('active-meta-data').textContent || '{"year": "2026", "week": "1"}');
+
+  var currentYear = activeMeta.year;
+  var currentWeek = activeMeta.week;
   var h2hScope = 'current';
+
+  function initApp() {
+    setupSeasonDropdown();
+  }
+
+  function setupSeasonDropdown() {
+    var seasonSel = document.getElementById('seasonSelect');
+    if (!seasonSel) return;
+    seasonSel.innerHTML = '';
+
+    var years = Object.keys(seasonsData).sort(function(a, b) { return b - a; });
+    if (years.length === 0) {
+      years = [currentYear];
+      seasonsData[currentYear] = {};
+    }
+
+    years.forEach(function(yr) {
+      var opt = document.createElement('option');
+      opt.value = yr;
+      opt.textContent = yr + ' Season';
+      if (yr === currentYear) opt.selected = true;
+      seasonSel.appendChild(opt);
+    });
+
+    populateWeeksForYear(currentYear, currentWeek);
+  }
+
+  function populateWeeksForYear(yr, selectedWk) {
+    var weekSel = document.getElementById('weekSelect');
+    if (!weekSel) return;
+    weekSel.innerHTML = '';
+
+    var weeksObj = seasonsData[yr] || {};
+    var weeks = Object.keys(weeksObj).map(Number).sort(function(a, b) { return b - a; });
+
+    if (weeks.length === 0) {
+      weeks = [1];
+    }
+
+    var targetWk = selectedWk ? parseInt(selectedWk) : weeks[0];
+
+    weeks.forEach(function(w) {
+      var opt = document.createElement('option');
+      opt.value = w;
+      opt.textContent = 'Week ' + w;
+      if (w === targetWk) opt.selected = true;
+      weekSel.appendChild(opt);
+    });
+
+    currentYear = yr;
+    currentWeek = targetWk.toString();
+    renderSelectedWeekData();
+  }
+
+  function onSeasonChange(newYr) {
+    populateWeeksForYear(newYr, null);
+  }
+
+  function onWeekChange(newWk) {
+    currentWeek = newWk.toString();
+    renderSelectedWeekData();
+  }
+
+  function renderSelectedWeekData() {
+    var yrData = seasonsData[currentYear] || {};
+    var wkData = yrData[currentWeek] || [];
+
+    var summaryTitleEl = document.getElementById('headerSummaryTitle');
+    if (summaryTitleEl) summaryTitleEl.innerText = currentYear + ' WEEK ' + currentWeek + ' SUMMARY';
+    
+    var btnWeekEl = document.getElementById('tabBtnWeek');
+    if (btnWeekEl) btnWeekEl.innerText = '📅 Week ' + currentWeek + ' Summary';
+    
+    var btnSeasonEl = document.getElementById('tabBtnSeason');
+    if (btnSeasonEl) btnSeasonEl.innerText = '📈 ' + currentYear + ' Season Trends';
+
+    var sorted = wkData.slice().sort(function(a, b) {
+      if (b.all_play_w !== a.all_play_w) return b.all_play_w - a.all_play_w;
+      return b.actual - a.actual;
+    });
+
+    var tbody = document.getElementById('weekTableBody');
+    if (tbody) {
+      tbody.innerHTML = '';
+      sorted.forEach(function(t, idx) {
+        var deltaClass = t.luck_delta > 0 ? 'badge-lucky' : (t.luck_delta < 0 ? 'badge-unlucky' : 'badge-neutral');
+        var resBadge = t.result === 'W' ? 'badge-win' : 'badge-loss';
+        var decoratedTeam = renderBadge(t.team);
+        var tr = document.createElement('tr');
+        tr.innerHTML = 
+          '<td class="team-cell"><span class="rank-num">#' + (idx + 1) + '</span> ' + decoratedTeam + '</td>' +
+          '<td data-label="Result"><span class="badge ' + resBadge + '">' + t.result + '</span></td>' +
+          '<td data-label="Score"><b>' + t.actual.toFixed(2) + '</b> <span style="font-size: 11px; color: var(--dim);">(' + (t.diff > 0 ? '+' : '') + t.diff.toFixed(2) + ')</span></td>' +
+          '<td data-label="Opponent">' + t.opp + ' <span style="color: var(--muted); font-size: 11px;">(' + t.opp_actual.toFixed(2) + ')</span></td>' +
+          '<td data-label="All-Play"><b>' + t.all_play_w + '</b>–' + t.all_play_l + '</td>' +
+          '<td data-label="Luck Δ"><span class="badge ' + deltaClass + '">' + (t.luck_delta > 0 ? '+' : '') + t.luck_delta.toFixed(3) + '</span></td>' +
+          '<td data-label="Coaching Eff"><b>' + t.coach_eff.toFixed(1) + '%</b></td>';
+        tbody.appendChild(tr);
+      });
+    }
+
+    renderDynamicAwards(sorted, wkData);
+    renderBenchBlunders(wkData);
+    renderSeasonTrends(yrData);
+  }
+
+  function renderBadge(label) {
+    if (!reigningBadges) return label;
+    var yrShort = (reigningBadges.year || '25').slice(-2);
+    function matches(target) {
+      if (!target || target === 'TBD') return false;
+      var tClean = target.toLowerCase().trim();
+      var lClean = label.toLowerCase().trim();
+      if (tClean.indexOf(lClean) !== -1 || lClean.indexOf(tClean) !== -1) return true;
+      if (target.indexOf('(') !== -1 && target.indexOf(')') !== -1) {
+        var mgr = target.split('(').pop().split(')')[0].trim().toLowerCase();
+        if (mgr && mgr !== 'manager' && lClean.indexOf(mgr) !== -1) return true;
+      }
+      return false;
+    }
+    if (matches(reigningBadges.gold)) return label + ' <span class="badge badge-champ">🥇 \'' + yrShort + ' Champ</span>';
+    if (matches(reigningBadges.silver)) return label + ' <span class="badge badge-silver">🥈 \'' + yrShort + ' Runner-Up</span>';
+    if (matches(reigningBadges.bronze)) return label + ' <span class="badge badge-bronze">🥉 \'' + yrShort + ' 3rd Pl</span>';
+    if (matches(reigningBadges.last)) return label + ' <span class="badge badge-bitch">💩 \'' + yrShort + ' League Bitch</span>';
+    return label;
+  }
+
+  function renderDynamicAwards(sortedWkData, wkData) {
+    var awardsContainer = document.getElementById('dynamicAwardsGrid');
+    if (!awardsContainer) return;
+    if (!sortedWkData || sortedWkData.length === 0) {
+      awardsContainer.innerHTML = '<div style="color: var(--muted); padding: 12px;">No box scores available for this week.</div>';
+      return;
+    }
+
+    var bounty = sortedWkData[0];
+    var buzzsaw = sortedWkData.slice().sort(function(a, b) { return a.luck_delta - b.luck_delta; })[0];
+    var horseshoe = sortedWkData.slice().sort(function(a, b) { return b.luck_delta - a.luck_delta; })[0];
+    var tactician = sortedWkData.slice().sort(function(a, b) { return b.coach_eff - a.coach_eff; })[0];
+
+    var allStarters = [];
+    wkData.forEach(function(t) {
+      if (t.players) {
+        t.players.forEach(function(p) {
+          if (p.started) allStarters.push({ player: p.name, pos: p.pos, pts: p.pts, team: t.team });
+        });
+      }
+    });
+    var anchor = allStarters.length > 0 ? allStarters.sort(function(a, b) { return a.pts - b.pts; })[0] : null;
+
+    awardsContainer.innerHTML = 
+      '<div class="award-card gold">' +
+        '<div><div class="award-tag" style="color: var(--gold);">💰 Week ' + currentWeek + ' Team Bounty</div>' +
+        '<div class="award-title">' + renderBadge(bounty.team) + '</div>' +
+        '<div class="award-desc">Paced the entire league with <b>' + bounty.actual.toFixed(2) + ' pts</b> to take down the weekly cash payout!</div></div>' +
+        '<div style="margin-top: 8px;"><span class="badge badge-gold">Weekly Bounty Winner</span></div>' +
+      '</div>' +
+      '<div class="award-card red">' +
+        '<div><div class="award-tag" style="color: var(--red);">💀 The Buzzsaw Victim</div>' +
+        '<div class="award-title">' + renderBadge(buzzsaw.team) + '</div>' +
+        '<div class="award-desc">Dropped ' + buzzsaw.actual.toFixed(2) + ' pts (' + buzzsaw.all_play_w + '–' + buzzsaw.all_play_l + ' All-Play), but took an L to ' + buzzsaw.opp + ' (' + buzzsaw.opp_actual.toFixed(2) + ' pts).</div></div>' +
+        '<div style="margin-top: 8px;"><span class="badge badge-unlucky">Luck Δ: ' + (buzzsaw.luck_delta > 0 ? '+' : '') + buzzsaw.luck_delta.toFixed(3) + '</span></div>' +
+      '</div>' +
+      '<div class="award-card green">' +
+        '<div><div class="award-tag" style="color: var(--green);">🍀 Grand Theft Victory</div>' +
+        '<div class="award-title">' + renderBadge(horseshoe.team) + '</div>' +
+        '<div class="award-desc">Squeaked by with ' + horseshoe.actual.toFixed(2) + ' pts (' + horseshoe.all_play_w + '–' + horseshoe.all_play_l + ' All-Play) thanks to opponent meltdown.</div></div>' +
+        '<div style="margin-top: 8px;"><span class="badge badge-lucky">Luck Δ: ' + (horseshoe.luck_delta > 0 ? '+' : '') + horseshoe.luck_delta.toFixed(3) + '</span></div>' +
+      '</div>' +
+      '<div class="award-card blue">' +
+        '<div><div class="award-tag" style="color: var(--accent);">🧠 Master Tactician</div>' +
+        '<div class="award-title">' + renderBadge(tactician.team) + '</div>' +
+        '<div class="award-desc">Optimal starting execution of <b>' + tactician.coach_eff.toFixed(1) + '%</b> (' + tactician.actual.toFixed(2) + ' of ' + tactician.optimal.toFixed(2) + ' optimal pts).</div></div>' +
+        '<div style="margin-top: 8px;"><span class="badge badge-neutral">Lineup Mastery</span></div>' +
+      '</div>' +
+      '<div class="award-card zinc">' +
+        '<div><div class="award-tag" style="color: var(--dim);">⚓ The Anchor Award (Lead Weight)</div>' +
+        '<div class="award-title">' + (anchor ? anchor.player + ' (' + anchor.pos + ')' : 'None') + '</div>' +
+        '<div class="award-desc">Hung a league-low <b>' + (anchor ? anchor.pts.toFixed(2) : '0.00') + ' pts</b> in the starting lineup for ' + (anchor ? anchor.team : 'None') + '.</div></div>' +
+        '<div style="margin-top: 8px;"><span class="badge badge-neutral">Lowest Starter of Wk</span></div>' +
+      '</div>';
+  }
+
+  function renderBenchBlunders(wkData) {
+    var blunders = [];
+    wkData.forEach(function(t) {
+      if (t.players) {
+        t.players.forEach(function(p) {
+          if (p.audit === 'Costly Bench') {
+            blunders.push({ team: t.team, name: p.name, pos: p.pos, pts: p.pts, proj: p.proj });
+          }
+        });
+      }
+    });
+    blunders.sort(function(a, b) { return b.pts - a.pts; });
+
+    var bbody = document.getElementById('blundersTableBody');
+    if (!bbody) return;
+    bbody.innerHTML = '';
+    blunders.slice(0, 10).forEach(function(b, idx) {
+      var decoratedTeam = renderBadge(b.team);
+      var btr = document.createElement('tr');
+      btr.innerHTML = 
+        '<td class="team-cell"><span class="rank-num">#' + (idx + 1) + '</span> ' + decoratedTeam + '</td>' +
+        '<td data-label="Player" style="color: var(--text); font-weight: 600;">' + b.name + '</td>' +
+        '<td data-label="Pos"><span class="badge badge-neutral">' + b.pos + '</span></td>' +
+        '<td data-label="Points Left" style="font-weight: 800; color: var(--amber);">' + b.pts.toFixed(2) + ' pts</td>' +
+        '<td data-label="Projection" style="color: var(--muted);">' + b.proj.toFixed(2) + ' pts</td>';
+      bbody.appendChild(btr);
+    });
+  }
+
+  function renderSeasonTrends(yrWeeksObj) {
+    var stats = {};
+    var weeks = Object.keys(yrWeeksObj).map(Number).sort(function(a, b) { return a - b; });
+
+    weeks.forEach(function(w) {
+      var matchups = yrWeeksObj[w] || [];
+      matchups.forEach(function(m) {
+        var tm = m.team;
+        if (!stats[tm]) {
+          stats[tm] = {
+            team: tm, actual_w: 0, actual_l: 0, all_play_w: 0, all_play_l: 0,
+            pf: 0.0, pa: 0.0, scores: [], pine_tax: 0.0,
+            opp_surges: 0, opp_streak: 0, cardiac_w: 0, cardiac_l: 0
+          };
+        }
+        var s = stats[tm];
+        s.pf += m.actual;
+        s.pa += m.opp_actual;
+        s.scores.push(m.actual);
+        if (m.result === 'W') s.actual_w++;
+        else if (m.result === 'L') s.actual_l++;
+
+        s.all_play_w += m.all_play_w;
+        s.all_play_l += m.all_play_l;
+        s.pine_tax += (m.optimal - m.actual);
+
+        if (Math.abs(m.actual - m.opp_actual) <= 5.0) {
+          if (m.result === 'W') s.cardiac_w++;
+          else if (m.result === 'L') s.cardiac_l++;
+        }
+
+        var oppProj = m.opp_proj || m.opp_actual;
+        if (Math.round((m.opp_actual - oppProj) * 100) / 100 > 0) {
+          s.opp_surges++;
+          s.opp_streak++;
+        } else {
+          s.opp_streak = 0;
+        }
+      });
+    });
+
+    var rows = Object.values(stats);
+    var totalWeeks = weeks.length;
+
+    rows.forEach(function(r) {
+      var totalMatches = r.actual_w + r.actual_l;
+      var pfSq = Math.pow(r.pf, 2);
+      var paSq = Math.pow(r.pa, 2);
+      var denom = pfSq + paSq;
+      r.pyth_wins = denom > 0 ? Math.round((pfSq / denom) * totalMatches * 10) / 10 : 0.0;
+      r.pyth_delta = Math.round((r.actual_w - r.pyth_wins) * 10) / 10;
+
+      var totAp = r.all_play_w + r.all_play_l;
+      r.all_play_pct = totAp > 0 ? (r.all_play_w / totAp) : 0.0;
+      var actPct = totalMatches > 0 ? (r.actual_w / totalMatches) : 0.0;
+      r.luck_delta = Math.round((actPct - r.all_play_pct) * 1000) / 1000;
+
+      r.avg_pa = totalWeeks > 0 ? Math.round((r.pa / totalWeeks) * 100) / 100 : 0.0;
+      r.pine_tax = Math.round(r.pine_tax * 100) / 100;
+
+      var mean = r.scores.length ? r.scores.reduce(function(a,b){return a+b;},0)/r.scores.length : 0;
+      var variance = r.scores.length ? r.scores.reduce(function(a,b){return a + Math.pow(b - mean, 2);},0)/r.scores.length : 0;
+      r.volatility_sd = Math.round(Math.sqrt(variance) * 10) / 10;
+
+      if (r.volatility_sd >= 18.0) r.volatility_tag = 'Boom/Bust';
+      else if (r.volatility_sd <= 12.0) r.volatility_tag = 'Steady Floor';
+      else r.volatility_tag = 'Balanced';
+    });
+
+    rows.sort(function(a, b) {
+      if (b.all_play_w !== a.all_play_w) return b.all_play_w - a.all_play_w;
+      return b.pf - a.pf;
+    });
+
+    var stBody = document.getElementById('seasonTableBody');
+    if (!stBody) return;
+    stBody.innerHTML = '';
+    rows.forEach(function(r, idx) {
+      var cDeltaClass = r.luck_delta > 0 ? 'badge-lucky' : (r.luck_delta < 0 ? 'badge-unlucky' : 'badge-neutral');
+      var decoratedTeam = renderBadge(r.team);
+      var streakBadge = r.curr_opp_surge_streak >= 2 ? '<b>' + r.curr_opp_surge_streak + ' st!</b>' : r.curr_opp_surge_streak + ' st';
+      var pythDiffStr = (r.pyth_delta > 0 ? '+' : '') + r.pyth_delta.toFixed(1);
+      var pythColor = r.pyth_delta > 0.5 ? 'var(--green)' : (r.pyth_delta < -0.5 ? 'var(--red)' : 'var(--muted)');
+
+      var tr = document.createElement('tr');
+      tr.innerHTML = 
+        '<td class="team-cell"><span class="rank-num">#' + (idx + 1) + '</span> ' + decoratedTeam + '</td>' +
+        '<td data-label="Actual W-L"><b>' + r.actual_w + '–' + r.actual_l + '</b></td>' +
+        '<td data-label="Pyth Wins"><b>' + r.pyth_wins.toFixed(1) + '</b> <span style="font-size: 11px; color: ' + pythColor + ';">(' + pythDiffStr + ')</span></td>' +
+        '<td data-label="All-Play">' + r.all_play_w + '–' + r.all_play_l + ' <span style="font-size: 11px; color: var(--dim);">(' + r.all_play_pct.toFixed(3) + ')</span></td>' +
+        '<td data-label="Season Luck Δ"><span class="badge ' + cDeltaClass + '">' + (r.luck_delta >= 0 ? '+' : '') + r.luck_delta.toFixed(3) + '</span></td>' +
+        '<td data-label="Volatility">±' + r.volatility_sd.toFixed(1) + ' <span class="badge badge-neutral" style="font-size: 10px; padding: 1px 6px;">' + r.volatility_tag + '</span></td>' +
+        '<td data-label="Cardiac Rec"><b>' + r.cardiac_w + '–' + r.cardiac_l + '</b></td>' +
+        '<td data-label="Pine Tax" style="color: var(--amber); font-weight: 700;">' + r.pine_tax.toFixed(2) + ' pts</td>' +
+        '<td data-label="Opp Surges">' + r.opp_over_proj_count + '/' + totalWeeks + ' wks (' + streakBadge + ')</td>' +
+        '<td data-label="Avg Opp PA"><b>' + r.avg_pa.toFixed(2) + '</b></td>';
+      stBody.appendChild(tr);
+    });
+  }
 
   function switchTab(viewName) {
     var tabs = ['week', 'season', 'h2h', 'payouts', 'halloffame', 'blunders', 'glossary'];
@@ -1836,6 +2083,7 @@ def generate_html_report(
       updateThemeBtn(true);
     }
     setH2HScope('current');
+    window.onload = initApp;
   })();
 </script>
 </body>
@@ -1857,7 +2105,6 @@ def main():
     WEEK = max(1, getattr(league, "current_week", 1) - 1)
     print(f"No week input provided. Auto-detected completed week: Week {WEEK}")
 
-  # Extract list of current managers in active league
   current_managers = sorted(
       list(
           set(
@@ -1992,7 +2239,6 @@ def main():
       season_payout_leaders,
   ) = compute_records_and_payouts(history)
 
-  # Backfill multi-year H2H matchups from 2023 onwards
   sync_historical_h2h(YEAR)
 
   champions, finishes_data = sync_champions_and_finishes(YEAR)
@@ -2022,7 +2268,7 @@ def main():
   )
   print(
       "Summary build complete! Cardiac index, Pythagorean records, Volatility,"
-      " Anchor, and Extremes of War compiled."
+      " Anchor, Extremes of War, and multi-season archives compiled."
   )
 
 
