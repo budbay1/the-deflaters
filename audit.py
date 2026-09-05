@@ -182,8 +182,6 @@ def sync_champions_and_finishes(current_year):
     y_str = str(y)
     try:
       past_league = League(league_id=LEAGUE_ID, year=y, espn_s2=ESPN_S2, swid=SWID)
-      
-      # Robust extraction of standings prioritizing final_standing or regular standing
       ranked_teams = sorted(past_league.teams, key=lambda t: (getattr(t, "final_standing", 99) if getattr(t, "final_standing", 0) > 0 else 99, getattr(t, "standing", 99), -getattr(t, "points_for", 0)))
       season_finishes = {get_manager_name(t): (getattr(t, "final_standing", 0) if 0 < getattr(t, "final_standing", 0) <= len(past_league.teams) else idx) for idx, t in enumerate(ranked_teams, 1) if get_manager_name(t) != "Manager"}
       all_time["finishes"][y_str] = season_finishes
@@ -191,8 +189,6 @@ def sync_champions_and_finishes(current_year):
       gold_team = next((t for t in past_league.teams if getattr(t, "final_standing", 0) == 1), None)
       silver_team = next((t for t in past_league.teams if getattr(t, "final_standing", 0) == 2), None)
       bronze_team = next((t for t in past_league.teams if getattr(t, "final_standing", 0) == 3), None)
-      remaining = [t for t in past_league.teams if t != gold_team and t != silver_team and t != bronze_team]
-      remaining.sort(key=lambda t: (getattr(t, "final_standing", 99) if getattr(t, "final_standing", 0) > 0 else 99, getattr(t, "standing", 99), -getattr(t, "points_for", 0)))
 
       if not gold_team and ranked_teams: gold_team = ranked_teams[0]
       if not silver_team and len(ranked_teams) > 1: silver_team = ranked_teams[1]
@@ -312,10 +308,6 @@ def main():
   champions, finishes_data = sync_champions_and_finishes(YEAR)
   leaderboard = compute_all_time_leaderboard(champions, current_managers, finishes_data)
   
-  prior_year_str = str(YEAR - 1)
-  reigning = champions.get(prior_year_str, {})
-  reigning["year"] = prior_year_str
-
   seasons_data = load_history(SEASONS_DATA_FILE, {})
   seasons_data[str(YEAR)] = history.get("weeks", {})
   save_history(SEASONS_DATA_FILE, seasons_data)
@@ -331,25 +323,36 @@ def main():
     weekly_player_bounties_all[yr_key] = pb
     weekly_anchors_all[yr_key] = an
 
-  # Compute All-Time League Records across all seasons
-  all_time_high_team = {"team": "None", "pts": 0.0, "week": 0, "year": 0}
+  all_time_high_team = {"team": "None", "pts": 0.0, "opp": "None", "opp_pts": 0.0, "week": 0, "year": 0}
   all_time_high_player = {"player": "None", "team": "None", "pts": 0.0, "week": 0, "year": 0, "pos": ""}
   all_time_high_season_pf = {"team": "None", "pts": 0.0, "year": 0}
-  all_time_high_pa = {"team": "None", "pa": 0.0, "opp": "None", "week": 0, "year": 0}
+  all_time_high_pa = {"team": "None", "pa": 0.0, "year": 0}
+  all_time_max_margin = {"winner": "None", "loser": "None", "margin": 0.0, "week": 0, "year": 0}
 
-  for yr_key, weeks_dict in seasons_data.items():
-    yr_int = int(yr_key)
+  for yr_str, weeks_dict in seasons_data.items():
+    yr_int = int(yr_str)
     team_season_pf = {}
+    team_season_pa = {}
+
     for w_str, matchups in weeks_dict.items():
       w_int = int(w_str)
       for m in matchups:
-        # Track team points against
-        if m["opp_actual"] > all_time_high_pa["pa"]:
-          all_time_high_pa = {"team": m["team"], "pa": m["opp_actual"], "opp": m["opp"], "week": w_int, "year": yr_int}
-
         team_season_pf[m["team"]] = team_season_pf.get(m["team"], 0.0) + m["actual"]
+        team_season_pa[m["team"]] = team_season_pa.get(m["team"], 0.0) + m["opp_actual"]
+
         if m["actual"] > all_time_high_team["pts"]:
-          all_time_high_team = {"team": m["team"], "pts": m["actual"], "week": w_int, "year": yr_int}
+          all_time_high_team = {
+              "team": m["team"], "pts": m["actual"],
+              "opp": m["opp"], "opp_pts": m["opp_actual"],
+              "week": w_int, "year": yr_int
+          }
+
+        margin = round(abs(m["actual"] - m["opp_actual"]), 2)
+        if margin > all_time_max_margin["margin"] and m["actual"] > m["opp_actual"]:
+          all_time_max_margin = {
+              "winner": m["team"], "loser": m["opp"],
+              "margin": margin, "week": w_int, "year": yr_int
+          }
 
         for p in m.get("players", []):
           if p["started"] and p["pts"] > all_time_high_player["pts"]:
@@ -359,11 +362,52 @@ def main():
       if pf_val > all_time_high_season_pf["pts"]:
         all_time_high_season_pf = {"team": tm, "pts": round(pf_val, 2), "year": yr_int}
 
+    for tm, pa_val in team_season_pa.items():
+      if pa_val > all_time_high_pa["pa"]:
+        all_time_high_pa = {"team": tm, "pa": round(pa_val, 2), "year": yr_int}
+
+  for y in range(2023, YEAR):
+    if str(y) in seasons_data: continue
+    try:
+      past_league = League(league_id=LEAGUE_ID, year=y, espn_s2=ESPN_S2, swid=SWID)
+      t_pf = {t.team_name: 0.0 for t in past_league.teams}
+      t_pa = {t.team_name: 0.0 for t in past_league.teams}
+      for w in range(1, 18):
+        b_scores = past_league.box_scores(week=w)
+        if not b_scores: continue
+        for match in b_scores:
+          h_act, a_act = round(match.home_score, 2), round(match.away_score, 2)
+          h_name, a_name = match.home_team.team_name, match.away_team.team_name
+          t_pf[h_name] = t_pf.get(h_name, 0.0) + h_act
+          t_pa[h_name] = t_pa.get(h_name, 0.0) + a_act
+          t_pf[a_name] = t_pf.get(a_name, 0.0) + a_act
+          t_pa[a_name] = t_pa.get(a_name, 0.0) + h_act
+
+          if h_act > all_time_high_team["pts"]:
+            all_time_high_team = {"team": h_name, "pts": h_act, "opp": a_name, "opp_pts": a_act, "week": w, "year": y}
+          if a_act > all_time_high_team["pts"]:
+            all_time_high_team = {"team": a_name, "pts": a_act, "opp": h_name, "opp_pts": h_act, "week": w, "year": y}
+
+          margin = round(abs(h_act - a_act), 2)
+          if margin > all_time_max_margin["margin"]:
+            winner = h_name if h_act > a_act else a_name
+            loser = a_name if h_act > a_act else h_name
+            all_time_max_margin = {"winner": winner, "loser": loser, "margin": margin, "week": w, "year": y}
+      
+      for tm, val in t_pf.items():
+        if val > all_time_high_season_pf["pts"]:
+          all_time_high_season_pf = {"team": tm, "pts": round(val, 2), "year": y}
+      for tm, val in t_pa.items():
+        if val > all_time_high_pa["pa"]:
+          all_time_high_pa = {"team": tm, "pa": round(val, 2), "year": y}
+    except Exception as e:
+      print(f"Skipped historical backfill for {y}: {e}")
+
   global_bundle = {
       "seasons_data": seasons_data,
       "champions": champions,
       "leaderboard": leaderboard,
-      "reigning": reigning,
+      "reigning_by_season": champions,
       "current_managers": current_managers,
       "matchups": all_time_data.get("matchups", {}),
       "season_payouts": season_payouts_all,
@@ -374,11 +418,12 @@ def main():
           "high_team_game": all_time_high_team,
           "high_player_game": all_time_high_player,
           "high_season_pf": all_time_high_season_pf,
-          "high_points_against": all_time_high_pa
+          "high_points_against": all_time_high_pa,
+          "max_margin": all_time_max_margin
       }
   }
   save_history(GLOBAL_DATA_FILE, global_bundle)
-  print("Data engine execution complete. All-time records & weekly lists compiled.")
+  print("Data engine execution complete.")
 
 
 if __name__ == "__main__":
