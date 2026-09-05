@@ -176,10 +176,11 @@
         <tr>
           <th>Rank / Team</th>
           <th>Actual W-L</th>
+          <th>Pyth Exp Wins <span class="sub-th">True Record (Δ)</span></th>
           <th>All-Play Record</th>
-          <th>Total PF</th>
-          <th>Total PA</th>
-          <th>Avg Coaching Eff</th>
+          <th>Volatility (σ)</th>
+          <th>Cardiac Rec <span class="sub-th">Games ≤ 5 pts</span></th>
+          <th>Pine Tax</th>
         </tr>
       </thead>
       <tbody id="seasonTableBody"></tbody>
@@ -461,35 +462,62 @@
       tbody.appendChild(tr);
     });
 
-    // 3. Render Season Trends Table
+    // 3. Render Advanced Season Trends Table (Pythagorean, Volatility, Cardiac, Pine Tax)
     const yrWeeks = dashboardData.seasons_data[currentYear] || {};
     let teamStats = {};
-    Object.values(yrWeeks).forEach(matchups => {
+    const totalWeeks = Object.keys(yrWeeks).length;
+
+    Object.entries(yrWeeks).forEach(([wkNum, matchups]) => {
       matchups.forEach(m => {
         if (!teamStats[m.team]) {
-          teamStats[m.team] = { team: m.team, wins: 0, losses: 0, ap_w: 0, ap_l: 0, pf: 0, pa: 0, effSum: 0, count: 0 };
+          teamStats[m.team] = { 
+            team: m.team, wins: 0, losses: 0, ap_w: 0, ap_l: 0, pf: 0, pa: 0, 
+            scores: [], pineTax: 0, cardiacW: 0, cardiacL: 0 
+          };
         }
         let s = teamStats[m.team];
-        s.pf += m.actual; s.pa += m.opp_actual; s.ap_w += m.all_play_w; s.ap_l += m.all_play_l; s.effSum += m.coach_eff; s.count++;
+        s.pf += m.actual; s.pa += m.opp_actual; s.scores.push(m.actual);
+        s.ap_w += m.all_play_w; s.ap_l += m.all_play_l;
+        s.pineTax += Math.max(0, m.optimal - m.actual);
+        if (Math.abs(m.actual - m.opp_actual) <= 5.0) {
+          if (m.result === 'W') s.cardiacW++;
+          else if (m.result === 'L') s.cardiacL++;
+        }
         if (m.result === 'W') s.wins++;
         else if (m.result === 'L') s.losses++;
       });
     });
 
-    const seasonArr = Object.values(teamStats).sort((a, b) => b.ap_w - a.ap_w || b.pf - a.pf);
+    const seasonArr = Object.values(teamStats).map(s => {
+      const totMatches = s.wins + s.losses;
+      const pfSq = Math.pow(s.pf, 2);
+      const paSq = Math.pow(s.pa, 2);
+      const denom = pfSq + paSq;
+      s.pythWins = denom > 0 ? (pfSq / denom) * totMatches : 0;
+      s.pythDelta = s.wins - s.pythWins;
+
+      const mean = s.scores.length ? s.scores.reduce((a, b) => a + b, 0) / s.scores.length : 0;
+      const variance = s.scores.length ? s.scores.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / s.scores.length : 0;
+      s.volatility = Math.sqrt(variance);
+      return s;
+    }).sort((a, b) => b.ap_w - a.ap_w || b.pf - a.pf);
+
     const stBody = document.getElementById('seasonTableBody');
     stBody.innerHTML = '';
     seasonArr.forEach((s, idx) => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td class="team-cell"><span class="rank-num">#${idx + 1}</span> ${renderBadge(s.team)}</td>
-        <td><b>${s.wins}–${s.losses}</b></td>
-        <td>${s.ap_w}–${s.ap_l}</td>
-        <td><b>${s.pf.toFixed(2)}</b></td>
-        <td>${s.pa.toFixed(2)}</td>
-        <td><b>${s.count > 0 ? (s.effSum / s.count).toFixed(1) : 0.0}%</b></td>
+      const pythDiffStr = (s.pythDelta >= 0 ? '+' : '') + s.pythDelta.toFixed(1);
+      const pythColor = s.pythDelta > 0.5 ? 'var(--green)' : (s.pythDelta < -0.5 ? 'var(--red)' : 'var(--muted)');
+      stBody.innerHTML += `
+        <tr>
+          <td class="team-cell"><span class="rank-num">#${idx + 1}</span> ${renderBadge(s.team)}</td>
+          <td><b>${s.wins}–${s.losses}</b></td>
+          <td><b>${s.pythWins.toFixed(1)}</b> <span style="font-size: 11px; color: ${pythColor};">(${pythDiffStr})</span></td>
+          <td>${s.ap_w}–${s.ap_l}</td>
+          <td>±${s.volatility.toFixed(1)}</td>
+          <td><b>${s.cardiacW}–${s.cardiacL}</b></td>
+          <td style="color: var(--amber); font-weight: 700;">${s.pineTax.toFixed(2)} pts</td>
+        </tr>
       `;
-      stBody.appendChild(tr);
     });
 
     // 4. Render Bench Blunders
@@ -506,15 +534,15 @@
     const bbody = document.getElementById('blundersTableBody');
     bbody.innerHTML = '';
     blunders.slice(0, 10).forEach((b, idx) => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td class="team-cell"><span class="rank-num">#${idx + 1}</span> ${renderBadge(b.team)}</td>
-        <td style="color: var(--text); font-weight: 600;">${b.name}</td>
-        <td><span class="badge badge-neutral">${b.pos}</span></td>
-        <td style="font-weight: 800; color: var(--amber);">${b.pts.toFixed(2)} pts</td>
-        <td style="color: var(--muted);">${b.proj.toFixed(2)} pts</td>
+      bbody.innerHTML += `
+        <tr>
+          <td class="team-cell"><span class="rank-num">#${idx + 1}</span> ${renderBadge(b.team)}</td>
+          <td style="color: var(--text); font-weight: 600;">${b.name}</td>
+          <td><span class="badge badge-neutral">${b.pos}</span></td>
+          <td style="font-weight: 800; color: var(--amber);">${b.pts.toFixed(2)} pts</td>
+          <td style="color: var(--muted);">${b.proj.toFixed(2)} pts</td>
+        </tr>
       `;
-      bbody.appendChild(tr);
     });
   }
 
@@ -582,10 +610,9 @@
     const h2hBody = document.getElementById('h2hTableBody');
     h2hBody.innerHTML = '';
 
-    // Aggregate matchups into pairs
     let rivalries = {};
     Object.values(matchups).forEach(g => {
-      const pair = sortedPair(g.m1, g.m2);
+      const pair = [g.m1, g.m2].sort();
       const key = pair[0] + '_vs_' + pair[1];
       if (!rivalries[key]) {
         rivalries[key] = { m1: pair[0], m2: pair[1], wins1: 0, wins2: 0, pf1: 0, pf2: 0, last: null };
@@ -615,10 +642,6 @@
         </tr>
       `;
     });
-  }
-
-  function sortedPair(a, b) {
-    return [a, b].sort();
   }
 
   function setH2HScope(scope) {
