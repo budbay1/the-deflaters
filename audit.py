@@ -1682,6 +1682,17 @@ def generate_html_report(
   var h2hScope = 'current';
 
   function initApp() {
+    // 1. Restore saved theme preference
+    var savedTheme = localStorage.getItem('ff_theme');
+    if (savedTheme === 'light') {
+      document.body.classList.add('light-mode');
+      updateThemeBtn(true);
+    }
+    
+    // 2. Set default H2H scope
+    setH2HScope('current');
+
+    // 3. Setup season & week selectors
     setupSeasonDropdown();
   }
 
@@ -2076,15 +2087,8 @@ def generate_html_report(
     }
   }
 
-  (function() {
-    var savedTheme = localStorage.getItem('ff_theme');
-    if (savedTheme === 'light') {
-      document.body.classList.add('light-mode');
-      updateThemeBtn(true);
-    }
-    setH2HScope('current');
-    window.onload = initApp;
-  })();
+  // Hook everything up cleanly when the page loads
+  window.onload = initApp;
 </script>
 </body>
 </html>"""
