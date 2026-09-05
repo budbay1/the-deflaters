@@ -179,7 +179,7 @@
           <th>Actual W-L</th>
           <th>Pyth Exp Wins <span class="sub-th">True Record (Δ)</span></th>
           <th>All-Play Record</th>
-          <th>Volatility (σ)</th>
+          <th>Lineup Efficiency <span class="sub-th">Avg Optimal %</span></th>
           <th>Cardiac Rec <span class="sub-th">Games ≤ 5 pts</span></th>
           <th>Pine Tax</th>
         </tr>
@@ -299,8 +299,8 @@
         <div class="glossary-desc">Tracks a team's record in nail-biting games decided by <b>5.00 points or fewer</b>. Highlights which managers thrive under pressure and which ones repeatedly melt down in crunch time.</div>
       </div>
       <div class="glossary-card">
-        <div class="glossary-title">📊 Scoring Volatility ($\sigma$ StdDev)</div>
-        <div class="glossary-desc">Measures the standard deviation of weekly scoring totals. Categorizes squads into <b>Steady Floors</b> (consistent week-to-week production) vs. <b>Boom/Bust</b> squads (massive ceiling, terrifying floor).</div>
+        <div class="glossary-title">🧠 Lineup Efficiency (%)</div>
+        <div class="glossary-desc">Measures how close a manager comes to capturing their maximum possible points each week by evaluating actual starters versus optimal roster configurations.</div>
       </div>
       <div class="glossary-card">
         <div class="glossary-title">📐 Pythagorean Expected Wins</div>
@@ -499,17 +499,18 @@
       `;
     });
 
-    // 3. Render Advanced Season Trends Table
+    // 3. Render Advanced Season Trends Table (Lineup Efficiency replacing volatility)
     const yrWeeks = dashboardData.seasons_data[currentYear] || {};
     let teamStats = {};
     Object.values(yrWeeks).forEach(matchups => {
       matchups.forEach(m => {
         if (!teamStats[m.team]) {
-          teamStats[m.team] = { team: m.team, wins: 0, losses: 0, ap_w: 0, ap_l: 0, pf: 0, pa: 0, scores: [], pineTax: 0, cardiacW: 0, cardiacL: 0 };
+          teamStats[m.team] = { team: m.team, wins: 0, losses: 0, ap_w: 0, ap_l: 0, pf: 0, pa: 0, effSum: 0, effCount: 0, pineTax: 0, cardiacW: 0, cardiacL: 0 };
         }
         let s = teamStats[m.team];
-        s.pf += m.actual; s.pa += m.opp_actual; s.scores.push(m.actual);
+        s.pf += m.actual; s.pa += m.opp_actual;
         s.ap_w += m.all_play_w; s.ap_l += m.all_play_l;
+        s.effSum += m.coach_eff; s.effCount++;
         s.pineTax += Math.max(0, m.optimal - m.actual);
         if (Math.abs(m.actual - m.opp_actual) <= 5.0) {
           if (m.result === 'W') s.cardiacW++;
@@ -525,10 +526,7 @@
       const pfSq = Math.pow(s.pf, 2), paSq = Math.pow(s.pa, 2), denom = pfSq + paSq;
       s.pythWins = denom > 0 ? (pfSq / denom) * totMatches : 0;
       s.pythDelta = s.wins - s.pythWins;
-
-      const mean = s.scores.length ? s.scores.reduce((a, b) => a + b, 0) / s.scores.length : 0;
-      const variance = s.scores.length ? s.scores.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / s.scores.length : 0;
-      s.volatility = Math.sqrt(variance);
+      s.avgEff = s.effCount > 0 ? (s.effSum / s.effCount) : 0;
       return s;
     }).sort((a, b) => b.ap_w - a.ap_w || b.pf - a.pf);
 
@@ -543,14 +541,14 @@
           <td><b>${s.wins}–${s.losses}</b></td>
           <td><b>${s.pythWins.toFixed(1)}</b> <span style="font-size: 11px; color: ${pythColor};">(${pythDiffStr})</span></td>
           <td>${s.ap_w}–${s.ap_l}</td>
-          <td>±${s.volatility.toFixed(1)}</td>
+          <td><b>${s.avgEff.toFixed(1)}%</b></td>
           <td><b>${s.cardiacW}–${s.cardiacL}</b></td>
           <td style="color: var(--amber); font-weight: 700;">${s.pineTax.toFixed(2)} pts</td>
         </tr>
       `;
     });
 
-    // 4. Render All-Time Records & Payouts Tab
+    // 4. Render All-Time Records & Payouts Tab (Clarified Margin of Defeat)
     const atr = dashboardData.all_time_records || {};
     const atGrid = document.getElementById('allTimeRecordsGrid');
     atGrid.innerHTML = `
@@ -576,7 +574,7 @@
       </div>
       <div class="award-card zinc" style="grid-column: span 2;">
         <div><div class="award-tag" style="color: var(--dim);">📏 All-Time Largest Margin of Defeat</div>
-        <div class="award-title">${renderBadge(atr.max_margin?.loser || 'None')} vs ${renderBadge(atr.max_margin?.winner || 'None')}</div>
+        <div class="award-title">${renderBadge(atr.max_margin?.winner || 'None')} crushed ${renderBadge(atr.max_margin?.loser || 'None')}</div>
         <div class="award-desc">Record blowout margin of <b>+${(atr.max_margin?.margin || 0).toFixed(2)} pts</b> in ${atr.max_margin?.year || 2025} Wk ${atr.max_margin?.week || 1}.</div></div>
       </div>
     `;
