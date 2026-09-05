@@ -85,20 +85,25 @@
     .responsive-table th .sub-th { display: block; font-size: 9px; color: var(--dim); font-weight: normal; text-transform: none; margin-top: 2px; }
     .responsive-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
     .responsive-table tr:last-child td { border-bottom: none; }
-    .responsive-table tr:hover td { background: rgba(125,125,125,0.03); }
 
     .team-cell { font-weight: 800; color: var(--text); }
-    .badge { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; }
+    .badge { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; gap: 4px; }
     .badge-win { background: var(--green-bg); color: var(--green); }
     .badge-loss { background: var(--red-bg); color: var(--red); }
     .badge-neutral { background: rgba(125,125,125,0.08); color: var(--muted); }
-    .badge-gold { background: var(--gold-bg); color: var(--gold); border: 1px solid rgba(251, 191, 36, 0.4); }
+    .badge-lucky { background: var(--green-bg); color: var(--green); }
+    .badge-unlucky { background: var(--red-bg); color: var(--red); }
     .badge-champ { background: var(--gold-bg); color: var(--gold); border: 1px solid rgba(251, 191, 36, 0.4); font-size: 10px; padding: 2px 6px; }
     .badge-silver { background: var(--silver-bg); color: var(--silver); border: 1px solid rgba(203, 213, 225, 0.4); font-size: 10px; padding: 2px 6px; }
     .badge-bronze { background: var(--bronze-bg); color: var(--bronze); border: 1px solid rgba(217, 119, 6, 0.4); font-size: 10px; padding: 2px 6px; }
     .badge-bitch { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); font-size: 10px; padding: 2px 6px; }
     
-    .rank-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: rgba(125,125,125,0.12); border-radius: 50%; font-size: 11px; font-weight: 800; color: var(--accent); margin-right: 8px; flex-shrink: 0; }
+    .rank-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: rgba(125,125,125,0.12); border-radius: 50%; font-size: 11px; font-weight: 800; color: var(--accent); margin-right: 8px; }
+
+    .podium-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; padding: 16px; }
+    .podium-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }
+    .podium-year { font-size: 17px; font-weight: 800; color: var(--text); margin-bottom: 10px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+    .podium-row { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; font-size: 13px; }
 
     .glossary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; padding: 16px; }
     .glossary-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }
@@ -134,11 +139,13 @@
     </div>
   </div>
 
+  <!-- AWARDS & SUPERLATIVES GRID -->
+  <div class="awards-grid" id="dynamicAwardsGrid"></div>
+
   <div class="tab-bar">
     <button class="tab-btn active" onclick="switchTab('week')" id="tabBtnWeek">📅 Week Summary</button>
     <button class="tab-btn" onclick="switchTab('season')" id="tabBtnSeason">📈 Season Trends</button>
     <button class="tab-btn" onclick="switchTab('h2h')">⚔️ Head-to-Head</button>
-    <button class="tab-btn" onclick="switchTab('payouts')">💰 Payouts & Records</button>
     <button class="tab-btn" onclick="switchTab('halloffame')">🏆 Hall of Champions</button>
     <button class="tab-btn" onclick="switchTab('blunders')">🤡 Bench Blunders</button>
     <button class="tab-btn" onclick="switchTab('glossary')">📖 Stat Decoders</button>
@@ -154,7 +161,8 @@
           <th>Score <span class="sub-th">(vs Proj)</span></th>
           <th>Opponent <span class="sub-th">(Score)</span></th>
           <th>All-Play <span class="sub-th">Record</span></th>
-          <th>Coaching Eff <span class="sub-th">Optimal Pts %</span></th>
+          <th>Luck Δ</th>
+          <th>Coaching Eff</th>
         </tr>
       </thead>
       <tbody id="weekTableBody"></tbody>
@@ -180,29 +188,63 @@
 
   <!-- TAB 3: HEAD-TO-HEAD -->
   <div id="view-h2h" class="table-container" style="display: none;">
-    <div style="padding: 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
-      ⚔️ Head-to-Head Rivalry Records (Data populated dynamically per season)
+    <div class="filter-header">
+      <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <div style="font-size: 14px; font-weight: 800; color: var(--text);">⚔️ Head-to-Head Rivalry Records (2023–Present)</div>
+        <div class="h2h-scope-bar">
+          <button id="scopeCurrentBtn" class="scope-btn active" onclick="setH2HScope('current')">👥 Current Managers</button>
+          <button id="scopeAllBtn" class="scope-btn" onclick="setH2HScope('all')">🌐 All-Time (Inc. Former)</button>
+        </div>
+      </div>
+      <div class="filter-control">
+        <select id="mgrFilter" class="select-dropdown" onchange="applyH2HFilters()">
+          <option value="ALL">Show All Rivalries</option>
+        </select>
+      </div>
     </div>
-    <div style="padding: 20px; color: var(--muted); text-align: center;">Head-to-Head and All-Time history metrics are tracked seamlessly across active seasons.</div>
+    <table class="responsive-table">
+      <thead>
+        <tr>
+          <th>Rivalry Matchup</th>
+          <th>All-Time Series</th>
+          <th>Total Points (PF vs PA)</th>
+          <th>Last Meeting</th>
+        </tr>
+      </thead>
+      <tbody id="h2hTableBody"></tbody>
+    </table>
   </div>
 
-  <!-- TAB 4: PAYOUTS & RECORDS -->
-  <div id="view-payouts" class="table-container" style="display: none;">
-    <div style="padding: 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
-      💰 Payouts, Bounties & Positional Records
+  <!-- TAB 4: HALL OF CHAMPIONS -->
+  <div id="view-halloffame" style="display: none; display: flex; flex-direction: column; gap: 20px;">
+    <div class="table-container">
+      <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
+        🏛️ All-Time Franchise Trophy & Placement Ledger (2023–Present)
+      </div>
+      <table class="responsive-table">
+        <thead>
+          <tr>
+            <th>Manager / Franchise</th>
+            <th>🥇 1st (Gold)</th>
+            <th>🥈 2nd (Silver)</th>
+            <th>🥉 3rd (Bronze)</th>
+            <th>💩 League Bitch</th>
+            <th>Total Podiums</th>
+            <th>📊 Avg Finish</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboardTableBody"></tbody>
+      </table>
     </div>
-    <div style="padding: 20px; color: var(--muted); text-align: center;">Weekly high-scorer cash ledgers and positional high-water marks.</div>
+    <div class="table-container">
+      <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 14px;">
+        🏆 Historical Season Podiums
+      </div>
+      <div class="podium-grid" id="podiumGridContainer"></div>
+    </div>
   </div>
 
-  <!-- TAB 5: HALL OF CHAMPIONS -->
-  <div id="view-halloffame" class="table-container" style="display: none;">
-    <div style="padding: 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
-      🏆 Hall of Champions & Franchise Standings
-    </div>
-    <div style="padding: 20px; color: var(--muted); text-align: center;">All-time franchise trophy cases and placement ledgers.</div>
-  </div>
-
-  <!-- TAB 6: BENCH BLUNDERS -->
+  <!-- TAB 5: BENCH BLUNDERS -->
   <div id="view-blunders" class="table-container" style="display: none;">
     <table class="responsive-table">
       <thead>
@@ -218,7 +260,7 @@
     </table>
   </div>
 
-  <!-- TAB 7: STAT DECODERS -->
+  <!-- TAB 6: STAT DECODERS -->
   <div id="view-glossary" class="table-container" style="display: none;">
     <div style="padding: 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
       📖 The Deflaters Analytics Handbook
@@ -246,22 +288,26 @@
 </div>
 
 <script>
-  let seasonsData = {};
+  let dashboardData = {};
   let currentYear = '';
   let currentWeek = '';
+  let h2hScope = 'current';
 
   async function init() {
     try {
-      const response = await fetch('./seasons_data.json');
-      seasonsData = await response.json();
+      const response = await fetch('./global_dashboard_data.json');
+      dashboardData = await response.json();
       
-      const years = Object.keys(seasonsData).sort((a, b) => b - a);
+      const seasons = dashboardData.seasons_data || {};
+      const years = Object.keys(seasons).sort((a, b) => b - a);
       if (years.length > 0) {
         currentYear = years[0];
         setupSeasonDropdown(years);
+        renderHallOfFame();
+        setupH2HFilters();
       }
     } catch (err) {
-      console.error('Failed to load seasons data:', err);
+      console.error('Failed to load dashboard data:', err);
       document.getElementById('headerTitle').innerText = 'ERROR LOADING DATA';
     }
   }
@@ -282,7 +328,7 @@
   function populateWeeks(yr, targetWk) {
     const weekSel = document.getElementById('weekSelect');
     weekSel.innerHTML = '';
-    const weeksObj = seasonsData[yr] || {};
+    const weeksObj = dashboardData.seasons_data[yr] || {};
     const weeks = Object.keys(weeksObj).map(Number).sort((a, b) => b - a);
     
     if (weeks.length === 0) weeks.push(1);
@@ -309,35 +355,114 @@
     renderData();
   }
 
+  function renderBadge(label) {
+    const reigning = dashboardData.reigning || {};
+    if (!reigning.year) return label;
+    const yrShort = reigning.year.slice(-2);
+
+    function matches(target) {
+      if (!target || target === 'TBD') return false;
+      const tClean = target.toLowerCase().trim();
+      const lClean = label.toLowerCase().trim();
+      if (tClean.includes(lClean) || lClean.includes(tClean)) return true;
+      if (target.includes('(') && target.includes(')')) {
+        const mgr = target.split('(').pop().split(')')[0].trim().toLowerCase();
+        if (mgr && mgr !== 'manager' && lClean.includes(mgr)) return true;
+      }
+      return false;
+    }
+
+    if (matches(reigning.gold)) return label + ` <span class="badge badge-champ">🥇 '${yrShort} Champ</span>`;
+    if (matches(reigning.silver)) return label + ` <span class="badge badge-silver">🥈 '${yrShort} Runner-Up</span>`;
+    if (matches(reigning.bronze)) return label + ` <span class="badge badge-bronze">🥉 '${yrShort} 3rd Pl</span>`;
+    if (matches(reigning.last)) return label + ` <span class="badge badge-bitch">💩 '${yrShort} League Bitch</span>`;
+    return label;
+  }
+
   function renderData() {
     document.getElementById('headerTitle').innerText = `${currentYear} WEEK ${currentWeek} SUMMARY`;
     document.getElementById('tabBtnWeek').innerText = `📅 Week ${currentWeek} Summary`;
     document.getElementById('tabBtnSeason').innerText = `📈 ${currentYear} Season Trends`;
 
-    // 1. Render Weekly Table
-    const wkData = seasonsData[currentYear]?.[currentWeek] || [];
+    const wkData = dashboardData.seasons_data?.[currentYear]?.[currentWeek] || [];
     const sortedWk = wkData.slice().sort((a, b) => {
       if (b.all_play_w !== a.all_play_w) return b.all_play_w - a.all_play_w;
       return b.actual - a.actual;
     });
 
+    // 1. Render Awards Grid
+    const awardsContainer = document.getElementById('dynamicAwardsGrid');
+    if (sortedWk.length > 0) {
+      const bounty = sortedWk[0];
+      const buzzsaw = sortedWk.slice().sort((a, b) => a.luck_delta - b.luck_delta)[0];
+      const horseshoe = sortedWk.slice().sort((a, b) => b.luck_delta - a.luck_delta)[0];
+      const tactician = sortedWk.slice().sort((a, b) => b.coach_eff - a.coach_eff)[0];
+
+      let allStarters = [];
+      wkData.forEach(t => {
+        if (t.players) {
+          t.players.forEach(p => {
+            if (p.started) allStarters.push({ player: p.name, pos: p.pos, pts: p.pts, team: t.team });
+          });
+        }
+      });
+      const anchor = allStarters.length > 0 ? allStarters.sort((a, b) => a.pts - b.pts)[0] : null;
+
+      awardsContainer.innerHTML = `
+        <div class="award-card gold">
+          <div><div class="award-tag" style="color: var(--gold);">💰 Week ${currentWeek} Team Bounty</div>
+          <div class="award-title">${renderBadge(bounty.team)}</div>
+          <div class="award-desc">Paced the entire league with <b>${bounty.actual.toFixed(2)} pts</b> to take down the weekly cash payout!</div></div>
+          <div style="margin-top: 8px;"><span class="badge badge-gold">Weekly Bounty Winner</span></div>
+        </div>
+        <div class="award-card red">
+          <div><div class="award-tag" style="color: var(--red);">💀 The Buzzsaw Victim</div>
+          <div class="award-title">${renderBadge(buzzsaw.team)}</div>
+          <div class="award-desc">Dropped ${buzzsaw.actual.toFixed(2)} pts, but took an L to ${buzzsaw.opp} (${buzzsaw.opp_actual.toFixed(2)} pts).</div></div>
+          <div style="margin-top: 8px;"><span class="badge badge-unlucky">Luck Δ: ${buzzsaw.luck_delta >= 0 ? '+' : ''}${buzzsaw.luck_delta.toFixed(3)}</span></div>
+        </div>
+        <div class="award-card green">
+          <div><div class="award-tag" style="color: var(--green);">🍀 Grand Theft Victory</div>
+          <div class="award-title">${renderBadge(horseshoe.team)}</div>
+          <div class="award-desc">Squeaked by with ${horseshoe.actual.toFixed(2)} pts thanks to opponent meltdown.</div></div>
+          <div style="margin-top: 8px;"><span class="badge badge-lucky">Luck Δ: ${horseshoe.luck_delta >= 0 ? '+' : ''}${horseshoe.luck_delta.toFixed(3)}</span></div>
+        </div>
+        <div class="award-card blue">
+          <div><div class="award-tag" style="color: var(--accent);">🧠 Master Tactician</div>
+          <div class="award-title">${renderBadge(tactician.team)}</div>
+          <div class="award-desc">Optimal starting execution of <b>${tactician.coach_eff.toFixed(1)}%</b> (${tactician.actual.toFixed(2)} of ${tactician.optimal.toFixed(2)} pts).</div></div>
+          <div style="margin-top: 8px;"><span class="badge badge-neutral">Lineup Mastery</span></div>
+        </div>
+        <div class="award-card zinc">
+          <div><div class="award-tag" style="color: var(--dim);">⚓ The Anchor Award</div>
+          <div class="award-title">${anchor ? anchor.player + ' (' + anchor.pos + ')' : 'None'}</div>
+          <div class="award-desc">Hung a league-low <b>${anchor ? anchor.pts.toFixed(2) : '0.00'} pts</b> for ${anchor ? anchor.team : 'None'}.</div></div>
+          <div style="margin-top: 8px;"><span class="badge badge-neutral">Lowest Starter</span></div>
+        </div>
+      `;
+    }
+
+    // 2. Render Weekly Table
     const tbody = document.getElementById('weekTableBody');
     tbody.innerHTML = '';
     sortedWk.forEach((t, idx) => {
+      const deltaClass = t.luck_delta > 0 ? 'badge-lucky' : (t.luck_delta < 0 ? 'badge-unlucky' : 'badge-neutral');
+      const resBadge = t.result === 'W' ? 'badge-win' : 'badge-loss';
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td class="team-cell"><span class="rank-num">#${idx + 1}</span> ${t.team}</td>
-        <td><span class="badge ${t.result === 'W' ? 'badge-win' : 'badge-loss'}">${t.result}</span></td>
+        <td class="team-cell"><span class="rank-num">#${idx + 1}</span> ${renderBadge(t.team)}</td>
+        <td><span class="badge ${resBadge}">${t.result}</span></td>
         <td><b>${t.actual.toFixed(2)}</b> <span style="font-size: 11px; color: var(--dim);">(${t.diff > 0 ? '+' : ''}${t.diff.toFixed(2)})</span></td>
         <td>${t.opp} <span style="color: var(--muted); font-size: 11px;">(${t.opp_actual.toFixed(2)})</span></td>
         <td><b>${t.all_play_w}</b>–${t.all_play_l}</td>
+        <td><span class="badge ${deltaClass}">${t.luck_delta >= 0 ? '+' : ''}${t.luck_delta.toFixed(3)}</span></td>
         <td><b>${t.coach_eff.toFixed(1)}%</b></td>
       `;
       tbody.appendChild(tr);
     });
 
-    // 2. Render Season Trends Table
-    const yrWeeks = seasonsData[currentYear] || {};
+    // 3. Render Season Trends Table
+    const yrWeeks = dashboardData.seasons_data[currentYear] || {};
     let teamStats = {};
     Object.values(yrWeeks).forEach(matchups => {
       matchups.forEach(m => {
@@ -345,28 +470,19 @@
           teamStats[m.team] = { team: m.team, wins: 0, losses: 0, ap_w: 0, ap_l: 0, pf: 0, pa: 0, effSum: 0, count: 0 };
         }
         let s = teamStats[m.team];
-        s.pf += m.actual;
-        s.pa += m.opp_actual;
-        s.ap_w += m.all_play_w;
-        s.ap_l += m.all_play_l;
-        s.effSum += m.coach_eff;
-        s.count++;
+        s.pf += m.actual; s.pa += m.opp_actual; s.ap_w += m.all_play_w; s.ap_l += m.all_play_l; s.effSum += m.coach_eff; s.count++;
         if (m.result === 'W') s.wins++;
         else if (m.result === 'L') s.losses++;
       });
     });
 
-    const seasonArr = Object.values(teamStats).sort((a, b) => {
-      if (b.ap_w !== a.ap_w) return b.ap_w - a.ap_w;
-      return b.pf - a.pf;
-    });
-
+    const seasonArr = Object.values(teamStats).sort((a, b) => b.ap_w - a.ap_w || b.pf - a.pf);
     const stBody = document.getElementById('seasonTableBody');
     stBody.innerHTML = '';
     seasonArr.forEach((s, idx) => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td class="team-cell"><span class="rank-num">#${idx + 1}</span> ${s.team}</td>
+        <td class="team-cell"><span class="rank-num">#${idx + 1}</span> ${renderBadge(s.team)}</td>
         <td><b>${s.wins}–${s.losses}</b></td>
         <td>${s.ap_w}–${s.ap_l}</td>
         <td><b>${s.pf.toFixed(2)}</b></td>
@@ -376,14 +492,12 @@
       stBody.appendChild(tr);
     });
 
-    // 3. Render Bench Blunders
+    // 4. Render Bench Blunders
     let blunders = [];
     sortedWk.forEach(t => {
       if (t.players) {
         t.players.forEach(p => {
-          if (p.audit === 'Costly Bench') {
-            blunders.push({ team: t.team, name: p.name, pos: p.pos, pts: p.pts, proj: p.proj });
-          }
+          if (p.audit === 'Costly Bench') blunders.push({ team: t.team, name: p.name, pos: p.pos, pts: p.pts, proj: p.proj });
         });
       }
     });
@@ -394,7 +508,7 @@
     blunders.slice(0, 10).forEach((b, idx) => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td class="team-cell"><span class="rank-num">#${idx + 1}</span> ${b.team}</td>
+        <td class="team-cell"><span class="rank-num">#${idx + 1}</span> ${renderBadge(b.team)}</td>
         <td style="color: var(--text); font-weight: 600;">${b.name}</td>
         <td><span class="badge badge-neutral">${b.pos}</span></td>
         <td style="font-weight: 800; color: var(--amber);">${b.pts.toFixed(2)} pts</td>
@@ -404,8 +518,122 @@
     });
   }
 
+  function renderHallOfFame() {
+    const leaderboard = dashboardData.leaderboard || [];
+    const lbBody = document.getElementById('leaderboardTableBody');
+    lbBody.innerHTML = '';
+
+    leaderboard.forEach(row => {
+      const statusBadge = row.is_current ? ' <span class="badge badge-neutral" style="font-size: 9px; padding: 1px 5px;">Active</span>' : ' <span class="badge badge-neutral" style="font-size: 9px; padding: 1px 5px; opacity: 0.6;">Alumni</span>';
+      const avgStr = row.avg_finish !== null ? `<b>${row.avg_finish.toFixed(1)}</b>` : '—';
+      lbBody.innerHTML += `
+        <tr>
+          <td class="team-cell"><b>${row.manager}</b>${statusBadge}<div style="font-size: 11px; color: var(--muted); font-weight: normal;">Most Recent: ${row.most_recent}</div></td>
+          <td><b>${row.gold}</b></td><td><b>${row.silver}</b></td><td><b>${row.bronze}</b></td>
+          <td style="color: #ef4444; font-weight: 700;">${row.last}</td>
+          <td><span class="badge badge-neutral"><b>${row.total_podiums}</b></span></td>
+          <td>${avgStr}</td>
+        </tr>
+      `;
+    });
+
+    const champions = dashboardData.champions || {};
+    const podiumGrid = document.getElementById('podiumGridContainer');
+    podiumGrid.innerHTML = '';
+    Object.keys(champions).sort((a, b) => b - a).forEach(yr => {
+      const p = champions[yr];
+      podiumGrid.innerHTML += `
+        <div class="podium-card">
+          <div class="podium-year">${yr} Season</div>
+          <div class="podium-row"><span>🥇 <b>Gold</b></span><span style="color: var(--gold); font-weight: 700;">${p.gold}</span></div>
+          <div class="podium-row"><span>🥈 <b>Silver</b></span><span style="color: var(--silver); font-weight: 700;">${p.silver}</span></div>
+          <div class="podium-row"><span>🥉 <b>Bronze</b></span><span style="color: var(--bronze); font-weight: 700;">${p.bronze}</span></div>
+          <div class="podium-row" style="border-top: 1px dashed var(--border); margin-top: 6px; padding-top: 6px;">
+            <span style="color: #ef4444;">💩 <b>League Bitch</b></span><span style="color: #ef4444; font-weight: 700;">${p.last}</span>
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  function setupH2HFilters() {
+    const matchups = dashboardData.matchups || {};
+    const currentManagers = dashboardData.current_managers || [];
+    const select = document.getElementById('mgrFilter');
+    
+    let managersSet = new Set();
+    Object.values(matchups).forEach(m => {
+      managersSet.add(m.m1); managersSet.add(m.m2);
+    });
+
+    select.innerHTML = '<option value="ALL">Show All Rivalries</option>';
+    Array.from(managersSet).sort().forEach(mgr => {
+      const isCur = currentManagers.includes(mgr);
+      select.innerHTML += `<option value="${mgr}" data-is-current="${isCur}">${mgr}${isCur ? '' : ' (Former)'}</option>`;
+    });
+
+    renderH2HTable();
+  }
+
+  function renderH2HTable() {
+    const matchups = dashboardData.matchups || {};
+    const currentManagers = dashboardData.current_managers || [];
+    const mgrFilter = document.getElementById('mgrFilter').value;
+    const h2hBody = document.getElementById('h2hTableBody');
+    h2hBody.innerHTML = '';
+
+    // Aggregate matchups into pairs
+    let rivalries = {};
+    Object.values(matchups).forEach(g => {
+      const pair = sortedPair(g.m1, g.m2);
+      const key = pair[0] + '_vs_' + pair[1];
+      if (!rivalries[key]) {
+        rivalries[key] = { m1: pair[0], m2: pair[1], wins1: 0, wins2: 0, pf1: 0, pf2: 0, last: null };
+      }
+      const r = rivalries[key];
+      r.last = g;
+      if (g.s1 > g.s2) {
+        if (g.m1 === r.m1) r.wins1++; else r.wins2++;
+      } else if (g.s2 > g.s1) {
+        if (g.m2 === r.m1) r.wins1++; else r.wins2++;
+      }
+      if (g.m1 === r.m1) { r.pf1 += g.s1; r.pf2 += g.s2; } else { r.pf1 += g.s2; r.pf2 += g.s1; }
+    });
+
+    Object.values(rivalries).forEach(r => {
+      const isBothCurrent = currentManagers.includes(r.m1) && currentManagers.includes(r.m2);
+      if (h2hScope === 'current' && !isBothCurrent) return;
+      if (mgrFilter !== 'ALL' && r.m1 !== mgrFilter && r.m2 !== mgrFilter) return;
+
+      const lastStr = r.last ? `${r.last.year} Wk ${r.last.week}: ${r.last.m1} (${r.last.s1.toFixed(2)}) vs ${r.last.m2} (${r.last.s2.toFixed(2)})` : 'N/A';
+      h2hBody.innerHTML += `
+        <tr>
+          <td class="team-cell">${r.m1} vs ${r.m2}</td>
+          <td><b>${r.wins1}–${r.wins2}</b></td>
+          <td>${r.pf1.toFixed(2)} – ${r.pf2.toFixed(2)}</td>
+          <td style="color: var(--muted); font-size: 11px;">${lastStr}</td>
+        </tr>
+      `;
+    });
+  }
+
+  function sortedPair(a, b) {
+    return [a, b].sort();
+  }
+
+  function setH2HScope(scope) {
+    h2hScope = scope;
+    document.getElementById('scopeCurrentBtn').classList.toggle('active', scope === 'current');
+    document.getElementById('scopeAllBtn').classList.toggle('active', scope === 'all');
+    renderH2HTable();
+  }
+
+  function applyH2HFilters() {
+    renderH2HTable();
+  }
+
   function switchTab(viewName) {
-    ['week', 'season', 'h2h', 'payouts', 'halloffame', 'blunders', 'glossary'].forEach(tab => {
+    ['week', 'season', 'h2h', 'halloffame', 'blunders', 'glossary'].forEach(tab => {
       const el = document.getElementById('view-' + tab);
       if (el) el.style.display = tab === viewName ? 'block' : 'none';
     });
