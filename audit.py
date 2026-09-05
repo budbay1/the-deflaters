@@ -770,7 +770,7 @@ def generate_html_report(
   <div class="header">
     <div>
       <div class="subtitle">The Deflaters Analytics Lab</div>
-      <h1>WEEK {week_num} EXECUTIVE AUDIT</h1>
+      <h1>WEEK {week_num} RECAP</h1>
     </div>
     <div class="header-controls">
       <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()">☀️ Light Mode</button>
