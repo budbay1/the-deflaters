@@ -45,10 +45,10 @@ jobs:
         run: |
           python audit.py
 
-      - name: Commit and Save History + Webpage
+     - name: Commit and Save History + Webpage
         run: |
           git config --global user.name "FantasyBot"
           git config --global user.email "bot@fantasy.internal"
-          git add league_history_*.json index.html
-          git commit -m "Updated Fantasy Audit for Week ${{ github.event.inputs.week || '1' }} (${{ github.event.inputs.year || '2026' }})" || echo "No changes to commit"
+          git add league_history_*.json seasons_data.json index.html
+          git commit -m "Automated Multi-Season Audit Update" || echo "No changes to commit"
           git push
