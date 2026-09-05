@@ -49,7 +49,137 @@ def extract_manager_from_label(team_label):
   if not team_label or team_label == "TBD":
     return "Unknown"
   if "(" in team_label and ")" in team_label:
-    mgr = team_label.split("(")# 2. Weekly High Individual Starter
+    return team_label.split("(")[-1].split(")")[0].strip()
+  return team_label.strip()
+
+
+def audit_roster(lineup, slots, actual_score):
+  qbs = sorted(
+      [p for p in lineup if p.position == "QB"],
+      key=lambda x: x.points,
+      reverse=True,
+  )
+  rbs = sorted(
+      [p for p in lineup if p.position == "RB"],
+      key=lambda x: x.points,
+      reverse=True,
+  )
+  wrs = sorted(
+      [p for p in lineup if p.position == "WR"],
+      key=lambda x: x.points,
+      reverse=True,
+  )
+  tes = sorted(
+      [p for p in lineup if p.position == "TE"],
+      key=lambda x: x.points,
+      reverse=True,
+  )
+  ks = sorted(
+      [p for p in lineup if p.position == "K"],
+      key=lambda x: x.points,
+      reverse=True,
+  )
+  dsts = sorted(
+      [p for p in lineup if p.position in ["D/ST", "DEF"]],
+      key=lambda x: x.points,
+      reverse=True,
+  )
+
+  optimal_ids = set()
+  for p in qbs[: slots.get("QB", 1)]:
+    optimal_ids.add(p.playerId)
+  for p in rbs[: slots.get("RB", 2)]:
+    optimal_ids.add(p.playerId)
+  for p in wrs[: slots.get("WR", 3)]:
+    optimal_ids.add(p.playerId)
+  for p in tes[: slots.get("TE", 1)]:
+    optimal_ids.add(p.playerId)
+
+  flex_pool = sorted(
+      rbs[slots.get("RB", 2) :]
+      + wrs[slots.get("WR", 3) :]
+      + tes[slots.get("TE", 1) :],
+      key=lambda x: x.points,
+      reverse=True,
+  )
+  for p in flex_pool[: slots.get("FLEX", 1)]:
+    optimal_ids.add(p.playerId)
+
+  for p in ks[: slots.get("K", 1)]:
+    optimal_ids.add(p.playerId)
+  for p in dsts[: slots.get("D/ST", 1)]:
+    optimal_ids.add(p.playerId)
+
+  players_data = []
+  for p in lineup:
+    started = p.slot_position not in ["BE", "IR"]
+    is_optimal = p.playerId in optimal_ids
+    pts = round(p.points, 2)
+    proj = round(getattr(p, "projected_points", 0.0), 2)
+    pos_clean = "D/ST" if p.position in ["D/ST", "DEF"] else p.position
+
+    if started and is_optimal:
+      audit = "Smart Start"
+    elif not started and not is_optimal:
+      audit = "Correct Bench"
+    elif not started and is_optimal:
+      audit = "Costly Bench"
+    else:
+      audit = "Starter Bust"
+
+    players_data.append({
+        "name": p.name,
+        "pos": pos_clean,
+        "started": started,
+        "audit": audit,
+        "pts": pts,
+        "proj": proj,
+    })
+
+  calc_optimal = round(
+      sum(p.points for p in lineup if p.playerId in optimal_ids), 2
+  )
+  return players_data, max(actual_score, calc_optimal)
+
+
+def load_history(filepath, default_data):
+  if os.path.exists(filepath):
+    with open(filepath, "r") as f:
+      return json.load(f)
+  return default_data
+
+
+def save_history(filepath, data):
+  with open(filepath, "w") as f:
+    json.dump(data, f, indent=2)
+
+
+def compute_records_and_payouts(history):
+  weekly_team_bounties = []
+  weekly_player_bounties = []
+  position_records = {
+      pos: {"pts": -99.0, "player": "None", "team": "None", "week": 0}
+      for pos in ["QB", "RB", "WR", "TE", "K", "D/ST"]
+  }
+
+  sorted_weeks = sorted([int(w) for w in history["weeks"].keys()])
+
+  for w in sorted_weeks:
+    matchups = history["weeks"][str(w)]
+    if not matchups:
+      continue
+
+    # 1. Weekly High Team Points
+    high_match = max(matchups, key=lambda x: x["actual"])
+    weekly_team_bounties.append({
+        "week": w,
+        "team": high_match["team"],
+        "pts": high_match["actual"],
+        "opp": high_match["opp"],
+        "opp_pts": high_match["opp_actual"],
+    })
+
+    # 2. Weekly High Individual Starter
     starters_this_week = []
     for team_entry in matchups:
       team_name = team_entry["team"]
@@ -208,7 +338,6 @@ def sync_champions(current_year):
     all_time["champions"] = {}
   all_time["champions"].update(HISTORICAL_CHAMPIONS_OVERRIDE)
 
-  # Check past years back to 2023
   for y in range(2023, current_year + 1):
     y_str = str(y)
 
@@ -257,7 +386,6 @@ def sync_champions(current_year):
           None,
       )
 
-      # Resilient fallback if league didn't play a dedicated 3rd place consolation match
       remaining = [
           t for t in past_league.teams if t != gold_team and t != silver_team
       ]
@@ -278,7 +406,6 @@ def sync_champions(current_year):
       if not bronze_team and remaining:
         bronze_team = remaining.pop(0)
 
-      # Detect Last Place finisher ("League Bitch")
       valid_standings = [
           t for t in past_league.teams if getattr(t, "final_standing", 0) > 0
       ]
@@ -357,7 +484,6 @@ def compute_all_time_leaderboard(champions):
       mgr_stats[m_last]["last"] += 1
       mgr_stats[m_last]["most_recent"] = f"💩 League Bitch ({y})"
 
-  # Sort by Gold desc, Silver desc, Bronze desc, then least Last Places
   leaderboard = sorted(
       mgr_stats.values(),
       key=lambda x: (
@@ -1280,7 +1406,7 @@ def generate_html_report(
           Total real points surrendered to your bench across the season. It calculates the difference between your team's <b>Optimal Score</b> and your <b>Actual Score</b> each week.
         </div>
         <div class="glossary-example">
-          <b>Example:</b> Started an RB who scored 4.2 pts while leaving an RB with 18.2 on the bench. That is <b>14.0 pts</b> added to your Pine Tax.
+          <b>Example:</b> Started an RB who scored 4.20 pts while leaving an RB with 18.20 on the bench. That is <b>14.00 pts</b> added to your Pine Tax.
         </div>
       </div>
 
