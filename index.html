@@ -146,6 +146,7 @@
     <button class="tab-btn active" onclick="switchTab('week')" id="tabBtnWeek">📅 Week Summary</button>
     <button class="tab-btn" onclick="switchTab('season')" id="tabBtnSeason">📈 Season Trends</button>
     <button class="tab-btn" onclick="switchTab('h2h')">⚔️ Head-to-Head</button>
+    <button class="tab-btn" onclick="switchTab('payouts')">💰 Payouts & Records</button>
     <button class="tab-btn" onclick="switchTab('halloffame')">🏆 Hall of Champions</button>
     <button class="tab-btn" onclick="switchTab('blunders')">🤡 Bench Blunders</button>
     <button class="tab-btn" onclick="switchTab('glossary')">📖 Stat Decoders</button>
@@ -216,7 +217,13 @@
     </table>
   </div>
 
-  <!-- TAB 4: HALL OF CHAMPIONS -->
+  <!-- TAB 4: PAYOUTS -->
+  <div id="view-payouts" class="table-container" style="display: none; padding: 20px;" id="payoutsContainer">
+    <div style="font-size: 16px; font-weight: 800; margin-bottom: 14px; color: var(--text);">💰 Season Cash Bounties & Records</div>
+    <div class="awards-grid" id="payoutsGrid"></div>
+  </div>
+
+  <!-- TAB 5: HALL OF CHAMPIONS -->
   <div id="view-halloffame" style="display: none; display: flex; flex-direction: column; gap: 20px;">
     <div class="table-container">
       <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
@@ -245,7 +252,7 @@
     </div>
   </div>
 
-  <!-- TAB 5: BENCH BLUNDERS -->
+  <!-- TAB 6: BENCH BLUNDERS -->
   <div id="view-blunders" class="table-container" style="display: none;">
     <table class="responsive-table">
       <thead>
@@ -261,7 +268,7 @@
     </table>
   </div>
 
-  <!-- TAB 6: STAT DECODERS -->
+  <!-- TAB 7: STAT DECODERS -->
   <div id="view-glossary" class="table-container" style="display: none;">
     <div style="padding: 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
       📖 The Deflaters Analytics Handbook
@@ -449,31 +456,26 @@
     sortedWk.forEach((t, idx) => {
       const deltaClass = t.luck_delta > 0 ? 'badge-lucky' : (t.luck_delta < 0 ? 'badge-unlucky' : 'badge-neutral');
       const resBadge = t.result === 'W' ? 'badge-win' : 'badge-loss';
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td class="team-cell"><span class="rank-num">#${idx + 1}</span> ${renderBadge(t.team)}</td>
-        <td><span class="badge ${resBadge}">${t.result}</span></td>
-        <td><b>${t.actual.toFixed(2)}</b> <span style="font-size: 11px; color: var(--dim);">(${t.diff > 0 ? '+' : ''}${t.diff.toFixed(2)})</span></td>
-        <td>${t.opp} <span style="color: var(--muted); font-size: 11px;">(${t.opp_actual.toFixed(2)})</span></td>
-        <td><b>${t.all_play_w}</b>–${t.all_play_l}</td>
-        <td><span class="badge ${deltaClass}">${t.luck_delta >= 0 ? '+' : ''}${t.luck_delta.toFixed(3)}</span></td>
-        <td><b>${t.coach_eff.toFixed(1)}%</b></td>
+      tbody.innerHTML += `
+        <tr>
+          <td class="team-cell"><span class="rank-num">#${idx + 1}</span> ${renderBadge(t.team)}</td>
+          <td><span class="badge ${resBadge}">${t.result}</span></td>
+          <td><b>${t.actual.toFixed(2)}</b> <span style="font-size: 11px; color: var(--dim);">(${t.diff > 0 ? '+' : ''}${t.diff.toFixed(2)})</span></td>
+          <td>${t.opp} <span style="color: var(--muted); font-size: 11px;">(${t.opp_actual.toFixed(2)})</span></td>
+          <td><b>${t.all_play_w}</b>–${t.all_play_l}</td>
+          <td><span class="badge ${deltaClass}">${t.luck_delta >= 0 ? '+' : ''}${t.luck_delta.toFixed(3)}</span></td>
+          <td><b>${t.coach_eff.toFixed(1)}%</b></td>
+        </tr>
       `;
-      tbody.appendChild(tr);
     });
 
-    // 3. Render Advanced Season Trends Table (Pythagorean, Volatility, Cardiac, Pine Tax)
+    // 3. Render Advanced Season Trends Table
     const yrWeeks = dashboardData.seasons_data[currentYear] || {};
     let teamStats = {};
-    const totalWeeks = Object.keys(yrWeeks).length;
-
-    Object.entries(yrWeeks).forEach(([wkNum, matchups]) => {
+    Object.values(yrWeeks).forEach(matchups => {
       matchups.forEach(m => {
         if (!teamStats[m.team]) {
-          teamStats[m.team] = { 
-            team: m.team, wins: 0, losses: 0, ap_w: 0, ap_l: 0, pf: 0, pa: 0, 
-            scores: [], pineTax: 0, cardiacW: 0, cardiacL: 0 
-          };
+          teamStats[m.team] = { team: m.team, wins: 0, losses: 0, ap_w: 0, ap_l: 0, pf: 0, pa: 0, scores: [], pineTax: 0, cardiacW: 0, cardiacL: 0 };
         }
         let s = teamStats[m.team];
         s.pf += m.actual; s.pa += m.opp_actual; s.scores.push(m.actual);
@@ -490,9 +492,7 @@
 
     const seasonArr = Object.values(teamStats).map(s => {
       const totMatches = s.wins + s.losses;
-      const pfSq = Math.pow(s.pf, 2);
-      const paSq = Math.pow(s.pa, 2);
-      const denom = pfSq + paSq;
+      const pfSq = Math.pow(s.pf, 2), paSq = Math.pow(s.pa, 2), denom = pfSq + paSq;
       s.pythWins = denom > 0 ? (pfSq / denom) * totMatches : 0;
       s.pythDelta = s.wins - s.pythWins;
 
@@ -520,7 +520,28 @@
       `;
     });
 
-    // 4. Render Bench Blunders
+    // 4. Render Payouts & Records Tab
+    const pGrid = document.getElementById('payoutsGrid');
+    const sp = dashboardData.season_payouts?[currentYear] || {};
+    pGrid.innerHTML = `
+      <div class="award-card gold">
+        <div><div class="award-tag" style="color: var(--gold);">👑 Season Points Leader</div>
+        <div class="award-title">${renderBadge(sp.pf_leader_team || 'None')}</div>
+        <div class="award-desc">Pacing the season with <b>${(sp.pf_leader_pts || 0).toFixed(2)} Total PF</b>!</div></div>
+      </div>
+      <div class="award-card blue">
+        <div><div class="award-tag" style="color: var(--accent);">⚡ Single-Game Team Record</div>
+        <div class="award-title">${renderBadge(sp.high_game_team || 'None')}</div>
+        <div class="award-desc">Hung <b>${(sp.high_game_pts || 0).toFixed(2)} pts</b> in Week ${sp.high_game_week || 0}.</div></div>
+      </div>
+      <div class="award-card green">
+        <div><div class="award-tag" style="color: var(--green);">🌟 Single-Game Starter Record</div>
+        <div class="award-title">${sp.high_player || 'None'} (${sp.high_player_pos || ''})</div>
+        <div class="award-desc">Erupted for <b>${(sp.high_player_pts || 0).toFixed(2)} pts</b> for ${renderBadge(sp.high_player_team || 'None')} in Week ${sp.high_player_week || 0}.</div></div>
+      </div>
+    `;
+
+    // 5. Render Bench Blunders
     let blunders = [];
     sortedWk.forEach(t => {
       if (t.players) {
@@ -656,7 +677,7 @@
   }
 
   function switchTab(viewName) {
-    ['week', 'season', 'h2h', 'halloffame', 'blunders', 'glossary'].forEach(tab => {
+    ['week', 'season', 'h2h', 'payouts', 'halloffame', 'blunders', 'glossary'].forEach(tab => {
       const el = document.getElementById('view-' + tab);
       if (el) el.style.display = tab === viewName ? 'block' : 'none';
     });
