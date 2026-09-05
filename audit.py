@@ -254,11 +254,14 @@ def compute_trends(history):
       stat["eff_history"].append(entry["coach_eff"])
       stat["pine_tax"] += round(entry["optimal"] - entry["actual"], 2)
 
-      if round(entry["opp_actual"] - entry["opp_proj"], 2) > 0:
+      opp_actual = entry.get("opp_actual", 0.0)
+      opp_proj = entry.get("opp_proj", opp_actual)
+      if round(opp_actual - opp_proj, 2) > 0:
         stat["opp_over_proj_count"] += 1
         stat["curr_opp_surge_streak"] += 1
       else:
         stat["curr_opp_surge_streak"] = 0
+
 
   total_weeks = len(weeks_sorted)
   for team, s in team_trends.items():
@@ -681,7 +684,12 @@ def main():
 
   for w in range(1, WEEK + 1):
     w_str = str(w)
-    if w_str not in history["weeks"]:
+    needs_ingest = (
+        w_str not in history["weeks"]
+        or not history["weeks"][w_str]
+        or "opp_proj" not in history["weeks"][w_str][0]
+    )
+    if needs_ingest:
       print(f"Ingesting & processing Week {w}...")
       box_scores = league.box_scores(week=w)
       if not box_scores:
