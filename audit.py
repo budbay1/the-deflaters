@@ -9,7 +9,7 @@ ESPN_S2 = os.environ["ESPN_S2"]
 YEAR = int(os.environ.get("YEAR", 2026))
 WEEK = int(os.environ.get("WEEK", 1))
 
-# League Roster Setup (3 WR Modern Rule)
+# League Roster Setup (1 QB, 2 RB, 3 WR, 1 TE, 1 FLEX, 1 K, 1 D/ST)
 ROSTER_SLOTS = {
     "QB": 1,
     "RB": 2,
@@ -23,8 +23,9 @@ ROSTER_SLOTS = {
 HISTORY_FILE = f"league_history_{YEAR}.json"
 ALL_TIME_FILE = "league_history_alltime.json"
 
+# Manual legacy champions override if needed
 HISTORICAL_CHAMPIONS_OVERRIDE = {
-    # "2024": {"gold": "Team Alpha (Manager A)", "silver": "Team Beta (Manager B)", "bronze": "Team Gamma (Manager C)"},
+    # "2022": {"gold": "Team (Manager)", "silver": "Team (Manager)", "bronze": "Team (Manager)"}
 }
 
 
@@ -143,7 +144,8 @@ def save_history(filepath, data):
 
 
 def compute_records_and_payouts(history):
-  weekly_bounties = []
+  weekly_team_bounties = []
+  weekly_player_bounties = []
   position_records = {
       pos: {"pts": -99.0, "player": "None", "team": "None", "week": 0}
       for pos in ["QB", "RB", "WR", "TE", "K", "D/ST"]
@@ -156,8 +158,9 @@ def compute_records_and_payouts(history):
     if not matchups:
       continue
 
+    # 1. Weekly High Team Points
     high_match = max(matchups, key=lambda x: x["actual"])
-    weekly_bounties.append({
+    weekly_team_bounties.append({
         "week": w,
         "team": high_match["team"],
         "pts": high_match["actual"],
@@ -165,54 +168,166 @@ def compute_records_and_payouts(history):
         "opp_pts": high_match["opp_actual"],
     })
 
+    # 2. Weekly High Individual Player (Starters only)
+    starters_this_week = []
     for team_entry in matchups:
       team_name = team_entry["team"]
       for p in team_entry["players"]:
-        if p["started"] and p["pos"] in position_records:
-          if p["pts"] > position_records[p["pos"]]["pts"]:
-            position_records[p["pos"]] = {
-                "pts": p["pts"],
-                "player": p["name"],
-                "team": team_name,
-                "week": w,
-            }
+        if p["started"]:
+          starters_this_week.append({
+              "week": w,
+              "player": p["name"],
+              "pos": p["pos"],
+              "pts": p["pts"],
+              "team": team_name,
+          })
+          if p["pos"] in position_records:
+            if p["pts"] > position_records[p["pos"]]["pts"]:
+              position_records[p["pos"]] = {
+                  "pts": p["pts"],
+                  "player": p["name"],
+                  "team": team_name,
+                  "week": w,
+              }
 
-  bounty_counts = {}
-  for b in weekly_bounties:
-    bounty_counts[b["team"]] = bounty_counts.get(b["team"], 0) + 1
+    if starters_this_week:
+      high_starter = max(starters_this_week, key=lambda x: x["pts"])
+      weekly_player_bounties.append(high_starter)
 
-  return weekly_bounties, bounty_counts, position_records
+  # 3. Season High Points Leaders
+  season_high_team_game = (
+      max(weekly_team_bounties, key=lambda x: x["pts"])
+      if weekly_team_bounties
+      else None
+  )
+
+  team_totals = {}
+  for w in sorted_weeks:
+    for m in history["weeks"][str(w)]:
+      tm = m["team"]
+      team_totals[tm] = team_totals.get(tm, 0.0) + m["actual"]
+
+  season_pf_leader = (
+      max(team_totals.items(), key=lambda x: x[1])
+      if team_totals
+      else ("None", 0.0)
+  )
+  season_high_player_game = (
+      max(weekly_player_bounties, key=lambda x: x["pts"])
+      if weekly_player_bounties
+      else None
+  )
+
+  season_payout_leaders = {
+      "pf_leader_team": season_pf_leader[0],
+      "pf_leader_pts": round(season_pf_leader[1], 2),
+      "high_game_team": (
+          season_high_team_game["team"] if season_high_team_game else "None"
+      ),
+      "high_game_pts": (
+          season_high_team_game["pts"] if season_high_team_game else 0.0
+      ),
+      "high_game_week": (
+          season_high_team_game["week"] if season_high_team_game else 0
+      ),
+      "high_player": (
+          season_high_player_game["player"] if season_high_player_game else "None"
+      ),
+      "high_player_pts": (
+          season_high_player_game["pts"] if season_high_player_game else 0.0
+      ),
+      "high_player_pos": (
+          season_high_player_game["pos"] if season_high_player_game else ""
+      ),
+      "high_player_team": (
+          season_high_player_game["team"] if season_high_player_game else "None"
+      ),
+      "high_player_week": (
+          season_high_player_game["week"] if season_high_player_game else 0
+      ),
+  }
+
+  return (
+      weekly_team_bounties,
+      weekly_player_bounties,
+      position_records,
+      season_payout_leaders,
+  )
 
 
-def sync_champions(league, current_year):
+def sync_champions(current_year):
+  """Reaches back to 2023 and audits completed standings for Gold, Silver, and Bronze."""
   all_time = load_history(ALL_TIME_FILE, {"champions": {}, "matchups": {}})
   if "champions" not in all_time:
     all_time["champions"] = {}
   all_time["champions"].update(HISTORICAL_CHAMPIONS_OVERRIDE)
 
-  try:
-    teams_with_rank = [
-        t for t in league.teams if getattr(t, "final_standing", 0) > 0
-    ]
-    if teams_with_rank:
-      ranked = sorted(teams_with_rank, key=lambda x: x.final_standing)
-      year_str = str(current_year)
+  # Check past years back to 2023
+  for y in range(2023, current_year + 1):
+    y_str = str(y)
+    existing = all_time["champions"].get(y_str, {})
+    if (
+        existing.get("gold")
+        and existing.get("gold") != "TBD"
+        and existing.get("bronze")
+        and existing.get("bronze") != "TBD"
+    ):
+      continue
+
+    try:
+      print(f"Scanning ESPN for Season {y} podium finishers...")
+      past_league = League(
+          league_id=LEAGUE_ID, year=y, espn_s2=ESPN_S2, swid=SWID
+      )
+
+      gold_team = next(
+          (t for t in past_league.teams if getattr(t, "final_standing", 0) == 1),
+          None,
+      )
+      silver_team = next(
+          (t for t in past_league.teams if getattr(t, "final_standing", 0) == 2),
+          None,
+      )
+      bronze_team = next(
+          (t for t in past_league.teams if getattr(t, "final_standing", 0) == 3),
+          None,
+      )
+
+      # Resilient fallback if ESPN didn't run a 3rd place consolation match
+      remaining = [
+          t for t in past_league.teams if t != gold_team and t != silver_team
+      ]
+      remaining.sort(
+          key=lambda t: (
+              getattr(t, "final_standing", 99)
+              if getattr(t, "final_standing", 0) > 0
+              else 99,
+              getattr(t, "standing", 99),
+              -getattr(t, "points_for", 0),
+          )
+      )
+
+      if not gold_team and past_league.teams:
+        gold_team = remaining.pop(0)
+      if not silver_team and remaining:
+        silver_team = remaining.pop(0)
+      if not bronze_team and remaining:
+        bronze_team = remaining.pop(0)
 
       def format_champ_entry(t):
+        if not t:
+          return "TBD"
         mgr = get_manager_name(t)
         return f"{t.team_name} ({mgr})" if mgr != "Manager" else t.team_name
 
-      all_time["champions"][year_str] = {
-          "gold": format_champ_entry(ranked[0]) if len(ranked) > 0 else "TBD",
-          "silver": (
-              format_champ_entry(ranked[1]) if len(ranked) > 1 else "TBD"
-          ),
-          "bronze": (
-              format_champ_entry(ranked[2]) if len(ranked) > 2 else "TBD"
-          ),
+      all_time["champions"][y_str] = {
+          "gold": format_champ_entry(gold_team),
+          "silver": format_champ_entry(silver_team),
+          "bronze": format_champ_entry(bronze_team),
       }
-  except Exception as e:
-    print(f"Standings scan skipped: {e}")
+      print(f"Season {y} Podium Saved -> {all_time['champions'][y_str]}")
+    except Exception as e:
+      print(f"Historical query for {y} bypassed: {e}")
 
   save_history(ALL_TIME_FILE, all_time)
   return all_time["champions"]
@@ -222,6 +337,7 @@ def get_reigning_badges(champions, current_year):
   prior_year_str = str(current_year - 1)
   prior_podium = champions.get(prior_year_str, {})
   return {
+      "year": prior_year_str,
       "gold": prior_podium.get("gold", ""),
       "silver": prior_podium.get("silver", ""),
       "bronze": prior_podium.get("bronze", ""),
@@ -230,21 +346,40 @@ def get_reigning_badges(champions, current_year):
 
 def render_team_badge(team_label, reigning):
   """Appends persistent reigning medal pills next to manager names."""
+  if not reigning:
+    return team_label
+
+  yr_short = reigning.get("year", "25")[-2:]
+
+  def matches(target, label):
+    if not target or target == "TBD":
+      return False
+    if target.lower() in label.lower() or label.lower() in target.lower():
+      return True
+    if "(" in target and ")" in target:
+      mgr = target.split("(")[1].split(")")[0].strip()
+      if mgr and mgr.lower() != "manager" and mgr.lower() in label.lower():
+        return True
+      tm = target.split("(")[0].strip()
+      if tm and tm.lower() in label.lower():
+        return True
+    return False
+
   medals = ""
-  if reigning.get("gold") and reigning["gold"] in team_label:
+  if matches(reigning.get("gold"), team_label):
     medals += (
-        ' <span class="badge badge-champ" title="2025 League Champion">🥇'
-        " 25 Champ</span>"
+        f' <span class="badge badge-champ" title="{reigning.get("year")}'
+        f' Champion">🥇 \'{yr_short} Champ</span>'
     )
-  elif reigning.get("silver") and reigning["silver"] in team_label:
+  elif matches(reigning.get("silver"), team_label):
     medals += (
-        ' <span class="badge badge-silver" title="2025 Runner-Up">🥈 25'
-        " Runner-Up</span>"
+        f' <span class="badge badge-silver" title="{reigning.get("year")}'
+        f' Runner-Up">🥈 \'{yr_short} Runner-Up</span>'
     )
-  elif reigning.get("bronze") and reigning["bronze"] in team_label:
+  elif matches(reigning.get("bronze"), team_label):
     medals += (
-        ' <span class="badge badge-bronze" title="2025 3rd Place">🥉 25 3rd'
-        " Pl</span>"
+        f' <span class="badge badge-bronze" title="{reigning.get("year")} 3rd'
+        f' Place">🥉 \'{yr_short} 3rd Pl</span>'
     )
   return f"{team_label}{medals}"
 
@@ -433,9 +568,10 @@ def generate_html_report(
     current_week_data,
     trends_data,
     total_weeks,
-    weekly_bounties,
-    bounty_counts,
+    weekly_team_bounties,
+    weekly_player_bounties,
     position_records,
+    season_payout_leaders,
     champions,
     reigning,
     rivalries,
@@ -489,15 +625,10 @@ def generate_html_report(
       if p["audit"] == "Costly Bench":
         all_blunders.append({"team": t["team"], **p})
   all_blunders.sort(key=lambda x: x["pts"], reverse=True)
-  top_blunder = (
-      all_blunders[0]
-      if all_blunders
-      else {"team": "None", "name": "None", "pts": 0, "pos": ""}
-  )
 
   curr_bounty = (
-      next((b for b in weekly_bounties if b["week"] == week_num), None)
-      or (weekly_bounties[-1] if weekly_bounties else None)
+      next((b for b in weekly_team_bounties if b["week"] == week_num), None)
+      or (weekly_team_bounties[-1] if weekly_team_bounties else None)
   )
 
   html = f"""<!DOCTYPE html>
@@ -519,238 +650,118 @@ def generate_html_report(
       --gold: #fbbf24; --gold-bg: rgba(251, 191, 36, 0.15);
       --silver: #cbd5e1; --silver-bg: rgba(203, 213, 225, 0.15);
       --bronze: #d97706; --bronze-bg: rgba(217, 119, 6, 0.15);
+      --th-bg: #0d1424;
+    }}
+    body.light-mode {{
+      --bg: #f8fafc; --surface: #ffffff; --card: #ffffff; --border: #e2e8f0;
+      --text: #0f172a; --muted: #64748b; --dim: #94a3b8; --accent: #0284c7;
+      --green: #059669; --green-bg: rgba(5, 150, 105, 0.12);
+      --red: #e11d48; --red-bg: rgba(225, 29, 72, 0.12);
+      --amber: #d97706; --amber-bg: rgba(217, 119, 6, 0.12);
+      --purple: #7c3aed; --purple-bg: rgba(124, 58, 237, 0.12);
+      --gold: #b45309; --gold-bg: rgba(245, 158, 11, 0.15);
+      --silver: #475569; --silver-bg: rgba(100, 116, 139, 0.15);
+      --bronze: #9a3412; --bronze-bg: rgba(194, 65, 12, 0.15);
+      --th-bg: #f1f5f9;
     }}
     * {{ box-sizing: border-box; margin: 0; padding: 0; }}
     html, body {{
-      max-width: 100%;
-      overflow-x: hidden;
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-      line-height: 1.5;
+      max-width: 100%; overflow-x: hidden; background-color: var(--bg); color: var(--text);
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; line-height: 1.5; transition: background-color 0.2s, color 0.2s;
     }}
     body {{ padding: 16px 12px; }}
-    .wrapper {{
-      max-width: 1080px;
-      width: 100%;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }}
+    .wrapper {{ max-width: 1080px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }}
     
-    /* Header Banner */
     .header {{
       background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
+      border: 1px solid var(--border); border-radius: 18px; padding: 20px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
     }}
     .header h1 {{ font-size: 22px; font-weight: 800; color: #fff; }}
     .header .subtitle {{ color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 11px; letter-spacing: 1.5px; margin-bottom: 2px; }}
+    .header-controls {{ display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }}
     .header-badge {{ background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.25); color: var(--accent); padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }}
+    
+    .theme-toggle-btn {{
+      background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700;
+      cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s;
+    }}
+    .theme-toggle-btn:hover {{ background: rgba(255, 255, 255, 0.2); }}
 
-    /* Superlatives Grid */
     .awards-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }}
-    .award-card {{ background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; }}
+    .award-card {{ background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }}
     .award-card.red {{ border-left: 4px solid var(--red); }}
     .award-card.green {{ border-left: 4px solid var(--green); }}
     .award-card.blue {{ border-left: 4px solid var(--accent); }}
     .award-card.gold {{ border-left: 4px solid var(--gold); }}
     .award-tag {{ font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }}
-    .award-title {{ font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 4px; word-break: break-word; }}
+    .award-title {{ font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 4px; word-break: break-word; }}
     .award-desc {{ font-size: 13px; color: var(--muted); line-height: 1.4; }}
 
-    /* Tab Bar (Zero Scroll, Wraps Cleanly) */
-    .tab-bar {{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      background: var(--surface);
-      padding: 6px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-    }}
+    .tab-bar {{ display: flex; flex-wrap: wrap; gap: 6px; background: var(--surface); padding: 6px; border-radius: 14px; border: 1px solid var(--border); }}
     .tab-btn {{
-      flex: 1 1 auto;
-      min-width: 120px;
-      padding: 10px 14px;
-      background: transparent;
-      border: 1px solid transparent;
-      border-radius: 10px;
-      color: var(--muted);
-      font-family: inherit;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.2s;
+      flex: 1 1 auto; min-width: 120px; padding: 10px 14px; background: transparent; border: 1px solid transparent;
+      border-radius: 10px; color: var(--muted); font-family: inherit; font-size: 12px; font-weight: 700;
+      cursor: pointer; text-align: center; transition: all 0.2s;
     }}
-    .tab-btn.active {{
-      background: var(--card);
-      color: #fff;
-      border-color: var(--border);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    }}
+    .tab-btn.active {{ background: var(--card); color: var(--text); border-color: var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }}
 
-    /* Table Container (Fluid, Zero Overflow Container) */
-    .table-container {{
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      width: 100%;
-      overflow: hidden;
-    }}
-    
-    /* Desktop Table Layout */
-    .responsive-table {{
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 13px;
-    }}
-    .responsive-table th {{
-      background: #0d1424;
-      color: var(--muted);
-      font-weight: 700;
-      font-size: 11px;
-      text-transform: uppercase;
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--border);
-    }}
-    .responsive-table th .sub-th {{
-      display: block;
-      font-size: 9px;
-      color: var(--dim);
-      font-weight: normal;
-      text-transform: none;
-      margin-top: 2px;
-    }}
-    .responsive-table td {{
-      padding: 12px 14px;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      vertical-align: middle;
-    }}
+    .table-container {{ background: var(--card); border: 1px solid var(--border); border-radius: 16px; width: 100%; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }}
+    .responsive-table {{ width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }}
+    .responsive-table th {{ background: var(--th-bg); color: var(--muted); font-weight: 700; font-size: 11px; text-transform: uppercase; padding: 12px 14px; border-bottom: 1px solid var(--border); }}
+    .responsive-table th .sub-th {{ display: block; font-size: 9px; color: var(--dim); font-weight: normal; text-transform: none; margin-top: 2px; }}
+    .responsive-table td {{ padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }}
     .responsive-table tr:last-child td {{ border-bottom: none; }}
-    .responsive-table tr:hover td {{ background: rgba(255,255,255,0.015); }}
+    .responsive-table tr:hover td {{ background: rgba(125,125,125,0.03); }}
 
-    /* Responsive Mobile Card View (Eliminates All Horizontal Scroll Under 768px) */
     @media (max-width: 768px) {{
       .responsive-table thead {{ display: none; }}
-      .responsive-table, 
-      .responsive-table tbody, 
-      .responsive-table tr, 
-      .responsive-table td {{
-        display: block;
-        width: 100%;
-      }}
-      .responsive-table tr {{
-        background: var(--card);
-        border-bottom: 1px solid var(--border);
-        padding: 12px 14px;
-      }}
+      .responsive-table, .responsive-table tbody, .responsive-table tr, .responsive-table td {{ display: block; width: 100%; }}
+      .responsive-table tr {{ background: var(--card); border-bottom: 1px solid var(--border); padding: 12px 14px; }}
       .responsive-table tr:last-child {{ border-bottom: none; }}
-      .responsive-table td {{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 6px 0;
-        border-bottom: 1px solid rgba(255,255,255,0.03);
-        font-size: 13px;
-      }}
+      .responsive-table td {{ display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(125,125,125,0.08); font-size: 13px; }}
       .responsive-table td:last-child {{ border-bottom: none; }}
-      .responsive-table td::before {{
-        content: attr(data-label);
-        font-weight: 700;
-        font-size: 11px;
-        color: var(--muted);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-right: 12px;
-        text-align: left;
-        flex-shrink: 0;
-      }}
-      .responsive-table td.team-cell {{
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        font-size: 15px;
-        font-weight: 800;
-        color: #fff;
-        padding-bottom: 8px;
-        margin-bottom: 4px;
-        border-bottom: 1px solid var(--border);
-      }}
+      .responsive-table td::before {{ content: attr(data-label); font-weight: 700; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-right: 12px; text-align: left; flex-shrink: 0; }}
+      .responsive-table td.team-cell {{ display: flex; justify-content: flex-start; align-items: center; font-size: 15px; font-weight: 800; color: var(--text); padding-bottom: 8px; margin-bottom: 4px; border-bottom: 1px solid var(--border); }}
       .responsive-table td.team-cell::before {{ display: none; }}
-      .rank-num {{
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 22px;
-        height: 22px;
-        background: rgba(255,255,255,0.08);
-        border-radius: 50%;
-        font-size: 11px;
-        font-weight: 800;
-        color: var(--accent);
-        margin-right: 8px;
-        flex-shrink: 0;
-      }}
+      .rank-num {{ display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: rgba(125,125,125,0.12); border-radius: 50%; font-size: 11px; font-weight: 800; color: var(--accent); margin-right: 8px; flex-shrink: 0; }}
     }}
 
-    .team-name {{ font-weight: 700; color: #fff; word-break: break-word; }}
-
-    /* Badges */
+    .team-name {{ font-weight: 700; color: var(--text); word-break: break-word; }}
     .badge {{ display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; gap: 4px; flex-wrap: wrap; }}
     .badge-win {{ background: var(--green-bg); color: var(--green); }}
     .badge-loss {{ background: var(--red-bg); color: var(--red); }}
     .badge-lucky {{ background: var(--green-bg); color: var(--green); }}
     .badge-unlucky {{ background: var(--red-bg); color: var(--red); }}
-    .badge-neutral {{ background: rgba(255,255,255,0.06); color: var(--muted); }}
-    .badge-gold {{ background: var(--gold-bg); color: var(--gold); border: 1px solid rgba(251, 191, 36, 0.3); }}
+    .badge-neutral {{ background: rgba(125,125,125,0.08); color: var(--muted); }}
+    .badge-gold {{ background: var(--gold-bg); color: var(--gold); border: 1px solid rgba(251, 191, 36, 0.4); }}
     .badge-champ {{ background: var(--gold-bg); color: var(--gold); border: 1px solid rgba(251, 191, 36, 0.4); font-size: 10px; padding: 2px 6px; }}
     .badge-silver {{ background: var(--silver-bg); color: var(--silver); border: 1px solid rgba(203, 213, 225, 0.4); font-size: 10px; padding: 2px 6px; }}
     .badge-bronze {{ background: var(--bronze-bg); color: var(--bronze); border: 1px solid rgba(217, 119, 6, 0.4); font-size: 10px; padding: 2px 6px; }}
 
-    /* Podiums & Grids */
     .podium-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; padding: 16px; }}
-    .podium-card {{ background: #0d1424; border: 1px solid var(--border); border-radius: 14px; padding: 16px; }}
-    .podium-year {{ font-size: 17px; font-weight: 800; color: #fff; margin-bottom: 10px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }}
+    .podium-card {{ background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }}
+    .podium-year {{ font-size: 17px; font-weight: 800; color: var(--text); margin-bottom: 10px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }}
     .podium-row {{ display: flex; align-items: center; justify-content: space-between; padding: 6px 0; font-size: 13px; }}
     
     .records-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 20px; }}
     .record-card {{ background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px; text-align: center; }}
     .record-pos {{ font-size: 11px; font-weight: 800; color: var(--accent); text-transform: uppercase; margin-bottom: 2px; }}
-    .record-pts {{ font-size: 20px; font-weight: 800; color: #fff; }}
+    .record-pts {{ font-size: 20px; font-weight: 800; color: var(--text); }}
     .record-holder {{ font-size: 11px; color: var(--muted); margin-top: 4px; word-break: break-word; }}
 
-    /* Glossary */
     .glossary-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; padding: 16px; }}
-    .glossary-card {{ background: #0d1424; border: 1px solid var(--border); border-radius: 14px; padding: 16px; }}
-    .glossary-title {{ font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }}
+    .glossary-card {{ background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }}
+    .glossary-title {{ font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }}
     .glossary-desc {{ font-size: 13px; color: var(--muted); line-height: 1.5; }}
-    .glossary-example {{ margin-top: 8px; padding: 8px 10px; background: var(--surface); border-radius: 8px; font-size: 12px; color: var(--text); border-left: 3px solid var(--accent); }}
+    .glossary-example {{ margin-top: 8px; padding: 8px 10px; background: var(--card); border-radius: 8px; font-size: 12px; color: var(--text); border-left: 3px solid var(--accent); border: 1px solid var(--border); }}
 
-    /* Filter Controls */
     .filter-header {{ padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }}
     .filter-control {{ display: flex; align-items: center; gap: 8px; width: 100%; max-width: 380px; }}
     .select-dropdown {{
-      flex: 1;
-      width: 100%;
-      background: var(--surface);
-      color: var(--text);
-      border: 1px solid var(--border);
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      outline: none;
+      flex: 1; width: 100%; background: var(--surface); color: var(--text); border: 1px solid var(--border);
+      padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; outline: none;
     }}
   </style>
 </head>
@@ -761,13 +772,16 @@ def generate_html_report(
       <div class="subtitle">The Deflaters Analytics Lab</div>
       <h1>WEEK {week_num} EXECUTIVE AUDIT</h1>
     </div>
-    <div class="header-badge">Season {YEAR} (Weeks 1–{total_weeks})</div>
+    <div class="header-controls">
+      <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()">☀️ Light Mode</button>
+      <div class="header-badge">Season {YEAR} (Weeks 1–{total_weeks})</div>
+    </div>
   </div>
 
   <div class="awards-grid">
     <div class="award-card gold">
       <div>
-        <div class="award-tag" style="color: var(--gold);">💰 Week {curr_bounty['week'] if curr_bounty else week_num} High Point Bounty</div>
+        <div class="award-tag" style="color: var(--gold);">💰 Week {curr_bounty['week'] if curr_bounty else week_num} Team Bounty</div>
         <div class="award-title">{render_team_badge(curr_bounty['team'] if curr_bounty else 'None', reigning)}</div>
         <div class="award-desc">Paced the entire league with <b>{curr_bounty['pts'] if curr_bounty else 0} pts</b> to take down the weekly cash payout!</div>
       </div>
@@ -903,7 +917,7 @@ def generate_html_report(
     
     <div class="table-container">
       <div class="filter-header">
-        <div style="font-size: 14px; font-weight: 800; color: #fff;">⚔️ All-Time Manager Rivalry Records</div>
+        <div style="font-size: 14px; font-weight: 800; color: var(--text);">⚔️ All-Time Manager Rivalry Records</div>
         <div class="filter-control">
           <select id="mgrFilter" class="select-dropdown" onchange="filterRivalries(this.value)">
             <option value="ALL">Show All Rivalries</option>"""
@@ -955,7 +969,7 @@ def generate_html_report(
 
     <!-- SEASON MATCHUP SCHEDULE LOG -->
     <div class="table-container">
-      <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: #fff; font-size: 14px;">
+      <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 14px;">
         📅 Season {YEAR} Completed Matchup Log
       </div>
       <table class="responsive-table">
@@ -979,13 +993,13 @@ def generate_html_report(
     html += f"""
           <tr>
             <td class="team-cell" style="color: var(--accent);">Week {g['week']} Matchup</td>
-            <td data-label="Winner" style="font-weight: 700; color: #fff;">{winner_team}</td>
+            <td data-label="Winner" style="font-weight: 700; color: var(--text);">{winner_team}</td>
             <td data-label="Score" style="font-weight: 700; color: var(--green);">{winner_score} – {loser_score}</td>
             <td data-label="Loser" style="color: var(--muted);">{loser_team}</td>
             <td data-label="Margin" style="font-weight: 700; color: var(--accent);">+{g['margin']} pts</td>
           </tr>"""
 
-  html += """
+  html += f"""
         </tbody>
       </table>
     </div>
@@ -993,8 +1007,82 @@ def generate_html_report(
   </div>
 
   <!-- TAB 4: PAYOUTS & POSITIONAL RECORDS -->
-  <div id="view-payouts" style="display: none;">
-    <div style="font-size: 15px; font-weight: 800; margin-bottom: 10px; color: #fff;">🔥 Single-Game Positional Records (Season Highs)</div>
+  <div id="view-payouts" style="display: none; display: flex; flex-direction: column; gap: 16px;">
+    
+    <!-- SEASON CASH BOUNTIES -->
+    <div style="font-size: 15px; font-weight: 800; color: var(--text);">🏆 Season High Point Cash Bounties</div>
+    <div class="awards-grid">
+      <div class="award-card gold">
+        <div>
+          <div class="award-tag" style="color: var(--gold);">👑 Season Points Leader (Total PF)</div>
+          <div class="award-title">{render_team_badge(season_payout_leaders['pf_leader_team'], reigning)}</div>
+          <div class="award-desc">Pacing the entire season with <b>{season_payout_leaders['pf_leader_pts']} Total PF</b> to lead the overall scoring payout!</div>
+        </div>
+        <div style="margin-top: 8px;"><span class="badge badge-gold">Season PF Crown</span></div>
+      </div>
+
+      <div class="award-card blue">
+        <div>
+          <div class="award-tag" style="color: var(--accent);">⚡ Single-Game Team Record</div>
+          <div class="award-title">{render_team_badge(season_payout_leaders['high_game_team'], reigning)}</div>
+          <div class="award-desc">Hung <b>{season_payout_leaders['high_game_pts']} pts</b> in Week {season_payout_leaders['high_game_week']} for the single highest team score of the year.</div>
+        </div>
+        <div style="margin-top: 8px;"><span class="badge badge-neutral">Single-Week High</span></div>
+      </div>
+
+      <div class="award-card green">
+        <div>
+          <div class="award-tag" style="color: var(--green);">🌟 Single-Game Starter Record</div>
+          <div class="award-title">{season_payout_leaders['high_player']} ({season_payout_leaders['high_player_pos']})</div>
+          <div class="award-desc">Erupted for <b>{season_payout_leaders['high_player_pts']} pts</b> in Week {season_payout_leaders['high_player_week']} for {season_payout_leaders['high_player_team']}.</div>
+        </div>
+        <div style="margin-top: 8px;"><span class="badge badge-lucky">Season Player High</span></div>
+      </div>
+    </div>
+
+    <!-- WEEKLY CASH PAYOUTS TABLE -->
+    <div class="table-container">
+      <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 14px;">
+        💵 Weekly High Scorer Cash Ledger (Team & Starter Payouts)
+      </div>
+      <table class="responsive-table">
+        <thead>
+          <tr>
+            <th>Week</th>
+            <th>Team High Winner ($)</th>
+            <th>Score</th>
+            <th>Starter High Winner ($)</th>
+            <th>Player Score</th>
+          </tr>
+        </thead>
+        <tbody>"""
+
+  for tb in weekly_team_bounties:
+    pb = next((p for p in weekly_player_bounties if p["week"] == tb["week"]), None)
+    dec_team = render_team_badge(tb["team"], reigning)
+    pb_str = (
+        f"{pb['player']} ({pb['pos']}) - {pb['team']}"
+        if pb
+        else "None"
+    )
+    pb_pts = f"{pb['pts']} pts" if pb else "-"
+
+    html += f"""
+          <tr>
+            <td class="team-cell" style="color: var(--accent);">Week {tb['week']} Payouts</td>
+            <td data-label="Team High Winner"><b>{dec_team}</b></td>
+            <td data-label="Team Score" style="font-weight: 800; color: var(--gold);">{tb['pts']} pts</td>
+            <td data-label="Starter High Winner"><b>{pb_str}</b></td>
+            <td data-label="Player Score" style="font-weight: 800; color: var(--green);">{pb_pts}</td>
+          </tr>"""
+
+  html += """
+        </tbody>
+      </table>
+    </div>
+
+    <!-- POSITIONAL HIGH WATER MARKS -->
+    <div style="font-size: 15px; font-weight: 800; color: var(--text); margin-top: 8px;">🔥 Single-Game Positional Records (Season Highs)</div>
     <div class="records-grid">"""
 
   for pos, rec in position_records.items():
@@ -1008,40 +1096,11 @@ def generate_html_report(
   html += """
     </div>
 
-    <div class="table-container">
-      <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: #fff; font-size: 14px;">💵 Weekly High Scorer Cash Ledger</div>
-      <table class="responsive-table">
-        <thead>
-          <tr>
-            <th>Week</th>
-            <th>High Point Winner</th>
-            <th>Score</th>
-            <th>Matchup Opponent</th>
-            <th>Opp Score</th>
-          </tr>
-        </thead>
-        <tbody>"""
-
-  for b in weekly_bounties:
-    dec_team = render_team_badge(b["team"], reigning)
-    html += f"""
-          <tr>
-            <td class="team-cell" style="color: var(--accent);">Week {b['week']} Payout</td>
-            <td data-label="Winner" style="font-weight: 700; color: #fff;">{dec_team}</td>
-            <td data-label="Score" style="font-weight: 800; color: var(--gold);">{b['pts']} pts</td>
-            <td data-label="Opponent">vs {b['opp']}</td>
-            <td data-label="Opp Score" style="color: var(--muted);">{b['opp_pts']} pts</td>
-          </tr>"""
-
-  html += """
-        </tbody>
-      </table>
-    </div>
   </div>
 
   <!-- TAB 5: HALL OF CHAMPIONS -->
   <div id="view-halloffame" class="table-container" style="display: none;">
-    <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: #fff; font-size: 14px;">🏆 Historical Podium (Gold, Silver, Bronze)</div>
+    <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 14px;">🏆 Historical Podium (Gold, Silver, Bronze)</div>
     <div class="podium-grid">"""
 
   sorted_champs = sorted(champions.keys(), reverse=True)
@@ -1090,7 +1149,7 @@ def generate_html_report(
     html += f"""
         <tr>
           <td class="team-cell"><span class="rank-num">#{idx}</span> {dec_team}</td>
-          <td data-label="Player" style="color: #fff; font-weight: 600;">{b['name']}</td>
+          <td data-label="Player" style="color: var(--text); font-weight: 600;">{b['name']}</td>
           <td data-label="Pos"><span class="badge badge-neutral">{b['pos']}</span></td>
           <td data-label="Points Left" style="font-weight: 800; color: var(--amber);">{b['pts']} pts</td>
           <td data-label="Projection" style="color: var(--muted);">{b['proj']} pts</td>
@@ -1103,7 +1162,7 @@ def generate_html_report(
 
   <!-- TAB 7: STAT DECODERS (THE GLOSSARY) -->
   <div id="view-glossary" class="table-container" style="display: none;">
-    <div style="padding: 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: #fff; font-size: 15px;">
+    <div style="padding: 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
       📖 The Deflaters Analytics Handbook
     </div>
     <div class="glossary-grid">
@@ -1185,7 +1244,7 @@ def generate_html_report(
     
     var activeEl = document.getElementById('view-' + viewName);
     if (activeEl) {
-      if (viewName === 'h2h') {
+      if (viewName === 'h2h' || viewName === 'payouts') {
         activeEl.style.display = 'flex';
       } else {
         activeEl.style.display = 'block';
@@ -1212,6 +1271,27 @@ def generate_html_report(
       }
     }
   }
+
+  function toggleTheme() {
+    var isLight = document.body.classList.toggle('light-mode');
+    localStorage.setItem('ff_theme', isLight ? 'light' : 'dark');
+    updateThemeBtn(isLight);
+  }
+
+  function updateThemeBtn(isLight) {
+    var btn = document.getElementById('theme-toggle');
+    if (btn) {
+      btn.innerHTML = isLight ? '🌙 Dark Mode' : '☀️ Light Mode';
+    }
+  }
+
+  (function() {
+    var savedTheme = localStorage.getItem('ff_theme');
+    if (savedTheme === 'light') {
+      document.body.classList.add('light-mode');
+      updateThemeBtn(true);
+    }
+  })();
 </script>
 </body>
 </html>"""
@@ -1340,11 +1420,14 @@ def main():
 
   current_week_data = history["weeks"].get(str(WEEK), [])
   trends_data, total_weeks = compute_trends(history)
-  weekly_bounties, bounty_counts, position_records = (
-      compute_records_and_payouts(history)
-  )
+  (
+      weekly_team_bounties,
+      weekly_player_bounties,
+      position_records,
+      season_payout_leaders,
+  ) = compute_records_and_payouts(history)
 
-  champions = sync_champions(league, YEAR)
+  champions = sync_champions(YEAR)
   reigning = get_reigning_badges(champions, YEAR)
   rivalries, managers_list, season_log = update_and_compute_h2h(history, YEAR)
 
@@ -1353,9 +1436,10 @@ def main():
       current_week_data,
       trends_data,
       total_weeks,
-      weekly_bounties,
-      bounty_counts,
+      weekly_team_bounties,
+      weekly_player_bounties,
       position_records,
+      season_payout_leaders,
       champions,
       reigning,
       rivalries,
@@ -1363,7 +1447,8 @@ def main():
       season_log,
   )
   print(
-      "Audit complete! Generated responsive, zero-horizontal-scroll index.html"
+      "Audit complete! Hall of champions, cash payouts, and theme toggle"
+      " compiled."
   )
 
 
