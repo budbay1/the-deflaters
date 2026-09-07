@@ -23,7 +23,6 @@ GLOBAL_DATA_FILE = "global_dashboard_data.json"
 
 HISTORICAL_CHAMPIONS_OVERRIDE = {}
 
-# Corrected Payout Structure
 WEEKLY_BOUNTY_TEAM_CASH = 25.0
 WEEKLY_BOUNTY_PLAYER_CASH = 25.0
 
@@ -116,7 +115,6 @@ def compute_records_and_payouts(weeks_obj, finishes_map=None):
     matchups = weeks_obj[str(w)]
     if not matchups: continue
     
-    # Regular season Weeks 1-14 bounties
     if w <= 14:
       high_match = max(matchups, key=lambda x: x["actual"])
       weekly_team_bounties.append({
@@ -145,18 +143,19 @@ def compute_records_and_payouts(weeks_obj, finishes_map=None):
   for b in weekly_team_bounties:
     tm = b["team"]
     if tm not in bounty_totals:
-      bounty_totals[tm] = {"wins": 0, "total_cash": 0.0}
-    bounty_totals[tm]["wins"] += 1
-    bounty_totals[tm]["total_cash"] += b["cash"]
+      bounty_totals[tm] = {"team_wins": 0, "player_wins": 0, "total_cash": 0.0}
+    bounty_totals[tm]["team_wins"] += 1
+    bounty_totals[tm]["total_cash"] += WEEKLY_BOUNTY_TEAM_CASH
 
   for pb in weekly_player_bounties:
     tm = pb["team"]
     if tm not in bounty_totals:
-      bounty_totals[tm] = {"wins": 0, "total_cash": 0.0}
-    bounty_totals[tm]["total_cash"] += pb["cash"]
+      bounty_totals[tm] = {"team_wins": 0, "player_wins": 0, "total_cash": 0.0}
+    bounty_totals[tm]["player_wins"] += 1
+    bounty_totals[tm]["total_cash"] += WEEKLY_BOUNTY_PLAYER_CASH
 
   sorted_bounty_leaders = sorted(
-      [{"team": tm, "wins": data["wins"], "total_cash": round(data["total_cash"], 2)} for tm, data in bounty_totals.items()],
+      [{"team": tm, "wins": data["team_wins"], "total_cash": round(data["total_cash"], 2)} for tm, data in bounty_totals.items()],
       key=lambda x: x["wins"], reverse=True
   )
 
@@ -290,7 +289,8 @@ def compute_all_time_leaderboard(champions, current_managers, finishes_data):
   return sorted(mgr_stats.values(), key=lambda x: (-x["gold"], -x["silver"], -x["bronze"], -x["total_podiums"], x["avg_sort"], x["last"], x["manager"]))
 
 
-def compute_accumulated_money(seasons_data, champions, weekly_bounty_totals, weekly_player_bounties_all, current_year):
+def compute_accumulated_money(seasons_data, champions, weekly_bounty_totals_all, weekly_player_bounties_all, current_year):
+  """Accumulate all-time money won (podiums, PF leader, team bounties, player bounties) for concluded past seasons."""
   accumulated = {}
 
   def add_cash(mgr_label, amount):
@@ -308,24 +308,26 @@ def compute_accumulated_money(seasons_data, champions, weekly_bounty_totals, wee
       if max_wk < 17:
         continue
 
-    # Team bounties
-    bounties_list = weekly_bounty_totals.get(yr_str, [])
+    # Team bounties cash
+    bounties_list = weekly_bounty_totals_all.get(yr_str, [])
     for b in bounties_list:
       team_lbl = b.get("team")
-      cash_amt = b.get("total_cash", b.get("wins", 0) * WEEKLY_BOUNTY_TEAM_CASH)
-      add_cash(team_lbl, cash_amt)
+      wins = b.get("wins", 0)
+      add_cash(team_lbl, wins * WEEKLY_BOUNTY_TEAM_CASH)
 
-    # Player bounties (summed per manager)
+    # Player bounties cash
     player_bounties_list = weekly_player_bounties_all.get(yr_str, [])
     for pb in player_bounties_list:
       team_lbl = pb.get("team")
       add_cash(team_lbl, WEEKLY_BOUNTY_PLAYER_CASH)
 
+    # Podiums
     yr_champ = champions.get(yr_str, {})
     if yr_champ.get("gold"): add_cash(yr_champ["gold"], PODIUM_PAYOUTS["gold"])
     if yr_champ.get("silver"): add_cash(yr_champ["silver"], PODIUM_PAYOUTS["silver"])
     if yr_champ.get("bronze"): add_cash(yr_champ["bronze"], PODIUM_PAYOUTS["bronze"])
 
+    # PF Leader
     team_season_pf = {}
     for w_str, matchups in weeks_dict.items():
       for m in matchups:
