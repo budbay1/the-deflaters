@@ -22,6 +22,7 @@ SEASONS_DATA_FILE = "seasons_data.json"
 GLOBAL_DATA_FILE = "global_dashboard_data.json"
 
 HISTORICAL_CHAMPIONS_OVERRIDE = {}
+WEEKLY_BOUNTY_CASH = 20.0  # Default cash value per weekly high-score bounty
 
 
 def get_manager_name(team):
@@ -104,8 +105,15 @@ def compute_records_and_payouts(weeks_obj, finishes_map=None):
   for w in sorted_weeks:
     matchups = weeks_obj[str(w)]
     if not matchups: continue
-    high_match = max(matchups, key=lambda x: x["actual"])
-    weekly_team_bounties.append({"week": w, "team": high_match["team"], "pts": high_match["actual"], "opp": high_match["opp"], "opp_pts": high_match["opp_actual"]})
+    
+    # Regular season high scorers qualify for weekly bounties (Weeks 1-14)
+    if w <= 14:
+      high_match = max(matchups, key=lambda x: x["actual"])
+      weekly_team_bounties.append({
+          "week": w, "team": high_match["team"], "pts": high_match["actual"],
+          "opp": high_match["opp"], "opp_pts": high_match["opp_actual"],
+          "cash": WEEKLY_BOUNTY_CASH
+      })
 
     starters_this_week = []
     for team_entry in matchups:
@@ -114,10 +122,23 @@ def compute_records_and_payouts(weeks_obj, finishes_map=None):
         if p["started"]:
           starters_this_week.append({"week": w, "player": p["name"], "pos": p["pos"], "pts": p["pts"], "team": team_name})
 
-    if starters_this_week:
+    if starters_this_week and w <= 14:
       top_player = max(starters_this_week, key=lambda x: x["pts"])
       weekly_player_bounties.append(top_player)
       weekly_anchors.append(min(starters_this_week, key=lambda x: x["pts"]))
+
+  bounty_totals = {}
+  for b in weekly_team_bounties:
+    tm = b["team"]
+    if tm not in bounty_totals:
+      bounty_totals[tm] = {"wins": 0, "total_cash": 0.0}
+    bounty_totals[tm]["wins"] += 1
+    bounty_totals[tm]["total_cash"] += b["cash"]
+
+  sorted_bounty_leaders = sorted(
+      [{"team": tm, "wins": data["wins"], "total_cash": round(data["total_cash"], 2)} for tm, data in bounty_totals.items()],
+      key=lambda x: x["wins"], reverse=True
+  )
 
   team_totals = {}
   for w in sorted_weeks:
@@ -131,6 +152,7 @@ def compute_records_and_payouts(weeks_obj, finishes_map=None):
   season_payout_leaders = {
       "pf_leader_team": season_pf_leader[0],
       "pf_leader_pts": round(season_pf_leader[1], 2),
+      "pf_leader_prize": 100.0,  # Estimated or configurable prize pool amount on the line for season high points
       "high_game_team": season_high_team_game["team"] if season_high_team_game else "None",
       "high_game_pts": season_high_team_game["pts"] if season_high_team_game else 0.0,
       "high_game_week": season_high_team_game["week"] if season_high_team_game else 0,
@@ -140,7 +162,7 @@ def compute_records_and_payouts(weeks_obj, finishes_map=None):
       "high_player_team": season_high_player_game["team"] if season_high_player_game else "None",
       "high_player_week": season_high_player_game["week"] if season_high_player_game else 0,
   }
-  return weekly_team_bounties, weekly_player_bounties, weekly_anchors, season_payout_leaders, {}
+  return weekly_team_bounties, weekly_player_bounties, weekly_anchors, season_payout_leaders, sorted_bounty_leaders
 
 
 def sync_historical_h2h(current_year):
@@ -163,8 +185,13 @@ def sync_historical_h2h(current_year):
             if h_mgr == "Manager" and a_mgr == "Manager": continue
             pair = sorted([h_mgr, a_mgr])
             m_id = f"{y}_W{w}_{pair[0]}_vs_{pair[1]}"
+            is_playoff = w >= 15
             if m_id not in all_time["matchups"]:
-              all_time["matchups"][m_id] = {"year": y, "week": w, "m1": h_mgr, "t1": match.home_team.team_name, "s1": h_act, "m2": a_mgr, "t2": match.away_team.team_name, "s2": a_act}
+              all_time["matchups"][m_id] = {
+                  "year": y, "week": w, "is_playoff": is_playoff,
+                  "m1": h_mgr, "t1": match.home_team.team_name, "s1": h_act,
+                  "m2": a_mgr, "t2": match.away_team.team_name, "s2": a_act
+              }
         except Exception: break
       all_time["h2h_ingested_years"].append(y)
     except Exception as e: print(f"Could not backfill Season {y} H2H: {e}")
@@ -258,6 +285,9 @@ def main():
   history_file = f"league_history_{YEAR}.json"
   history = load_history(history_file, {"year": YEAR, "weeks": {}})
 
+  all_time = load_history(ALL_TIME_FILE, {"champions": {}, "matchups": {}, "finishes": {}, "h2h_ingested_years": []})
+  if "matchups" not in all_time: all_time["matchups"] = {}
+
   for w in range(1, WEEK + 1):
     w_str = str(w)
     box_scores = league.box_scores(week=w)
@@ -275,6 +305,16 @@ def main():
       h_mgr, a_mgr = get_manager_name(match.home_team), get_manager_name(match.away_team)
       home_label = f"{match.home_team.team_name} ({h_mgr})" if h_mgr != "Manager" else match.home_team.team_name
       away_label = f"{match.away_team.team_name} ({a_mgr})" if a_mgr != "Manager" else match.away_team.team_name
+
+      if h_mgr != "Manager" and a_mgr != "Manager" and (h_act > 0 or a_act > 0):
+        pair = sorted([h_mgr, a_mgr])
+        m_id = f"{YEAR}_W{w}_{pair[0]}_vs_{pair[1]}"
+        is_playoff = w >= 15
+        all_time["matchups"][m_id] = {
+            "year": YEAR, "week": w, "is_playoff": is_playoff,
+            "m1": h_mgr, "t1": match.home_team.team_name, "s1": h_act,
+            "m2": a_mgr, "t2": match.away_team.team_name, "s2": a_act
+        }
 
       w_teams.append({
           "team": home_label, "manager": h_mgr, "opp": away_label, "opp_manager": a_mgr,
@@ -303,6 +343,7 @@ def main():
     history["weeks"][w_str] = w_teams
 
   save_history(history_file, history)
+  save_history(ALL_TIME_FILE, all_time)
 
   all_time_data = sync_historical_h2h(YEAR)
   champions, finishes_data = sync_champions_and_finishes(YEAR)
@@ -316,13 +357,15 @@ def main():
   weekly_bounties_all = {}
   weekly_player_bounties_all = {}
   weekly_anchors_all = {}
+  weekly_bounty_totals_all = {}
   for yr_key, weeks_dict in seasons_data.items():
     fin_map = finishes_data.get(yr_key, {})
-    tb, pb, an, sp, tr = compute_records_and_payouts(weeks_dict, fin_map)
+    tb, pb, an, sp, b_totals = compute_records_and_payouts(weeks_dict, fin_map)
     season_payouts_all[yr_key] = sp
     weekly_bounties_all[yr_key] = tb
     weekly_player_bounties_all[yr_key] = pb
     weekly_anchors_all[yr_key] = an
+    weekly_bounty_totals_all[yr_key] = b_totals
 
   all_time_high_team = {"team": "None", "pts": 0.0, "opp": "None", "opp_pts": 0.0, "week": 0, "year": 0}
   all_time_high_player = {"player": "None", "team": "None", "pts": 0.0, "week": 0, "year": 0, "pos": ""}
@@ -367,43 +410,6 @@ def main():
       if pa_val > all_time_high_pa["pa"]:
         all_time_high_pa = {"team": tm, "pa": round(pa_val, 2), "year": yr_int}
 
-  for y in range(2023, YEAR):
-    if str(y) in seasons_data: continue
-    try:
-      past_league = League(league_id=LEAGUE_ID, year=y, espn_s2=ESPN_S2, swid=SWID)
-      t_pf = {t.team_name: 0.0 for t in past_league.teams}
-      t_pa = {t.team_name: 0.0 for t in past_league.teams}
-      for w in range(1, 18):
-        b_scores = past_league.box_scores(week=w)
-        if not b_scores: continue
-        for match in b_scores:
-          h_act, a_act = round(match.home_score, 2), round(match.away_score, 2)
-          h_name, a_name = match.home_team.team_name, match.away_team.team_name
-          t_pf[h_name] = t_pf.get(h_name, 0.0) + h_act
-          t_pa[h_name] = t_pa.get(h_name, 0.0) + a_act
-          t_pf[a_name] = t_pf.get(a_name, 0.0) + a_act
-          t_pa[a_name] = t_pa.get(a_name, 0.0) + h_act
-
-          if h_act > all_time_high_team["pts"]:
-            all_time_high_team = {"team": h_name, "pts": h_act, "opp": a_name, "opp_pts": a_act, "week": w, "year": y}
-          if a_act > all_time_high_team["pts"]:
-            all_time_high_team = {"team": a_name, "pts": a_act, "opp": h_name, "opp_pts": h_act, "week": w, "year": y}
-
-          margin = round(abs(h_act - a_act), 2)
-          if margin > all_time_max_margin["margin"]:
-            winner = h_name if h_act > a_act else a_name
-            loser = a_name if h_act > a_act else h_name
-            all_time_max_margin = {"winner": winner, "loser": loser, "margin": margin, "week": w, "year": y}
-      
-      for tm, val in t_pf.items():
-        if val > all_time_high_season_pf["pts"]:
-          all_time_high_season_pf = {"team": tm, "pts": round(val, 2), "year": y}
-      for tm, val in t_pa.items():
-        if val > all_time_high_pa["pa"]:
-          all_time_high_pa = {"team": tm, "pa": round(val, 2), "year": y}
-    except Exception as e:
-      print(f"Skipped historical backfill for {y}: {e}")
-
   global_bundle = {
       "seasons_data": seasons_data,
       "champions": champions,
@@ -415,6 +421,7 @@ def main():
       "weekly_bounties": weekly_bounties_all,
       "weekly_player_bounties": weekly_player_bounties_all,
       "weekly_anchors": weekly_anchors_all,
+      "weekly_bounty_totals": weekly_bounty_totals_all,
       "all_time_records": {
           "high_team_game": all_time_high_team,
           "high_player_game": all_time_high_player,
