@@ -202,7 +202,7 @@
   <div id="view-h2h" class="table-container" style="display: none;">
     <div class="filter-header">
       <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-        <div style="font-size: 14px; font-weight: 800; color: var(--text);">⚔️ Head-to-Head Rivalries</div>
+        <div style="font-size: 14px; font-weight: 800; color: var(--text);">⚔️ Head-to-Head Archives</div>
         <div class="h2h-scope-bar">
           <button id="scopeCurrentBtn" class="scope-btn active" onclick="setH2HScope('current')">👥 Current Managers</button>
           <button id="scopeAllBtn" class="scope-btn" onclick="setH2HScope('all')">🌐 All-Time</button>
@@ -213,10 +213,17 @@
           <button id="phasePlayoffsBtn" class="scope-btn" onclick="setH2HPhase('PLAYOFFS')">Playoffs (Wk 15+)</button>
         </div>
       </div>
-      <div class="filter-control">
-        <select id="mgrFilter" class="select-dropdown" onchange="applyH2HFilters()">
-          <option value="ALL">All Managers</option>
-        </select>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <div class="filter-control">
+          <select id="h2hSeasonFilter" class="select-dropdown" onchange="applyH2HFilters()">
+            <option value="ALL">All Seasons (2023–Present)</option>
+          </select>
+        </div>
+        <div class="filter-control">
+          <select id="mgrFilter" class="select-dropdown" onchange="applyH2HFilters()">
+            <option value="ALL">All Managers</option>
+          </select>
+        </div>
       </div>
     </div>
     <div id="managerSummaryBox" style="padding: 14px 16px; background: var(--surface); border-bottom: 1px solid var(--border); font-size: 14px; font-weight: 700; display: none;"></div>
@@ -241,10 +248,10 @@
     <div style="font-size: 16px; font-weight: 800; color: var(--text); margin-top: 10px;">👑 Season Cash Bounties & Highlights</div>
     <div class="awards-grid" id="payoutsGrid"></div>
 
-    <!-- Accumulated Career Money Table (Starting 2025) -->
+    <!-- Accumulated Career Money Table (Concluded Seasons Only) -->
     <div class="table-container" style="margin-top: 10px;">
       <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
-        💵 All-Time Accumulated Money Won (Starting 2025 Season)
+        💵 All-Time Accumulated Career Money Won (Concluded Past Seasons)
       </div>
       <table class="responsive-table">
         <thead>
@@ -433,7 +440,7 @@
   function onSeasonChange(yr) {
     currentYear = yr;
     populateWeeks(yr);
-    renderH2HTable();
+    renderData();
   }
 
   function onWeekChange(wk) {
@@ -650,12 +657,12 @@
       </div>
     `;
 
-    // Render Accumulated Career Money Table (Starting 2025)
+    // Render Accumulated Career Money Table
     const accumulatedMoney = dashboardData.accumulated_money || [];
     const accMoneyBody = document.getElementById('accumulatedMoneyBody');
     accMoneyBody.innerHTML = '';
     if (accumulatedMoney.length === 0) {
-      accMoneyBody.innerHTML = `<tr><td colspan="2" style="text-align: center; color: var(--muted);">No career cash records recorded yet from 2025 onwards.</td></tr>`;
+      accMoneyBody.innerHTML = `<tr><td colspan="2" style="text-align: center; color: var(--muted);">Accumulated career cash unlocks after past seasons conclude.</td></tr>`;
     } else {
       accumulatedMoney.forEach((am, idx) => {
         accMoneyBody.innerHTML += `
@@ -769,10 +776,19 @@
     const matchups = dashboardData.matchups || {};
     const currentManagers = dashboardData.current_managers || [];
     const select = document.getElementById('mgrFilter');
+    const seasonSelect = document.getElementById('h2hSeasonFilter');
     
     let managersSet = new Set();
+    let seasonsSet = new Set();
+
     Object.values(matchups).forEach(m => {
       managersSet.add(m.m1); managersSet.add(m.m2);
+      if (m.year) seasonsSet.add(m.year);
+    });
+
+    seasonSelect.innerHTML = '<option value="ALL">All Seasons (2023–Present)</option>';
+    Array.from(seasonsSet).sort((a, b) => b - a).forEach(yr => {
+      seasonSelect.innerHTML += `<option value="${yr}">${yr} Season</option>`;
     });
 
     select.innerHTML = '<option value="ALL">All Managers</option>';
@@ -788,6 +804,7 @@
     const matchups = dashboardData.matchups || {};
     const currentManagers = dashboardData.current_managers || [];
     const mgrFilter = document.getElementById('mgrFilter').value;
+    const seasonFilter = document.getElementById('h2hSeasonFilter').value;
     const h2hBody = document.getElementById('h2hTableBody');
     const summaryBox = document.getElementById('managerSummaryBox');
     h2hBody.innerHTML = '';
@@ -800,34 +817,62 @@
     let selectedManagerPA = 0;
 
     Object.values(matchups).forEach(g => {
-      // Respect page-level selected season
-      if (currentYear && String(g.year) !== currentYear) return;
+      // Apply Season filter if specified in H2H archive dropdown
+      if (seasonFilter !== 'ALL' && String(g.year) !== seasonFilter) return;
       // Apply Phase filter (REG vs Playoffs Wk 15+)
       if (h2hPhase === 'REG' && g.is_playoff) return;
       if (h2hPhase === 'PLAYOFFS' && !g.is_playoff) return;
 
-      const pair = [g.m1, g.m2].sort();
-      const key = pair[0] + '_vs_' + pair[1];
-      if (!rivalries[key]) {
-        rivalries[key] = { m1: pair[0], m2: pair[1], wins1: 0, wins2: 0, pf1: 0, pf2: 0, last: null };
-      }
-      const r = rivalries[key];
-      r.last = g;
-      if (g.s1 > g.s2) {
-        if (g.m1 === r.m1) r.wins1++; else r.wins2++;
-      } else if (g.s2 > g.s1) {
-        if (g.m2 === r.m1) r.wins1++; else r.wins2++;
-      }
-      if (g.m1 === r.m1) { r.pf1 += g.s1; r.pf2 += g.s2; } else { r.pf1 += g.s2; r.pf2 += g.s1; }
+      const m1 = g.m1;
+      const m2 = g.m2;
+      const s1 = g.s1;
+      const s2 = g.s2;
 
-      if (mgrFilter !== 'ALL' && (g.m1 === mgrFilter || g.m2 === mgrFilter)) {
-        const isM1 = g.m1 === mgrFilter;
-        const myScore = isM1 ? g.s1 : g.s2;
-        const oppScore = isM1 ? g.s2 : g.s1;
-        selectedManagerPF += myScore;
-        selectedManagerPA += oppScore;
-        if (myScore > oppScore) selectedManagerWins++;
-        else if (myScore < oppScore) selectedManagerLosses++;
+      // If a specific manager is filtered, ensure that manager is always treated as 'side A' (leading the display)
+      let leadMgr = m1;
+      let oppMgr = m2;
+      let leadScore = s1;
+      let oppScore = s2;
+
+      if (mgrFilter !== 'ALL') {
+        if (mgrFilter === m2) {
+          leadMgr = m2;
+          oppMgr = m1;
+          leadScore = s2;
+          oppScore = s1;
+        } else if (mgrFilter !== m1) {
+          return; // Neither manager matches filter
+        }
+      }
+
+      // Canonical rivalry key for grouping multi-year series
+      const pair = sortedPair = [leadMgr, oppMgr].sort();
+      const key = `${pair[0]}_vs_${pair[1]}`;
+
+      if (!rivalries[key]) {
+        rivalries[key] = {
+          displayLead: leadMgr, displayOpp: oppMgr,
+          winsLead: 0, winsOpp: 0, pfLead: 0, pfOpp: 0, last: null
+        };
+      }
+
+      const r = rivalries[key];
+      // Ensure orientation is consistent if multiple games exist
+      let actualLeadScore = leadMgr === m1 ? s1 : s2;
+      let actualOppScore = leadMgr === m1 ? s2 : s1;
+
+      r.last = g;
+      if (actualLeadScore > actualOppScore) r.winsLead++;
+      else if (actualOppScore > actualLeadScore) r.winsOpp++;
+      
+      r.pfLead += actualLeadScore;
+      r.pfOpp += actualOppScore;
+
+      if (mgrFilter !== 'ALL' && leadMgr === mgrFilter) {
+        selectedManagerPF += actualLeadScore;
+        selectedManagerPA += actualOppScore;
+        if (actualLeadScore > actualOppScore) selectedManagerWins++;
+        else if (actualOppScore < actualLeadScore) selectedManagerLosses++;
         else selectedManagerTies++;
       }
     });
@@ -835,22 +880,22 @@
     if (mgrFilter !== 'ALL') {
       summaryBox.style.display = 'block';
       const diff = selectedManagerPF - selectedManagerPA;
-      summaryBox.innerHTML = `📊 Summary for <b>${mgrFilter}</b> (${currentYear}): <span style="color: var(--green);">${selectedManagerWins}W</span>–<span style="color: var(--red);">${selectedManagerLosses}L</span>${selectedManagerTies > 0 ? '–' + selectedManagerTies + 'T' : ''} | Total PF: <b>${selectedManagerPF.toFixed(2)}</b> | Total PA: <b>${selectedManagerPA.toFixed(2)}</b> (Δ <span style="color: ${diff >= 0 ? 'var(--green)' : 'var(--red)'};">${diff >= 0 ? '+' : ''}${diff.toFixed(2)}</span>)`;
+      summaryBox.innerHTML = `📊 All-Time Summary for <b>${mgrFilter}</b>: <span style="color: var(--green);">${selectedManagerWins}W</span>–<span style="color: var(--red);">${selectedManagerLosses}L</span>${selectedManagerTies > 0 ? '–' + selectedManagerTies + 'T' : ''} | Total PF: <b>${selectedManagerPF.toFixed(2)}</b> | Total PA: <b>${selectedManagerPA.toFixed(2)}</b> (Δ <span style="color: ${diff >= 0 ? 'var(--green)' : 'var(--red)'};">${diff >= 0 ? '+' : ''}${diff.toFixed(2)}</span>)`;
     } else {
       summaryBox.style.display = 'none';
     }
 
     Object.values(rivalries).forEach(r => {
-      const isBothCurrent = currentManagers.includes(r.m1) && currentManagers.includes(r.m2);
+      const isBothCurrent = currentManagers.includes(r.displayLead) && currentManagers.includes(r.displayOpp);
       if (h2hScope === 'current' && !isBothCurrent) return;
-      if (mgrFilter !== 'ALL' && r.m1 !== mgrFilter && r.m2 !== mgrFilter) return;
 
-      const lastStr = r.last ? `${r.last.year} Wk ${r.last.week}: ${r.last.m1} (${r.last.s1.toFixed(2)}) vs ${r.last.m2} (${r.last.s2.toFixed(2)})` : 'N/A';
+      const lastStr = r.last ? `${r.last.year} Wk ${r.last.week}: ${r.displayLead} (${(r.displayLead === r.last.m1 ? r.last.s1 : r.last.s2).toFixed(2)}) vs ${r.displayOpp} (${(r.displayOpp === r.last.m1 ? r.last.s1 : r.last.s2).toFixed(2)})` : 'N/A';
+      
       h2hBody.innerHTML += `
         <tr>
-          <td class="team-cell">${r.m1} vs ${r.m2}</td>
-          <td><b>${r.wins1}–${r.wins2}</b></td>
-          <td>${r.pf1.toFixed(2)} – ${r.pf2.toFixed(2)}</td>
+          <td class="team-cell">${r.displayLead} vs ${r.displayOpp}</td>
+          <td><b>${r.winsLead}–${r.winsOpp}</b></td>
+          <td>${r.pfLead.toFixed(2)} – ${r.pfOpp.toFixed(2)}</td>
           <td style="color: var(--muted); font-size: 11px;">${lastStr}</td>
         </tr>
       `;
