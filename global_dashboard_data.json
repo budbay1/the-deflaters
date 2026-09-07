@@ -34885,60 +34885,70 @@
         "team": "No Punt Intended  (Kurt Claycomb)",
         "team_bounties": 5,
         "player_bounties": 5,
+        "total_bounties": 10,
         "total_cash": 250.0
       },
       {
         "team": "Puka Time (trentan busey)",
         "team_bounties": 2,
         "player_bounties": 2,
+        "total_bounties": 4,
         "total_cash": 100.0
       },
       {
         "team": "Team Draft order (Wes Colson)",
         "team_bounties": 0,
         "player_bounties": 3,
+        "total_bounties": 3,
         "total_cash": 75.0
       },
       {
         "team": "Team Bakesmode (Ron Baker)",
         "team_bounties": 2,
         "player_bounties": 0,
+        "total_bounties": 2,
         "total_cash": 50.0
       },
       {
         "team": "Team Freedom (Roman Bayless)",
         "team_bounties": 1,
         "player_bounties": 1,
+        "total_bounties": 2,
         "total_cash": 50.0
       },
       {
         "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
         "team_bounties": 1,
         "player_bounties": 1,
+        "total_bounties": 2,
         "total_cash": 50.0
       },
       {
         "team": "THE G-MEN (TRAVIS GIBSON)",
         "team_bounties": 1,
         "player_bounties": 1,
+        "total_bounties": 2,
         "total_cash": 50.0
       },
       {
         "team": "Off In the Corner (Billy Haid)",
         "team_bounties": 1,
         "player_bounties": 0,
+        "total_bounties": 1,
         "total_cash": 25.0
       },
       {
         "team": "Team Kendall (Robert Kendall)",
         "team_bounties": 1,
         "player_bounties": 0,
+        "total_bounties": 1,
         "total_cash": 25.0
       },
       {
         "team": "The American Dream (Miles Spainhower)",
         "team_bounties": 0,
         "player_bounties": 1,
+        "total_bounties": 1,
         "total_cash": 25.0
       }
     ],
@@ -34947,6 +34957,7 @@
         "team": "Make Fantasy Great Again (jeremy bayless)",
         "team_bounties": 1,
         "player_bounties": 1,
+        "total_bounties": 2,
         "total_cash": 50.0
       }
     ]
@@ -34958,39 +34969,39 @@
     },
     {
       "manager": "Kurt Claycomb",
-      "total_cash": 375.0
+      "total_cash": 500.0
     },
     {
       "manager": "trentan busey",
-      "total_cash": 350.0
+      "total_cash": 400.0
     },
     {
       "manager": "Wes Colson",
       "total_cash": 75.0
     },
     {
+      "manager": "Ron Baker",
+      "total_cash": 50.0
+    },
+    {
       "manager": "Roman Bayless",
-      "total_cash": 25.0
+      "total_cash": 50.0
     },
     {
       "manager": "Eric King",
-      "total_cash": 25.0
+      "total_cash": 50.0
     },
     {
       "manager": "TRAVIS GIBSON",
-      "total_cash": 25.0
-    },
-    {
-      "manager": "Ron Baker",
-      "total_cash": 0.0
+      "total_cash": 50.0
     },
     {
       "manager": "Billy Haid",
-      "total_cash": 0.0
+      "total_cash": 25.0
     },
     {
       "manager": "Robert Kendall",
-      "total_cash": 0.0
+      "total_cash": 25.0
     }
   ],
   "career_rankings": {
