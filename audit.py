@@ -151,7 +151,10 @@ def compute_records_and_payouts(weeks_obj, finishes_map=None):
     for m in weeks_obj[str(w)]:
       team_totals[m["team"]] = team_totals.get(m["team"], 0.0) + m["actual"]
 
-  season_pf_leader = max(team_totals.items(), key=lambda x: x[1]) if team_totals else ("None", 0.0)
+  sorted_pf = sorted(team_totals.items(), key=lambda x: x[1], reverse=True)
+  top_three_pf = [{"team": t, "pts": round(p, 2)} for t, p in sorted_pf[:3]]
+
+  season_pf_leader = sorted_pf[0] if sorted_pf else ("None", 0.0)
   season_high_team_game = max(weekly_team_bounties, key=lambda x: x["pts"]) if weekly_team_bounties else None
   season_high_player_game = max(weekly_player_bounties, key=lambda x: x["pts"]) if weekly_player_bounties else None
 
@@ -159,6 +162,7 @@ def compute_records_and_payouts(weeks_obj, finishes_map=None):
       "pf_leader_team": season_pf_leader[0],
       "pf_leader_pts": round(season_pf_leader[1], 2),
       "pf_leader_prize": PODIUM_PAYOUTS["pf_leader"],
+      "top_three_pf": top_three_pf,
       "high_game_team": season_high_team_game["team"] if season_high_team_game else "None",
       "high_game_pts": season_high_team_game["pts"] if season_high_team_game else 0.0,
       "high_game_week": season_high_team_game["week"] if season_high_team_game else 0,
@@ -278,7 +282,7 @@ def compute_all_time_leaderboard(champions, current_managers, finishes_data):
 
 
 def compute_accumulated_money(seasons_data, champions, weekly_bounty_totals, current_year):
-  """Accumulate all-time money won starting from 2025, strictly applying only for CONCLUDED past seasons."""
+  """Accumulate all-time money won. Includes 2025 immediately, and adds 2026+ only after each respective season concludes."""
   accumulated = {}
 
   def add_cash(mgr_label, amount):
@@ -289,8 +293,14 @@ def compute_accumulated_money(seasons_data, champions, weekly_bounty_totals, cur
 
   for yr_str, weeks_dict in seasons_data.items():
     yr_int = int(yr_str)
-    # Only accumulate for completed seasons strictly prior to the current live active season
-    if yr_int < 2025 or yr_int >= current_year: continue
+    # Include 2025 onwards, but for 2026+ require the season year to be strictly less than current_year UNLESS current year is already concluded
+    if yr_int < 2025: continue
+    if yr_int > current_year: continue
+    if yr_int == current_year:
+      # Check if current live season has concluded (e.g. week >= 17)
+      max_wk = max([int(w) for w in weeks_dict.keys()]) if weeks_dict else 0
+      if max_wk < 17:
+        continue # Live active season hasn't concluded yet, do not include in historical career totals until finished
 
     bounties_list = weekly_bounty_totals.get(yr_str, [])
     for b in bounties_list:
@@ -412,11 +422,16 @@ def main():
 
   accumulated_money = compute_accumulated_money(seasons_data, champions, weekly_bounty_totals_all, YEAR)
 
+  # Collect All-Time Season Rankings across 2023-Present for records tab expansion
   all_time_high_team = {"team": "None", "pts": 0.0, "opp": "None", "opp_pts": 0.0, "week": 0, "year": 0}
   all_time_high_player = {"player": "None", "team": "None", "pts": 0.0, "week": 0, "year": 0, "pos": ""}
   all_time_high_season_pf = {"team": "None", "pts": 0.0, "year": 0}
   all_time_high_pa = {"team": "None", "pa": 0.0, "year": 0}
   all_time_max_margin = {"winner": "None", "loser": "None", "margin": -1.0, "week": 0, "year": 0}
+
+  career_season_pf_list = []
+  career_game_teams_list = []
+  career_game_players_list = []
 
   for yr_str, weeks_dict in seasons_data.items():
     yr_int = int(yr_str)
@@ -428,6 +443,10 @@ def main():
       for m in matchups:
         team_season_pf[m["team"]] = team_season_pf.get(m["team"], 0.0) + m["actual"]
         team_season_pa[m["team"]] = team_season_pa.get(m["team"], 0.0) + m["opp_actual"]
+
+        career_game_teams_list.append({
+            "team": m["team"], "pts": m["actual"], "opp": m["opp"], "opp_pts": m["opp_actual"], "week": w_int, "year": yr_int
+        })
 
         if m["actual"] > all_time_high_team["pts"]:
           all_time_high_team = {
@@ -444,16 +463,25 @@ def main():
           }
 
         for p in m.get("players", []):
-          if p["started"] and p["pts"] > all_time_high_player["pts"]:
-            all_time_high_player = {"player": p["name"], "team": m["team"], "pts": p["pts"], "week": w_int, "year": yr_int, "pos": p["pos"]}
+          if p["started"]:
+            career_game_players_list.append({
+                "player": p["name"], "team": m["team"], "pts": p["pts"], "pos": p["pos"], "week": w_int, "year": yr_int
+            })
+            if p["pts"] > all_time_high_player["pts"]:
+              all_time_high_player = {"player": p["name"], "team": m["team"], "pts": p["pts"], "week": w_int, "year": yr_int, "pos": p["pos"]}
 
     for tm, pf_val in team_season_pf.items():
+      career_season_pf_list.append({"team": tm, "pts": round(pf_val, 2), "year": yr_int})
       if pf_val > all_time_high_season_pf["pts"]:
         all_time_high_season_pf = {"team": tm, "pts": round(pf_val, 2), "year": yr_int}
 
     for tm, pa_val in team_season_pa.items():
       if pa_val > all_time_high_pa["pa"]:
         all_time_high_pa = {"team": tm, "pa": round(pa_val, 2), "year": yr_int}
+
+  career_season_pf_list.sort(key=lambda x: x["pts"], reverse=True)
+  career_game_teams_list.sort(key=lambda x: x["pts"], reverse=True)
+  career_game_players_list.sort(key=lambda x: x["pts"], reverse=True)
 
   global_bundle = {
       "seasons_data": seasons_data,
@@ -468,6 +496,11 @@ def main():
       "weekly_anchors": weekly_anchors_all,
       "weekly_bounty_totals": weekly_bounty_totals_all,
       "accumulated_money": accumulated_money,
+      "career_rankings": {
+          "season_pf": career_season_pf_list[:10],
+          "game_teams": career_game_teams_list[:10],
+          "game_players": career_game_players_list[:10]
+      },
       "all_time_records": {
           "high_team_game": all_time_high_team,
           "high_player_game": all_time_high_player,
