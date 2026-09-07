@@ -202,15 +202,15 @@
   <div id="view-h2h" class="table-container" style="display: none;">
     <div class="filter-header">
       <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-        <div style="font-size: 14px; font-weight: 800; color: var(--text);">⚔️ Head-to-Head Rivalry Records</div>
+        <div style="font-size: 14px; font-weight: 800; color: var(--text);">⚔️ Head-to-Head Rivalries</div>
         <div class="h2h-scope-bar">
           <button id="scopeCurrentBtn" class="scope-btn active" onclick="setH2HScope('current')">👥 Current Managers</button>
-          <button id="scopeAllBtn" class="scope-btn" onclick="setH2HScope('all')">🌐 All-Time (Inc. Former)</button>
+          <button id="scopeAllBtn" class="scope-btn" onclick="setH2HScope('all')">🌐 All-Time</button>
         </div>
         <div class="h2h-scope-bar">
           <button id="phaseAllBtn" class="scope-btn active" onclick="setH2HPhase('ALL')">All Phases</button>
           <button id="phaseRegBtn" class="scope-btn" onclick="setH2HPhase('REG')">Regular Season</button>
-          <button id="phasePlayoffsBtn" class="scope-btn" onclick="setH2HPhase('PLAYOFFS')">Playoffs (Wk 14+)</button>
+          <button id="phasePlayoffsBtn" class="scope-btn" onclick="setH2HPhase('PLAYOFFS')">Playoffs (Wk 15+)</button>
         </div>
       </div>
       <div class="filter-control">
@@ -241,10 +241,26 @@
     <div style="font-size: 16px; font-weight: 800; color: var(--text); margin-top: 10px;">👑 Season Cash Bounties & Highlights</div>
     <div class="awards-grid" id="payoutsGrid"></div>
 
+    <!-- Accumulated Career Money Table (Starting 2025) -->
+    <div class="table-container" style="margin-top: 10px;">
+      <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
+        💵 All-Time Accumulated Money Won (Starting 2025 Season)
+      </div>
+      <table class="responsive-table">
+        <thead>
+          <tr>
+            <th>Rank / Manager</th>
+            <th>Total Career Cash Won ($)</th>
+          </tr>
+        </thead>
+        <tbody id="accumulatedMoneyBody"></tbody>
+      </table>
+    </div>
+
     <!-- Weekly Bounty Totals Summary Table -->
     <div class="table-container" style="margin-top: 10px;">
       <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
-        🏆 Weekly High Score Bounty Totals & Total Cash Won ($25 / Bounty)
+        🏆 Weekly High Score Bounty Totals ($25 / Bounty)
       </div>
       <table class="responsive-table">
         <thead>
@@ -634,6 +650,23 @@
       </div>
     `;
 
+    // Render Accumulated Career Money Table (Starting 2025)
+    const accumulatedMoney = dashboardData.accumulated_money || [];
+    const accMoneyBody = document.getElementById('accumulatedMoneyBody');
+    accMoneyBody.innerHTML = '';
+    if (accumulatedMoney.length === 0) {
+      accMoneyBody.innerHTML = `<tr><td colspan="2" style="text-align: center; color: var(--muted);">No career cash records recorded yet from 2025 onwards.</td></tr>`;
+    } else {
+      accumulatedMoney.forEach((am, idx) => {
+        accMoneyBody.innerHTML += `
+          <tr>
+            <td class="team-cell"><span class="rank-num">#${idx + 1}</span> ${am.manager}</td>
+            <td style="color: var(--green); font-weight: 800; font-size: 15px;">$${am.total_cash.toFixed(2)}</td>
+          </tr>
+        `;
+      });
+    }
+
     // Render Weekly Bounty Totals Summary Table ($25/bounty)
     const bountyTotalsMap = dashboardData.weekly_bounty_totals?.[currentYear] || [];
     const bountyTotalsBody = document.getElementById('bountyTotalsBody');
@@ -648,7 +681,7 @@
       `;
     });
 
-    // Render Week-by-Week Ledger Table (Cleaned without duplicate dollar totals per line)
+    // Render Week-by-Week Ledger Table
     const weeklyBounties = dashboardData.weekly_bounties || {};
     const weeklyPlayerBounties = dashboardData.weekly_player_bounties || {};
     const curBounties = weeklyBounties[currentYear] || [];
@@ -769,7 +802,7 @@
     Object.values(matchups).forEach(g => {
       // Respect page-level selected season
       if (currentYear && String(g.year) !== currentYear) return;
-      // Apply Phase filter (REG vs Playoffs)
+      // Apply Phase filter (REG vs Playoffs Wk 15+)
       if (h2hPhase === 'REG' && g.is_playoff) return;
       if (h2hPhase === 'PLAYOFFS' && !g.is_playoff) return;
 
