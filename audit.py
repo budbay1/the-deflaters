@@ -117,11 +117,12 @@ def compute_records_and_payouts(weeks_obj, finishes_map=None):
     
     if w <= 14:
       high_match = max(matchups, key=lambda x: x["actual"])
-      weekly_team_bounties.append({
-          "week": w, "team": high_match["team"], "pts": high_match["actual"],
-          "opp": high_match["opp"], "opp_pts": high_match["opp_actual"],
-          "cash": WEEKLY_BOUNTY_TEAM_CASH
-      })
+      if high_match["actual"] > 0:
+        weekly_team_bounties.append({
+            "week": w, "team": high_match["team"], "pts": high_match["actual"],
+            "opp": high_match["opp"], "opp_pts": high_match["opp_actual"],
+            "cash": WEEKLY_BOUNTY_TEAM_CASH
+        })
 
     starters_this_week = []
     for team_entry in matchups:
@@ -132,12 +133,13 @@ def compute_records_and_payouts(weeks_obj, finishes_map=None):
 
     if starters_this_week and w <= 14:
       top_player = max(starters_this_week, key=lambda x: x["pts"])
-      weekly_player_bounties.append({
-          "week": w, "player": top_player["player"], "pos": top_player["pos"],
-          "pts": top_player["pts"], "team": top_player["team"],
-          "cash": WEEKLY_BOUNTY_PLAYER_CASH
-      })
-      weekly_anchors.append(min(starters_this_week, key=lambda x: x["pts"]))
+      if top_player["pts"] > 0:
+        weekly_player_bounties.append({
+            "week": w, "player": top_player["player"], "pos": top_player["pos"],
+            "pts": top_player["pts"], "team": top_player["team"],
+            "cash": WEEKLY_BOUNTY_PLAYER_CASH
+        })
+        weekly_anchors.append(min(starters_this_week, key=lambda x: x["pts"]))
 
   bounty_tracker = {}
   for b in weekly_team_bounties:
@@ -197,20 +199,18 @@ def compute_records_and_payouts(weeks_obj, finishes_map=None):
 def sync_historical_h2h(current_year):
   all_time = load_history(ALL_TIME_FILE, {"champions": {}, "matchups": {}, "finishes": {}, "h2h_ingested_years": []})
   if "matchups" not in all_time: all_time["matchups"] = {}
-  
-  # Force re-ingestion of historical years 2023 through current_year - 1 to ensure playoff weeks 1-17 are fully captured
   all_time["h2h_ingested_years"] = []
 
   for y in range(2023, current_year):
     try:
       past_league = League(league_id=LEAGUE_ID, year=y, espn_s2=ESPN_S2, swid=SWID)
-      for w in range(1, 18):  # Explicitly covering weeks 1 through 17 (Regular + Playoffs)
+      for w in range(1, 18):
         try:
           b_scores = past_league.box_scores(week=w)
           if not b_scores: continue
           for match in b_scores:
             h_act, a_act = round(match.home_score, 2), round(match.away_score, 2)
-            if h_act == 0 and a_act == 0: continue
+            if h_act == 0.0 and a_act == 0.0: continue # Skip unplayed / zero games
             h_mgr, a_mgr = get_manager_name(match.home_team), get_manager_name(match.away_team)
             if h_mgr == "Manager" and a_mgr == "Manager": continue
             
@@ -223,13 +223,9 @@ def sync_historical_h2h(current_year):
                 "m1": pair[0], "t1": match.home_team.team_name if h_mgr == pair[0] else match.away_team.team_name, "s1": h_act if h_mgr == pair[0] else a_act,
                 "m2": pair[1], "t2": match.away_team.team_name if a_mgr == pair[1] else match.home_team.team_name, "s2": a_act if a_mgr == pair[1] else h_act
             }
-        except Exception as we:
-          print(f"Skipping Season {y} Week {w}: {we}")
-          continue
+        except Exception: break
       all_time["h2h_ingested_years"].append(y)
-    except Exception as e: 
-      print(f"Could not backfill Season {y} H2H: {e}")
-      
+    except Exception as e: print(f"Could not backfill Season {y} H2H: {e}")
   save_history(ALL_TIME_FILE, all_time)
   return all_time
 
@@ -374,7 +370,7 @@ def main():
     w_teams = []
     for match in box_scores:
       h_act, a_act = round(match.home_score, 2), round(match.away_score, 2)
-      if h_act == 0 and a_act == 0: continue
+      if h_act == 0.0 and a_act == 0.0: continue # Skip unplayed / zero games
       h_proj = round(sum(p.projected_points for p in match.home_lineup if p.slot_position not in ["BE", "IR"]), 2)
       a_proj = round(sum(p.projected_points for p in match.away_lineup if p.slot_position not in ["BE", "IR"]), 2)
 
@@ -407,7 +403,7 @@ def main():
       w_teams.append({
           "team": away_label, "manager": a_mgr, "opp": home_label, "opp_manager": h_mgr,
           "actual": a_act, "proj": a_proj, "diff": round(a_act - a_proj, 2),
-          "opp_actual": h_act, "opp_proj": h_proj, "optimal": a_opt,
+          "opp_actual": h_act, "opp_proj": a_proj, "optimal": a_opt,
           "result": "W" if a_act > h_act else ("L" if a_act < h_act else "T"),
           "coach_eff": round((a_act / a_opt) * 100, 1) if a_opt > 0 else 100.0,
           "players": a_players,
