@@ -319,14 +319,15 @@
 
     <!-- Weekly Bounty Totals Summary Table -->
     <div class="table-container" style="margin-top: 10px;">
-      <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
+      <div id="bountyTableHeader" style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
         🏆 Weekly High Score Bounty Totals ($25 / Bounty)
       </div>
       <table class="responsive-table">
         <thead>
           <tr>
             <th>Rank / Team</th>
-            <th>Weekly Bounties Won</th>
+            <th>Team Bounties Won ($25)</th>
+            <th>Player Bounties Won ($25)</th>
             <th>Total Cash Won ($)</th>
           </tr>
         </thead>
@@ -335,7 +336,7 @@
     </div>
 
     <div class="table-container" style="margin-top: 10px;">
-      <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
+      <div id="ledgerHeader" style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
         📅 Week-by-Week High Scorer & Starters Ledger
       </div>
       <table class="responsive-table">
@@ -534,6 +535,10 @@
     document.getElementById('tabBtnWeek').innerText = `📅 Week ${currentWeek} Summary`;
     document.getElementById('tabBtnSeason').innerText = `📈 ${currentYear} Season Trends`;
 
+    // Dynamic Year Labels for Payout & Ledger Tables
+    document.getElementById('bountyTableHeader').innerText = `🏆 ${currentYear} Weekly High Score Bounty Totals ($25 / Bounty)`;
+    document.getElementById('ledgerHeader').innerText = `📅 ${currentYear} Week-by-Week High Scorer & Starters Ledger`;
+
     const wkData = dashboardData.seasons_data?.[currentYear]?.[currentWeek] || [];
     const sortedWk = wkData.slice().sort((a, b) => {
       if (b.all_play_w !== a.all_play_w) return b.all_play_w - a.all_play_w;
@@ -719,7 +724,7 @@
       });
     }
 
-    // Render Weekly Bounty Totals Summary Table
+    // Render Weekly Bounty Totals Summary Table (With Team vs Player Breakdown)
     const bountyTotalsMap = dashboardData.weekly_bounty_totals?.[currentYear] || [];
     const bountyTotalsBody = document.getElementById('bountyTotalsBody');
     bountyTotalsBody.innerHTML = '';
@@ -727,7 +732,8 @@
       bountyTotalsBody.innerHTML += `
         <tr>
           <td class="team-cell"><span class="rank-num">#${idx + 1}</span> ${renderBadge(bt.team)}</td>
-          <td><span class="badge badge-gold"><b>${bt.wins}</b> Bounties</span></td>
+          <td><b>${bt.team_bounties || 0}</b></td>
+          <td><b>${bt.player_bounties || 0}</b></td>
           <td style="color: var(--green); font-weight: 800;">$${bt.total_cash.toFixed(2)}</td>
         </tr>
       `;
