@@ -109,7 +109,7 @@ def save_history(filepath, data):
 
 def compute_records_and_payouts(weeks_obj, finishes_map=None):
   weekly_team_bounties, weekly_player_bounties, weekly_anchors = [], [], []
-  sorted_weeks = sorted([int(w) for w in weeks_obj.keys()])
+  sorted_weeks = sorted([int(w) for w in weeks_obj.keys() if int(w) <= 17])
 
   for w in sorted_weeks:
     matchups = weeks_obj[str(w)]
@@ -199,11 +199,12 @@ def sync_historical_h2h(current_year):
   if "matchups" not in all_time: all_time["matchups"] = {}
   if "h2h_ingested_years" not in all_time: all_time["h2h_ingested_years"] = []
 
+  # Strictly ingest starting from 2023 onwards (ignoring 2022 and earlier weirdness)
   for y in range(2023, current_year):
     if y in all_time["h2h_ingested_years"]: continue
     try:
       past_league = League(league_id=LEAGUE_ID, year=y, espn_s2=ESPN_S2, swid=SWID)
-      for w in range(1, 18):
+      for w in range(1, 18):  # Strictly cap historical weeks to 17
         try:
           b_scores = past_league.box_scores(week=w)
           if not b_scores: continue
@@ -337,7 +338,6 @@ def compute_accumulated_money(seasons_data, champions, weekly_bounty_totals, wee
       top_pf_team = max(team_season_pf.items(), key=lambda x: x[1])[0]
       add_cash(top_pf_team, PODIUM_PAYOUTS["pf_leader"])
 
-  # Filter out $0 managers so dead/zero rosters don't show up in career standings
   return sorted([{"manager": mgr, "total_cash": round(amt, 2)} for mgr, amt in accumulated.items() if amt > 0], key=lambda x: x["total_cash"], reverse=True)
 
 
@@ -358,7 +358,7 @@ def main():
   all_time = load_history(ALL_TIME_FILE, {"champions": {}, "matchups": {}, "finishes": {}, "h2h_ingested_years": []})
   if "matchups" not in all_time: all_time["matchups"] = {}
 
-  for w in range(1, 18):
+  for w in range(1, 18):  # Strictly cap to 17 weeks
     w_str = str(w)
     try:
       box_scores = league.box_scores(week=w)
@@ -369,6 +369,7 @@ def main():
     w_teams = []
     for match in box_scores:
       h_act, a_act = round(match.home_score, 2), round(match.away_score, 2)
+      if h_act == 0 and a_act == 0: continue
       h_proj = round(sum(p.projected_points for p in match.home_lineup if p.slot_position not in ["BE", "IR"]), 2)
       a_proj = round(sum(p.projected_points for p in match.away_lineup if p.slot_position not in ["BE", "IR"]), 2)
 
@@ -379,7 +380,7 @@ def main():
       home_label = f"{match.home_team.team_name} ({h_mgr})" if h_mgr != "Manager" else match.home_team.team_name
       away_label = f"{match.away_team.team_name} ({a_mgr})" if a_mgr != "Manager" else match.away_team.team_name
 
-      if h_mgr != "Manager" and a_mgr != "Manager" and (h_act > 0 or a_act > 0):
+      if h_mgr != "Manager" and a_mgr != "Manager":
         pair = sorted([h_mgr, a_mgr])
         m_id = f"{YEAR}_W{w}_{pair[0]}_vs_{pair[1]}"
         is_playoff = w >= 15
@@ -402,7 +403,7 @@ def main():
           "actual": a_act, "proj": a_proj, "diff": round(a_act - a_proj, 2),
           "opp_actual": h_act, "opp_proj": h_proj, "optimal": a_opt,
           "result": "W" if a_act > h_act else ("L" if a_act < h_act else "T"),
-          "coach_eff": round((a_act / a_opt) * 100, 1) if a_act > 0 else 100.0,
+          "coach_eff": round((a_act / a_opt) * 100, 1) if a_opt > 0 else 100.0,
           "players": a_players,
       })
 
