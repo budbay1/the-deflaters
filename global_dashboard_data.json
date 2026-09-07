@@ -32805,6 +32805,20 @@
       "pf_leader_team": "No Punt Intended  (Kurt Claycomb)",
       "pf_leader_pts": 2184.96,
       "pf_leader_prize": 100.0,
+      "top_three_pf": [
+        {
+          "team": "No Punt Intended  (Kurt Claycomb)",
+          "pts": 2184.96
+        },
+        {
+          "team": "Puka Time (trentan busey)",
+          "pts": 2022.04
+        },
+        {
+          "team": "Team Bakesmode (Ron Baker)",
+          "pts": 1935.0
+        }
+      ],
       "high_game_team": "Puka Time (trentan busey)",
       "high_game_pts": 185.08,
       "high_game_week": 5,
@@ -32818,6 +32832,20 @@
       "pf_leader_team": "Make Fantasy Great Again (jeremy bayless)",
       "pf_leader_pts": 0.0,
       "pf_leader_prize": 100.0,
+      "top_three_pf": [
+        {
+          "team": "Make Fantasy Great Again (jeremy bayless)",
+          "pts": 0.0
+        },
+        {
+          "team": "Team Bakesmode (Ron Baker)",
+          "pts": 0.0
+        },
+        {
+          "team": "Flock Around and Find Out (Jared Schneider)",
+          "pts": 0.0
+        }
+      ],
       "high_game_team": "Make Fantasy Great Again (jeremy bayless)",
       "high_game_pts": 0.0,
       "high_game_week": 1,
@@ -33228,6 +33256,224 @@
     ]
   },
   "accumulated_money": [],
+  "career_rankings": {
+    "season_pf": [
+      {
+        "team": "No Punt Intended  (Kurt Claycomb)",
+        "pts": 2184.96,
+        "year": 2025
+      },
+      {
+        "team": "Puka Time (trentan busey)",
+        "pts": 2022.04,
+        "year": 2025
+      },
+      {
+        "team": "Team Bakesmode (Ron Baker)",
+        "pts": 1935.0,
+        "year": 2025
+      },
+      {
+        "team": "THE G-MEN (TRAVIS GIBSON)",
+        "pts": 1921.7,
+        "year": 2025
+      },
+      {
+        "team": "The American Dream (Miles Spainhower)",
+        "pts": 1889.0,
+        "year": 2025
+      },
+      {
+        "team": "Off In the Corner (Billy Haid)",
+        "pts": 1881.54,
+        "year": 2025
+      },
+      {
+        "team": "Team Kendall (Robert Kendall)",
+        "pts": 1846.72,
+        "year": 2025
+      },
+      {
+        "team": "Team Freedom (Roman Bayless)",
+        "pts": 1838.18,
+        "year": 2025
+      },
+      {
+        "team": "Team Draft order (Wes Colson)",
+        "pts": 1835.82,
+        "year": 2025
+      },
+      {
+        "team": "Rejected Kamala (jeremy bayless)",
+        "pts": 1726.06,
+        "year": 2025
+      }
+    ],
+    "game_teams": [
+      {
+        "team": "Puka Time (trentan busey)",
+        "pts": 185.08,
+        "opp": "No Punt Intended  (Kurt Claycomb)",
+        "opp_pts": 140.32,
+        "week": 5,
+        "year": 2025
+      },
+      {
+        "team": "Team Unvaxxed (Jared Schneider)",
+        "pts": 185.02,
+        "opp": "Team Kendall (Robert Kendall)",
+        "opp_pts": 93.46,
+        "week": 15,
+        "year": 2025
+      },
+      {
+        "team": "Team Bakesmode (Ron Baker)",
+        "pts": 181.62,
+        "opp": "The American Dream (Miles Spainhower)",
+        "opp_pts": 85.24,
+        "week": 6,
+        "year": 2025
+      },
+      {
+        "team": "Team Kendall (Robert Kendall)",
+        "pts": 181.58,
+        "opp": "Team Draft order (Wes Colson)",
+        "opp_pts": 95.28,
+        "week": 9,
+        "year": 2025
+      },
+      {
+        "team": "No Punt Intended  (Kurt Claycomb)",
+        "pts": 179.02,
+        "opp": "Team Bakesmode (Ron Baker)",
+        "opp_pts": 116.72,
+        "week": 10,
+        "year": 2025
+      },
+      {
+        "team": "Puka Time (trentan busey)",
+        "pts": 164.7,
+        "opp": "THE G-MEN (TRAVIS GIBSON)",
+        "opp_pts": 114.86,
+        "week": 16,
+        "year": 2025
+      },
+      {
+        "team": "Team Bakesmode (Ron Baker)",
+        "pts": 163.98,
+        "opp": "Team Kendall (Robert Kendall)",
+        "opp_pts": 105.98,
+        "week": 2,
+        "year": 2025
+      },
+      {
+        "team": "Team Freedom (Roman Bayless)",
+        "pts": 163.02,
+        "opp": "Team Draft order (Wes Colson)",
+        "opp_pts": 113.34,
+        "week": 2,
+        "year": 2025
+      },
+      {
+        "team": "Team Kendall (Robert Kendall)",
+        "pts": 160.1,
+        "opp": "Rejected Kamala (jeremy bayless)",
+        "opp_pts": 86.82,
+        "week": 16,
+        "year": 2025
+      },
+      {
+        "team": "Off In the Corner (Billy Haid)",
+        "pts": 158.68,
+        "opp": "Puka Time (trentan busey)",
+        "opp_pts": 127.66,
+        "week": 7,
+        "year": 2025
+      }
+    ],
+    "game_players": [
+      {
+        "player": "Trevor Lawrence",
+        "team": "Team Unvaxxed (Jared Schneider)",
+        "pts": 54.3,
+        "pos": "QB",
+        "week": 15,
+        "year": 2025
+      },
+      {
+        "player": "Jahmyr Gibbs",
+        "team": "Puka Time (trentan busey)",
+        "pts": 49.9,
+        "pos": "RB",
+        "week": 12,
+        "year": 2025
+      },
+      {
+        "player": "Josh Allen",
+        "team": "No Punt Intended  (Kurt Claycomb)",
+        "pts": 48.68,
+        "pos": "QB",
+        "week": 11,
+        "year": 2025
+      },
+      {
+        "player": "Jonathan Taylor",
+        "team": "No Punt Intended  (Kurt Claycomb)",
+        "pts": 48.1,
+        "pos": "RB",
+        "week": 10,
+        "year": 2025
+      },
+      {
+        "player": "Jared Goff",
+        "team": "THE G-MEN (TRAVIS GIBSON)",
+        "pts": 43.96,
+        "pos": "QB",
+        "week": 2,
+        "year": 2025
+      },
+      {
+        "player": "Bo Nix",
+        "team": "Team Freedom (Roman Bayless)",
+        "pts": 43.96,
+        "pos": "QB",
+        "week": 7,
+        "year": 2025
+      },
+      {
+        "player": "Josh Allen",
+        "team": "No Punt Intended  (Kurt Claycomb)",
+        "pts": 43.84,
+        "pos": "QB",
+        "week": 14,
+        "year": 2025
+      },
+      {
+        "player": "Josh Allen",
+        "team": "No Punt Intended  (Kurt Claycomb)",
+        "pts": 42.76,
+        "pos": "QB",
+        "week": 1,
+        "year": 2025
+      },
+      {
+        "player": "Brock Purdy",
+        "team": "Puka Time (trentan busey)",
+        "pts": 40.9,
+        "pos": "QB",
+        "week": 16,
+        "year": 2025
+      },
+      {
+        "player": "Puka Nacua",
+        "team": "Puka Time (trentan busey)",
+        "pts": 40.5,
+        "pos": "WR",
+        "week": 16,
+        "year": 2025
+      }
+    ]
+  },
   "all_time_records": {
     "high_team_game": {
       "team": "Puka Time (trentan busey)",
