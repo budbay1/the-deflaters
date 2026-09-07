@@ -289,8 +289,8 @@ def compute_all_time_leaderboard(champions, current_managers, finishes_data):
   return sorted(mgr_stats.values(), key=lambda x: (-x["gold"], -x["silver"], -x["bronze"], -x["total_podiums"], x["avg_sort"], x["last"], x["manager"]))
 
 
-def compute_accumulated_money(seasons_data, champions, weekly_bounty_totals_all, weekly_player_bounties_all, current_year):
-  """Accumulate all-time money won (podiums, PF leader, team bounties, player bounties) for concluded past seasons."""
+def compute_accumulated_money(seasons_data, champions, weekly_bounty_totals, weekly_player_bounties_all, finishes_data, current_year):
+  """Accumulate career money won including 1st ($550), 2nd ($300), 3rd ($150), PF Leader ($100), and weekly team/player bounties ($25 each) starting from 2025 onwards."""
   accumulated = {}
 
   def add_cash(mgr_label, amount):
@@ -308,26 +308,26 @@ def compute_accumulated_money(seasons_data, champions, weekly_bounty_totals_all,
       if max_wk < 17:
         continue
 
-    # Team bounties cash
-    bounties_list = weekly_bounty_totals_all.get(yr_str, [])
+    # 1. Team Bounties
+    bounties_list = weekly_bounty_totals.get(yr_str, [])
     for b in bounties_list:
       team_lbl = b.get("team")
       wins = b.get("wins", 0)
       add_cash(team_lbl, wins * WEEKLY_BOUNTY_TEAM_CASH)
 
-    # Player bounties cash
+    # 2. Player Bounties
     player_bounties_list = weekly_player_bounties_all.get(yr_str, [])
     for pb in player_bounties_list:
       team_lbl = pb.get("team")
       add_cash(team_lbl, WEEKLY_BOUNTY_PLAYER_CASH)
 
-    # Podiums
+    # 3. Podiums (Gold $550, Silver $300, Bronze $150)
     yr_champ = champions.get(yr_str, {})
     if yr_champ.get("gold"): add_cash(yr_champ["gold"], PODIUM_PAYOUTS["gold"])
     if yr_champ.get("silver"): add_cash(yr_champ["silver"], PODIUM_PAYOUTS["silver"])
     if yr_champ.get("bronze"): add_cash(yr_champ["bronze"], PODIUM_PAYOUTS["bronze"])
 
-    # PF Leader
+    # 4. Season Points Leader ($100)
     team_season_pf = {}
     for w_str, matchups in weeks_dict.items():
       for m in matchups:
@@ -438,7 +438,7 @@ def main():
     weekly_anchors_all[yr_key] = an
     weekly_bounty_totals_all[yr_key] = b_totals
 
-  accumulated_money = compute_accumulated_money(seasons_data, champions, weekly_bounty_totals_all, weekly_player_bounties_all, YEAR)
+  accumulated_money = compute_accumulated_money(seasons_data, champions, weekly_bounty_totals_all, weekly_player_bounties_all, finishes_data, YEAR)
 
   all_time_high_team = {"team": "None", "pts": 0.0, "opp": "None", "opp_pts": 0.0, "week": 0, "year": 0}
   all_time_high_player = {"player": "None", "team": "None", "pts": 0.0, "week": 0, "year": 0, "pos": ""}
