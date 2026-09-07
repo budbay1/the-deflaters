@@ -36,7 +36,6 @@ PODIUM_PAYOUTS = {
 
 
 def load_aliases():
-  """Loads manager-to-team aliases from manager_aliases.json if present."""
   if os.path.exists(ALIASES_FILE):
     try:
       with open(ALIASES_FILE, "r") as f:
@@ -47,7 +46,6 @@ def load_aliases():
 
 
 def get_manager_name(team):
-  """Resolves manager names using the external configuration file."""
   aliases = load_aliases()
   raw_name = "Manager"
   
@@ -65,7 +63,6 @@ def get_manager_name(team):
 
   team_name = getattr(team, "team_name", "")
 
-  # Check aliases (case-insensitive key check)
   for alias, canonical in aliases.items():
     if alias.lower() == raw_name.lower() or alias.lower() == team_name.lower():
       return canonical
@@ -183,17 +180,6 @@ def compute_records_and_payouts(weeks_obj, finishes_map=None):
     bounty_tracker[tm]["player_bounties"] += 1
     bounty_tracker[tm]["total_cash"] += WEEKLY_BOUNTY_PLAYER_CASH
 
-  sorted_bounty_leaders = sorted(
-      [{
-          "team": tm,
-          "team_bounties": data["team_bounties"],
-          "player_bounties": data["player_bounties"],
-          "total_bounties": data["team_bounties"] + data["player_bounties"],
-          "total_cash": round(data["total_cash"], 2)
-      } for tm, data in bounty_tracker.items()],
-      key=lambda x: x["total_cash"], reverse=True
-  )
-
   team_totals = {}
   for w in sorted_weeks:
     for m in weeks_obj[str(w)]:
@@ -220,62 +206,81 @@ def compute_records_and_payouts(weeks_obj, finishes_map=None):
       "high_player_team": season_high_player_game["team"] if season_high_player_game else "None",
       "high_player_week": season_high_player_game["week"] if season_high_player_game else 0,
   }
-  return weekly_team_bounties, weekly_player_bounties, weekly_anchors, season_payout_leaders, sorted_bounty_leaders
+  return weekly_team_bounties, weekly_player_bounties, weekly_anchors, season_payout_leaders
 
 
-def sync_historical_h2h(current_year):
-  all_time = load_history(ALL_TIME_FILE, {"champions": {}, "matchups": {}, "finishes": {}, "h2h_ingested_years": []})
-  if "matchups" not in all_time: all_time["matchups"] = {}
-  all_time["h2h_ingested_years"] = []
+def process_season_weeks(league_obj, season_yr):
+  """Extracts full week-by-week matchups, rosters, and scores for any given season."""
   aliases = load_aliases()
+  season_weeks = {}
+  all_time_matchups = {}
 
-  for y in range(2023, current_year):
+  for w in range(1, 18):
+    w_str = str(w)
     try:
-      past_league = League(league_id=LEAGUE_ID, year=y, espn_s2=ESPN_S2, swid=SWID)
-      for w in range(1, 18):
-        try:
-          b_scores = past_league.box_scores(week=w)
-          if not b_scores: continue
-          for match in b_scores:
-            h_act, a_act = round(match.home_score, 2), round(match.away_score, 2)
-            if h_act == 0.0 and a_act == 0.0: continue
-            
-            h_mgr = get_manager_name(match.home_team)
-            a_mgr = get_manager_name(match.away_team)
-            if h_mgr == "Manager" and a_mgr == "Manager": continue
-            
-            pair = sorted([h_mgr, a_mgr])
-            m_id = f"{y}_W{w}_{pair[0]}_vs_{pair[1]}"
-            is_playoff = w >= 15
-            
-            all_time["matchups"][m_id] = {
-                "year": y, "week": w, "is_playoff": is_playoff,
-                "m1": pair[0], "t1": match.home_team.team_name if h_mgr == pair[0] else match.away_team.team_name, "s1": h_act if h_mgr == pair[0] else a_act,
-                "m2": pair[1], "t2": match.away_team.team_name if a_mgr == pair[1] else match.home_team.team_name, "s2": a_act if a_mgr == pair[1] else h_act
-            }
-        except Exception: break
-      all_time["h2h_ingested_years"].append(y)
-    except Exception as e: print(f"Could not backfill Season {y} H2H: {e}")
-  
-  # Normalize all matchup keys/managers in historical storage using alias dictionary
-  cleaned_matchups = {}
-  for m_id, m_data in all_time["matchups"].items():
-    m1, m2 = m_data["m1"], m_data["m2"]
-    for alias, canonical in aliases.items():
-      if alias.lower() == m1.lower(): m1 = canonical
-      if alias.lower() == m2.lower(): m2 = canonical
-    
-    pair = sorted([m1, m2])
-    cleaned_id = f"{m_data['year']}_W{m_data['week']}_{pair[0]}_vs_{pair[1]}"
-    m_data["m1"] = pair[0]
-    m_data["m2"] = pair[1]
-    if pair[0] == m1:
-      m_data["s1"] = m_data["s1"] # keep score aligned
-    cleaned_matchups[cleaned_id] = m_data
+      box_scores = league_obj.box_scores(week=w)
+    except Exception:
+      continue
+    if not box_scores: continue
 
-  all_time["matchups"] = cleaned_matchups
-  save_history(ALL_TIME_FILE, all_time)
-  return all_time
+    w_teams = []
+    for match in box_scores:
+      h_act, a_act = round(match.home_score, 2), round(match.away_score, 2)
+      if h_act == 0.0 and a_act == 0.0: continue
+      h_proj = round(sum(p.projected_points for p in match.home_lineup if p.slot_position not in ["BE", "IR"]), 2)
+      a_proj = round(sum(p.projected_points for p in match.away_lineup if p.slot_position not in ["BE", "IR"]), 2)
+
+      h_players, h_opt = audit_roster(match.home_lineup, ROSTER_SLOTS, h_act)
+      a_players, a_opt = audit_roster(match.away_lineup, ROSTER_SLOTS, a_act)
+
+      h_mgr = get_manager_name(match.home_team)
+      a_mgr = get_manager_name(match.away_team)
+      
+      h_team_name = getattr(match.home_team, "team_name", "Team")
+      a_team_name = getattr(match.away_team, "team_name", "Team")
+
+      home_label = f"{h_team_name} ({h_mgr})" if h_mgr != "Manager" else h_team_name
+      away_label = f"{a_team_name} ({a_mgr})" if a_mgr != "Manager" else a_team_name
+
+      if h_mgr != "Manager" and a_mgr != "Manager":
+        pair = sorted([h_mgr, a_mgr])
+        m_id = f"{season_yr}_W{w}_{pair[0]}_vs_{pair[1]}"
+        is_playoff = w >= 15
+        
+        all_time_matchups[m_id] = {
+            "year": season_yr, "week": w, "is_playoff": is_playoff,
+            "m1": pair[0], "t1": h_team_name if h_mgr == pair[0] else a_team_name, "s1": h_act if h_mgr == pair[0] else a_act,
+            "m2": pair[1], "t2": a_team_name if a_mgr == pair[1] else h_team_name, "s2": a_act if a_mgr == pair[1] else h_act
+        }
+
+      w_teams.append({
+          "team": home_label, "manager": h_mgr, "opp": away_label, "opp_manager": a_mgr,
+          "actual": h_act, "proj": h_proj, "diff": round(h_act - h_proj, 2),
+          "opp_actual": a_act, "opp_proj": a_proj, "optimal": h_opt,
+          "result": "W" if h_act > a_act else ("L" if h_act < a_act else "T"),
+          "coach_eff": round((h_act / h_opt) * 100, 1) if h_opt > 0 else 100.0,
+          "players": h_players,
+      })
+      w_teams.append({
+          "team": away_label, "manager": a_mgr, "opp": home_label, "opp_manager": h_mgr,
+          "actual": a_act, "proj": a_proj, "diff": round(a_act - a_proj, 2),
+          "opp_actual": h_act, "opp_proj": a_proj, "optimal": a_opt,
+          "result": "W" if a_act > h_act else ("L" if a_act < h_act else "T"),
+          "coach_eff": round((a_act / a_opt) * 100, 1) if a_opt > 0 else 100.0,
+          "players": a_players,
+      })
+
+    all_scores = [t["actual"] for t in w_teams]
+    total_opps = len(w_teams) - 1
+    if total_opps > 0:
+      for t in w_teams:
+        t["all_play_w"] = sum(1 for s in all_scores if t["actual"] > s)
+        t["all_play_l"] = sum(1 for s in all_scores if t["actual"] < s)
+        t["luck_delta"] = round((1.0 if t["result"] == "W" else 0.0) - (t["all_play_w"] / total_opps), 3)
+
+    season_weeks[w_str] = w_teams
+
+  return season_weeks, all_time_matchups
 
 
 def sync_champions_and_finishes(current_year):
@@ -410,86 +415,33 @@ def main():
 
   current_managers = sorted(list(set(get_manager_name(t) for t in league.teams if get_manager_name(t) != "Manager")))
 
-  history_file = f"league_history_{YEAR}.json"
-  history = load_history(history_file, {"year": YEAR, "weeks": {}})
-
   all_time = load_history(ALL_TIME_FILE, {"champions": {}, "matchups": {}, "finishes": {}, "h2h_ingested_years": []})
   if "matchups" not in all_time: all_time["matchups"] = {}
 
-  aliases = load_aliases()
+  seasons_data = load_history(SEASONS_DATA_FILE, {})
 
-  for w in range(1, 18):
-    w_str = str(w)
-    try:
-      box_scores = league.box_scores(week=w)
-    except Exception:
-      continue
-    if not box_scores: continue
+  # Process current season and all historical seasons (2023 onwards) fully with rosters/box scores
+  for y in range(2023, YEAR + 1):
+    print(f"Processing season data for {y}...")
+    if y == YEAR:
+      season_weeks, yr_matchups = process_season_weeks(league, y)
+    else:
+      try:
+        past_league = League(league_id=LEAGUE_ID, year=y, espn_s2=ESPN_S2, swid=SWID)
+        season_weeks, yr_matchups = process_season_weeks(past_league, y)
+      except Exception as e:
+        print(f"Could not load season {y}: {e}")
+        continue
 
-    w_teams = []
-    for match in box_scores:
-      h_act, a_act = round(match.home_score, 2), round(match.away_score, 2)
-      if h_act == 0.0 and a_act == 0.0: continue
-      h_proj = round(sum(p.projected_points for p in match.home_lineup if p.slot_position not in ["BE", "IR"]), 2)
-      a_proj = round(sum(p.projected_points for p in match.away_lineup if p.slot_position not in ["BE", "IR"]), 2)
+    seasons_data[str(y)] = season_weeks
+    all_time["matchups"].update(yr_matchups)
 
-      h_players, h_opt = audit_roster(match.home_lineup, ROSTER_SLOTS, h_act)
-      a_players, a_opt = audit_roster(match.away_lineup, ROSTER_SLOTS, a_act)
-
-      h_mgr = get_manager_name(match.home_team)
-      a_mgr = get_manager_name(match.away_team)
-      
-      home_label = f"{match.home_team.team_name} ({h_mgr})" if h_mgr != "Manager" else match.home_team.team_name
-      away_label = f"{match.away_team.team_name} ({a_mgr})" if a_mgr != "Manager" else match.away_team.team_name
-
-      if h_mgr != "Manager" and a_mgr != "Manager":
-        pair = sorted([h_mgr, a_mgr])
-        m_id = f"{YEAR}_W{w}_{pair[0]}_vs_{pair[1]}"
-        is_playoff = w >= 15
-        
-        all_time["matchups"][m_id] = {
-            "year": YEAR, "week": w, "is_playoff": is_playoff,
-            "m1": pair[0], "t1": match.home_team.team_name if h_mgr == pair[0] else match.away_team.team_name, "s1": h_act if h_mgr == pair[0] else a_act,
-            "m2": pair[1], "t2": match.away_team.team_name if a_mgr == pair[1] else match.home_team.team_name, "s2": a_act if a_mgr == pair[1] else h_act
-        }
-
-      w_teams.append({
-          "team": home_label, "manager": h_mgr, "opp": away_label, "opp_manager": a_mgr,
-          "actual": h_act, "proj": h_proj, "diff": round(h_act - h_proj, 2),
-          "opp_actual": a_act, "opp_proj": a_proj, "optimal": h_opt,
-          "result": "W" if h_act > a_act else ("L" if h_act < a_act else "T"),
-          "coach_eff": round((h_act / h_opt) * 100, 1) if h_opt > 0 else 100.0,
-          "players": h_players,
-      })
-      w_teams.append({
-          "team": away_label, "manager": a_mgr, "opp": home_label, "opp_manager": h_mgr,
-          "actual": a_act, "proj": a_proj, "diff": round(a_act - a_proj, 2),
-          "opp_actual": h_act, "opp_proj": h_proj, "optimal": a_opt,
-          "result": "W" if a_act > h_act else ("L" if a_act < h_act else "T"),
-          "coach_eff": round((a_act / a_opt) * 100, 1) if a_opt > 0 else 100.0,
-          "players": a_players,
-      })
-
-    all_scores = [t["actual"] for t in w_teams]
-    total_opps = len(w_teams) - 1
-    for t in w_teams:
-      t["all_play_w"] = sum(1 for s in all_scores if t["actual"] > s)
-      t["all_play_l"] = sum(1 for s in all_scores if t["actual"] < s)
-      t["luck_delta"] = round((1.0 if t["result"] == "W" else 0.0) - (t["all_play_w"] / total_opps), 3)
-
-    history["weeks"][w_str] = w_teams
-
-  save_history(history_file, history)
+  save_history(SEASONS_DATA_FILE, seasons_data)
   save_history(ALL_TIME_FILE, all_time)
 
-  all_time_data = sync_historical_h2h(YEAR)
   champions, finishes_data = sync_champions_and_finishes(YEAR)
   leaderboard = compute_all_time_leaderboard(champions, current_managers, finishes_data)
   
-  seasons_data = load_history(SEASONS_DATA_FILE, {})
-  seasons_data[str(YEAR)] = history.get("weeks", {})
-  save_history(SEASONS_DATA_FILE, seasons_data)
-
   season_payouts_all = {}
   weekly_bounties_all = {}
   weekly_player_bounties_all = {}
@@ -497,12 +449,11 @@ def main():
   weekly_bounty_totals_all = {}
   for yr_key, weeks_dict in seasons_data.items():
     fin_map = finishes_data.get(yr_key, {})
-    tb, pb, an, sp, b_totals = compute_records_and_payouts(weeks_dict, fin_map)
+    tb, pb, an, sp = compute_records_and_payouts(weeks_dict, fin_map)
     season_payouts_all[yr_key] = sp
     weekly_bounties_all[yr_key] = tb
     weekly_player_bounties_all[yr_key] = pb
     weekly_anchors_all[yr_key] = an
-    weekly_bounty_totals_all[yr_key] = b_totals
 
   accumulated_money = compute_accumulated_money(seasons_data, champions, weekly_bounty_totals_all, weekly_player_bounties_all, YEAR)
 
@@ -572,7 +523,7 @@ def main():
       "leaderboard": leaderboard,
       "reigning_by_season": champions,
       "current_managers": current_managers,
-      "matchups": all_time_data.get("matchups", {}),
+      "matchups": all_time["matchups"],
       "season_payouts": season_payouts_all,
       "weekly_bounties": weekly_bounties_all,
       "weekly_player_bounties": weekly_player_bounties_all,
