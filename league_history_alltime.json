@@ -3299,6 +3299,7 @@
     "2025_W17_Miles Spainhower_vs_trentan busey": {
       "year": 2025,
       "week": 17,
+      "is_playoff": true,
       "m1": "trentan busey",
       "t1": "Puka Time",
       "s1": 133.92,
@@ -3309,6 +3310,7 @@
     "2025_W17_Kurt Claycomb_vs_TRAVIS GIBSON": {
       "year": 2025,
       "week": 17,
+      "is_playoff": true,
       "m1": "Kurt Claycomb",
       "t1": "No Punt Intended ",
       "s1": 150.94,
@@ -3319,6 +3321,7 @@
     "2025_W17_Roman Bayless_vs_Wes Colson": {
       "year": 2025,
       "week": 17,
+      "is_playoff": true,
       "m1": "Roman Bayless",
       "t1": "Team Freedom",
       "s1": 99.5,
@@ -3329,6 +3332,7 @@
     "2025_W17_Billy Haid_vs_Ron Baker": {
       "year": 2025,
       "week": 17,
+      "is_playoff": true,
       "m1": "Billy Haid",
       "t1": "Off In the Corner",
       "s1": 87.7,
@@ -3339,6 +3343,7 @@
     "2025_W17_Jared Schneider_vs_Robert Kendall": {
       "year": 2025,
       "week": 17,
+      "is_playoff": true,
       "m1": "Jared Schneider",
       "t1": "Team Unvaxxed",
       "s1": 96.02,
@@ -3349,6 +3354,7 @@
     "2025_W17_Eric King_vs_jeremy bayless": {
       "year": 2025,
       "week": 17,
+      "is_playoff": true,
       "m1": "Eric King",
       "t1": "55 TDs 55 Punts 55 FGs 55 INTs",
       "s1": 84.98,

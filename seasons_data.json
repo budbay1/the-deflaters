@@ -27415,6 +27415,1660 @@
         "all_play_l": 1,
         "luck_delta": 0.091
       }
+    ],
+    "17": [
+      {
+        "team": "Puka Time (trentan busey)",
+        "manager": "trentan busey",
+        "opp": "The American Dream (Miles Spainhower)",
+        "opp_manager": "Miles Spainhower",
+        "actual": 133.92,
+        "proj": 136.28,
+        "diff": -2.36,
+        "opp_actual": 135.86,
+        "opp_proj": 119.74,
+        "optimal": 145.22,
+        "result": "L",
+        "coach_eff": 92.2,
+        "players": [
+          {
+            "name": "Jahmyr Gibbs",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 5.4,
+            "proj": 18.46
+          },
+          {
+            "name": "Puka Nacua",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 13.2,
+            "proj": 19.31
+          },
+          {
+            "name": "Texans D/ST",
+            "pos": "D/ST",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 10.0,
+            "proj": 6.81
+          },
+          {
+            "name": "Bucky Irving",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 5.8,
+            "proj": 13.4
+          },
+          {
+            "name": "Brock Purdy",
+            "pos": "QB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 42.92,
+            "proj": 23.73
+          },
+          {
+            "name": "Michael Wilson",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 17.4,
+            "proj": 11.17
+          },
+          {
+            "name": "Jaylen Waddle",
+            "pos": "WR",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 0.7,
+            "proj": 10.76
+          },
+          {
+            "name": "CeeDee Lamb",
+            "pos": "WR",
+            "started": true,
+            "audit": "Starter Bust",
+            "pts": 7.1,
+            "proj": 14.53
+          },
+          {
+            "name": "Mike Evans",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 10.6,
+            "proj": 11.19
+          },
+          {
+            "name": "Eddy Pineiro",
+            "pos": "K",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 6.0,
+            "proj": 8.84
+          },
+          {
+            "name": "Jake Tonges",
+            "pos": "TE",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 15.5,
+            "proj": 8.84
+          },
+          {
+            "name": "Colston Loveland",
+            "pos": "TE",
+            "started": false,
+            "audit": "Costly Bench",
+            "pts": 18.4,
+            "proj": 7.84
+          },
+          {
+            "name": "Kirk Cousins",
+            "pos": "QB",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 11.14,
+            "proj": 15.73
+          },
+          {
+            "name": "Rams D/ST",
+            "pos": "D/ST",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 8.0,
+            "proj": 5.25
+          },
+          {
+            "name": "Terrance Ferguson",
+            "pos": "TE",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 12.4,
+            "proj": 3.31
+          }
+        ],
+        "all_play_w": 9,
+        "all_play_l": 2,
+        "luck_delta": -0.818
+      },
+      {
+        "team": "The American Dream (Miles Spainhower)",
+        "manager": "Miles Spainhower",
+        "opp": "Puka Time (trentan busey)",
+        "opp_manager": "trentan busey",
+        "actual": 135.86,
+        "proj": 119.74,
+        "diff": 16.12,
+        "opp_actual": 133.92,
+        "opp_proj": 136.28,
+        "optimal": 177.86,
+        "result": "W",
+        "coach_eff": 76.4,
+        "players": [
+          {
+            "name": "Breece Hall",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 19.9,
+            "proj": 12.24
+          },
+          {
+            "name": "Courtland Sutton",
+            "pos": "WR",
+            "started": true,
+            "audit": "Starter Bust",
+            "pts": 6.0,
+            "proj": 11.85
+          },
+          {
+            "name": "Tetairoa McMillan",
+            "pos": "WR",
+            "started": true,
+            "audit": "Starter Bust",
+            "pts": 1.0,
+            "proj": 10.13
+          },
+          {
+            "name": "Stefon Diggs",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 19.1,
+            "proj": 10.99
+          },
+          {
+            "name": "Zach Charbonnet",
+            "pos": "RB",
+            "started": false,
+            "audit": "Costly Bench",
+            "pts": 25.2,
+            "proj": 9.16
+          },
+          {
+            "name": "Tank Bigsby",
+            "pos": "RB",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 1.4,
+            "proj": 1.9
+          },
+          {
+            "name": "Matthew Stafford",
+            "pos": "QB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 16.76,
+            "proj": 23.85
+          },
+          {
+            "name": "Tee Higgins",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 7.9,
+            "proj": 11.83
+          },
+          {
+            "name": "Derrick Henry",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 45.6,
+            "proj": 12.66
+          },
+          {
+            "name": "Kyle Pitts Sr.",
+            "pos": "TE",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 2.6,
+            "proj": 10.0
+          },
+          {
+            "name": "Adonai Mitchell",
+            "pos": "WR",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 3.7,
+            "proj": 8.23
+          },
+          {
+            "name": "Luther Burden III",
+            "pos": "WR",
+            "started": false,
+            "audit": "Costly Bench",
+            "pts": 23.8,
+            "proj": 9.84
+          },
+          {
+            "name": "Michael Carter",
+            "pos": "RB",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 5.3,
+            "proj": 11.43
+          },
+          {
+            "name": "Steelers D/ST",
+            "pos": "D/ST",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 11.0,
+            "proj": 7.2
+          },
+          {
+            "name": "Harrison Mevis",
+            "pos": "K",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 6.0,
+            "proj": 8.99
+          }
+        ],
+        "all_play_w": 10,
+        "all_play_l": 1,
+        "luck_delta": 0.091
+      },
+      {
+        "team": "No Punt Intended  (Kurt Claycomb)",
+        "manager": "Kurt Claycomb",
+        "opp": "THE G-MEN (TRAVIS GIBSON)",
+        "opp_manager": "TRAVIS GIBSON",
+        "actual": 150.94,
+        "proj": 136.91,
+        "diff": 14.03,
+        "opp_actual": 123.68,
+        "opp_proj": 126.99,
+        "optimal": 150.94,
+        "result": "W",
+        "coach_eff": 100.0,
+        "players": [
+          {
+            "name": "Jonathan Taylor",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 15.9,
+            "proj": 18.1
+          },
+          {
+            "name": "De'Von Achane",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 12.7,
+            "proj": 20.3
+          },
+          {
+            "name": "Josh Allen",
+            "pos": "QB",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 23.18,
+            "proj": 20.78
+          },
+          {
+            "name": "Xavier Worthy",
+            "pos": "WR",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 0.1,
+            "proj": 7.88
+          },
+          {
+            "name": "Zay Flowers",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 11.0,
+            "proj": 9.36
+          },
+          {
+            "name": "Travis Kelce",
+            "pos": "TE",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 6.1,
+            "proj": 7.92
+          },
+          {
+            "name": "Chris Olave",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 21.9,
+            "proj": 14.02
+          },
+          {
+            "name": "Deebo Samuel",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 10.3,
+            "proj": 10.91
+          },
+          {
+            "name": "Javonte Williams",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 11.4,
+            "proj": 15.42
+          },
+          {
+            "name": "Seahawks D/ST",
+            "pos": "D/ST",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 12.0,
+            "proj": 6.66
+          },
+          {
+            "name": "Dallas Goedert",
+            "pos": "TE",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 8.3,
+            "proj": 7.92
+          },
+          {
+            "name": "Romeo Doubs",
+            "pos": "WR",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 7.7,
+            "proj": 8.41
+          },
+          {
+            "name": "Drake Maye",
+            "pos": "QB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 42.44,
+            "proj": 25.91
+          },
+          {
+            "name": "Chargers D/ST",
+            "pos": "D/ST",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 3.0,
+            "proj": 6.08
+          },
+          {
+            "name": "Jake Bates",
+            "pos": "K",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 5.0,
+            "proj": 8.31
+          }
+        ],
+        "all_play_w": 11,
+        "all_play_l": 0,
+        "luck_delta": 0.0
+      },
+      {
+        "team": "THE G-MEN (TRAVIS GIBSON)",
+        "manager": "TRAVIS GIBSON",
+        "opp": "No Punt Intended  (Kurt Claycomb)",
+        "opp_manager": "Kurt Claycomb",
+        "actual": 123.68,
+        "proj": 126.99,
+        "diff": -3.31,
+        "opp_actual": 150.94,
+        "opp_proj": 136.91,
+        "optimal": 149.18,
+        "result": "L",
+        "coach_eff": 82.9,
+        "players": [
+          {
+            "name": "Ja'Marr Chase",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 21.5,
+            "proj": 17.01
+          },
+          {
+            "name": "Broncos D/ST",
+            "pos": "D/ST",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 7.0,
+            "proj": 8.93
+          },
+          {
+            "name": "Jared Goff",
+            "pos": "QB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 4.08,
+            "proj": 19.56
+          },
+          {
+            "name": "Ladd McConkey",
+            "pos": "WR",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 4.12,
+            "proj": 8.57
+          },
+          {
+            "name": "Chris Godwin Jr.",
+            "pos": "WR",
+            "started": false,
+            "audit": "Costly Bench",
+            "pts": 20.3,
+            "proj": 8.35
+          },
+          {
+            "name": "RJ Harvey",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 16.1,
+            "proj": 11.95
+          },
+          {
+            "name": "Oronde Gadsden",
+            "pos": "TE",
+            "started": false,
+            "audit": "Costly Bench",
+            "pts": 10.7,
+            "proj": 5.31
+          },
+          {
+            "name": "Josh Jacobs",
+            "pos": "RB",
+            "started": true,
+            "audit": "Starter Bust",
+            "pts": 0.8,
+            "proj": 13.7
+          },
+          {
+            "name": "Bijan Robinson",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 37.4,
+            "proj": 19.15
+          },
+          {
+            "name": "Jameson Williams",
+            "pos": "WR",
+            "started": true,
+            "audit": "Starter Bust",
+            "pts": 4.7,
+            "proj": 11.44
+          },
+          {
+            "name": "Christian Watson",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 19.8,
+            "proj": 9.51
+          },
+          {
+            "name": "Colby Parkinson",
+            "pos": "TE",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 8.3,
+            "proj": 7.75
+          },
+          {
+            "name": "Chase McLaughlin",
+            "pos": "K",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 4.0,
+            "proj": 7.99
+          },
+          {
+            "name": "Emanuel Wilson",
+            "pos": "RB",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 3.82,
+            "proj": 4.75
+          },
+          {
+            "name": "Dylan Sampson",
+            "pos": "RB",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 4.2,
+            "proj": 10.41
+          }
+        ],
+        "all_play_w": 8,
+        "all_play_l": 3,
+        "luck_delta": -0.727
+      },
+      {
+        "team": "Team Freedom (Roman Bayless)",
+        "manager": "Roman Bayless",
+        "opp": "Team Draft order (Wes Colson)",
+        "opp_manager": "Wes Colson",
+        "actual": 99.5,
+        "proj": 105.63,
+        "diff": -6.13,
+        "opp_actual": 107.82,
+        "opp_proj": 110.55,
+        "optimal": 111.9,
+        "result": "L",
+        "coach_eff": 88.9,
+        "players": [
+          {
+            "name": "Amon-Ra St. Brown",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 10.8,
+            "proj": 15.88
+          },
+          {
+            "name": "Nico Collins",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 7.2,
+            "proj": 12.61
+          },
+          {
+            "name": "Davante Adams",
+            "pos": "WR",
+            "started": true,
+            "audit": "Starter Bust",
+            "pts": 0.0,
+            "proj": 0.0
+          },
+          {
+            "name": "Bo Nix",
+            "pos": "QB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 21.48,
+            "proj": 20.83
+          },
+          {
+            "name": "David Montgomery",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 5.0,
+            "proj": 7.67
+          },
+          {
+            "name": "Jaylen Warren",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 7.32,
+            "proj": 14.02
+          },
+          {
+            "name": "Brandon Aubrey",
+            "pos": "K",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 16.0,
+            "proj": 9.17
+          },
+          {
+            "name": "Hunter Henry",
+            "pos": "TE",
+            "started": false,
+            "audit": "Costly Bench",
+            "pts": 12.4,
+            "proj": 8.98
+          },
+          {
+            "name": "Calvin Ridley",
+            "pos": "WR",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 0.0,
+            "proj": 0.0
+          },
+          {
+            "name": "Josh Downs",
+            "pos": "WR",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 4.4,
+            "proj": 7.63
+          },
+          {
+            "name": "Tyler Loop",
+            "pos": "K",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 11.0,
+            "proj": 7.66
+          },
+          {
+            "name": "Jacoby Brissett",
+            "pos": "QB",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 20.48,
+            "proj": 24.12
+          },
+          {
+            "name": "KaVontae Turpin",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 19.7,
+            "proj": 10.04
+          },
+          {
+            "name": "Harold Fannin Jr.",
+            "pos": "TE",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 10.0,
+            "proj": 9.49
+          },
+          {
+            "name": "Alvin Kamara",
+            "pos": "RB",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 0.0,
+            "proj": 0.0
+          },
+          {
+            "name": "Cowboys D/ST",
+            "pos": "D/ST",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 2.0,
+            "proj": 5.92
+          }
+        ],
+        "all_play_w": 4,
+        "all_play_l": 7,
+        "luck_delta": -0.364
+      },
+      {
+        "team": "Team Draft order (Wes Colson)",
+        "manager": "Wes Colson",
+        "opp": "Team Freedom (Roman Bayless)",
+        "opp_manager": "Roman Bayless",
+        "actual": 107.82,
+        "proj": 110.55,
+        "diff": -2.73,
+        "opp_actual": 99.5,
+        "opp_proj": 105.63,
+        "optimal": 107.82,
+        "result": "W",
+        "coach_eff": 100.0,
+        "players": [
+          {
+            "name": "George Kittle",
+            "pos": "TE",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 0.0,
+            "proj": 0.0
+          },
+          {
+            "name": "Patrick Mahomes",
+            "pos": "QB",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 0.0,
+            "proj": 0.0
+          },
+          {
+            "name": "Jakobi Meyers",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 4.9,
+            "proj": 11.28
+          },
+          {
+            "name": "Khalil Shakir",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 8.5,
+            "proj": 7.94
+          },
+          {
+            "name": "Jauan Jennings",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 11.2,
+            "proj": 11.46
+          },
+          {
+            "name": "Rhamondre Stevenson",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 24.7,
+            "proj": 11.77
+          },
+          {
+            "name": "Kenneth Gainwell",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 6.22,
+            "proj": 13.72
+          },
+          {
+            "name": "Malik Washington",
+            "pos": "WR",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 2.88,
+            "proj": 7.65
+          },
+          {
+            "name": "Kareem Hunt",
+            "pos": "RB",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 3.8,
+            "proj": 6.04
+          },
+          {
+            "name": "Ashton Jeanty",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 8.3,
+            "proj": 18.23
+          },
+          {
+            "name": "Rashee Rice",
+            "pos": "WR",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 0.0,
+            "proj": 0.0
+          },
+          {
+            "name": "Caleb Williams",
+            "pos": "QB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 27.0,
+            "proj": 21.94
+          },
+          {
+            "name": "Jaguars D/ST",
+            "pos": "D/ST",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 9.0,
+            "proj": 6.63
+          },
+          {
+            "name": "Jake Elliott",
+            "pos": "K",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 8.0,
+            "proj": 7.58
+          },
+          {
+            "name": "Zach Ertz",
+            "pos": "TE",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 0.0,
+            "proj": 0.0
+          }
+        ],
+        "all_play_w": 7,
+        "all_play_l": 4,
+        "luck_delta": 0.364
+      },
+      {
+        "team": "Off In the Corner (Billy Haid)",
+        "manager": "Billy Haid",
+        "opp": "Team Bakesmode (Ron Baker)",
+        "opp_manager": "Ron Baker",
+        "actual": 87.7,
+        "proj": 99.27,
+        "diff": -11.57,
+        "opp_actual": 102.34,
+        "opp_proj": 106.96,
+        "optimal": 128.48,
+        "result": "L",
+        "coach_eff": 68.3,
+        "players": [
+          {
+            "name": "Christian McCaffrey",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 26.1,
+            "proj": 22.81
+          },
+          {
+            "name": "Drake London",
+            "pos": "WR",
+            "started": true,
+            "audit": "Starter Bust",
+            "pts": 0.9,
+            "proj": 12.82
+          },
+          {
+            "name": "Lamar Jackson",
+            "pos": "QB",
+            "started": true,
+            "audit": "Starter Bust",
+            "pts": 0.0,
+            "proj": 0.0
+          },
+          {
+            "name": "Emeka Egbuka",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 3.5,
+            "proj": 4.57
+          },
+          {
+            "name": "Tyler Warren",
+            "pos": "TE",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 6.8,
+            "proj": 9.75
+          },
+          {
+            "name": "Patriots D/ST",
+            "pos": "D/ST",
+            "started": true,
+            "audit": "Starter Bust",
+            "pts": 6.0,
+            "proj": 8.38
+          },
+          {
+            "name": "Omarion Hampton",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 16.0,
+            "proj": 13.76
+          },
+          {
+            "name": "Wan'Dale Robinson",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 16.8,
+            "proj": 9.96
+          },
+          {
+            "name": "Michael Pittman Jr.",
+            "pos": "WR",
+            "started": true,
+            "audit": "Starter Bust",
+            "pts": 2.6,
+            "proj": 8.83
+          },
+          {
+            "name": "Alec Pierce",
+            "pos": "WR",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 0.0,
+            "proj": 7.04
+          },
+          {
+            "name": "Kyle Monangai",
+            "pos": "RB",
+            "started": false,
+            "audit": "Costly Bench",
+            "pts": 6.2,
+            "proj": 9.42
+          },
+          {
+            "name": "Jaxson Dart",
+            "pos": "QB",
+            "started": false,
+            "audit": "Costly Bench",
+            "pts": 25.08,
+            "proj": 19.37
+          },
+          {
+            "name": "Browns D/ST",
+            "pos": "D/ST",
+            "started": false,
+            "audit": "Costly Bench",
+            "pts": 8.0,
+            "proj": 5.24
+          },
+          {
+            "name": "Evan McPherson",
+            "pos": "K",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 9.0,
+            "proj": 8.39
+          },
+          {
+            "name": "Ricky Pearsall",
+            "pos": "WR",
+            "started": false,
+            "audit": "Costly Bench",
+            "pts": 11.0,
+            "proj": 7.42
+          }
+        ],
+        "all_play_w": 2,
+        "all_play_l": 9,
+        "luck_delta": -0.182
+      },
+      {
+        "team": "Team Bakesmode (Ron Baker)",
+        "manager": "Ron Baker",
+        "opp": "Off In the Corner (Billy Haid)",
+        "opp_manager": "Billy Haid",
+        "actual": 102.34,
+        "proj": 106.96,
+        "diff": -4.62,
+        "opp_actual": 87.7,
+        "opp_proj": 99.27,
+        "optimal": 105.3,
+        "result": "W",
+        "coach_eff": 97.2,
+        "players": [
+          {
+            "name": "Jaxon Smith-Njigba",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 11.7,
+            "proj": 18.11
+          },
+          {
+            "name": "James Cook III",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 8.2,
+            "proj": 16.13
+          },
+          {
+            "name": "Baker Mayfield",
+            "pos": "QB",
+            "started": true,
+            "audit": "Starter Bust",
+            "pts": 21.44,
+            "proj": 17.8
+          },
+          {
+            "name": "DK Metcalf",
+            "pos": "WR",
+            "started": false,
+            "audit": "Costly Bench",
+            "pts": 0.0,
+            "proj": 0.0
+          },
+          {
+            "name": "D'Andre Swift",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 20.9,
+            "proj": 12.9
+          },
+          {
+            "name": "Cameron Dicker",
+            "pos": "K",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 3.0,
+            "proj": 8.34
+          },
+          {
+            "name": "Tyrone Tracy Jr.",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 6.2,
+            "proj": 12.13
+          },
+          {
+            "name": "Kayshon Boutte",
+            "pos": "WR",
+            "started": true,
+            "audit": "Starter Bust",
+            "pts": 0.0,
+            "proj": 0.0
+          },
+          {
+            "name": "Juwan Johnson",
+            "pos": "TE",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 11.5,
+            "proj": 7.94
+          },
+          {
+            "name": "Tre Tucker",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 7.4,
+            "proj": 8.98
+          },
+          {
+            "name": "Blake Corum",
+            "pos": "RB",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 1.8,
+            "proj": 9.32
+          },
+          {
+            "name": "Eagles D/ST",
+            "pos": "D/ST",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 12.0,
+            "proj": 4.63
+          },
+          {
+            "name": "Joe Burrow",
+            "pos": "QB",
+            "started": false,
+            "audit": "Costly Bench",
+            "pts": 24.4,
+            "proj": 23.48
+          }
+        ],
+        "all_play_w": 5,
+        "all_play_l": 6,
+        "luck_delta": 0.545
+      },
+      {
+        "team": "Team Unvaxxed (Jared Schneider)",
+        "manager": "Jared Schneider",
+        "opp": "Team Kendall (Robert Kendall)",
+        "opp_manager": "Robert Kendall",
+        "actual": 96.02,
+        "proj": 107.95,
+        "diff": -11.93,
+        "opp_actual": 103.44,
+        "opp_proj": 98.34,
+        "optimal": 118.42,
+        "result": "L",
+        "coach_eff": 81.1,
+        "players": [
+          {
+            "name": "Justin Jefferson",
+            "pos": "WR",
+            "started": true,
+            "audit": "Starter Bust",
+            "pts": 5.0,
+            "proj": 9.99
+          },
+          {
+            "name": "Brian Thomas Jr.",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 5.9,
+            "proj": 9.72
+          },
+          {
+            "name": "Trey McBride",
+            "pos": "TE",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 18.6,
+            "proj": 15.42
+          },
+          {
+            "name": "TreVeyon Henderson",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 8.2,
+            "proj": 12.5
+          },
+          {
+            "name": "Kenneth Walker III",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 6.7,
+            "proj": 11.92
+          },
+          {
+            "name": "Jacory Croskey-Merritt",
+            "pos": "RB",
+            "started": false,
+            "audit": "Costly Bench",
+            "pts": 22.5,
+            "proj": 10.7
+          },
+          {
+            "name": "Keon Coleman",
+            "pos": "WR",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 0.0,
+            "proj": 0.0
+          },
+          {
+            "name": "Hollywood Brown",
+            "pos": "WR",
+            "started": true,
+            "audit": "Starter Bust",
+            "pts": 1.2,
+            "proj": 5.61
+          },
+          {
+            "name": "Ka'imi Fairbairn",
+            "pos": "K",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 10.0,
+            "proj": 7.74
+          },
+          {
+            "name": "Bhayshul Tuten",
+            "pos": "RB",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 0.0,
+            "proj": 0.0
+          },
+          {
+            "name": "Quentin Johnston",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 12.3,
+            "proj": 6.92
+          },
+          {
+            "name": "Ravens D/ST",
+            "pos": "D/ST",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 5.0,
+            "proj": 5.23
+          },
+          {
+            "name": "Tyler Allgeier",
+            "pos": "RB",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 2.3,
+            "proj": 6.5
+          },
+          {
+            "name": "Andrei Iosivas",
+            "pos": "WR",
+            "started": false,
+            "audit": "Costly Bench",
+            "pts": 6.1,
+            "proj": 3.14
+          },
+          {
+            "name": "Trevor Lawrence",
+            "pos": "QB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 23.12,
+            "proj": 22.9
+          }
+        ],
+        "all_play_w": 3,
+        "all_play_l": 8,
+        "luck_delta": -0.273
+      },
+      {
+        "team": "Team Kendall (Robert Kendall)",
+        "manager": "Robert Kendall",
+        "opp": "Team Unvaxxed (Jared Schneider)",
+        "opp_manager": "Jared Schneider",
+        "actual": 103.44,
+        "proj": 98.34,
+        "diff": 5.1,
+        "opp_actual": 96.02,
+        "opp_proj": 107.95,
+        "optimal": 103.44,
+        "result": "W",
+        "coach_eff": 100.0,
+        "players": [
+          {
+            "name": "DeVonta Smith",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 3.5,
+            "proj": 9.28
+          },
+          {
+            "name": "Justin Herbert",
+            "pos": "QB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 17.14,
+            "proj": 17.58
+          },
+          {
+            "name": "Keenan Allen",
+            "pos": "WR",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 2.2,
+            "proj": 6.52
+          },
+          {
+            "name": "Isiah Pacheco",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 3.2,
+            "proj": 8.63
+          },
+          {
+            "name": "Rico Dowdle",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 7.8,
+            "proj": 11.53
+          },
+          {
+            "name": "Chris Boswell",
+            "pos": "K",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 7.0,
+            "proj": 8.26
+          },
+          {
+            "name": "Dalton Kincaid",
+            "pos": "TE",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 0.0,
+            "proj": 0.0
+          },
+          {
+            "name": "Chimere Dike",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 9.8,
+            "proj": 13.16
+          },
+          {
+            "name": "Chase Brown",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 27.6,
+            "proj": 14.32
+          },
+          {
+            "name": "Brock Bowers",
+            "pos": "TE",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 0.0,
+            "proj": 0.0
+          },
+          {
+            "name": "Parker Washington",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 15.4,
+            "proj": 9.35
+          },
+          {
+            "name": "Chris Rodriguez Jr.",
+            "pos": "RB",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 0.0,
+            "proj": 0.0
+          },
+          {
+            "name": "Bears D/ST",
+            "pos": "D/ST",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 1.0,
+            "proj": 3.72
+          },
+          {
+            "name": "Saints D/ST",
+            "pos": "D/ST",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 12.0,
+            "proj": 6.23
+          }
+        ],
+        "all_play_w": 6,
+        "all_play_l": 5,
+        "luck_delta": 0.455
+      },
+      {
+        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
+        "manager": "Eric King",
+        "opp": "Rejected Kamala (jeremy bayless)",
+        "opp_manager": "jeremy bayless",
+        "actual": 84.98,
+        "proj": 106.47,
+        "diff": -21.49,
+        "opp_actual": 79.7,
+        "opp_proj": 101.86,
+        "optimal": 96.04,
+        "result": "W",
+        "coach_eff": 88.5,
+        "players": [
+          {
+            "name": "A.J. Brown",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 9.3,
+            "proj": 12.88
+          },
+          {
+            "name": "Jalen Hurts",
+            "pos": "QB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 10.9,
+            "proj": 21.32
+          },
+          {
+            "name": "Rome Odunze",
+            "pos": "WR",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 0.0,
+            "proj": 0.0
+          },
+          {
+            "name": "Travis Etienne Jr.",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 10.2,
+            "proj": 14.41
+          },
+          {
+            "name": "Rachaad White",
+            "pos": "RB",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 2.7,
+            "proj": 5.32
+          },
+          {
+            "name": "Harrison Butker",
+            "pos": "K",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 10.0,
+            "proj": 7.38
+          },
+          {
+            "name": "Brenton Strange",
+            "pos": "TE",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 6.9,
+            "proj": 7.01
+          },
+          {
+            "name": "Troy Franklin",
+            "pos": "WR",
+            "started": true,
+            "audit": "Starter Bust",
+            "pts": 3.7,
+            "proj": 8.75
+          },
+          {
+            "name": "Kyren Williams",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 14.5,
+            "proj": 14.3
+          },
+          {
+            "name": "Jordan Addison",
+            "pos": "WR",
+            "started": false,
+            "audit": "Costly Bench",
+            "pts": 12.5,
+            "proj": 7.31
+          },
+          {
+            "name": "Chuba Hubbard",
+            "pos": "RB",
+            "started": true,
+            "audit": "Starter Bust",
+            "pts": 2.38,
+            "proj": 7.77
+          },
+          {
+            "name": "Dolphins D/ST",
+            "pos": "D/ST",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 11.0,
+            "proj": 5.0
+          },
+          {
+            "name": "Jayden Reed",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 6.1,
+            "proj": 7.65
+          },
+          {
+            "name": "Tom Kennedy",
+            "pos": "WR",
+            "started": false,
+            "audit": "Costly Bench",
+            "pts": 4.64,
+            "proj": 1.84
+          }
+        ],
+        "all_play_w": 1,
+        "all_play_l": 10,
+        "luck_delta": 0.909
+      },
+      {
+        "team": "Rejected Kamala (jeremy bayless)",
+        "manager": "jeremy bayless",
+        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
+        "opp_manager": "Eric King",
+        "actual": 79.7,
+        "proj": 101.86,
+        "diff": -22.16,
+        "opp_actual": 84.98,
+        "opp_proj": 106.47,
+        "optimal": 90.2,
+        "result": "L",
+        "coach_eff": 88.4,
+        "players": [
+          {
+            "name": "Saquon Barkley",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 6.8,
+            "proj": 16.6
+          },
+          {
+            "name": "Marvin Harrison Jr.",
+            "pos": "WR",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 0.0,
+            "proj": 9.73
+          },
+          {
+            "name": "Tony Pollard",
+            "pos": "RB",
+            "started": false,
+            "audit": "Costly Bench",
+            "pts": 10.5,
+            "proj": 11.11
+          },
+          {
+            "name": "Travis Hunter",
+            "pos": "WR",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 0.0,
+            "proj": 0.0
+          },
+          {
+            "name": "Rashid Shaheed",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 1.82,
+            "proj": 11.58
+          },
+          {
+            "name": "Nick Chubb",
+            "pos": "RB",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 0.1,
+            "proj": 2.66
+          },
+          {
+            "name": "Jake Ferguson",
+            "pos": "TE",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 7.1,
+            "proj": 7.43
+          },
+          {
+            "name": "Colts D/ST",
+            "pos": "D/ST",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 5.0,
+            "proj": 4.5
+          },
+          {
+            "name": "Jason Myers",
+            "pos": "K",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 10.0,
+            "proj": 8.43
+          },
+          {
+            "name": "George Pickens",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 9.8,
+            "proj": 14.0
+          },
+          {
+            "name": "Kimani Vidal",
+            "pos": "RB",
+            "started": true,
+            "audit": "Starter Bust",
+            "pts": 0.0,
+            "proj": 0.0
+          },
+          {
+            "name": "Aaron Rodgers",
+            "pos": "QB",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": 7.32,
+            "proj": 15.07
+          },
+          {
+            "name": "Cardinals D/ST",
+            "pos": "D/ST",
+            "started": false,
+            "audit": "Correct Bench",
+            "pts": -3.0,
+            "proj": 4.0
+          },
+          {
+            "name": "Darnell Mooney",
+            "pos": "WR",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 4.5,
+            "proj": 4.85
+          },
+          {
+            "name": "Dak Prescott",
+            "pos": "QB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 26.68,
+            "proj": 24.74
+          },
+          {
+            "name": "Woody Marks",
+            "pos": "RB",
+            "started": true,
+            "audit": "Smart Start",
+            "pts": 8.0,
+            "proj": 9.73
+          }
+        ],
+        "all_play_w": 0,
+        "all_play_l": 11,
+        "luck_delta": 0.0
+      }
     ]
   },
   "2026": {
