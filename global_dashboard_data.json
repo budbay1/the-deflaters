@@ -34942,35 +34942,35 @@
   },
   "accumulated_money": [
     {
-      "manager": "Kurt Claycomb",
-      "total_cash": 625.0
+      "manager": "Miles Spainhower",
+      "total_cash": 575.0
     },
     {
-      "manager": "Miles Spainhower",
-      "total_cash": 600.0
+      "manager": "Kurt Claycomb",
+      "total_cash": 500.0
     },
     {
       "manager": "trentan busey",
-      "total_cash": 450.0
+      "total_cash": 400.0
     },
     {
       "manager": "Wes Colson",
-      "total_cash": 150.0
-    },
-    {
-      "manager": "Roman Bayless",
-      "total_cash": 75.0
-    },
-    {
-      "manager": "Eric King",
-      "total_cash": 75.0
-    },
-    {
-      "manager": "TRAVIS GIBSON",
       "total_cash": 75.0
     },
     {
       "manager": "Ron Baker",
+      "total_cash": 50.0
+    },
+    {
+      "manager": "Roman Bayless",
+      "total_cash": 50.0
+    },
+    {
+      "manager": "Eric King",
+      "total_cash": 50.0
+    },
+    {
+      "manager": "TRAVIS GIBSON",
       "total_cash": 50.0
     },
     {
