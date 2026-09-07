@@ -535,7 +535,6 @@
     document.getElementById('tabBtnWeek').innerText = `📅 Week ${currentWeek} Summary`;
     document.getElementById('tabBtnSeason').innerText = `📈 ${currentYear} Season Trends`;
 
-    // Dynamic Year Labels for Payout & Ledger Tables
     document.getElementById('bountyTableHeader').innerText = `🏆 ${currentYear} Weekly High Score Bounty Totals ($25 / Bounty)`;
     document.getElementById('ledgerHeader').innerText = `📅 ${currentYear} Week-by-Week High Scorer & Starters Ledger`;
 
@@ -545,7 +544,6 @@
       return b.actual - a.actual;
     });
 
-    // 1. Render Awards Grid
     const awardsContainer = document.getElementById('dynamicAwardsGrid');
     if (sortedWk.length > 0) {
       const bounty = sortedWk[0];
@@ -597,7 +595,6 @@
       `;
     }
 
-    // 2. Render Weekly Table
     const tbody = document.getElementById('weekTableBody');
     tbody.innerHTML = '';
     sortedWk.forEach((t, idx) => {
@@ -616,7 +613,6 @@
       `;
     });
 
-    // 3. Render Advanced Season Trends Table
     const yrWeeks = dashboardData.seasons_data[currentYear] || {};
     let teamStats = {};
     Object.values(yrWeeks).forEach(matchups => {
@@ -665,7 +661,6 @@
       `;
     });
 
-    // 4. Render Payouts Tab & Top 3 Tracker
     const pGrid = document.getElementById('payoutsGrid');
     const seasonPayouts = dashboardData.season_payouts || {};
     const sp = seasonPayouts[currentYear] || {};
@@ -707,7 +702,6 @@
       </div>
     `;
 
-    // Render Accumulated Career Money Table
     const accumulatedMoney = dashboardData.accumulated_money || [];
     const accMoneyBody = document.getElementById('accumulatedMoneyBody');
     accMoneyBody.innerHTML = '';
@@ -724,7 +718,6 @@
       });
     }
 
-    // Render Weekly Bounty Totals Summary Table (With Team vs Player Breakdown)
     const bountyTotalsMap = dashboardData.weekly_bounty_totals?.[currentYear] || [];
     const bountyTotalsBody = document.getElementById('bountyTotalsBody');
     bountyTotalsBody.innerHTML = '';
@@ -739,7 +732,6 @@
       `;
     });
 
-    // Render Week-by-Week Ledger Table
     const weeklyBounties = dashboardData.weekly_bounties || {};
     const weeklyPlayerBounties = dashboardData.weekly_player_bounties || {};
     const curBounties = weeklyBounties[currentYear] || [];
@@ -758,7 +750,6 @@
       `;
     });
 
-    // 5. Render Bench Blunders for Selected Season/Week
     let blunders = [];
     const targetWkData = dashboardData.seasons_data?.[currentYear]?.[currentWeek] || [];
     targetWkData.forEach(t => {
@@ -998,7 +989,7 @@
         selectedManagerPF += actualLeadScore;
         selectedManagerPA += actualOppScore;
         if (actualLeadScore > actualOppScore) selectedManagerWins++;
-        else if (actualOppScore < actualOppScore) selectedManagerLosses++;
+        else if (actualLeadScore < actualOppScore) selectedManagerLosses++;
         else selectedManagerTies++;
       }
     });
