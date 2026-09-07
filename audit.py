@@ -219,8 +219,6 @@ def sync_champions_and_finishes(current_year):
     y_str = str(y)
     try:
       past_league = League(league_id=LEAGUE_ID, year=y, espn_s2=ESPN_S2, swid=SWID)
-      
-      # Determine League Bitch: Ultimate loser of the consolation bracket / lowest final standing
       ranked_teams = sorted(past_league.teams, key=lambda t: (getattr(t, "final_standing", 0) if getattr(t, "final_standing", 0) > 0 else 99, getattr(t, "standing", 99), getattr(t, "points_for", 0)))
       season_finishes = {get_manager_name(t): (getattr(t, "final_standing", 0) if 0 < getattr(t, "final_standing", 0) <= len(past_league.teams) else idx) for idx, t in enumerate(ranked_teams, 1) if get_manager_name(t) != "Manager"}
       all_time["finishes"][y_str] = season_finishes
@@ -228,8 +226,6 @@ def sync_champions_and_finishes(current_year):
       gold_team = next((t for t in past_league.teams if getattr(t, "final_standing", 0) == 1), ranked_teams[0] if ranked_teams else None)
       silver_team = next((t for t in past_league.teams if getattr(t, "final_standing", 0) == 2), ranked_teams[1] if len(ranked_teams) > 1 else None)
       bronze_team = next((t for t in past_league.teams if getattr(t, "final_standing", 0) == 3), ranked_teams[2] if len(ranked_teams) > 2 else None)
-      
-      # League Bitch is the absolute last place team (highest final standing or bottom of consolation bracket)
       last_team = ranked_teams[-1] if ranked_teams else None
 
       def format_champ_entry(t):
@@ -281,6 +277,7 @@ def compute_all_time_leaderboard(champions, current_managers, finishes_data):
 
 
 def compute_accumulated_money(seasons_data, champions, weekly_bounty_totals, current_year):
+  """Accumulate career money won starting from 2025 onwards, including 2025 immediately."""
   accumulated = {}
 
   def add_cash(mgr_label, amount):
@@ -293,9 +290,9 @@ def compute_accumulated_money(seasons_data, champions, weekly_bounty_totals, cur
     yr_int = int(yr_str)
     if yr_int < 2025: continue
     
-    # If it's a past completed season, always include. If it's the current year, check if it's concluded (week >= 17)
+    # Always include 2025. For 2026+, include only if year < current_year OR if current year is completed
     if yr_int > current_year: continue
-    if yr_int == current_year:
+    if yr_int == current_year and yr_int != 2025:
       max_wk = max([int(w) for w in weeks_dict.keys()]) if weeks_dict else 0
       if max_wk < 17:
         continue # Skip live active season until wrapped up
