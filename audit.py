@@ -199,7 +199,6 @@ def sync_historical_h2h(current_year):
   if "matchups" not in all_time: all_time["matchups"] = {}
   if "h2h_ingested_years" not in all_time: all_time["h2h_ingested_years"] = []
 
-  # Strictly ingest starting from 2023 onwards (ignoring 2022 and earlier weirdness)
   for y in range(2023, current_year):
     if y in all_time["h2h_ingested_years"]: continue
     try:
@@ -213,15 +212,17 @@ def sync_historical_h2h(current_year):
             if h_act == 0 and a_act == 0: continue
             h_mgr, a_mgr = get_manager_name(match.home_team), get_manager_name(match.away_team)
             if h_mgr == "Manager" and a_mgr == "Manager": continue
+            
             pair = sorted([h_mgr, a_mgr])
             m_id = f"{y}_W{w}_{pair[0]}_vs_{pair[1]}"
             is_playoff = w >= 15
-            if m_id not in all_time["matchups"]:
-              all_time["matchups"][m_id] = {
-                  "year": y, "week": w, "is_playoff": is_playoff,
-                  "m1": h_mgr, "t1": match.home_team.team_name, "s1": h_act,
-                  "m2": a_mgr, "t2": match.away_team.team_name, "s2": a_act
-              }
+            
+            # Store uniquely to prevent any duplicate insertion
+            all_time["matchups"][m_id] = {
+                "year": y, "week": w, "is_playoff": is_playoff,
+                "m1": h_mgr, "t1": match.home_team.team_name, "s1": h_act,
+                "m2": a_mgr, "t2": match.away_team.team_name, "s2": a_act
+            }
         except Exception: break
       all_time["h2h_ingested_years"].append(y)
     except Exception as e: print(f"Could not backfill Season {y} H2H: {e}")
@@ -384,10 +385,12 @@ def main():
         pair = sorted([h_mgr, a_mgr])
         m_id = f"{YEAR}_W{w}_{pair[0]}_vs_{pair[1]}"
         is_playoff = w >= 15
+        
+        # Ensure active season matchups are uniquely stored using canonical sorted pair
         all_time["matchups"][m_id] = {
             "year": YEAR, "week": w, "is_playoff": is_playoff,
-            "m1": h_mgr, "t1": match.home_team.team_name, "s1": h_act,
-            "m2": a_mgr, "t2": match.away_team.team_name, "s2": a_act
+            "m1": pair[0], "t1": match.home_team.team_name if h_mgr == pair[0] else match.away_team.team_name, "s1": h_act if h_mgr == pair[0] else a_act,
+            "m2": pair[1], "t2": match.away_team.team_name if a_mgr == pair[1] else match.home_team.team_name, "s2": a_act if a_mgr == pair[1] else h_act
         }
 
       w_teams.append({
