@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9Q6L287H25"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-9Q6L287H25');
-  </script>
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Deflaters // League Engine</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Google Analytics Tracking (Persist at all times) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+
   <style>
     :root {
       --bg: #070a13; --surface: #111827; --card: #151f32; --border: #24324d;
@@ -123,8 +123,8 @@
     .filter-header { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
     .filter-control { display: flex; align-items: center; gap: 8px; width: 100%; max-width: 260px; }
     .select-dropdown { flex: 1; width: 100%; background: var(--surface); color: var(--text); border: 1px solid var(--border); padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; outline: none; }
-    .h2h-scope-bar { display: inline-flex; background: var(--surface); padding: 3px; border-radius: 10px; border: 1px solid var(--border); flex-wrap: wrap; gap: 2px; }
-    .scope-btn { background: transparent; border: 1px solid transparent; color: var(--muted); padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+    .h2h-scope-bar { display: inline-flex; background: var(--surface); padding: 3px; border-radius: 10px; border: 1px solid var(--border); }
+    .scope-btn { background: transparent; border: 1px solid transparent; color: var(--muted); padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
     .scope-btn.active { background: var(--card); color: var(--text); border-color: var(--border); box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
   </style>
 </head>
@@ -201,21 +201,16 @@
   <!-- TAB 3: HEAD-TO-HEAD -->
   <div id="view-h2h" class="table-container" style="display: none;">
     <div class="filter-header">
-      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-        <div style="font-size: 14px; font-weight: 800; color: var(--text);">⚔️ H2H Records</div>
+      <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <div style="font-size: 14px; font-weight: 800; color: var(--text);">⚔️ Head-to-Head Rivalry Records (2023–Present)</div>
         <div class="h2h-scope-bar">
-          <button id="scopeAllTimeBtn" class="scope-btn active" onclick="setH2HType('all')">🌐 All-Time</button>
-          <button id="scopeRegBtn" class="scope-btn" onclick="setH2HType('reg')">🏈 Reg Season</button>
-          <button id="scopePlayoffBtn" class="scope-btn" onclick="setH2HType('playoffs')">🔥 Playoffs</button>
-        </div>
-        <div class="h2h-scope-bar">
-          <button id="scopeCurrentBtn" class="scope-btn active" onclick="setH2HScope('current')">👥 Current</button>
-          <button id="scopeAllMgrBtn" class="scope-btn" onclick="setH2HScope('all_mgr')">🌐 Inc. Former</button>
+          <button id="scopeCurrentBtn" class="scope-btn active" onclick="setH2HScope('current')">👥 Current Managers</button>
+          <button id="scopeAllBtn" class="scope-btn" onclick="setH2HScope('all')">🌐 All-Time (Inc. Former)</button>
         </div>
       </div>
       <div class="filter-control">
         <select id="mgrFilter" class="select-dropdown" onchange="applyH2HFilters()">
-          <option value="ALL">Show All Rivalries</option>
+          <option value="ALL">Show All Rivalries / Summary</option>
         </select>
       </div>
     </div>
@@ -224,7 +219,7 @@
       <thead>
         <tr>
           <th>Rivalry Matchup</th>
-          <th>Series Record</th>
+          <th>All-Time Series</th>
           <th>Total Points (PF vs PA)</th>
           <th>Last Meeting</th>
         </tr>
@@ -343,7 +338,6 @@
   let currentYear = '';
   let currentWeek = '';
   let h2hScope = 'current';
-  let h2hType = 'all';
 
   async function init() {
     try {
@@ -444,6 +438,7 @@
       return b.actual - a.actual;
     });
 
+    // 1. Render Awards Grid
     const awardsContainer = document.getElementById('dynamicAwardsGrid');
     if (sortedWk.length > 0) {
       const bounty = sortedWk[0];
@@ -495,6 +490,7 @@
       `;
     }
 
+    // 2. Render Weekly Table
     const tbody = document.getElementById('weekTableBody');
     tbody.innerHTML = '';
     sortedWk.forEach((t, idx) => {
@@ -513,6 +509,7 @@
       `;
     });
 
+    // 3. Render Advanced Season Trends Table
     const yrWeeks = dashboardData.seasons_data[currentYear] || {};
     let teamStats = {};
     Object.values(yrWeeks).forEach(matchups => {
@@ -561,6 +558,7 @@
       `;
     });
 
+    // 4. Render All-Time Records & Payouts Tab
     const atr = dashboardData.all_time_records || {};
     const atGrid = document.getElementById('allTimeRecordsGrid');
     atGrid.innerHTML = `
@@ -612,6 +610,7 @@
       </div>
     `;
 
+    // Render Week-by-Week Ledger Table
     const weeklyBounties = dashboardData.weekly_bounties || {};
     const weeklyPlayerBounties = dashboardData.weekly_player_bounties || {};
     const curBounties = weeklyBounties[currentYear] || [];
@@ -630,6 +629,7 @@
       `;
     });
 
+    // 5. Render Bench Blunders for Selected Season/Week
     let blunders = [];
     const targetWkData = dashboardData.seasons_data?.[currentYear]?.[currentWeek] || [];
     targetWkData.forEach(t => {
@@ -729,9 +729,6 @@
     let selectedManagerPA = 0;
 
     Object.values(matchups).forEach(g => {
-      if (h2hType === 'reg' && g.is_playoffs) return;
-      if (h2hType === 'playoffs' && !g.is_playoffs) return;
-
       const pair = [g.m1, g.m2].sort();
       const key = pair[0] + '_vs_' + pair[1];
       if (!rivalries[key]) {
@@ -761,8 +758,7 @@
     if (mgrFilter !== 'ALL') {
       summaryBox.style.display = 'block';
       const diff = selectedManagerPF - selectedManagerPA;
-      const typeLabel = h2hType === 'reg' ? 'Regular Season' : (h2hType === 'playoffs' ? 'Playoffs' : 'All-Time');
-      summaryBox.innerHTML = `📊 ${typeLabel} Summary for <b>${mgrFilter}</b>: <span style="color: var(--green);">${selectedManagerWins}W</span>–<span style="color: var(--red);">${selectedManagerLosses}L</span>${selectedManagerTies > 0 ? '–' + selectedManagerTies + 'T' : ''} | Total PF: <b>${selectedManagerPF.toFixed(2)}</b> | Total PA: <b>${selectedManagerPA.toFixed(2)}</b> (Δ <span style="color: ${diff >= 0 ? 'var(--green)' : 'var(--red)'};">${diff >= 0 ? '+' : ''}${diff.toFixed(2)}</span>)`;
+      summaryBox.innerHTML = `📊 All-Time Summary for <b>${mgrFilter}</b>: <span style="color: var(--green);">${selectedManagerWins}W</span>–<span style="color: var(--red);">${selectedManagerLosses}L</span>${selectedManagerTies > 0 ? '–' + selectedManagerTies + 'T' : ''} | Total PF: <b>${selectedManagerPF.toFixed(2)}</b> | Total PA: <b>${selectedManagerPA.toFixed(2)}</b> (Δ <span style="color: ${diff >= 0 ? 'var(--green)' : 'var(--red)'};">${diff >= 0 ? '+' : ''}${diff.toFixed(2)}</span>)`;
     } else {
       summaryBox.style.display = 'none';
     }
@@ -784,18 +780,10 @@
     });
   }
 
-  function setH2HType(type) {
-    h2hType = type;
-    document.getElementById('scopeAllTimeBtn').classList.toggle('active', type === 'all');
-    document.getElementById('scopeRegBtn').classList.toggle('active', type === 'reg');
-    document.getElementById('scopePlayoffBtn').classList.toggle('active', type === 'playoffs');
-    renderH2HTable();
-  }
-
   function setH2HScope(scope) {
     h2hScope = scope;
     document.getElementById('scopeCurrentBtn').classList.toggle('active', scope === 'current');
-    document.getElementById('scopeAllMgrBtn').classList.toggle('active', scope === 'all_mgr');
+    document.getElementById('scopeAllBtn').classList.toggle('active', scope === 'all');
     renderH2HTable();
   }
 
