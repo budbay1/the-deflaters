@@ -659,7 +659,7 @@
       `;
     });
 
-    // 4. Render Payouts & Money Tab (With Top-3 Points Leader Tracker)
+    // 4. Render Payouts Tab & Top 3 Tracker
     const pGrid = document.getElementById('payoutsGrid');
     const seasonPayouts = dashboardData.season_payouts || {};
     const sp = seasonPayouts[currentYear] || {};
@@ -718,7 +718,7 @@
       });
     }
 
-    // Render Weekly Bounty Totals Summary Table ($25/bounty)
+    // Render Weekly Bounty Totals Summary Table
     const bountyTotalsMap = dashboardData.weekly_bounty_totals?.[currentYear] || [];
     const bountyTotalsBody = document.getElementById('bountyTotalsBody');
     bountyTotalsBody.innerHTML = '';
@@ -809,10 +809,8 @@
       </div>
     `;
 
-    // Render Career Rankings Tables
     const rankings = dashboardData.career_rankings || {};
     
-    // Season PF Top 10
     const seasonPfBody = document.getElementById('careerSeasonPfBody');
     seasonPfBody.innerHTML = '';
     (rankings.season_pf || []).forEach((item, idx) => {
@@ -825,7 +823,6 @@
       `;
     });
 
-    // Game Teams Top 10
     const gameTeamsBody = document.getElementById('careerGameTeamsBody');
     gameTeamsBody.innerHTML = '';
     (rankings.game_teams || []).forEach((item, idx) => {
@@ -838,7 +835,6 @@
       `;
     });
 
-    // Game Players Top 10
     const gamePlayersBody = document.getElementById('careerGamePlayersBody');
     gamePlayersBody.innerHTML = '';
     (rankings.game_players || []).forEach((item, idx) => {
@@ -989,7 +985,7 @@
         selectedManagerPF += actualLeadScore;
         selectedManagerPA += actualOppScore;
         if (actualLeadScore > actualOppScore) selectedManagerWins++;
-        else if (actualOppScore < actualLeadScore) selectedManagerLosses++;
+        else if (actualOppScore < actualOppScore) selectedManagerLosses++;
         else selectedManagerTies++;
       }
     });
@@ -1044,7 +1040,7 @@
   function switchTab(viewName) {
     ['week', 'season', 'h2h', 'records', 'payouts', 'halloffame', 'blunders', 'glossary'].forEach(tab => {
       const el = document.getElementById('view-' + tab);
-      if (el) el.style.display = tab === viewName ? (viewName === 'payouts' ? 'flex' : 'block') : 'none';
+      if (el) el.style.display = tab === viewName ? (viewName === 'payouts' || viewName === 'records' ? 'flex' : 'block') : 'none';
     });
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
     event.target.classList.add('active');
