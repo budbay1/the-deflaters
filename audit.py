@@ -152,10 +152,14 @@ def sync_historical_h2h(current_year):
     if y in all_time["h2h_ingested_years"]: continue
     try:
       past_league = League(league_id=LEAGUE_ID, year=y, espn_s2=ESPN_S2, swid=SWID)
+      regular_season_weeks = getattr(past_league, "settings", None)
+      reg_weeks_count = getattr(past_league.settings, "reg_season_count", 14) if hasattr(past_league, "settings") else 14
+
       for w in range(1, 19):
         try:
           b_scores = past_league.box_scores(week=w)
           if not b_scores: continue
+          is_playoffs = w > reg_weeks_count
           for match in b_scores:
             h_act, a_act = round(match.home_score, 2), round(match.away_score, 2)
             if h_act == 0 and a_act == 0: continue
@@ -164,7 +168,11 @@ def sync_historical_h2h(current_year):
             pair = sorted([h_mgr, a_mgr])
             m_id = f"{y}_W{w}_{pair[0]}_vs_{pair[1]}"
             if m_id not in all_time["matchups"]:
-              all_time["matchups"][m_id] = {"year": y, "week": w, "m1": h_mgr, "t1": match.home_team.team_name, "s1": h_act, "m2": a_mgr, "t2": match.away_team.team_name, "s2": a_act}
+              all_time["matchups"][m_id] = {
+                  "year": y, "week": w, "is_playoffs": is_playoffs,
+                  "m1": h_mgr, "t1": match.home_team.team_name, "s1": h_act,
+                  "m2": a_mgr, "t2": match.away_team.team_name, "s2": a_act
+              }
         except Exception: break
       all_time["h2h_ingested_years"].append(y)
     except Exception as e: print(f"Could not backfill Season {y} H2H: {e}")
@@ -254,15 +262,20 @@ def main():
     print(f"Auto-detected completed week: Week {WEEK}")
 
   current_managers = sorted(list(set(get_manager_name(t) for t in league.teams if get_manager_name(t) != "Manager")))
+  reg_weeks_count = getattr(league.settings, "reg_season_count", 14) if hasattr(league, "settings") else 14
 
   history_file = f"league_history_{YEAR}.json"
   history = load_history(history_file, {"year": YEAR, "weeks": {}})
+
+  all_time_data = load_history(ALL_TIME_FILE, {"champions": {}, "matchups": {}, "finishes": {}, "h2h_ingested_years": []})
+  if "matchups" not in all_time_data: all_time_data["matchups"] = {}
 
   for w in range(1, WEEK + 1):
     w_str = str(w)
     box_scores = league.box_scores(week=w)
     if not box_scores: continue
 
+    is_playoffs = w > reg_weeks_count
     w_teams = []
     for match in box_scores:
       h_act, a_act = round(match.home_score, 2), round(match.away_score, 2)
@@ -275,6 +288,15 @@ def main():
       h_mgr, a_mgr = get_manager_name(match.home_team), get_manager_name(match.away_team)
       home_label = f"{match.home_team.team_name} ({h_mgr})" if h_mgr != "Manager" else match.home_team.team_name
       away_label = f"{match.away_team.team_name} ({a_mgr})" if a_mgr != "Manager" else match.away_team.team_name
+
+      if h_mgr != "Manager" and a_mgr != "Manager" and (h_act > 0 or a_act > 0):
+        pair = sorted([h_mgr, a_mgr])
+        m_id = f"{YEAR}_W{w}_{pair[0]}_vs_{pair[1]}"
+        all_time_data["matchups"][m_id] = {
+            "year": YEAR, "week": w, "is_playoffs": is_playoffs,
+            "m1": h_mgr, "t1": match.home_team.team_name, "s1": h_act,
+            "m2": a_mgr, "t2": match.away_team.team_name, "s2": a_act
+        }
 
       w_teams.append({
           "team": home_label, "manager": h_mgr, "opp": away_label, "opp_manager": a_mgr,
@@ -303,6 +325,7 @@ def main():
     history["weeks"][w_str] = w_teams
 
   save_history(history_file, history)
+  save_history(ALL_TIME_FILE, all_time_data)
 
   all_time_data = sync_historical_h2h(YEAR)
   champions, finishes_data = sync_champions_and_finishes(YEAR)
