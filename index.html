@@ -207,25 +207,16 @@
           <button id="scopeCurrentBtn" class="scope-btn active" onclick="setH2HScope('current')">👥 Current Managers</button>
           <button id="scopeAllBtn" class="scope-btn" onclick="setH2HScope('all')">🌐 All-Time (Inc. Former)</button>
         </div>
+        <div class="h2h-scope-bar">
+          <button id="phaseAllBtn" class="scope-btn active" onclick="setH2HPhase('ALL')">All Phases</button>
+          <button id="phaseRegBtn" class="scope-btn" onclick="setH2HPhase('REG')">Regular Season</button>
+          <button id="phasePlayoffsBtn" class="scope-btn" onclick="setH2HPhase('PLAYOFFS')">Playoffs (Wk 14+)</button>
+        </div>
       </div>
-      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-        <div class="filter-control">
-          <select id="h2hSeasonFilter" class="select-dropdown" onchange="applyH2HFilters()">
-            <option value="ALL">All Seasons</option>
-          </select>
-        </div>
-        <div class="filter-control">
-          <select id="h2hPhaseFilter" class="select-dropdown" onchange="applyH2HFilters()">
-            <option value="ALL">All Phases (Reg + Playoffs)</option>
-            <option value="REG">Regular Season Only</option>
-            <option value="PLAYOFFS">Playoffs Only (Wk 15+)</option>
-          </select>
-        </div>
-        <div class="filter-control">
-          <select id="mgrFilter" class="select-dropdown" onchange="applyH2HFilters()">
-            <option value="ALL">All Managers</option>
-          </select>
-        </div>
+      <div class="filter-control">
+        <select id="mgrFilter" class="select-dropdown" onchange="applyH2HFilters()">
+          <option value="ALL">All Managers</option>
+        </select>
       </div>
     </div>
     <div id="managerSummaryBox" style="padding: 14px 16px; background: var(--surface); border-bottom: 1px solid var(--border); font-size: 14px; font-weight: 700; display: none;"></div>
@@ -253,7 +244,7 @@
     <!-- Weekly Bounty Totals Summary Table -->
     <div class="table-container" style="margin-top: 10px;">
       <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
-        🏆 Weekly High Score Bounty Totals & Total Cash Won
+        🏆 Weekly High Score Bounty Totals & Total Cash Won ($25 / Bounty)
       </div>
       <table class="responsive-table">
         <thead>
@@ -369,6 +360,7 @@
   let currentYear = '';
   let currentWeek = '';
   let h2hScope = 'current';
+  let h2hPhase = 'ALL';
 
   async function init() {
     try {
@@ -425,6 +417,7 @@
   function onSeasonChange(yr) {
     currentYear = yr;
     populateWeeks(yr);
+    renderH2HTable();
   }
 
   function onWeekChange(wk) {
@@ -589,7 +582,7 @@
       `;
     });
 
-    // 4. Render All-Time Records & Payouts Tab (With Season High Points Prize Card)
+    // 4. Render All-Time Records & Payouts Tab
     const atr = dashboardData.all_time_records || {};
     const atGrid = document.getElementById('allTimeRecordsGrid');
     atGrid.innerHTML = `
@@ -641,7 +634,7 @@
       </div>
     `;
 
-    // Render Weekly Bounty Totals Summary Table (With Financial Totals)
+    // Render Weekly Bounty Totals Summary Table ($25/bounty)
     const bountyTotalsMap = dashboardData.weekly_bounty_totals?.[currentYear] || [];
     const bountyTotalsBody = document.getElementById('bountyTotalsBody');
     bountyTotalsBody.innerHTML = '';
@@ -655,7 +648,7 @@
       `;
     });
 
-    // Render Week-by-Week Ledger Table
+    // Render Week-by-Week Ledger Table (Cleaned without duplicate dollar totals per line)
     const weeklyBounties = dashboardData.weekly_bounties || {};
     const weeklyPlayerBounties = dashboardData.weekly_player_bounties || {};
     const curBounties = weeklyBounties[currentYear] || [];
@@ -668,7 +661,7 @@
       ledgerBody.innerHTML += `
         <tr>
           <td class="team-cell" style="color: var(--accent);">Week ${b.week}</td>
-          <td><b>${renderBadge(b.team)}</b> <span style="color: var(--green); font-size: 12px;">(${b.pts.toFixed(2)} pts)</span> <span style="color: var(--gold); font-size: 11px; margin-left: 6px;">+$${(b.cash || 20).toFixed(2)}</span></td>
+          <td><b>${renderBadge(b.team)}</b> <span style="color: var(--green); font-size: 12px;">(${b.pts.toFixed(2)} pts)</span></td>
           <td><b>${pBounty.player}</b> (${pBounty.pos}) — <span style="color: var(--accent);">${pBounty.pts.toFixed(2)} pts</span> <span style="color: var(--muted); font-size: 11px;">(${renderBadge(pBounty.team || '')})</span></td>
         </tr>
       `;
@@ -743,19 +736,10 @@
     const matchups = dashboardData.matchups || {};
     const currentManagers = dashboardData.current_managers || [];
     const select = document.getElementById('mgrFilter');
-    const seasonSelect = document.getElementById('h2hSeasonFilter');
     
     let managersSet = new Set();
-    let seasonsSet = new Set();
-
     Object.values(matchups).forEach(m => {
       managersSet.add(m.m1); managersSet.add(m.m2);
-      if (m.year) seasonsSet.add(m.year);
-    });
-
-    seasonSelect.innerHTML = '<option value="ALL">All Seasons</option>';
-    Array.from(seasonsSet).sort((a, b) => b - a).forEach(yr => {
-      seasonSelect.innerHTML += `<option value="${yr}">${yr} Season</option>`;
     });
 
     select.innerHTML = '<option value="ALL">All Managers</option>';
@@ -771,8 +755,6 @@
     const matchups = dashboardData.matchups || {};
     const currentManagers = dashboardData.current_managers || [];
     const mgrFilter = document.getElementById('mgrFilter').value;
-    const seasonFilter = document.getElementById('h2hSeasonFilter').value;
-    const phaseFilter = document.getElementById('h2hPhaseFilter').value;
     const h2hBody = document.getElementById('h2hTableBody');
     const summaryBox = document.getElementById('managerSummaryBox');
     h2hBody.innerHTML = '';
@@ -785,11 +767,11 @@
     let selectedManagerPA = 0;
 
     Object.values(matchups).forEach(g => {
-      // Apply Season Filter
-      if (seasonFilter !== 'ALL' && String(g.year) !== seasonFilter) return;
-      // Apply Phase Filter
-      if (phaseFilter === 'REG' && g.is_playoff) return;
-      if (phaseFilter === 'PLAYOFFS' && !g.is_playoff) return;
+      // Respect page-level selected season
+      if (currentYear && String(g.year) !== currentYear) return;
+      // Apply Phase filter (REG vs Playoffs)
+      if (h2hPhase === 'REG' && g.is_playoff) return;
+      if (h2hPhase === 'PLAYOFFS' && !g.is_playoff) return;
 
       const pair = [g.m1, g.m2].sort();
       const key = pair[0] + '_vs_' + pair[1];
@@ -820,7 +802,7 @@
     if (mgrFilter !== 'ALL') {
       summaryBox.style.display = 'block';
       const diff = selectedManagerPF - selectedManagerPA;
-      summaryBox.innerHTML = `📊 Filtered Summary for <b>${mgrFilter}</b>: <span style="color: var(--green);">${selectedManagerWins}W</span>–<span style="color: var(--red);">${selectedManagerLosses}L</span>${selectedManagerTies > 0 ? '–' + selectedManagerTies + 'T' : ''} | Total PF: <b>${selectedManagerPF.toFixed(2)}</b> | Total PA: <b>${selectedManagerPA.toFixed(2)}</b> (Δ <span style="color: ${diff >= 0 ? 'var(--green)' : 'var(--red)'};">${diff >= 0 ? '+' : ''}${diff.toFixed(2)}</span>)`;
+      summaryBox.innerHTML = `📊 Summary for <b>${mgrFilter}</b> (${currentYear}): <span style="color: var(--green);">${selectedManagerWins}W</span>–<span style="color: var(--red);">${selectedManagerLosses}L</span>${selectedManagerTies > 0 ? '–' + selectedManagerTies + 'T' : ''} | Total PF: <b>${selectedManagerPF.toFixed(2)}</b> | Total PA: <b>${selectedManagerPA.toFixed(2)}</b> (Δ <span style="color: ${diff >= 0 ? 'var(--green)' : 'var(--red)'};">${diff >= 0 ? '+' : ''}${diff.toFixed(2)}</span>)`;
     } else {
       summaryBox.style.display = 'none';
     }
@@ -846,6 +828,14 @@
     h2hScope = scope;
     document.getElementById('scopeCurrentBtn').classList.toggle('active', scope === 'current');
     document.getElementById('scopeAllBtn').classList.toggle('active', scope === 'all');
+    renderH2HTable();
+  }
+
+  function setH2HPhase(phase) {
+    h2hPhase = phase;
+    document.getElementById('phaseAllBtn').classList.toggle('active', phase === 'ALL');
+    document.getElementById('phaseRegBtn').classList.toggle('active', phase === 'REG');
+    document.getElementById('phasePlayoffsBtn').classList.toggle('active', phase === 'PLAYOFFS');
     renderH2HTable();
   }
 
