@@ -34649,98 +34649,112 @@
         "player": "Josh Allen",
         "pos": "QB",
         "pts": 42.76,
-        "team": "No Punt Intended  (Kurt Claycomb)"
+        "team": "No Punt Intended  (Kurt Claycomb)",
+        "cash": 25.0
       },
       {
         "week": 2,
         "player": "Jared Goff",
         "pos": "QB",
         "pts": 43.96,
-        "team": "THE G-MEN (TRAVIS GIBSON)"
+        "team": "THE G-MEN (TRAVIS GIBSON)",
+        "cash": 25.0
       },
       {
         "week": 3,
         "player": "Jalen Hurts",
         "pos": "QB",
         "pts": 35.04,
-        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)"
+        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
+        "cash": 25.0
       },
       {
         "week": 4,
         "player": "Patrick Mahomes",
         "pos": "QB",
         "pts": 35.3,
-        "team": "Team Draft order (Wes Colson)"
+        "team": "Team Draft order (Wes Colson)",
+        "cash": 25.0
       },
       {
         "week": 5,
         "player": "Dak Prescott",
         "pos": "QB",
         "pts": 36.28,
-        "team": "Puka Time (trentan busey)"
+        "team": "Puka Time (trentan busey)",
+        "cash": 25.0
       },
       {
         "week": 6,
         "player": "Patrick Mahomes",
         "pos": "QB",
         "pts": 37.48,
-        "team": "Team Draft order (Wes Colson)"
+        "team": "Team Draft order (Wes Colson)",
+        "cash": 25.0
       },
       {
         "week": 7,
         "player": "Bo Nix",
         "pos": "QB",
         "pts": 43.96,
-        "team": "Team Freedom (Roman Bayless)"
+        "team": "Team Freedom (Roman Bayless)",
+        "cash": 25.0
       },
       {
         "week": 8,
         "player": "Jonathan Taylor",
         "pos": "RB",
         "pts": 36.4,
-        "team": "No Punt Intended  (Kurt Claycomb)"
+        "team": "No Punt Intended  (Kurt Claycomb)",
+        "cash": 25.0
       },
       {
         "week": 9,
         "player": "Joe Flacco",
         "pos": "QB",
         "pts": 38.7,
-        "team": "The American Dream (Miles Spainhower)"
+        "team": "The American Dream (Miles Spainhower)",
+        "cash": 25.0
       },
       {
         "week": 10,
         "player": "Jonathan Taylor",
         "pos": "RB",
         "pts": 48.1,
-        "team": "No Punt Intended  (Kurt Claycomb)"
+        "team": "No Punt Intended  (Kurt Claycomb)",
+        "cash": 25.0
       },
       {
         "week": 11,
         "player": "Josh Allen",
         "pos": "QB",
         "pts": 48.68,
-        "team": "No Punt Intended  (Kurt Claycomb)"
+        "team": "No Punt Intended  (Kurt Claycomb)",
+        "cash": 25.0
       },
       {
         "week": 12,
         "player": "Jahmyr Gibbs",
         "pos": "RB",
         "pts": 49.9,
-        "team": "Puka Time (trentan busey)"
+        "team": "Puka Time (trentan busey)",
+        "cash": 25.0
       },
       {
         "week": 13,
         "player": "Patrick Mahomes",
         "pos": "QB",
         "pts": 37.44,
-        "team": "Team Draft order (Wes Colson)"
+        "team": "Team Draft order (Wes Colson)",
+        "cash": 25.0
       },
       {
         "week": 14,
         "player": "Josh Allen",
         "pos": "QB",
         "pts": 43.84,
-        "team": "No Punt Intended  (Kurt Claycomb)"
+        "team": "No Punt Intended  (Kurt Claycomb)",
+        "cash": 25.0
       }
     ],
     "2026": [
@@ -34749,7 +34763,8 @@
         "player": "Jaxon Smith-Njigba",
         "pos": "WR",
         "pts": 0,
-        "team": "Make Fantasy Great Again (jeremy bayless)"
+        "team": "Make Fantasy Great Again (jeremy bayless)",
+        "cash": 25.0
       }
     ]
   },
@@ -34869,7 +34884,7 @@
       {
         "team": "No Punt Intended  (Kurt Claycomb)",
         "wins": 5,
-        "total_cash": 125.0
+        "total_cash": 250.0
       },
       {
         "team": "Team Bakesmode (Ron Baker)",
@@ -34879,12 +34894,12 @@
       {
         "team": "Puka Time (trentan busey)",
         "wins": 2,
-        "total_cash": 50.0
+        "total_cash": 100.0
       },
       {
         "team": "Team Freedom (Roman Bayless)",
         "wins": 1,
-        "total_cash": 25.0
+        "total_cash": 50.0
       },
       {
         "team": "Off In the Corner (Billy Haid)",
@@ -34899,11 +34914,21 @@
       {
         "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
         "wins": 1,
-        "total_cash": 25.0
+        "total_cash": 50.0
       },
       {
         "team": "THE G-MEN (TRAVIS GIBSON)",
         "wins": 1,
+        "total_cash": 50.0
+      },
+      {
+        "team": "Team Draft order (Wes Colson)",
+        "wins": 0,
+        "total_cash": 75.0
+      },
+      {
+        "team": "The American Dream (Miles Spainhower)",
+        "wins": 0,
         "total_cash": 25.0
       }
     ],
@@ -34911,30 +34936,42 @@
       {
         "team": "Make Fantasy Great Again (jeremy bayless)",
         "wins": 1,
-        "total_cash": 25.0
+        "total_cash": 50.0
       }
     ]
   },
   "accumulated_money": [
     {
-      "manager": "Miles Spainhower",
-      "total_cash": 550.0
+      "manager": "Kurt Claycomb",
+      "total_cash": 625.0
     },
     {
-      "manager": "Kurt Claycomb",
-      "total_cash": 325.0
+      "manager": "Miles Spainhower",
+      "total_cash": 600.0
     },
     {
       "manager": "trentan busey",
-      "total_cash": 250.0
+      "total_cash": 450.0
+    },
+    {
+      "manager": "Wes Colson",
+      "total_cash": 150.0
+    },
+    {
+      "manager": "Roman Bayless",
+      "total_cash": 75.0
+    },
+    {
+      "manager": "Eric King",
+      "total_cash": 75.0
+    },
+    {
+      "manager": "TRAVIS GIBSON",
+      "total_cash": 75.0
     },
     {
       "manager": "Ron Baker",
       "total_cash": 50.0
-    },
-    {
-      "manager": "Roman Bayless",
-      "total_cash": 25.0
     },
     {
       "manager": "Billy Haid",
@@ -34942,14 +34979,6 @@
     },
     {
       "manager": "Robert Kendall",
-      "total_cash": 25.0
-    },
-    {
-      "manager": "Eric King",
-      "total_cash": 25.0
-    },
-    {
-      "manager": "TRAVIS GIBSON",
       "total_cash": 25.0
     }
   ],
