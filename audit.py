@@ -35,15 +35,18 @@ PODIUM_PAYOUTS = {
 
 
 def get_manager_name(team):
+  """Extracts the stable ESPN owner display name or unique owner ID as the canonical key."""
   if hasattr(team, "owners") and team.owners:
     owner = team.owners[0]
     if isinstance(owner, dict):
-      first = owner.get("firstName", "")
-      last = owner.get("lastName", "")
-      full = f"{first} {last}".strip()
-      return full if full else owner.get("displayName", "Manager")
+      # Prefer stable display name or unique id if available
+      return owner.get("displayName") or f"{owner.get('firstName', '')} {owner.get('lastName', '')}".strip() or owner.get("id", "Manager")
+    elif hasattr(owner, "displayName"):
+      return owner.displayName
     return str(owner)
-  return getattr(team, "owner", "Manager")
+  if hasattr(team, "owner") and team.owner:
+    return str(team.owner)
+  return "Manager"
 
 
 def extract_manager_from_label(team_label):
