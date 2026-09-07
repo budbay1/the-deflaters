@@ -156,7 +156,8 @@
     <button class="tab-btn active" onclick="switchTab('week')" id="tabBtnWeek">📅 Week Summary</button>
     <button class="tab-btn" onclick="switchTab('season')" id="tabBtnSeason">📈 Season Trends</button>
     <button class="tab-btn" onclick="switchTab('h2h')">⚔️ Head-to-Head</button>
-    <button class="tab-btn" onclick="switchTab('payouts')">💰 Payouts & Records</button>
+    <button class="tab-btn" onclick="switchTab('records')">📜 All-Time Records</button>
+    <button class="tab-btn" onclick="switchTab('payouts')">💰 Payouts & Money</button>
     <button class="tab-btn" onclick="switchTab('halloffame')">🏆 Hall of Champions</button>
     <button class="tab-btn" onclick="switchTab('blunders')">🤡 Bench Blunders</button>
     <button class="tab-btn" onclick="switchTab('glossary')">📖 Stat Decoders</button>
@@ -240,15 +241,67 @@
     </table>
   </div>
 
-  <!-- TAB 4: PAYOUTS & RECORDS -->
-  <div id="view-payouts" style="display: none; display: flex; flex-direction: column; gap: 20px;">
-    <div style="font-size: 16px; font-weight: 800; color: var(--text);">🌟 All-Time League Records (2023–Present)</div>
+  <!-- TAB 4: ALL-TIME RECORDS -->
+  <div id="view-records" style="display: none; display: flex; flex-direction: column; gap: 20px;">
+    <div style="font-size: 16px; font-weight: 800; color: var(--text);">🌟 All-Time League Records & Top Rankings (2023–Present)</div>
     <div class="awards-grid" id="allTimeRecordsGrid"></div>
 
-    <div style="font-size: 16px; font-weight: 800; color: var(--text); margin-top: 10px;">👑 Season Cash Bounties & Highlights</div>
+    <div class="table-container">
+      <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
+        👑 Career Top 10 Season Total Points (PF)
+      </div>
+      <table class="responsive-table">
+        <thead>
+          <tr>
+            <th>Rank / Team</th>
+            <th>Season</th>
+            <th>Total Points For (PF)</th>
+          </tr>
+        </thead>
+        <tbody id="careerSeasonPfBody"></tbody>
+      </table>
+    </div>
+
+    <div class="table-container">
+      <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
+        ⚡ Career Top 10 Single-Game Team Scores
+      </div>
+      <table class="responsive-table">
+        <thead>
+          <tr>
+            <th>Rank / Team</th>
+            <th>Season & Week</th>
+            <th>Score (Opponent)</th>
+          </tr>
+        </thead>
+        <tbody id="careerGameTeamsBody"></tbody>
+      </table>
+    </div>
+
+    <div class="table-container">
+      <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
+        🌟 Career Top 10 Single-Game Starter Scores (Player Performances)
+      </div>
+      <table class="responsive-table">
+        <thead>
+          <tr>
+            <th>Rank / Player</th>
+            <th>Position & Team</th>
+            <th>Season & Week</th>
+            <th>Points Scored</th>
+          </tr>
+        </thead>
+        <tbody id="careerGamePlayersBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- TAB 5: PAYOUTS & MONEY -->
+  <div id="view-payouts" style="display: none; display: flex; flex-direction: column; gap: 20px;">
+    <div style="font-size: 16px; font-weight: 800; color: var(--text);">👑 Season Cash Bounties & Points Tracker</div>
     <div class="awards-grid" id="payoutsGrid"></div>
 
-    <!-- Accumulated Career Money Table (Concluded Seasons Only) -->
+    <!-- Accumulated Career Money Table -->
     <div class="table-container" style="margin-top: 10px;">
       <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
         💵 All-Time Accumulated Career Money Won (Concluded Past Seasons)
@@ -298,7 +351,7 @@
     </div>
   </div>
 
-  <!-- TAB 5: HALL OF CHAMPIONS -->
+  <!-- TAB 6: HALL OF CHAMPIONS -->
   <div id="view-halloffame" style="display: none; display: flex; flex-direction: column; gap: 20px;">
     <div class="table-container">
       <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
@@ -327,7 +380,7 @@
     </div>
   </div>
 
-  <!-- TAB 6: BENCH BLUNDERS -->
+  <!-- TAB 7: BENCH BLUNDERS -->
   <div id="view-blunders" class="table-container" style="display: none;">
     <table class="responsive-table">
       <thead>
@@ -343,7 +396,7 @@
     </table>
   </div>
 
-  <!-- TAB 7: STAT DECODERS -->
+  <!-- TAB 8: STAT DECODERS -->
   <div id="view-glossary" class="table-container" style="display: none;">
     <div style="padding: 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
       📖 The Deflaters Analytics Handbook
@@ -397,6 +450,7 @@
         setupSeasonDropdown(years);
         renderHallOfFame();
         setupH2HFilters();
+        renderRecordsTab();
       }
     } catch (err) {
       console.error('Failed to load dashboard data:', err);
@@ -605,45 +659,35 @@
       `;
     });
 
-    // 4. Render All-Time Records & Payouts Tab
-    const atr = dashboardData.all_time_records || {};
-    const atGrid = document.getElementById('allTimeRecordsGrid');
-    atGrid.innerHTML = `
-      <div class="award-card gold">
-        <div><div class="award-tag" style="color: var(--gold);">⚡ All-Time High Team Game</div>
-        <div class="award-title">${renderBadge(atr.high_team_game?.team || 'None')}</div>
-        <div class="award-desc">Exploded for <b>${(atr.high_team_game?.pts || 0).toFixed(2)} pts</b> against ${renderBadge(atr.high_team_game?.opp || '')} (${(atr.high_team_game?.opp_pts || 0).toFixed(2)}) in ${atr.high_team_game?.year || 2025} Wk ${atr.high_team_game?.week || 1}.</div></div>
-      </div>
-      <div class="award-card green">
-        <div><div class="award-tag" style="color: var(--green);">🌟 All-Time High Starter Game</div>
-        <div class="award-title">${atr.high_player_game?.player || 'None'} (${atr.high_player_game?.pos || ''})</div>
-        <div class="award-desc">Dropped <b>${(atr.high_player_game?.pts || 0).toFixed(2)} pts</b> for ${renderBadge(atr.high_player_game?.team || '')} in ${atr.high_player_game?.year || 2025} Wk ${atr.high_player_game?.week || 1}.</div></div>
-      </div>
-      <div class="award-card blue">
-        <div><div class="award-tag" style="color: var(--accent);">👑 All-Time Season Points Leader</div>
-        <div class="award-title">${renderBadge(atr.high_season_pf?.team || 'None')}</div>
-        <div class="award-desc">Paced an entire year with <b>${(atr.high_season_pf?.pts || 0).toFixed(2)} Total PF</b> in ${atr.high_season_pf?.year || 2025}.</div></div>
-      </div>
-      <div class="award-card red">
-        <div><div class="award-tag" style="color: var(--red);">💀 All-Time Season Points Against</div>
-        <div class="award-title">${renderBadge(atr.high_points_against?.team || 'None')}</div>
-        <div class="award-desc">Suffered a brutal <b>${(atr.high_points_against?.pa || 0).toFixed(2)} Total PA</b> across ${atr.high_points_against?.year || 2025}.</div></div>
-      </div>
-      <div class="award-card zinc" style="grid-column: span 2;">
-        <div><div class="award-tag" style="color: var(--dim);">📏 All-Time Largest Margin of Defeat</div>
-        <div class="award-title">${renderBadge(atr.max_margin?.winner || 'None')} crushed ${renderBadge(atr.max_margin?.loser || 'None')}</div>
-        <div class="award-desc">Record blowout margin of <b>+${(atr.max_margin?.margin || 0).toFixed(2)} pts</b> in ${atr.max_margin?.year || 2025} Wk ${atr.max_margin?.week || 1}.</div></div>
-      </div>
-    `;
-
+    // 4. Render Payouts & Money Tab (With Top-3 Points Leader Tracker)
     const pGrid = document.getElementById('payoutsGrid');
     const seasonPayouts = dashboardData.season_payouts || {};
     const sp = seasonPayouts[currentYear] || {};
+    const topThree = sp.top_three_pf || [];
+
+    let topThreeHtml = '';
+    if (topThree.length > 0) {
+      const leader = topThree[0];
+      topThreeHtml += `👑 <b>1st:</b> ${renderBadge(leader.team)} (${leader.pts.toFixed(2)} pts)<br>`;
+      if (topThree.length > 1) {
+        const second = topThree[1];
+        const diff2 = (leader.pts - second.pts).toFixed(2);
+        topThreeHtml += `🥈 <b>2nd:</b> ${renderBadge(second.team)} (${second.pts.toFixed(2)} pts) — <span style="color: var(--muted); font-size: 12px;">-${diff2} pts</span><br>`;
+      }
+      if (topThree.length > 2) {
+        const third = topThree[2];
+        const diff3 = (leader.pts - third.pts).toFixed(2);
+        topThreeHtml += `🥉 <b>3rd:</b> ${renderBadge(third.team)} (${third.pts.toFixed(2)} pts) — <span style="color: var(--muted); font-size: 12px;">-${diff3} pts</span>`;
+      }
+    } else {
+      topThreeHtml = `Pacing with <b>${(sp.pf_leader_pts || 0).toFixed(2)} Total PF</b>`;
+    }
+
     pGrid.innerHTML = `
       <div class="award-card gold">
-        <div><div class="award-tag" style="color: var(--gold);">👑 ${currentYear} Points Leader (On the Line)</div>
-        <div class="award-title">${renderBadge(sp.pf_leader_team || 'None')}</div>
-        <div class="award-desc">Pacing with <b>${(sp.pf_leader_pts || 0).toFixed(2)} Total PF</b>. Prize Pool on the line: <b style="color: var(--gold);">$${(sp.pf_leader_prize || 100).toFixed(2)}</b></div></div>
+        <div><div class="award-tag" style="color: var(--gold);">👑 ${currentYear} Points Leaderboard (Top 3)</div>
+        <div class="award-title" style="font-size: 14px; margin-top: 4px;">${topThreeHtml}</div>
+        <div class="award-desc" style="margin-top: 6px;">Prize Pool on the line: <b style="color: var(--gold);">$${(sp.pf_leader_prize || 100).toFixed(2)}</b></div></div>
       </div>
       <div class="award-card blue">
         <div><div class="award-tag" style="color: var(--accent);">⚡ ${currentYear} Single-Game Team Record</div>
@@ -734,6 +778,81 @@
     });
   }
 
+  function renderRecordsTab() {
+    const atr = dashboardData.all_time_records || {};
+    const atGrid = document.getElementById('allTimeRecordsGrid');
+    atGrid.innerHTML = `
+      <div class="award-card gold">
+        <div><div class="award-tag" style="color: var(--gold);">⚡ All-Time High Team Game</div>
+        <div class="award-title">${renderBadge(atr.high_team_game?.team || 'None')}</div>
+        <div class="award-desc">Exploded for <b>${(atr.high_team_game?.pts || 0).toFixed(2)} pts</b> against ${renderBadge(atr.high_team_game?.opp || '')} (${(atr.high_team_game?.opp_pts || 0).toFixed(2)}) in ${atr.high_team_game?.year || 2025} Wk ${atr.high_team_game?.week || 1}.</div></div>
+      </div>
+      <div class="award-card green">
+        <div><div class="award-tag" style="color: var(--green);">🌟 All-Time High Starter Game</div>
+        <div class="award-title">${atr.high_player_game?.player || 'None'} (${atr.high_player_game?.pos || ''})</div>
+        <div class="award-desc">Dropped <b>${(atr.high_player_game?.pts || 0).toFixed(2)} pts</b> for ${renderBadge(atr.high_player_game?.team || '')} in ${atr.high_player_game?.year || 2025} Wk ${atr.high_player_game?.week || 1}.</div></div>
+      </div>
+      <div class="award-card blue">
+        <div><div class="award-tag" style="color: var(--accent);">👑 All-Time Season Points Leader</div>
+        <div class="award-title">${renderBadge(atr.high_season_pf?.team || 'None')}</div>
+        <div class="award-desc">Paced an entire year with <b>${(atr.high_season_pf?.pts || 0).toFixed(2)} Total PF</b> in ${atr.high_season_pf?.year || 2025}.</div></div>
+      </div>
+      <div class="award-card red">
+        <div><div class="award-tag" style="color: var(--red);">💀 All-Time Season Points Against</div>
+        <div class="award-title">${renderBadge(atr.high_points_against?.team || 'None')}</div>
+        <div class="award-desc">Suffered a brutal <b>${(atr.high_points_against?.pa || 0).toFixed(2)} Total PA</b> across ${atr.high_points_against?.year || 2025}.</div></div>
+      </div>
+      <div class="award-card zinc" style="grid-column: span 2;">
+        <div><div class="award-tag" style="color: var(--dim);">📏 All-Time Largest Margin of Defeat</div>
+        <div class="award-title">${renderBadge(atr.max_margin?.winner || 'None')} crushed ${renderBadge(atr.max_margin?.loser || 'None')}</div>
+        <div class="award-desc">Record blowout margin of <b>+${(atr.max_margin?.margin || 0).toFixed(2)} pts</b> in ${atr.max_margin?.year || 2025} Wk ${atr.max_margin?.week || 1}.</div></div>
+      </div>
+    `;
+
+    // Render Career Rankings Tables
+    const rankings = dashboardData.career_rankings || {};
+    
+    // Season PF Top 10
+    const seasonPfBody = document.getElementById('careerSeasonPfBody');
+    seasonPfBody.innerHTML = '';
+    (rankings.season_pf || []).forEach((item, idx) => {
+      seasonPfBody.innerHTML += `
+        <tr>
+          <td class="team-cell"><span class="rank-num">#${idx + 1}</span> ${renderBadge(item.team)}</td>
+          <td><b>${item.year}</b></td>
+          <td style="color: var(--accent); font-weight: 800;">${item.pts.toFixed(2)} pts</td>
+        </tr>
+      `;
+    });
+
+    // Game Teams Top 10
+    const gameTeamsBody = document.getElementById('careerGameTeamsBody');
+    gameTeamsBody.innerHTML = '';
+    (rankings.game_teams || []).forEach((item, idx) => {
+      gameTeamsBody.innerHTML += `
+        <tr>
+          <td class="team-cell"><span class="rank-num">#${idx + 1}</span> ${renderBadge(item.team)}</td>
+          <td><b>${item.year}</b> Wk ${item.week}</td>
+          <td><b style="color: var(--green);">${item.pts.toFixed(2)}</b> <span style="color: var(--muted); font-size: 11px;">(vs ${renderBadge(item.opp)} ${item.opp_pts.toFixed(2)})</span></td>
+        </tr>
+      `;
+    });
+
+    // Game Players Top 10
+    const gamePlayersBody = document.getElementById('careerGamePlayersBody');
+    gamePlayersBody.innerHTML = '';
+    (rankings.game_players || []).forEach((item, idx) => {
+      gamePlayersBody.innerHTML += `
+        <tr>
+          <td class="team-cell"><span class="rank-num">#${idx + 1}</span> ${item.player}</td>
+          <td><span class="badge badge-neutral">${item.pos}</span> ${renderBadge(item.team)}</td>
+          <td><b>${item.year}</b> Wk ${item.week}</td>
+          <td style="color: var(--gold); font-weight: 800;">${item.pts.toFixed(2)} pts</td>
+        </tr>
+      `;
+    });
+  }
+
   function renderHallOfFame() {
     const leaderboard = dashboardData.leaderboard || [];
     const lbBody = document.getElementById('leaderboardTableBody');
@@ -817,9 +936,7 @@
     let selectedManagerPA = 0;
 
     Object.values(matchups).forEach(g => {
-      // Apply Season filter if specified in H2H archive dropdown
       if (seasonFilter !== 'ALL' && String(g.year) !== seasonFilter) return;
-      // Apply Phase filter (REG vs Playoffs Wk 15+)
       if (h2hPhase === 'REG' && g.is_playoff) return;
       if (h2hPhase === 'PLAYOFFS' && !g.is_playoff) return;
 
@@ -828,42 +945,42 @@
       const s1 = g.s1;
       const s2 = g.s2;
 
-      // If a specific manager is filtered, ensure that manager is always treated as 'side A' (leading the display)
       let leadMgr = m1;
       let oppMgr = m2;
-      let leadScore = s1;
-      let oppScore = s2;
 
       if (mgrFilter !== 'ALL') {
         if (mgrFilter === m2) {
           leadMgr = m2;
           oppMgr = m1;
-          leadScore = s2;
-          oppScore = s1;
         } else if (mgrFilter !== m1) {
-          return; // Neither manager matches filter
+          return;
         }
       }
 
-      // Canonical rivalry key for grouping multi-year series
-      const pair = sortedPair = [leadMgr, oppMgr].sort();
-      const key = `${pair[0]}_vs_${pair[1]}`;
+      const key = `${leadMgr}_vs_${oppMgr}`;
+      const reverseKey = `${oppMgr}_vs_${leadMgr}`;
+      const activeKey = rivalries[key] ? key : (rivalries[reverseKey] ? reverseKey : key);
 
-      if (!rivalries[key]) {
+      if (!rivalries[activeKey] && !rivalries[key]) {
         rivalries[key] = {
           displayLead: leadMgr, displayOpp: oppMgr,
-          winsLead: 0, winsOpp: 0, pfLead: 0, pfOpp: 0, last: null
+          winsLead: 0, winsOpp: 0, ties: 0, pfLead: 0, pfOpp: 0, last: null
         };
       }
 
-      const r = rivalries[key];
-      // Ensure orientation is consistent if multiple games exist
-      let actualLeadScore = leadMgr === m1 ? s1 : s2;
-      let actualOppScore = leadMgr === m1 ? s2 : s1;
+      const targetKey = rivalries[key] ? key : (rivalries[reverseKey] ? reverseKey : key);
+      const r = rivalries[targetKey];
 
-      r.last = g;
+      let actualLeadScore = (r.displayLead === g.m1) ? g.s1 : g.s2;
+      let actualOppScore = (r.displayLead === g.m1) ? g.s2 : g.s1;
+
+      if (!r.last || (g.year > r.last.year) || (g.year === r.last.year && g.week > r.last.week)) {
+        r.last = g;
+      }
+
       if (actualLeadScore > actualOppScore) r.winsLead++;
       else if (actualOppScore > actualLeadScore) r.winsOpp++;
+      else r.ties++;
       
       r.pfLead += actualLeadScore;
       r.pfOpp += actualOppScore;
@@ -889,12 +1006,15 @@
       const isBothCurrent = currentManagers.includes(r.displayLead) && currentManagers.includes(r.displayOpp);
       if (h2hScope === 'current' && !isBothCurrent) return;
 
-      const lastStr = r.last ? `${r.last.year} Wk ${r.last.week}: ${r.displayLead} (${(r.displayLead === r.last.m1 ? r.last.s1 : r.last.s2).toFixed(2)}) vs ${r.displayOpp} (${(r.displayOpp === r.last.m1 ? r.last.s1 : r.last.s2).toFixed(2)})` : 'N/A';
+      const lastLeadPts = r.displayLead === r.last?.m1 ? r.last?.s1 : r.last?.s2;
+      const lastOppPts = r.displayOpp === r.last?.m1 ? r.last?.s1 : r.last?.s2;
+      const lastStr = r.last ? `${r.last.year} Wk ${r.last.week}: ${r.displayLead} (${(lastLeadPts || 0).toFixed(2)}) vs ${r.displayOpp} (${(lastOppPts || 0).toFixed(2)})` : 'N/A';
       
+      const tiesStr = r.ties > 0 ? `–${r.ties}T` : '';
       h2hBody.innerHTML += `
         <tr>
           <td class="team-cell">${r.displayLead} vs ${r.displayOpp}</td>
-          <td><b>${r.winsLead}–${r.winsOpp}</b></td>
+          <td><b>${r.winsLead}–${r.winsOpp}</b>${tiesStr}</td>
           <td>${r.pfLead.toFixed(2)} – ${r.pfOpp.toFixed(2)}</td>
           <td style="color: var(--muted); font-size: 11px;">${lastStr}</td>
         </tr>
@@ -922,7 +1042,7 @@
   }
 
   function switchTab(viewName) {
-    ['week', 'season', 'h2h', 'payouts', 'halloffame', 'blunders', 'glossary'].forEach(tab => {
+    ['week', 'season', 'h2h', 'records', 'payouts', 'halloffame', 'blunders', 'glossary'].forEach(tab => {
       const el = document.getElementById('view-' + tab);
       if (el) el.style.display = tab === viewName ? (viewName === 'payouts' ? 'flex' : 'block') : 'none';
     });
