@@ -2,10 +2,10 @@
   "2025": {
     "1": [
       {
-        "team": "Rejected Kamala (jeremy bayless)",
-        "manager": "jeremy bayless",
-        "opp": "Team Bakesmode (Ron Baker)",
-        "opp_manager": "Ron Baker",
+        "team": "Rejected Kamala (espn20860330)",
+        "manager": "espn20860330",
+        "opp": "Team Bakesmode (espn18097839)",
+        "opp_manager": "espn18097839",
         "actual": 104.22,
         "proj": 124.86,
         "diff": -20.64,
@@ -141,10 +141,10 @@
         "luck_delta": -0.455
       },
       {
-        "team": "Team Bakesmode (Ron Baker)",
-        "manager": "Ron Baker",
-        "opp": "Rejected Kamala (jeremy bayless)",
-        "opp_manager": "jeremy bayless",
+        "team": "Team Bakesmode (espn18097839)",
+        "manager": "espn18097839",
+        "opp": "Rejected Kamala (espn20860330)",
+        "opp_manager": "espn20860330",
         "actual": 125.48,
         "proj": 126.77,
         "diff": -1.29,
@@ -280,10 +280,10 @@
         "luck_delta": 0.182
       },
       {
-        "team": "Team Unvaxxed (Jared Schneider)",
-        "manager": "Jared Schneider",
-        "opp": "Team Kendall (Robert Kendall)",
-        "opp_manager": "Robert Kendall",
+        "team": "Team Unvaxxed (Jaredks785)",
+        "manager": "Jaredks785",
+        "opp": "Team Kendall (bobkendall)",
+        "opp_manager": "bobkendall",
         "actual": 117.84,
         "proj": 124.15,
         "diff": -6.31,
@@ -419,10 +419,10 @@
         "luck_delta": 0.364
       },
       {
-        "team": "Team Kendall (Robert Kendall)",
-        "manager": "Robert Kendall",
-        "opp": "Team Unvaxxed (Jared Schneider)",
-        "opp_manager": "Jared Schneider",
+        "team": "Team Kendall (bobkendall)",
+        "manager": "bobkendall",
+        "opp": "Team Unvaxxed (Jaredks785)",
+        "opp_manager": "Jaredks785",
         "actual": 114.52,
         "proj": 119.59,
         "diff": -5.07,
@@ -558,10 +558,10 @@
         "luck_delta": -0.545
       },
       {
-        "team": "Off In the Corner (Billy Haid)",
-        "manager": "Billy Haid",
-        "opp": "THE G-MEN (TRAVIS GIBSON)",
-        "opp_manager": "TRAVIS GIBSON",
+        "team": "Off In the Corner (ESPNfan5100958789)",
+        "manager": "ESPNfan5100958789",
+        "opp": "THE G-MEN (espn29925699)",
+        "opp_manager": "espn29925699",
         "actual": 134.56,
         "proj": 125.4,
         "diff": 9.16,
@@ -697,10 +697,10 @@
         "luck_delta": 0.091
       },
       {
-        "team": "THE G-MEN (TRAVIS GIBSON)",
-        "manager": "TRAVIS GIBSON",
-        "opp": "Off In the Corner (Billy Haid)",
-        "opp_manager": "Billy Haid",
+        "team": "THE G-MEN (espn29925699)",
+        "manager": "espn29925699",
+        "opp": "Off In the Corner (ESPNfan5100958789)",
+        "opp_manager": "ESPNfan5100958789",
         "actual": 92.5,
         "proj": 120.3,
         "diff": -27.8,
@@ -844,10 +844,10 @@
         "luck_delta": -0.182
       },
       {
-        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "manager": "Eric King",
-        "opp": "The American Dream (Miles Spainhower)",
-        "opp_manager": "Miles Spainhower",
+        "team": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "manager": "espnfan5588026911",
+        "opp": "The American Dream (ESPNFAN5802359532)",
+        "opp_manager": "ESPNFAN5802359532",
         "actual": 99.98,
         "proj": 124.44,
         "diff": -24.46,
@@ -991,10 +991,10 @@
         "luck_delta": 0.636
       },
       {
-        "team": "The American Dream (Miles Spainhower)",
-        "manager": "Miles Spainhower",
-        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "opp_manager": "Eric King",
+        "team": "The American Dream (ESPNFAN5802359532)",
+        "manager": "ESPNFAN5802359532",
+        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "opp_manager": "espnfan5588026911",
         "actual": 98.72,
         "proj": 121.34,
         "diff": -22.62,
@@ -1138,10 +1138,10 @@
         "luck_delta": -0.273
       },
       {
-        "team": "Team Draft order (Wes Colson)",
-        "manager": "Wes Colson",
-        "opp": "No Punt Intended  (Kurt Claycomb)",
-        "opp_manager": "Kurt Claycomb",
+        "team": "Team Draft order (espn77607341)",
+        "manager": "espn77607341",
+        "opp": "No Punt Intended  (espn07439906)",
+        "opp_manager": "espn07439906",
         "actual": 125.42,
         "proj": 123.06,
         "diff": 2.36,
@@ -1277,10 +1277,10 @@
         "luck_delta": -0.727
       },
       {
-        "team": "No Punt Intended  (Kurt Claycomb)",
-        "manager": "Kurt Claycomb",
-        "opp": "Team Draft order (Wes Colson)",
-        "opp_manager": "Wes Colson",
+        "team": "No Punt Intended  (espn07439906)",
+        "manager": "espn07439906",
+        "opp": "Team Draft order (espn77607341)",
+        "opp_manager": "espn77607341",
         "actual": 150.36,
         "proj": 125.82,
         "diff": 24.54,
@@ -1416,10 +1416,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "Team Freedom (Roman Bayless)",
-        "manager": "Roman Bayless",
-        "opp": "Puka Time (trentan busey)",
-        "opp_manager": "trentan busey",
+        "team": "Team Freedom (ESPNFAN8902530024)",
+        "manager": "ESPNFAN8902530024",
+        "opp": "Puka Time (ouman29)",
+        "opp_manager": "ouman29",
         "actual": 58.44,
         "proj": 106.8,
         "diff": -48.36,
@@ -1555,10 +1555,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "Puka Time (trentan busey)",
-        "manager": "trentan busey",
-        "opp": "Team Freedom (Roman Bayless)",
-        "opp_manager": "Roman Bayless",
+        "team": "Puka Time (ouman29)",
+        "manager": "ouman29",
+        "opp": "Team Freedom (ESPNFAN8902530024)",
+        "opp_manager": "ESPNFAN8902530024",
         "actual": 81.62,
         "proj": 122.51,
         "diff": -40.89,
@@ -1704,10 +1704,10 @@
     ],
     "2": [
       {
-        "team": "Team Bakesmode (Ron Baker)",
-        "manager": "Ron Baker",
-        "opp": "Team Kendall (Robert Kendall)",
-        "opp_manager": "Robert Kendall",
+        "team": "Team Bakesmode (espn18097839)",
+        "manager": "espn18097839",
+        "opp": "Team Kendall (bobkendall)",
+        "opp_manager": "bobkendall",
         "actual": 163.98,
         "proj": 126.69,
         "diff": 37.29,
@@ -1851,10 +1851,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "Team Kendall (Robert Kendall)",
-        "manager": "Robert Kendall",
-        "opp": "Team Bakesmode (Ron Baker)",
-        "opp_manager": "Ron Baker",
+        "team": "Team Kendall (bobkendall)",
+        "manager": "bobkendall",
+        "opp": "Team Bakesmode (espn18097839)",
+        "opp_manager": "espn18097839",
         "actual": 105.98,
         "proj": 126.66,
         "diff": -20.68,
@@ -1990,10 +1990,10 @@
         "luck_delta": -0.364
       },
       {
-        "team": "THE G-MEN (TRAVIS GIBSON)",
-        "manager": "TRAVIS GIBSON",
-        "opp": "Rejected Kamala (jeremy bayless)",
-        "opp_manager": "jeremy bayless",
+        "team": "THE G-MEN (espn29925699)",
+        "manager": "espn29925699",
+        "opp": "Rejected Kamala (espn20860330)",
+        "opp_manager": "espn20860330",
         "actual": 131.66,
         "proj": 119.81,
         "diff": 11.85,
@@ -2137,10 +2137,10 @@
         "luck_delta": 0.273
       },
       {
-        "team": "Rejected Kamala (jeremy bayless)",
-        "manager": "jeremy bayless",
-        "opp": "THE G-MEN (TRAVIS GIBSON)",
-        "opp_manager": "TRAVIS GIBSON",
+        "team": "Rejected Kamala (espn20860330)",
+        "manager": "espn20860330",
+        "opp": "THE G-MEN (espn29925699)",
+        "opp_manager": "espn29925699",
         "actual": 124.5,
         "proj": 122.39,
         "diff": 2.11,
@@ -2276,10 +2276,10 @@
         "luck_delta": -0.545
       },
       {
-        "team": "Off In the Corner (Billy Haid)",
-        "manager": "Billy Haid",
-        "opp": "Team Unvaxxed (Jared Schneider)",
-        "opp_manager": "Jared Schneider",
+        "team": "Off In the Corner (ESPNfan5100958789)",
+        "manager": "ESPNfan5100958789",
+        "opp": "Team Unvaxxed (Jaredks785)",
+        "opp_manager": "Jaredks785",
         "actual": 131.6,
         "proj": 132.49,
         "diff": -0.89,
@@ -2415,10 +2415,10 @@
         "luck_delta": 0.364
       },
       {
-        "team": "Team Unvaxxed (Jared Schneider)",
-        "manager": "Jared Schneider",
-        "opp": "Off In the Corner (Billy Haid)",
-        "opp_manager": "Billy Haid",
+        "team": "Team Unvaxxed (Jaredks785)",
+        "manager": "Jaredks785",
+        "opp": "Off In the Corner (ESPNfan5100958789)",
+        "opp_manager": "ESPNfan5100958789",
         "actual": 75.6,
         "proj": 119.76,
         "diff": -44.16,
@@ -2554,10 +2554,10 @@
         "luck_delta": -0.091
       },
       {
-        "team": "The American Dream (Miles Spainhower)",
-        "manager": "Miles Spainhower",
-        "opp": "No Punt Intended  (Kurt Claycomb)",
-        "opp_manager": "Kurt Claycomb",
+        "team": "The American Dream (ESPNFAN5802359532)",
+        "manager": "ESPNFAN5802359532",
+        "opp": "No Punt Intended  (espn07439906)",
+        "opp_manager": "espn07439906",
         "actual": 66.34,
         "proj": 97.61,
         "diff": -31.27,
@@ -2693,10 +2693,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "No Punt Intended  (Kurt Claycomb)",
-        "manager": "Kurt Claycomb",
-        "opp": "The American Dream (Miles Spainhower)",
-        "opp_manager": "Miles Spainhower",
+        "team": "No Punt Intended  (espn07439906)",
+        "manager": "espn07439906",
+        "opp": "The American Dream (ESPNFAN5802359532)",
+        "opp_manager": "ESPNFAN5802359532",
         "actual": 157.44,
         "proj": 128.26,
         "diff": 29.18,
@@ -2832,10 +2832,10 @@
         "luck_delta": 0.182
       },
       {
-        "team": "Puka Time (trentan busey)",
-        "manager": "trentan busey",
-        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "opp_manager": "Eric King",
+        "team": "Puka Time (ouman29)",
+        "manager": "ouman29",
+        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "opp_manager": "espnfan5588026911",
         "actual": 104.24,
         "proj": 119.24,
         "diff": -15.0,
@@ -2979,10 +2979,10 @@
         "luck_delta": 0.727
       },
       {
-        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "manager": "Eric King",
-        "opp": "Puka Time (trentan busey)",
-        "opp_manager": "trentan busey",
+        "team": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "manager": "espnfan5588026911",
+        "opp": "Puka Time (ouman29)",
+        "opp_manager": "ouman29",
         "actual": 94.94,
         "proj": 121.8,
         "diff": -26.86,
@@ -3126,10 +3126,10 @@
         "luck_delta": -0.182
       },
       {
-        "team": "Team Freedom (Roman Bayless)",
-        "manager": "Roman Bayless",
-        "opp": "Team Draft order (Wes Colson)",
-        "opp_manager": "Wes Colson",
+        "team": "Team Freedom (ESPNFAN8902530024)",
+        "manager": "ESPNFAN8902530024",
+        "opp": "Team Draft order (espn77607341)",
+        "opp_manager": "espn77607341",
         "actual": 163.02,
         "proj": 119.67,
         "diff": 43.35,
@@ -3265,10 +3265,10 @@
         "luck_delta": 0.091
       },
       {
-        "team": "Team Draft order (Wes Colson)",
-        "manager": "Wes Colson",
-        "opp": "Team Freedom (Roman Bayless)",
-        "opp_manager": "Roman Bayless",
+        "team": "Team Draft order (espn77607341)",
+        "manager": "espn77607341",
+        "opp": "Team Freedom (ESPNFAN8902530024)",
+        "opp_manager": "ESPNFAN8902530024",
         "actual": 113.34,
         "proj": 116.27,
         "diff": -2.93,
@@ -3414,10 +3414,10 @@
     ],
     "3": [
       {
-        "team": "THE G-MEN (TRAVIS GIBSON)",
-        "manager": "TRAVIS GIBSON",
-        "opp": "Team Bakesmode (Ron Baker)",
-        "opp_manager": "Ron Baker",
+        "team": "THE G-MEN (espn29925699)",
+        "manager": "espn29925699",
+        "opp": "Team Bakesmode (espn18097839)",
+        "opp_manager": "espn18097839",
         "actual": 74.98,
         "proj": 115.23,
         "diff": -40.25,
@@ -3561,10 +3561,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "Team Bakesmode (Ron Baker)",
-        "manager": "Ron Baker",
-        "opp": "THE G-MEN (TRAVIS GIBSON)",
-        "opp_manager": "TRAVIS GIBSON",
+        "team": "Team Bakesmode (espn18097839)",
+        "manager": "espn18097839",
+        "opp": "THE G-MEN (espn29925699)",
+        "opp_manager": "espn29925699",
         "actual": 107.52,
         "proj": 128.46,
         "diff": -20.94,
@@ -3708,10 +3708,10 @@
         "luck_delta": 0.727
       },
       {
-        "team": "Team Kendall (Robert Kendall)",
-        "manager": "Robert Kendall",
-        "opp": "Off In the Corner (Billy Haid)",
-        "opp_manager": "Billy Haid",
+        "team": "Team Kendall (bobkendall)",
+        "manager": "bobkendall",
+        "opp": "Off In the Corner (ESPNfan5100958789)",
+        "opp_manager": "ESPNfan5100958789",
         "actual": 115.4,
         "proj": 118.85,
         "diff": -3.45,
@@ -3847,10 +3847,10 @@
         "luck_delta": -0.545
       },
       {
-        "team": "Off In the Corner (Billy Haid)",
-        "manager": "Billy Haid",
-        "opp": "Team Kendall (Robert Kendall)",
-        "opp_manager": "Robert Kendall",
+        "team": "Off In the Corner (ESPNfan5100958789)",
+        "manager": "ESPNfan5100958789",
+        "opp": "Team Kendall (bobkendall)",
+        "opp_manager": "bobkendall",
         "actual": 131.72,
         "proj": 128.06,
         "diff": 3.66,
@@ -3986,10 +3986,10 @@
         "luck_delta": 0.182
       },
       {
-        "team": "Rejected Kamala (jeremy bayless)",
-        "manager": "jeremy bayless",
-        "opp": "Team Unvaxxed (Jared Schneider)",
-        "opp_manager": "Jared Schneider",
+        "team": "Rejected Kamala (espn20860330)",
+        "manager": "espn20860330",
+        "opp": "Team Unvaxxed (Jaredks785)",
+        "opp_manager": "Jaredks785",
         "actual": 108.46,
         "proj": 117.95,
         "diff": -9.49,
@@ -4125,10 +4125,10 @@
         "luck_delta": 0.636
       },
       {
-        "team": "Team Unvaxxed (Jared Schneider)",
-        "manager": "Jared Schneider",
-        "opp": "Rejected Kamala (jeremy bayless)",
-        "opp_manager": "jeremy bayless",
+        "team": "Team Unvaxxed (Jaredks785)",
+        "manager": "Jaredks785",
+        "opp": "Rejected Kamala (espn20860330)",
+        "opp_manager": "espn20860330",
         "actual": 101.64,
         "proj": 118.53,
         "diff": -16.89,
@@ -4264,10 +4264,10 @@
         "luck_delta": -0.182
       },
       {
-        "team": "Puka Time (trentan busey)",
-        "manager": "trentan busey",
-        "opp": "The American Dream (Miles Spainhower)",
-        "opp_manager": "Miles Spainhower",
+        "team": "Puka Time (ouman29)",
+        "manager": "ouman29",
+        "opp": "The American Dream (ESPNFAN5802359532)",
+        "opp_manager": "ESPNFAN5802359532",
         "actual": 116.34,
         "proj": 123.55,
         "diff": -7.21,
@@ -4411,10 +4411,10 @@
         "luck_delta": 0.364
       },
       {
-        "team": "The American Dream (Miles Spainhower)",
-        "manager": "Miles Spainhower",
-        "opp": "Puka Time (trentan busey)",
-        "opp_manager": "trentan busey",
+        "team": "The American Dream (ESPNFAN5802359532)",
+        "manager": "ESPNFAN5802359532",
+        "opp": "Puka Time (ouman29)",
+        "opp_manager": "ouman29",
         "actual": 92.08,
         "proj": 112.28,
         "diff": -20.2,
@@ -4558,10 +4558,10 @@
         "luck_delta": -0.091
       },
       {
-        "team": "No Punt Intended  (Kurt Claycomb)",
-        "manager": "Kurt Claycomb",
-        "opp": "Team Freedom (Roman Bayless)",
-        "opp_manager": "Roman Bayless",
+        "team": "No Punt Intended  (espn07439906)",
+        "manager": "espn07439906",
+        "opp": "Team Freedom (ESPNFAN8902530024)",
+        "opp_manager": "ESPNFAN8902530024",
         "actual": 127.84,
         "proj": 137.26,
         "diff": -9.42,
@@ -4697,10 +4697,10 @@
         "luck_delta": -0.727
       },
       {
-        "team": "Team Freedom (Roman Bayless)",
-        "manager": "Roman Bayless",
-        "opp": "No Punt Intended  (Kurt Claycomb)",
-        "opp_manager": "Kurt Claycomb",
+        "team": "Team Freedom (ESPNFAN8902530024)",
+        "manager": "ESPNFAN8902530024",
+        "opp": "No Punt Intended  (espn07439906)",
+        "opp_manager": "espn07439906",
         "actual": 158.42,
         "proj": 120.69,
         "diff": 37.73,
@@ -4836,10 +4836,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "manager": "Eric King",
-        "opp": "Team Draft order (Wes Colson)",
-        "opp_manager": "Wes Colson",
+        "team": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "manager": "espnfan5588026911",
+        "opp": "Team Draft order (espn77607341)",
+        "opp_manager": "espn77607341",
         "actual": 135.64,
         "proj": 118.09,
         "diff": 17.55,
@@ -4983,10 +4983,10 @@
         "luck_delta": 0.091
       },
       {
-        "team": "Team Draft order (Wes Colson)",
-        "manager": "Wes Colson",
-        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "opp_manager": "Eric King",
+        "team": "Team Draft order (espn77607341)",
+        "manager": "espn77607341",
+        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "opp_manager": "espnfan5588026911",
         "actual": 113.86,
         "proj": 120.83,
         "diff": -6.97,
@@ -5132,10 +5132,10 @@
     ],
     "4": [
       {
-        "team": "Team Bakesmode (Ron Baker)",
-        "manager": "Ron Baker",
-        "opp": "Off In the Corner (Billy Haid)",
-        "opp_manager": "Billy Haid",
+        "team": "Team Bakesmode (espn18097839)",
+        "manager": "espn18097839",
+        "opp": "Off In the Corner (ESPNfan5100958789)",
+        "opp_manager": "ESPNfan5100958789",
         "actual": 91.38,
         "proj": 128.4,
         "diff": -37.02,
@@ -5279,10 +5279,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "Off In the Corner (Billy Haid)",
-        "manager": "Billy Haid",
-        "opp": "Team Bakesmode (Ron Baker)",
-        "opp_manager": "Ron Baker",
+        "team": "Off In the Corner (ESPNfan5100958789)",
+        "manager": "ESPNfan5100958789",
+        "opp": "Team Bakesmode (espn18097839)",
+        "opp_manager": "espn18097839",
         "actual": 142.58,
         "proj": 132.2,
         "diff": 10.38,
@@ -5426,10 +5426,10 @@
         "luck_delta": 0.091
       },
       {
-        "team": "Team Unvaxxed (Jared Schneider)",
-        "manager": "Jared Schneider",
-        "opp": "THE G-MEN (TRAVIS GIBSON)",
-        "opp_manager": "TRAVIS GIBSON",
+        "team": "Team Unvaxxed (Jaredks785)",
+        "manager": "Jaredks785",
+        "opp": "THE G-MEN (espn29925699)",
+        "opp_manager": "espn29925699",
         "actual": 119.18,
         "proj": 108.74,
         "diff": 10.44,
@@ -5565,10 +5565,10 @@
         "luck_delta": -0.364
       },
       {
-        "team": "THE G-MEN (TRAVIS GIBSON)",
-        "manager": "TRAVIS GIBSON",
-        "opp": "Team Unvaxxed (Jared Schneider)",
-        "opp_manager": "Jared Schneider",
+        "team": "THE G-MEN (espn29925699)",
+        "manager": "espn29925699",
+        "opp": "Team Unvaxxed (Jaredks785)",
+        "opp_manager": "Jaredks785",
         "actual": 122.42,
         "proj": 113.84,
         "diff": 8.58,
@@ -5712,10 +5712,10 @@
         "luck_delta": 0.545
       },
       {
-        "team": "Rejected Kamala (jeremy bayless)",
-        "manager": "jeremy bayless",
-        "opp": "Team Kendall (Robert Kendall)",
-        "opp_manager": "Robert Kendall",
+        "team": "Rejected Kamala (espn20860330)",
+        "manager": "espn20860330",
+        "opp": "Team Kendall (bobkendall)",
+        "opp_manager": "bobkendall",
         "actual": 133.92,
         "proj": 117.34,
         "diff": 16.58,
@@ -5851,10 +5851,10 @@
         "luck_delta": -0.727
       },
       {
-        "team": "Team Kendall (Robert Kendall)",
-        "manager": "Robert Kendall",
-        "opp": "Rejected Kamala (jeremy bayless)",
-        "opp_manager": "jeremy bayless",
+        "team": "Team Kendall (bobkendall)",
+        "manager": "bobkendall",
+        "opp": "Rejected Kamala (espn20860330)",
+        "opp_manager": "espn20860330",
         "actual": 134.1,
         "proj": 126.46,
         "diff": 7.64,
@@ -5990,10 +5990,10 @@
         "luck_delta": 0.182
       },
       {
-        "team": "The American Dream (Miles Spainhower)",
-        "manager": "Miles Spainhower",
-        "opp": "Team Freedom (Roman Bayless)",
-        "opp_manager": "Roman Bayless",
+        "team": "The American Dream (ESPNFAN5802359532)",
+        "manager": "ESPNFAN5802359532",
+        "opp": "Team Freedom (ESPNFAN8902530024)",
+        "opp_manager": "ESPNFAN8902530024",
         "actual": 132.36,
         "proj": 113.89,
         "diff": 18.47,
@@ -6137,10 +6137,10 @@
         "luck_delta": 0.364
       },
       {
-        "team": "Team Freedom (Roman Bayless)",
-        "manager": "Roman Bayless",
-        "opp": "The American Dream (Miles Spainhower)",
-        "opp_manager": "Miles Spainhower",
+        "team": "Team Freedom (ESPNFAN8902530024)",
+        "manager": "ESPNFAN8902530024",
+        "opp": "The American Dream (ESPNFAN5802359532)",
+        "opp_manager": "ESPNFAN5802359532",
         "actual": 107.68,
         "proj": 107.81,
         "diff": -0.13,
@@ -6276,10 +6276,10 @@
         "luck_delta": -0.091
       },
       {
-        "team": "Team Draft order (Wes Colson)",
-        "manager": "Wes Colson",
-        "opp": "Puka Time (trentan busey)",
-        "opp_manager": "trentan busey",
+        "team": "Team Draft order (espn77607341)",
+        "manager": "espn77607341",
+        "opp": "Puka Time (ouman29)",
+        "opp_manager": "ouman29",
         "actual": 129.76,
         "proj": 117.67,
         "diff": 12.09,
@@ -6423,10 +6423,10 @@
         "luck_delta": 0.455
       },
       {
-        "team": "Puka Time (trentan busey)",
-        "manager": "trentan busey",
-        "opp": "Team Draft order (Wes Colson)",
-        "opp_manager": "Wes Colson",
+        "team": "Puka Time (ouman29)",
+        "manager": "ouman29",
+        "opp": "Team Draft order (espn77607341)",
+        "opp_manager": "espn77607341",
         "actual": 111.9,
         "proj": 114.12,
         "diff": -2.22,
@@ -6570,10 +6570,10 @@
         "luck_delta": -0.182
       },
       {
-        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "manager": "Eric King",
-        "opp": "No Punt Intended  (Kurt Claycomb)",
-        "opp_manager": "Kurt Claycomb",
+        "team": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "manager": "espnfan5588026911",
+        "opp": "No Punt Intended  (espn07439906)",
+        "opp_manager": "espn07439906",
         "actual": 114.5,
         "proj": 113.07,
         "diff": 1.43,
@@ -6717,10 +6717,10 @@
         "luck_delta": -0.273
       },
       {
-        "team": "No Punt Intended  (Kurt Claycomb)",
-        "manager": "Kurt Claycomb",
-        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "opp_manager": "Eric King",
+        "team": "No Punt Intended  (espn07439906)",
+        "manager": "espn07439906",
+        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "opp_manager": "espnfan5588026911",
         "actual": 147.26,
         "proj": 132.94,
         "diff": 14.32,
@@ -6858,10 +6858,10 @@
     ],
     "5": [
       {
-        "team": "Team Unvaxxed (Jared Schneider)",
-        "manager": "Jared Schneider",
-        "opp": "Team Bakesmode (Ron Baker)",
-        "opp_manager": "Ron Baker",
+        "team": "Team Unvaxxed (Jaredks785)",
+        "manager": "Jaredks785",
+        "opp": "Team Bakesmode (espn18097839)",
+        "opp_manager": "espn18097839",
         "actual": 116.7,
         "proj": 113.89,
         "diff": 2.81,
@@ -6997,10 +6997,10 @@
         "luck_delta": 0.636
       },
       {
-        "team": "Team Bakesmode (Ron Baker)",
-        "manager": "Ron Baker",
-        "opp": "Team Unvaxxed (Jared Schneider)",
-        "opp_manager": "Jared Schneider",
+        "team": "Team Bakesmode (espn18097839)",
+        "manager": "espn18097839",
+        "opp": "Team Unvaxxed (Jaredks785)",
+        "opp_manager": "Jaredks785",
         "actual": 109.72,
         "proj": 115.62,
         "diff": -5.9,
@@ -7144,10 +7144,10 @@
         "luck_delta": -0.273
       },
       {
-        "team": "Off In the Corner (Billy Haid)",
-        "manager": "Billy Haid",
-        "opp": "Rejected Kamala (jeremy bayless)",
-        "opp_manager": "jeremy bayless",
+        "team": "Off In the Corner (ESPNfan5100958789)",
+        "manager": "ESPNfan5100958789",
+        "opp": "Rejected Kamala (espn20860330)",
+        "opp_manager": "espn20860330",
         "actual": 154.02,
         "proj": 123.29,
         "diff": 30.73,
@@ -7291,10 +7291,10 @@
         "luck_delta": 0.091
       },
       {
-        "team": "Rejected Kamala (jeremy bayless)",
-        "manager": "jeremy bayless",
-        "opp": "Off In the Corner (Billy Haid)",
-        "opp_manager": "Billy Haid",
+        "team": "Rejected Kamala (espn20860330)",
+        "manager": "espn20860330",
+        "opp": "Off In the Corner (ESPNfan5100958789)",
+        "opp_manager": "ESPNfan5100958789",
         "actual": 138.44,
         "proj": 110.77,
         "diff": 27.67,
@@ -7430,10 +7430,10 @@
         "luck_delta": -0.727
       },
       {
-        "team": "THE G-MEN (TRAVIS GIBSON)",
-        "manager": "TRAVIS GIBSON",
-        "opp": "Team Kendall (Robert Kendall)",
-        "opp_manager": "Robert Kendall",
+        "team": "THE G-MEN (espn29925699)",
+        "manager": "espn29925699",
+        "opp": "Team Kendall (bobkendall)",
+        "opp_manager": "bobkendall",
         "actual": 119.82,
         "proj": 115.54,
         "diff": 4.28,
@@ -7569,10 +7569,10 @@
         "luck_delta": 0.545
       },
       {
-        "team": "Team Kendall (Robert Kendall)",
-        "manager": "Robert Kendall",
-        "opp": "THE G-MEN (TRAVIS GIBSON)",
-        "opp_manager": "TRAVIS GIBSON",
+        "team": "Team Kendall (bobkendall)",
+        "manager": "bobkendall",
+        "opp": "THE G-MEN (espn29925699)",
+        "opp_manager": "espn29925699",
         "actual": 84.84,
         "proj": 121.85,
         "diff": -37.01,
@@ -7716,10 +7716,10 @@
         "luck_delta": -0.091
       },
       {
-        "team": "Team Draft order (Wes Colson)",
-        "manager": "Wes Colson",
-        "opp": "The American Dream (Miles Spainhower)",
-        "opp_manager": "Miles Spainhower",
+        "team": "Team Draft order (espn77607341)",
+        "manager": "espn77607341",
+        "opp": "The American Dream (ESPNFAN5802359532)",
+        "opp_manager": "ESPNFAN5802359532",
         "actual": 94.0,
         "proj": 94.78,
         "diff": -0.78,
@@ -7863,10 +7863,10 @@
         "luck_delta": -0.182
       },
       {
-        "team": "The American Dream (Miles Spainhower)",
-        "manager": "Miles Spainhower",
-        "opp": "Team Draft order (Wes Colson)",
-        "opp_manager": "Wes Colson",
+        "team": "The American Dream (ESPNFAN5802359532)",
+        "manager": "ESPNFAN5802359532",
+        "opp": "Team Draft order (espn77607341)",
+        "opp_manager": "espn77607341",
         "actual": 124.82,
         "proj": 109.29,
         "diff": 15.53,
@@ -8002,10 +8002,10 @@
         "luck_delta": 0.455
       },
       {
-        "team": "Team Freedom (Roman Bayless)",
-        "manager": "Roman Bayless",
-        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "opp_manager": "Eric King",
+        "team": "Team Freedom (ESPNFAN8902530024)",
+        "manager": "ESPNFAN8902530024",
+        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "opp_manager": "espnfan5588026911",
         "actual": 134.2,
         "proj": 117.35,
         "diff": 16.85,
@@ -8141,10 +8141,10 @@
         "luck_delta": 0.364
       },
       {
-        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "manager": "Eric King",
-        "opp": "Team Freedom (Roman Bayless)",
-        "opp_manager": "Roman Bayless",
+        "team": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "manager": "espnfan5588026911",
+        "opp": "Team Freedom (ESPNFAN8902530024)",
+        "opp_manager": "ESPNFAN8902530024",
         "actual": 59.5,
         "proj": 95.68,
         "diff": -36.18,
@@ -8288,10 +8288,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "Puka Time (trentan busey)",
-        "manager": "trentan busey",
-        "opp": "No Punt Intended  (Kurt Claycomb)",
-        "opp_manager": "Kurt Claycomb",
+        "team": "Puka Time (ouman29)",
+        "manager": "ouman29",
+        "opp": "No Punt Intended  (espn07439906)",
+        "opp_manager": "espn07439906",
         "actual": 185.08,
         "proj": 125.81,
         "diff": 59.27,
@@ -8435,10 +8435,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "No Punt Intended  (Kurt Claycomb)",
-        "manager": "Kurt Claycomb",
-        "opp": "Puka Time (trentan busey)",
-        "opp_manager": "trentan busey",
+        "team": "No Punt Intended  (espn07439906)",
+        "manager": "espn07439906",
+        "opp": "Puka Time (ouman29)",
+        "opp_manager": "ouman29",
         "actual": 140.32,
         "proj": 135.85,
         "diff": 4.47,
@@ -8576,10 +8576,10 @@
     ],
     "6": [
       {
-        "team": "Team Bakesmode (Ron Baker)",
-        "manager": "Ron Baker",
-        "opp": "The American Dream (Miles Spainhower)",
-        "opp_manager": "Miles Spainhower",
+        "team": "Team Bakesmode (espn18097839)",
+        "manager": "espn18097839",
+        "opp": "The American Dream (ESPNFAN5802359532)",
+        "opp_manager": "ESPNFAN5802359532",
         "actual": 181.62,
         "proj": 124.49,
         "diff": 57.13,
@@ -8723,10 +8723,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "The American Dream (Miles Spainhower)",
-        "manager": "Miles Spainhower",
-        "opp": "Team Bakesmode (Ron Baker)",
-        "opp_manager": "Ron Baker",
+        "team": "The American Dream (ESPNFAN5802359532)",
+        "manager": "ESPNFAN5802359532",
+        "opp": "Team Bakesmode (espn18097839)",
+        "opp_manager": "espn18097839",
         "actual": 85.24,
         "proj": 121.78,
         "diff": -36.54,
@@ -8862,10 +8862,10 @@
         "luck_delta": -0.182
       },
       {
-        "team": "Rejected Kamala (jeremy bayless)",
-        "manager": "jeremy bayless",
-        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "opp_manager": "Eric King",
+        "team": "Rejected Kamala (espn20860330)",
+        "manager": "espn20860330",
+        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "opp_manager": "espnfan5588026911",
         "actual": 96.0,
         "proj": 118.8,
         "diff": -22.8,
@@ -9001,10 +9001,10 @@
         "luck_delta": 0.545
       },
       {
-        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "manager": "Eric King",
-        "opp": "Rejected Kamala (jeremy bayless)",
-        "opp_manager": "jeremy bayless",
+        "team": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "manager": "espnfan5588026911",
+        "opp": "Rejected Kamala (espn20860330)",
+        "opp_manager": "espn20860330",
         "actual": 89.02,
         "proj": 103.39,
         "diff": -14.37,
@@ -9148,10 +9148,10 @@
         "luck_delta": -0.273
       },
       {
-        "team": "Team Kendall (Robert Kendall)",
-        "manager": "Robert Kendall",
-        "opp": "No Punt Intended  (Kurt Claycomb)",
-        "opp_manager": "Kurt Claycomb",
+        "team": "Team Kendall (bobkendall)",
+        "manager": "bobkendall",
+        "opp": "No Punt Intended  (espn07439906)",
+        "opp_manager": "espn07439906",
         "actual": 100.96,
         "proj": 126.58,
         "diff": -25.62,
@@ -9295,10 +9295,10 @@
         "luck_delta": -0.545
       },
       {
-        "team": "No Punt Intended  (Kurt Claycomb)",
-        "manager": "Kurt Claycomb",
-        "opp": "Team Kendall (Robert Kendall)",
-        "opp_manager": "Robert Kendall",
+        "team": "No Punt Intended  (espn07439906)",
+        "manager": "espn07439906",
+        "opp": "Team Kendall (bobkendall)",
+        "opp_manager": "bobkendall",
         "actual": 141.3,
         "proj": 138.36,
         "diff": 2.94,
@@ -9434,10 +9434,10 @@
         "luck_delta": 0.091
       },
       {
-        "team": "THE G-MEN (TRAVIS GIBSON)",
-        "manager": "TRAVIS GIBSON",
-        "opp": "Puka Time (trentan busey)",
-        "opp_manager": "trentan busey",
+        "team": "THE G-MEN (espn29925699)",
+        "manager": "espn29925699",
+        "opp": "Puka Time (ouman29)",
+        "opp_manager": "ouman29",
         "actual": 113.92,
         "proj": 112.91,
         "diff": 1.01,
@@ -9573,10 +9573,10 @@
         "luck_delta": -0.636
       },
       {
-        "team": "Puka Time (trentan busey)",
-        "manager": "trentan busey",
-        "opp": "THE G-MEN (TRAVIS GIBSON)",
-        "opp_manager": "TRAVIS GIBSON",
+        "team": "Puka Time (ouman29)",
+        "manager": "ouman29",
+        "opp": "THE G-MEN (espn29925699)",
+        "opp_manager": "espn29925699",
         "actual": 130.74,
         "proj": 131.24,
         "diff": -0.5,
@@ -9720,10 +9720,10 @@
         "luck_delta": 0.182
       },
       {
-        "team": "Off In the Corner (Billy Haid)",
-        "manager": "Billy Haid",
-        "opp": "Team Freedom (Roman Bayless)",
-        "opp_manager": "Roman Bayless",
+        "team": "Off In the Corner (ESPNfan5100958789)",
+        "manager": "ESPNfan5100958789",
+        "opp": "Team Freedom (ESPNFAN8902530024)",
+        "opp_manager": "ESPNFAN8902530024",
         "actual": 90.5,
         "proj": 108.91,
         "diff": -18.41,
@@ -9867,10 +9867,10 @@
         "luck_delta": 0.636
       },
       {
-        "team": "Team Freedom (Roman Bayless)",
-        "manager": "Roman Bayless",
-        "opp": "Off In the Corner (Billy Haid)",
-        "opp_manager": "Billy Haid",
+        "team": "Team Freedom (ESPNFAN8902530024)",
+        "manager": "ESPNFAN8902530024",
+        "opp": "Off In the Corner (ESPNfan5100958789)",
+        "opp_manager": "ESPNfan5100958789",
         "actual": 72.36,
         "proj": 127.45,
         "diff": -55.09,
@@ -10006,10 +10006,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "Team Unvaxxed (Jared Schneider)",
-        "manager": "Jared Schneider",
-        "opp": "Team Draft order (Wes Colson)",
-        "opp_manager": "Wes Colson",
+        "team": "Team Unvaxxed (Jaredks785)",
+        "manager": "Jaredks785",
+        "opp": "Team Draft order (espn77607341)",
+        "opp_manager": "espn77607341",
         "actual": 80.88,
         "proj": 102.35,
         "diff": -21.47,
@@ -10145,10 +10145,10 @@
         "luck_delta": -0.091
       },
       {
-        "team": "Team Draft order (Wes Colson)",
-        "manager": "Wes Colson",
-        "opp": "Team Unvaxxed (Jared Schneider)",
-        "opp_manager": "Jared Schneider",
+        "team": "Team Draft order (espn77607341)",
+        "manager": "espn77607341",
+        "opp": "Team Unvaxxed (Jaredks785)",
+        "opp_manager": "Jaredks785",
         "actual": 116.04,
         "proj": 115.61,
         "diff": 0.43,
@@ -10294,10 +10294,10 @@
     ],
     "7": [
       {
-        "team": "The American Dream (Miles Spainhower)",
-        "manager": "Miles Spainhower",
-        "opp": "Rejected Kamala (jeremy bayless)",
-        "opp_manager": "jeremy bayless",
+        "team": "The American Dream (ESPNFAN5802359532)",
+        "manager": "ESPNFAN5802359532",
+        "opp": "Rejected Kamala (espn20860330)",
+        "opp_manager": "espn20860330",
         "actual": 139.28,
         "proj": 108.34,
         "diff": 30.94,
@@ -10441,10 +10441,10 @@
         "luck_delta": 0.273
       },
       {
-        "team": "Rejected Kamala (jeremy bayless)",
-        "manager": "jeremy bayless",
-        "opp": "The American Dream (Miles Spainhower)",
-        "opp_manager": "Miles Spainhower",
+        "team": "Rejected Kamala (espn20860330)",
+        "manager": "espn20860330",
+        "opp": "The American Dream (ESPNFAN5802359532)",
+        "opp_manager": "ESPNFAN5802359532",
         "actual": 81.34,
         "proj": 117.75,
         "diff": -36.41,
@@ -10580,10 +10580,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "manager": "Eric King",
-        "opp": "Team Kendall (Robert Kendall)",
-        "opp_manager": "Robert Kendall",
+        "team": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "manager": "espnfan5588026911",
+        "opp": "Team Kendall (bobkendall)",
+        "opp_manager": "bobkendall",
         "actual": 130.84,
         "proj": 117.06,
         "diff": 13.78,
@@ -10727,10 +10727,10 @@
         "luck_delta": 0.455
       },
       {
-        "team": "Team Kendall (Robert Kendall)",
-        "manager": "Robert Kendall",
-        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "opp_manager": "Eric King",
+        "team": "Team Kendall (bobkendall)",
+        "manager": "bobkendall",
+        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "opp_manager": "espnfan5588026911",
         "actual": 130.4,
         "proj": 119.38,
         "diff": 11.02,
@@ -10874,10 +10874,10 @@
         "luck_delta": -0.455
       },
       {
-        "team": "No Punt Intended  (Kurt Claycomb)",
-        "manager": "Kurt Claycomb",
-        "opp": "THE G-MEN (TRAVIS GIBSON)",
-        "opp_manager": "TRAVIS GIBSON",
+        "team": "No Punt Intended  (espn07439906)",
+        "manager": "espn07439906",
+        "opp": "THE G-MEN (espn29925699)",
+        "opp_manager": "espn29925699",
         "actual": 146.48,
         "proj": 138.77,
         "diff": 7.71,
@@ -11013,10 +11013,10 @@
         "luck_delta": 0.091
       },
       {
-        "team": "THE G-MEN (TRAVIS GIBSON)",
-        "manager": "TRAVIS GIBSON",
-        "opp": "No Punt Intended  (Kurt Claycomb)",
-        "opp_manager": "Kurt Claycomb",
+        "team": "THE G-MEN (espn29925699)",
+        "manager": "espn29925699",
+        "opp": "No Punt Intended  (espn07439906)",
+        "opp_manager": "espn07439906",
         "actual": 136.84,
         "proj": 119.69,
         "diff": 17.15,
@@ -11160,10 +11160,10 @@
         "luck_delta": -0.636
       },
       {
-        "team": "Puka Time (trentan busey)",
-        "manager": "trentan busey",
-        "opp": "Off In the Corner (Billy Haid)",
-        "opp_manager": "Billy Haid",
+        "team": "Puka Time (ouman29)",
+        "manager": "ouman29",
+        "opp": "Off In the Corner (ESPNfan5100958789)",
+        "opp_manager": "ESPNfan5100958789",
         "actual": 127.66,
         "proj": 132.84,
         "diff": -5.18,
@@ -11307,10 +11307,10 @@
         "luck_delta": -0.364
       },
       {
-        "team": "Off In the Corner (Billy Haid)",
-        "manager": "Billy Haid",
-        "opp": "Puka Time (trentan busey)",
-        "opp_manager": "trentan busey",
+        "team": "Off In the Corner (ESPNfan5100958789)",
+        "manager": "ESPNfan5100958789",
+        "opp": "Puka Time (ouman29)",
+        "opp_manager": "ouman29",
         "actual": 158.68,
         "proj": 112.4,
         "diff": 46.28,
@@ -11454,10 +11454,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "Team Freedom (Roman Bayless)",
-        "manager": "Roman Bayless",
-        "opp": "Team Unvaxxed (Jared Schneider)",
-        "opp_manager": "Jared Schneider",
+        "team": "Team Freedom (ESPNFAN8902530024)",
+        "manager": "ESPNFAN8902530024",
+        "opp": "Team Unvaxxed (Jaredks785)",
+        "opp_manager": "Jaredks785",
         "actual": 142.76,
         "proj": 126.79,
         "diff": 15.97,
@@ -11593,10 +11593,10 @@
         "luck_delta": 0.182
       },
       {
-        "team": "Team Unvaxxed (Jared Schneider)",
-        "manager": "Jared Schneider",
-        "opp": "Team Freedom (Roman Bayless)",
-        "opp_manager": "Roman Bayless",
+        "team": "Team Unvaxxed (Jaredks785)",
+        "manager": "Jaredks785",
+        "opp": "Team Freedom (ESPNFAN8902530024)",
+        "opp_manager": "ESPNFAN8902530024",
         "actual": 105.42,
         "proj": 124.1,
         "diff": -18.68,
@@ -11732,10 +11732,10 @@
         "luck_delta": -0.273
       },
       {
-        "team": "Team Draft order (Wes Colson)",
-        "manager": "Wes Colson",
-        "opp": "Team Bakesmode (Ron Baker)",
-        "opp_manager": "Ron Baker",
+        "team": "Team Draft order (espn77607341)",
+        "manager": "espn77607341",
+        "opp": "Team Bakesmode (espn18097839)",
+        "opp_manager": "espn18097839",
         "actual": 104.86,
         "proj": 122.48,
         "diff": -17.62,
@@ -11871,10 +11871,10 @@
         "luck_delta": 0.818
       },
       {
-        "team": "Team Bakesmode (Ron Baker)",
-        "manager": "Ron Baker",
-        "opp": "Team Draft order (Wes Colson)",
-        "opp_manager": "Wes Colson",
+        "team": "Team Bakesmode (espn18097839)",
+        "manager": "espn18097839",
+        "opp": "Team Draft order (espn77607341)",
+        "opp_manager": "espn77607341",
         "actual": 90.48,
         "proj": 127.36,
         "diff": -36.88,
@@ -12020,10 +12020,10 @@
     ],
     "8": [
       {
-        "team": "Team Kendall (Robert Kendall)",
-        "manager": "Robert Kendall",
-        "opp": "The American Dream (Miles Spainhower)",
-        "opp_manager": "Miles Spainhower",
+        "team": "Team Kendall (bobkendall)",
+        "manager": "bobkendall",
+        "opp": "The American Dream (ESPNFAN5802359532)",
+        "opp_manager": "ESPNFAN5802359532",
         "actual": 129.54,
         "proj": 127.56,
         "diff": 1.98,
@@ -12167,10 +12167,10 @@
         "luck_delta": -0.818
       },
       {
-        "team": "The American Dream (Miles Spainhower)",
-        "manager": "Miles Spainhower",
-        "opp": "Team Kendall (Robert Kendall)",
-        "opp_manager": "Robert Kendall",
+        "team": "The American Dream (ESPNFAN5802359532)",
+        "manager": "ESPNFAN5802359532",
+        "opp": "Team Kendall (bobkendall)",
+        "opp_manager": "bobkendall",
         "actual": 153.58,
         "proj": 118.3,
         "diff": 35.28,
@@ -12314,10 +12314,10 @@
         "luck_delta": 0.091
       },
       {
-        "team": "THE G-MEN (TRAVIS GIBSON)",
-        "manager": "TRAVIS GIBSON",
-        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "opp_manager": "Eric King",
+        "team": "THE G-MEN (espn29925699)",
+        "manager": "espn29925699",
+        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "opp_manager": "espnfan5588026911",
         "actual": 129.2,
         "proj": 115.12,
         "diff": 14.08,
@@ -12461,10 +12461,10 @@
         "luck_delta": 0.273
       },
       {
-        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "manager": "Eric King",
-        "opp": "THE G-MEN (TRAVIS GIBSON)",
-        "opp_manager": "TRAVIS GIBSON",
+        "team": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "manager": "espnfan5588026911",
+        "opp": "THE G-MEN (espn29925699)",
+        "opp_manager": "espn29925699",
         "actual": 115.46,
         "proj": 111.82,
         "diff": 3.64,
@@ -12600,10 +12600,10 @@
         "luck_delta": -0.455
       },
       {
-        "team": "Off In the Corner (Billy Haid)",
-        "manager": "Billy Haid",
-        "opp": "No Punt Intended  (Kurt Claycomb)",
-        "opp_manager": "Kurt Claycomb",
+        "team": "Off In the Corner (ESPNfan5100958789)",
+        "manager": "ESPNfan5100958789",
+        "opp": "No Punt Intended  (espn07439906)",
+        "opp_manager": "espn07439906",
         "actual": 106.32,
         "proj": 118.38,
         "diff": -12.06,
@@ -12747,10 +12747,10 @@
         "luck_delta": -0.273
       },
       {
-        "team": "No Punt Intended  (Kurt Claycomb)",
-        "manager": "Kurt Claycomb",
-        "opp": "Off In the Corner (Billy Haid)",
-        "opp_manager": "Billy Haid",
+        "team": "No Punt Intended  (espn07439906)",
+        "manager": "espn07439906",
+        "opp": "Off In the Corner (ESPNfan5100958789)",
+        "opp_manager": "ESPNfan5100958789",
         "actual": 157.22,
         "proj": 138.24,
         "diff": 18.98,
@@ -12886,10 +12886,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "Team Unvaxxed (Jared Schneider)",
-        "manager": "Jared Schneider",
-        "opp": "Puka Time (trentan busey)",
-        "opp_manager": "trentan busey",
+        "team": "Team Unvaxxed (Jaredks785)",
+        "manager": "Jaredks785",
+        "opp": "Puka Time (ouman29)",
+        "opp_manager": "ouman29",
         "actual": 87.72,
         "proj": 106.46,
         "diff": -18.74,
@@ -13025,10 +13025,10 @@
         "luck_delta": -0.091
       },
       {
-        "team": "Puka Time (trentan busey)",
-        "manager": "trentan busey",
-        "opp": "Team Unvaxxed (Jared Schneider)",
-        "opp_manager": "Jared Schneider",
+        "team": "Puka Time (ouman29)",
+        "manager": "ouman29",
+        "opp": "Team Unvaxxed (Jaredks785)",
+        "opp_manager": "Jaredks785",
         "actual": 88.22,
         "proj": 111.02,
         "diff": -22.8,
@@ -13172,10 +13172,10 @@
         "luck_delta": 0.818
       },
       {
-        "team": "Team Bakesmode (Ron Baker)",
-        "manager": "Ron Baker",
-        "opp": "Team Freedom (Roman Bayless)",
-        "opp_manager": "Roman Bayless",
+        "team": "Team Bakesmode (espn18097839)",
+        "manager": "espn18097839",
+        "opp": "Team Freedom (ESPNFAN8902530024)",
+        "opp_manager": "ESPNFAN8902530024",
         "actual": 122.62,
         "proj": 112.02,
         "diff": 10.6,
@@ -13319,10 +13319,10 @@
         "luck_delta": 0.364
       },
       {
-        "team": "Team Freedom (Roman Bayless)",
-        "manager": "Roman Bayless",
-        "opp": "Team Bakesmode (Ron Baker)",
-        "opp_manager": "Ron Baker",
+        "team": "Team Freedom (ESPNFAN8902530024)",
+        "manager": "ESPNFAN8902530024",
+        "opp": "Team Bakesmode (espn18097839)",
+        "opp_manager": "espn18097839",
         "actual": 78.68,
         "proj": 95.7,
         "diff": -17.02,
@@ -13466,10 +13466,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "Rejected Kamala (jeremy bayless)",
-        "manager": "jeremy bayless",
-        "opp": "Team Draft order (Wes Colson)",
-        "opp_manager": "Wes Colson",
+        "team": "Rejected Kamala (espn20860330)",
+        "manager": "espn20860330",
+        "opp": "Team Draft order (espn77607341)",
+        "opp_manager": "espn77607341",
         "actual": 115.84,
         "proj": 105.32,
         "diff": 10.52,
@@ -13605,10 +13605,10 @@
         "luck_delta": 0.455
       },
       {
-        "team": "Team Draft order (Wes Colson)",
-        "manager": "Wes Colson",
-        "opp": "Rejected Kamala (jeremy bayless)",
-        "opp_manager": "jeremy bayless",
+        "team": "Team Draft order (espn77607341)",
+        "manager": "espn77607341",
+        "opp": "Rejected Kamala (espn20860330)",
+        "opp_manager": "espn20860330",
         "actual": 106.62,
         "proj": 123.23,
         "diff": -16.61,
@@ -13746,10 +13746,10 @@
     ],
     "9": [
       {
-        "team": "The American Dream (Miles Spainhower)",
-        "manager": "Miles Spainhower",
-        "opp": "THE G-MEN (TRAVIS GIBSON)",
-        "opp_manager": "TRAVIS GIBSON",
+        "team": "The American Dream (ESPNFAN5802359532)",
+        "manager": "ESPNFAN5802359532",
+        "opp": "THE G-MEN (espn29925699)",
+        "opp_manager": "espn29925699",
         "actual": 128.2,
         "proj": 112.25,
         "diff": 15.95,
@@ -13893,10 +13893,10 @@
         "luck_delta": -0.727
       },
       {
-        "team": "THE G-MEN (TRAVIS GIBSON)",
-        "manager": "TRAVIS GIBSON",
-        "opp": "The American Dream (Miles Spainhower)",
-        "opp_manager": "Miles Spainhower",
+        "team": "THE G-MEN (espn29925699)",
+        "manager": "espn29925699",
+        "opp": "The American Dream (ESPNFAN5802359532)",
+        "opp_manager": "ESPNFAN5802359532",
         "actual": 134.82,
         "proj": 128.08,
         "diff": 6.74,
@@ -14040,10 +14040,10 @@
         "luck_delta": 0.182
       },
       {
-        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "manager": "Eric King",
-        "opp": "Off In the Corner (Billy Haid)",
-        "opp_manager": "Billy Haid",
+        "team": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "manager": "espnfan5588026911",
+        "opp": "Off In the Corner (ESPNfan5100958789)",
+        "opp_manager": "ESPNfan5100958789",
         "actual": 111.1,
         "proj": 112.19,
         "diff": -1.09,
@@ -14179,10 +14179,10 @@
         "luck_delta": -0.364
       },
       {
-        "team": "Off In the Corner (Billy Haid)",
-        "manager": "Billy Haid",
-        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "opp_manager": "Eric King",
+        "team": "Off In the Corner (ESPNfan5100958789)",
+        "manager": "ESPNfan5100958789",
+        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "opp_manager": "espnfan5588026911",
         "actual": 158.06,
         "proj": 128.92,
         "diff": 29.14,
@@ -14326,10 +14326,10 @@
         "luck_delta": 0.091
       },
       {
-        "team": "No Punt Intended  (Kurt Claycomb)",
-        "manager": "Kurt Claycomb",
-        "opp": "Team Unvaxxed (Jared Schneider)",
-        "opp_manager": "Jared Schneider",
+        "team": "No Punt Intended  (espn07439906)",
+        "manager": "espn07439906",
+        "opp": "Team Unvaxxed (Jaredks785)",
+        "opp_manager": "Jaredks785",
         "actual": 96.26,
         "proj": 141.51,
         "diff": -45.25,
@@ -14465,10 +14465,10 @@
         "luck_delta": -0.182
       },
       {
-        "team": "Team Unvaxxed (Jared Schneider)",
-        "manager": "Jared Schneider",
-        "opp": "No Punt Intended  (Kurt Claycomb)",
-        "opp_manager": "Kurt Claycomb",
+        "team": "Team Unvaxxed (Jaredks785)",
+        "manager": "Jaredks785",
+        "opp": "No Punt Intended  (espn07439906)",
+        "opp_manager": "espn07439906",
         "actual": 115.48,
         "proj": 121.66,
         "diff": -6.18,
@@ -14604,10 +14604,10 @@
         "luck_delta": 0.455
       },
       {
-        "team": "Puka Time (trentan busey)",
-        "manager": "trentan busey",
-        "opp": "Team Bakesmode (Ron Baker)",
-        "opp_manager": "Ron Baker",
+        "team": "Puka Time (ouman29)",
+        "manager": "ouman29",
+        "opp": "Team Bakesmode (espn18097839)",
+        "opp_manager": "espn18097839",
         "actual": 124.8,
         "proj": 129.45,
         "diff": -4.65,
@@ -14751,10 +14751,10 @@
         "luck_delta": 0.364
       },
       {
-        "team": "Team Bakesmode (Ron Baker)",
-        "manager": "Ron Baker",
-        "opp": "Puka Time (trentan busey)",
-        "opp_manager": "trentan busey",
+        "team": "Team Bakesmode (espn18097839)",
+        "manager": "espn18097839",
+        "opp": "Puka Time (ouman29)",
+        "opp_manager": "ouman29",
         "actual": 97.8,
         "proj": 128.42,
         "diff": -30.62,
@@ -14890,10 +14890,10 @@
         "luck_delta": -0.273
       },
       {
-        "team": "Team Freedom (Roman Bayless)",
-        "manager": "Roman Bayless",
-        "opp": "Rejected Kamala (jeremy bayless)",
-        "opp_manager": "jeremy bayless",
+        "team": "Team Freedom (ESPNFAN8902530024)",
+        "manager": "ESPNFAN8902530024",
+        "opp": "Rejected Kamala (espn20860330)",
+        "opp_manager": "espn20860330",
         "actual": 113.62,
         "proj": 121.06,
         "diff": -7.44,
@@ -15037,10 +15037,10 @@
         "luck_delta": 0.545
       },
       {
-        "team": "Rejected Kamala (jeremy bayless)",
-        "manager": "jeremy bayless",
-        "opp": "Team Freedom (Roman Bayless)",
-        "opp_manager": "Roman Bayless",
+        "team": "Rejected Kamala (espn20860330)",
+        "manager": "espn20860330",
+        "opp": "Team Freedom (ESPNFAN8902530024)",
+        "opp_manager": "ESPNFAN8902530024",
         "actual": 91.22,
         "proj": 113.28,
         "diff": -22.06,
@@ -15176,10 +15176,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "Team Draft order (Wes Colson)",
-        "manager": "Wes Colson",
-        "opp": "Team Kendall (Robert Kendall)",
-        "opp_manager": "Robert Kendall",
+        "team": "Team Draft order (espn77607341)",
+        "manager": "espn77607341",
+        "opp": "Team Kendall (bobkendall)",
+        "opp_manager": "bobkendall",
         "actual": 95.28,
         "proj": 122.97,
         "diff": -27.69,
@@ -15315,10 +15315,10 @@
         "luck_delta": -0.091
       },
       {
-        "team": "Team Kendall (Robert Kendall)",
-        "manager": "Robert Kendall",
-        "opp": "Team Draft order (Wes Colson)",
-        "opp_manager": "Wes Colson",
+        "team": "Team Kendall (bobkendall)",
+        "manager": "bobkendall",
+        "opp": "Team Draft order (espn77607341)",
+        "opp_manager": "espn77607341",
         "actual": 181.58,
         "proj": 120.21,
         "diff": 61.37,
@@ -15464,10 +15464,10 @@
     ],
     "10": [
       {
-        "team": "Off In the Corner (Billy Haid)",
-        "manager": "Billy Haid",
-        "opp": "The American Dream (Miles Spainhower)",
-        "opp_manager": "Miles Spainhower",
+        "team": "Off In the Corner (ESPNfan5100958789)",
+        "manager": "ESPNfan5100958789",
+        "opp": "The American Dream (ESPNFAN5802359532)",
+        "opp_manager": "ESPNFAN5802359532",
         "actual": 107.84,
         "proj": 130.79,
         "diff": -22.95,
@@ -15611,10 +15611,10 @@
         "luck_delta": -0.273
       },
       {
-        "team": "The American Dream (Miles Spainhower)",
-        "manager": "Miles Spainhower",
-        "opp": "Off In the Corner (Billy Haid)",
-        "opp_manager": "Billy Haid",
+        "team": "The American Dream (ESPNFAN5802359532)",
+        "manager": "ESPNFAN5802359532",
+        "opp": "Off In the Corner (ESPNfan5100958789)",
+        "opp_manager": "ESPNfan5100958789",
         "actual": 125.4,
         "proj": 118.8,
         "diff": 6.6,
@@ -15758,10 +15758,10 @@
         "luck_delta": 0.273
       },
       {
-        "team": "Team Unvaxxed (Jared Schneider)",
-        "manager": "Jared Schneider",
-        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "opp_manager": "Eric King",
+        "team": "Team Unvaxxed (Jaredks785)",
+        "manager": "Jaredks785",
+        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "opp_manager": "espnfan5588026911",
         "actual": 113.7,
         "proj": 107.15,
         "diff": 6.55,
@@ -15897,10 +15897,10 @@
         "luck_delta": 0.636
       },
       {
-        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "manager": "Eric King",
-        "opp": "Team Unvaxxed (Jared Schneider)",
-        "opp_manager": "Jared Schneider",
+        "team": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "manager": "espnfan5588026911",
+        "opp": "Team Unvaxxed (Jaredks785)",
+        "opp_manager": "Jaredks785",
         "actual": 101.32,
         "proj": 115.6,
         "diff": -14.28,
@@ -16036,10 +16036,10 @@
         "luck_delta": -0.182
       },
       {
-        "team": "Team Bakesmode (Ron Baker)",
-        "manager": "Ron Baker",
-        "opp": "No Punt Intended  (Kurt Claycomb)",
-        "opp_manager": "Kurt Claycomb",
+        "team": "Team Bakesmode (espn18097839)",
+        "manager": "espn18097839",
+        "opp": "No Punt Intended  (espn07439906)",
+        "opp_manager": "espn07439906",
         "actual": 116.72,
         "proj": 125.12,
         "diff": -8.4,
@@ -16175,10 +16175,10 @@
         "luck_delta": -0.545
       },
       {
-        "team": "No Punt Intended  (Kurt Claycomb)",
-        "manager": "Kurt Claycomb",
-        "opp": "Team Bakesmode (Ron Baker)",
-        "opp_manager": "Ron Baker",
+        "team": "No Punt Intended  (espn07439906)",
+        "manager": "espn07439906",
+        "opp": "Team Bakesmode (espn18097839)",
+        "opp_manager": "espn18097839",
         "actual": 179.02,
         "proj": 136.21,
         "diff": 42.81,
@@ -16314,10 +16314,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "Rejected Kamala (jeremy bayless)",
-        "manager": "jeremy bayless",
-        "opp": "Puka Time (trentan busey)",
-        "opp_manager": "trentan busey",
+        "team": "Rejected Kamala (espn20860330)",
+        "manager": "espn20860330",
+        "opp": "Puka Time (ouman29)",
+        "opp_manager": "ouman29",
         "actual": 115.02,
         "proj": 104.89,
         "diff": 10.13,
@@ -16461,10 +16461,10 @@
         "luck_delta": -0.455
       },
       {
-        "team": "Puka Time (trentan busey)",
-        "manager": "trentan busey",
-        "opp": "Rejected Kamala (jeremy bayless)",
-        "opp_manager": "jeremy bayless",
+        "team": "Puka Time (ouman29)",
+        "manager": "ouman29",
+        "opp": "Rejected Kamala (espn20860330)",
+        "opp_manager": "espn20860330",
         "actual": 136.82,
         "proj": 125.96,
         "diff": 10.86,
@@ -16608,10 +16608,10 @@
         "luck_delta": 0.182
       },
       {
-        "team": "Team Kendall (Robert Kendall)",
-        "manager": "Robert Kendall",
-        "opp": "Team Freedom (Roman Bayless)",
-        "opp_manager": "Roman Bayless",
+        "team": "Team Kendall (bobkendall)",
+        "manager": "bobkendall",
+        "opp": "Team Freedom (ESPNFAN8902530024)",
+        "opp_manager": "ESPNFAN8902530024",
         "actual": 75.0,
         "proj": 117.0,
         "diff": -42.0,
@@ -16755,10 +16755,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "Team Freedom (Roman Bayless)",
-        "manager": "Roman Bayless",
-        "opp": "Team Kendall (Robert Kendall)",
-        "opp_manager": "Robert Kendall",
+        "team": "Team Freedom (ESPNFAN8902530024)",
+        "manager": "ESPNFAN8902530024",
+        "opp": "Team Kendall (bobkendall)",
+        "opp_manager": "bobkendall",
         "actual": 99.9,
         "proj": 128.31,
         "diff": -28.41,
@@ -16902,10 +16902,10 @@
         "luck_delta": 0.909
       },
       {
-        "team": "THE G-MEN (TRAVIS GIBSON)",
-        "manager": "TRAVIS GIBSON",
-        "opp": "Team Draft order (Wes Colson)",
-        "opp_manager": "Wes Colson",
+        "team": "THE G-MEN (espn29925699)",
+        "manager": "espn29925699",
+        "opp": "Team Draft order (espn77607341)",
+        "opp_manager": "espn77607341",
         "actual": 140.2,
         "proj": 127.71,
         "diff": 12.49,
@@ -17049,10 +17049,10 @@
         "luck_delta": 0.091
       },
       {
-        "team": "Team Draft order (Wes Colson)",
-        "manager": "Wes Colson",
-        "opp": "THE G-MEN (TRAVIS GIBSON)",
-        "opp_manager": "TRAVIS GIBSON",
+        "team": "Team Draft order (espn77607341)",
+        "manager": "espn77607341",
+        "opp": "THE G-MEN (espn29925699)",
+        "opp_manager": "espn29925699",
         "actual": 125.3,
         "proj": 105.58,
         "diff": 19.72,
@@ -17190,10 +17190,10 @@
     ],
     "11": [
       {
-        "team": "The American Dream (Miles Spainhower)",
-        "manager": "Miles Spainhower",
-        "opp": "Team Unvaxxed (Jared Schneider)",
-        "opp_manager": "Jared Schneider",
+        "team": "The American Dream (ESPNFAN5802359532)",
+        "manager": "ESPNFAN5802359532",
+        "opp": "Team Unvaxxed (Jaredks785)",
+        "opp_manager": "Jaredks785",
         "actual": 118.9,
         "proj": 113.51,
         "diff": 5.39,
@@ -17329,10 +17329,10 @@
         "luck_delta": 0.182
       },
       {
-        "team": "Team Unvaxxed (Jared Schneider)",
-        "manager": "Jared Schneider",
-        "opp": "The American Dream (Miles Spainhower)",
-        "opp_manager": "Miles Spainhower",
+        "team": "Team Unvaxxed (Jaredks785)",
+        "manager": "Jaredks785",
+        "opp": "The American Dream (ESPNFAN5802359532)",
+        "opp_manager": "ESPNFAN5802359532",
         "actual": 113.1,
         "proj": 103.57,
         "diff": 9.53,
@@ -17468,10 +17468,10 @@
         "luck_delta": -0.727
       },
       {
-        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "manager": "Eric King",
-        "opp": "Team Bakesmode (Ron Baker)",
-        "opp_manager": "Ron Baker",
+        "team": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "manager": "espnfan5588026911",
+        "opp": "Team Bakesmode (espn18097839)",
+        "opp_manager": "espn18097839",
         "actual": 90.2,
         "proj": 124.79,
         "diff": -34.59,
@@ -17607,10 +17607,10 @@
         "luck_delta": -0.182
       },
       {
-        "team": "Team Bakesmode (Ron Baker)",
-        "manager": "Ron Baker",
-        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "opp_manager": "Eric King",
+        "team": "Team Bakesmode (espn18097839)",
+        "manager": "espn18097839",
+        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "opp_manager": "espnfan5588026911",
         "actual": 108.82,
         "proj": 126.1,
         "diff": -17.28,
@@ -17754,10 +17754,10 @@
         "luck_delta": 0.364
       },
       {
-        "team": "No Punt Intended  (Kurt Claycomb)",
-        "manager": "Kurt Claycomb",
-        "opp": "Rejected Kamala (jeremy bayless)",
-        "opp_manager": "jeremy bayless",
+        "team": "No Punt Intended  (espn07439906)",
+        "manager": "espn07439906",
+        "opp": "Rejected Kamala (espn20860330)",
+        "opp_manager": "espn20860330",
         "actual": 126.18,
         "proj": 130.16,
         "diff": -3.98,
@@ -17893,10 +17893,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "Rejected Kamala (jeremy bayless)",
-        "manager": "jeremy bayless",
-        "opp": "No Punt Intended  (Kurt Claycomb)",
-        "opp_manager": "Kurt Claycomb",
+        "team": "Rejected Kamala (espn20860330)",
+        "manager": "espn20860330",
+        "opp": "No Punt Intended  (espn07439906)",
+        "opp_manager": "espn07439906",
         "actual": 89.14,
         "proj": 114.85,
         "diff": -25.71,
@@ -18040,10 +18040,10 @@
         "luck_delta": -0.091
       },
       {
-        "team": "Puka Time (trentan busey)",
-        "manager": "trentan busey",
-        "opp": "Team Kendall (Robert Kendall)",
-        "opp_manager": "Robert Kendall",
+        "team": "Puka Time (ouman29)",
+        "manager": "ouman29",
+        "opp": "Team Kendall (bobkendall)",
+        "opp_manager": "bobkendall",
         "actual": 123.12,
         "proj": 124.54,
         "diff": -1.42,
@@ -18187,10 +18187,10 @@
         "luck_delta": 0.091
       },
       {
-        "team": "Team Kendall (Robert Kendall)",
-        "manager": "Robert Kendall",
-        "opp": "Puka Time (trentan busey)",
-        "opp_manager": "trentan busey",
+        "team": "Team Kendall (bobkendall)",
+        "manager": "bobkendall",
+        "opp": "Puka Time (ouman29)",
+        "opp_manager": "ouman29",
         "actual": 101.24,
         "proj": 126.46,
         "diff": -25.22,
@@ -18334,10 +18334,10 @@
         "luck_delta": -0.455
       },
       {
-        "team": "Team Freedom (Roman Bayless)",
-        "manager": "Roman Bayless",
-        "opp": "THE G-MEN (TRAVIS GIBSON)",
-        "opp_manager": "TRAVIS GIBSON",
+        "team": "Team Freedom (ESPNFAN8902530024)",
+        "manager": "ESPNFAN8902530024",
+        "opp": "THE G-MEN (espn29925699)",
+        "opp_manager": "espn29925699",
         "actual": 80.1,
         "proj": 120.76,
         "diff": -40.66,
@@ -18473,10 +18473,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "THE G-MEN (TRAVIS GIBSON)",
-        "manager": "TRAVIS GIBSON",
-        "opp": "Team Freedom (Roman Bayless)",
-        "opp_manager": "Roman Bayless",
+        "team": "THE G-MEN (espn29925699)",
+        "manager": "espn29925699",
+        "opp": "Team Freedom (ESPNFAN8902530024)",
+        "opp_manager": "ESPNFAN8902530024",
         "actual": 101.4,
         "proj": 135.77,
         "diff": -34.37,
@@ -18620,10 +18620,10 @@
         "luck_delta": 0.455
       },
       {
-        "team": "Team Draft order (Wes Colson)",
-        "manager": "Wes Colson",
-        "opp": "Off In the Corner (Billy Haid)",
-        "opp_manager": "Billy Haid",
+        "team": "Team Draft order (espn77607341)",
+        "manager": "espn77607341",
+        "opp": "Off In the Corner (ESPNfan5100958789)",
+        "opp_manager": "ESPNfan5100958789",
         "actual": 92.2,
         "proj": 120.92,
         "diff": -28.72,
@@ -18759,10 +18759,10 @@
         "luck_delta": -0.273
       },
       {
-        "team": "Off In the Corner (Billy Haid)",
-        "manager": "Billy Haid",
-        "opp": "Team Draft order (Wes Colson)",
-        "opp_manager": "Wes Colson",
+        "team": "Off In the Corner (ESPNfan5100958789)",
+        "manager": "ESPNfan5100958789",
+        "opp": "Team Draft order (espn77607341)",
+        "opp_manager": "espn77607341",
         "actual": 92.72,
         "proj": 124.3,
         "diff": -31.58,
@@ -18908,10 +18908,10 @@
     ],
     "12": [
       {
-        "team": "The American Dream (Miles Spainhower)",
-        "manager": "Miles Spainhower",
-        "opp": "Team Bakesmode (Ron Baker)",
-        "opp_manager": "Ron Baker",
+        "team": "The American Dream (ESPNFAN5802359532)",
+        "manager": "ESPNFAN5802359532",
+        "opp": "Team Bakesmode (espn18097839)",
+        "opp_manager": "espn18097839",
         "actual": 113.72,
         "proj": 127.38,
         "diff": -13.66,
@@ -19047,10 +19047,10 @@
         "luck_delta": -0.273
       },
       {
-        "team": "Team Bakesmode (Ron Baker)",
-        "manager": "Ron Baker",
-        "opp": "The American Dream (Miles Spainhower)",
-        "opp_manager": "Miles Spainhower",
+        "team": "Team Bakesmode (espn18097839)",
+        "manager": "espn18097839",
+        "opp": "The American Dream (ESPNFAN5802359532)",
+        "opp_manager": "ESPNFAN5802359532",
         "actual": 129.46,
         "proj": 121.28,
         "diff": 8.18,
@@ -19194,10 +19194,10 @@
         "luck_delta": 0.364
       },
       {
-        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "manager": "Eric King",
-        "opp": "Rejected Kamala (jeremy bayless)",
-        "opp_manager": "jeremy bayless",
+        "team": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "manager": "espnfan5588026911",
+        "opp": "Rejected Kamala (espn20860330)",
+        "opp_manager": "espn20860330",
         "actual": 138.86,
         "proj": 125.93,
         "diff": 12.93,
@@ -19333,10 +19333,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "Rejected Kamala (jeremy bayless)",
-        "manager": "jeremy bayless",
-        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "opp_manager": "Eric King",
+        "team": "Rejected Kamala (espn20860330)",
+        "manager": "espn20860330",
+        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "opp_manager": "espnfan5588026911",
         "actual": 134.68,
         "proj": 111.99,
         "diff": 22.69,
@@ -19480,10 +19480,10 @@
         "luck_delta": -0.727
       },
       {
-        "team": "No Punt Intended  (Kurt Claycomb)",
-        "manager": "Kurt Claycomb",
-        "opp": "Team Kendall (Robert Kendall)",
-        "opp_manager": "Robert Kendall",
+        "team": "No Punt Intended  (espn07439906)",
+        "manager": "espn07439906",
+        "opp": "Team Kendall (bobkendall)",
+        "opp_manager": "bobkendall",
         "actual": 75.26,
         "proj": 123.26,
         "diff": -48.0,
@@ -19619,10 +19619,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "Team Kendall (Robert Kendall)",
-        "manager": "Robert Kendall",
-        "opp": "No Punt Intended  (Kurt Claycomb)",
-        "opp_manager": "Kurt Claycomb",
+        "team": "Team Kendall (bobkendall)",
+        "manager": "bobkendall",
+        "opp": "No Punt Intended  (espn07439906)",
+        "opp_manager": "espn07439906",
         "actual": 138.3,
         "proj": 118.64,
         "diff": 19.66,
@@ -19766,10 +19766,10 @@
         "luck_delta": 0.091
       },
       {
-        "team": "Puka Time (trentan busey)",
-        "manager": "trentan busey",
-        "opp": "THE G-MEN (TRAVIS GIBSON)",
-        "opp_manager": "TRAVIS GIBSON",
+        "team": "Puka Time (ouman29)",
+        "manager": "ouman29",
+        "opp": "THE G-MEN (espn29925699)",
+        "opp_manager": "espn29925699",
         "actual": 121.44,
         "proj": 124.92,
         "diff": -3.48,
@@ -19913,10 +19913,10 @@
         "luck_delta": 0.545
       },
       {
-        "team": "THE G-MEN (TRAVIS GIBSON)",
-        "manager": "TRAVIS GIBSON",
-        "opp": "Puka Time (trentan busey)",
-        "opp_manager": "trentan busey",
+        "team": "THE G-MEN (espn29925699)",
+        "manager": "espn29925699",
+        "opp": "Puka Time (ouman29)",
+        "opp_manager": "ouman29",
         "actual": 93.26,
         "proj": 110.81,
         "diff": -17.55,
@@ -20060,10 +20060,10 @@
         "luck_delta": -0.091
       },
       {
-        "team": "Team Freedom (Roman Bayless)",
-        "manager": "Roman Bayless",
-        "opp": "Off In the Corner (Billy Haid)",
-        "opp_manager": "Billy Haid",
+        "team": "Team Freedom (ESPNFAN8902530024)",
+        "manager": "ESPNFAN8902530024",
+        "opp": "Off In the Corner (ESPNfan5100958789)",
+        "opp_manager": "ESPNfan5100958789",
         "actual": 128.78,
         "proj": 122.14,
         "diff": 6.64,
@@ -20207,10 +20207,10 @@
         "luck_delta": 0.455
       },
       {
-        "team": "Off In the Corner (Billy Haid)",
-        "manager": "Billy Haid",
-        "opp": "Team Freedom (Roman Bayless)",
-        "opp_manager": "Roman Bayless",
+        "team": "Off In the Corner (ESPNfan5100958789)",
+        "manager": "ESPNfan5100958789",
+        "opp": "Team Freedom (ESPNFAN8902530024)",
+        "opp_manager": "ESPNFAN8902530024",
         "actual": 118.82,
         "proj": 130.02,
         "diff": -11.2,
@@ -20354,10 +20354,10 @@
         "luck_delta": -0.364
       },
       {
-        "team": "Team Draft order (Wes Colson)",
-        "manager": "Wes Colson",
-        "opp": "Team Unvaxxed (Jared Schneider)",
-        "opp_manager": "Jared Schneider",
+        "team": "Team Draft order (espn77607341)",
+        "manager": "espn77607341",
+        "opp": "Team Unvaxxed (Jaredks785)",
+        "opp_manager": "Jaredks785",
         "actual": 137.4,
         "proj": 124.17,
         "diff": 13.23,
@@ -20493,10 +20493,10 @@
         "luck_delta": 0.182
       },
       {
-        "team": "Team Unvaxxed (Jared Schneider)",
-        "manager": "Jared Schneider",
-        "opp": "Team Draft order (Wes Colson)",
-        "opp_manager": "Wes Colson",
+        "team": "Team Unvaxxed (Jaredks785)",
+        "manager": "Jaredks785",
+        "opp": "Team Draft order (espn77607341)",
+        "opp_manager": "espn77607341",
         "actual": 98.6,
         "proj": 111.63,
         "diff": -13.03,
@@ -20634,10 +20634,10 @@
     ],
     "13": [
       {
-        "team": "Rejected Kamala (jeremy bayless)",
-        "manager": "jeremy bayless",
-        "opp": "The American Dream (Miles Spainhower)",
-        "opp_manager": "Miles Spainhower",
+        "team": "Rejected Kamala (espn20860330)",
+        "manager": "espn20860330",
+        "opp": "The American Dream (ESPNFAN5802359532)",
+        "opp_manager": "ESPNFAN5802359532",
         "actual": 91.42,
         "proj": 115.54,
         "diff": -24.12,
@@ -20781,10 +20781,10 @@
         "luck_delta": -0.182
       },
       {
-        "team": "The American Dream (Miles Spainhower)",
-        "manager": "Miles Spainhower",
-        "opp": "Rejected Kamala (jeremy bayless)",
-        "opp_manager": "jeremy bayless",
+        "team": "The American Dream (ESPNFAN5802359532)",
+        "manager": "ESPNFAN5802359532",
+        "opp": "Rejected Kamala (espn20860330)",
+        "opp_manager": "espn20860330",
         "actual": 117.62,
         "proj": 123.38,
         "diff": -5.76,
@@ -20920,10 +20920,10 @@
         "luck_delta": 0.364
       },
       {
-        "team": "Team Kendall (Robert Kendall)",
-        "manager": "Robert Kendall",
-        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "opp_manager": "Eric King",
+        "team": "Team Kendall (bobkendall)",
+        "manager": "bobkendall",
+        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "opp_manager": "espnfan5588026911",
         "actual": 84.28,
         "proj": 118.89,
         "diff": -34.61,
@@ -21067,10 +21067,10 @@
         "luck_delta": -0.091
       },
       {
-        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "manager": "Eric King",
-        "opp": "Team Kendall (Robert Kendall)",
-        "opp_manager": "Robert Kendall",
+        "team": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "manager": "espnfan5588026911",
+        "opp": "Team Kendall (bobkendall)",
+        "opp_manager": "bobkendall",
         "actual": 95.6,
         "proj": 120.59,
         "diff": -24.99,
@@ -21206,10 +21206,10 @@
         "luck_delta": 0.636
       },
       {
-        "team": "THE G-MEN (TRAVIS GIBSON)",
-        "manager": "TRAVIS GIBSON",
-        "opp": "No Punt Intended  (Kurt Claycomb)",
-        "opp_manager": "Kurt Claycomb",
+        "team": "THE G-MEN (espn29925699)",
+        "manager": "espn29925699",
+        "opp": "No Punt Intended  (espn07439906)",
+        "opp_manager": "espn07439906",
         "actual": 142.64,
         "proj": 132.6,
         "diff": 10.04,
@@ -21345,10 +21345,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "No Punt Intended  (Kurt Claycomb)",
-        "manager": "Kurt Claycomb",
-        "opp": "THE G-MEN (TRAVIS GIBSON)",
-        "opp_manager": "TRAVIS GIBSON",
+        "team": "No Punt Intended  (espn07439906)",
+        "manager": "espn07439906",
+        "opp": "THE G-MEN (espn29925699)",
+        "opp_manager": "espn29925699",
         "actual": 141.68,
         "proj": 137.91,
         "diff": 3.77,
@@ -21484,10 +21484,10 @@
         "luck_delta": -0.909
       },
       {
-        "team": "Off In the Corner (Billy Haid)",
-        "manager": "Billy Haid",
-        "opp": "Puka Time (trentan busey)",
-        "opp_manager": "trentan busey",
+        "team": "Off In the Corner (ESPNfan5100958789)",
+        "manager": "ESPNfan5100958789",
+        "opp": "Puka Time (ouman29)",
+        "opp_manager": "ouman29",
         "actual": 78.24,
         "proj": 117.51,
         "diff": -39.27,
@@ -21631,10 +21631,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "Puka Time (trentan busey)",
-        "manager": "trentan busey",
-        "opp": "Off In the Corner (Billy Haid)",
-        "opp_manager": "Billy Haid",
+        "team": "Puka Time (ouman29)",
+        "manager": "ouman29",
+        "opp": "Off In the Corner (ESPNfan5100958789)",
+        "opp_manager": "ESPNfan5100958789",
         "actual": 108.14,
         "proj": 122.97,
         "diff": -14.83,
@@ -21778,10 +21778,10 @@
         "luck_delta": 0.455
       },
       {
-        "team": "Team Unvaxxed (Jared Schneider)",
-        "manager": "Jared Schneider",
-        "opp": "Team Freedom (Roman Bayless)",
-        "opp_manager": "Roman Bayless",
+        "team": "Team Unvaxxed (Jaredks785)",
+        "manager": "Jaredks785",
+        "opp": "Team Freedom (ESPNFAN8902530024)",
+        "opp_manager": "ESPNFAN8902530024",
         "actual": 91.74,
         "proj": 113.51,
         "diff": -21.77,
@@ -21917,10 +21917,10 @@
         "luck_delta": -0.273
       },
       {
-        "team": "Team Freedom (Roman Bayless)",
-        "manager": "Roman Bayless",
-        "opp": "Team Unvaxxed (Jared Schneider)",
-        "opp_manager": "Jared Schneider",
+        "team": "Team Freedom (ESPNFAN8902530024)",
+        "manager": "ESPNFAN8902530024",
+        "opp": "Team Unvaxxed (Jaredks785)",
+        "opp_manager": "Jaredks785",
         "actual": 124.14,
         "proj": 121.7,
         "diff": 2.44,
@@ -22064,10 +22064,10 @@
         "luck_delta": 0.273
       },
       {
-        "team": "Team Bakesmode (Ron Baker)",
-        "manager": "Ron Baker",
-        "opp": "Team Draft order (Wes Colson)",
-        "opp_manager": "Wes Colson",
+        "team": "Team Bakesmode (espn18097839)",
+        "manager": "espn18097839",
+        "opp": "Team Draft order (espn77607341)",
+        "opp_manager": "espn77607341",
         "actual": 98.94,
         "proj": 116.95,
         "diff": -18.01,
@@ -22203,10 +22203,10 @@
         "luck_delta": -0.455
       },
       {
-        "team": "Team Draft order (Wes Colson)",
-        "manager": "Wes Colson",
-        "opp": "Team Bakesmode (Ron Baker)",
-        "opp_manager": "Ron Baker",
+        "team": "Team Draft order (espn77607341)",
+        "manager": "espn77607341",
+        "opp": "Team Bakesmode (espn18097839)",
+        "opp_manager": "espn18097839",
         "actual": 125.58,
         "proj": 120.48,
         "diff": 5.1,
@@ -22344,10 +22344,10 @@
     ],
     "14": [
       {
-        "team": "The American Dream (Miles Spainhower)",
-        "manager": "Miles Spainhower",
-        "opp": "Team Kendall (Robert Kendall)",
-        "opp_manager": "Robert Kendall",
+        "team": "The American Dream (ESPNFAN5802359532)",
+        "manager": "ESPNFAN5802359532",
+        "opp": "Team Kendall (bobkendall)",
+        "opp_manager": "bobkendall",
         "actual": 122.14,
         "proj": 114.54,
         "diff": 7.6,
@@ -22483,10 +22483,10 @@
         "luck_delta": 0.364
       },
       {
-        "team": "Team Kendall (Robert Kendall)",
-        "manager": "Robert Kendall",
-        "opp": "The American Dream (Miles Spainhower)",
-        "opp_manager": "Miles Spainhower",
+        "team": "Team Kendall (bobkendall)",
+        "manager": "bobkendall",
+        "opp": "The American Dream (ESPNFAN5802359532)",
+        "opp_manager": "ESPNFAN5802359532",
         "actual": 97.02,
         "proj": 109.62,
         "diff": -12.6,
@@ -22630,10 +22630,10 @@
         "luck_delta": -0.182
       },
       {
-        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "manager": "Eric King",
-        "opp": "THE G-MEN (TRAVIS GIBSON)",
-        "opp_manager": "TRAVIS GIBSON",
+        "team": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "manager": "espnfan5588026911",
+        "opp": "THE G-MEN (espn29925699)",
+        "opp_manager": "espn29925699",
         "actual": 99.8,
         "proj": 104.74,
         "diff": -4.94,
@@ -22769,10 +22769,10 @@
         "luck_delta": -0.364
       },
       {
-        "team": "THE G-MEN (TRAVIS GIBSON)",
-        "manager": "TRAVIS GIBSON",
-        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "opp_manager": "Eric King",
+        "team": "THE G-MEN (espn29925699)",
+        "manager": "espn29925699",
+        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "opp_manager": "espnfan5588026911",
         "actual": 116.26,
         "proj": 136.82,
         "diff": -20.56,
@@ -22908,10 +22908,10 @@
         "luck_delta": 0.545
       },
       {
-        "team": "No Punt Intended  (Kurt Claycomb)",
-        "manager": "Kurt Claycomb",
-        "opp": "Off In the Corner (Billy Haid)",
-        "opp_manager": "Billy Haid",
+        "team": "No Punt Intended  (espn07439906)",
+        "manager": "espn07439906",
+        "opp": "Off In the Corner (ESPNfan5100958789)",
+        "opp_manager": "ESPNfan5100958789",
         "actual": 143.52,
         "proj": 135.15,
         "diff": 8.37,
@@ -23047,10 +23047,10 @@
         "luck_delta": 0.091
       },
       {
-        "team": "Off In the Corner (Billy Haid)",
-        "manager": "Billy Haid",
-        "opp": "No Punt Intended  (Kurt Claycomb)",
-        "opp_manager": "Kurt Claycomb",
+        "team": "Off In the Corner (ESPNfan5100958789)",
+        "manager": "ESPNfan5100958789",
+        "opp": "No Punt Intended  (espn07439906)",
+        "opp_manager": "espn07439906",
         "actual": 98.06,
         "proj": 102.39,
         "diff": -4.33,
@@ -23194,10 +23194,10 @@
         "luck_delta": -0.273
       },
       {
-        "team": "Puka Time (trentan busey)",
-        "manager": "trentan busey",
-        "opp": "Team Unvaxxed (Jared Schneider)",
-        "opp_manager": "Jared Schneider",
+        "team": "Puka Time (ouman29)",
+        "manager": "ouman29",
+        "opp": "Team Unvaxxed (Jaredks785)",
+        "opp_manager": "Jaredks785",
         "actual": 155.12,
         "proj": 130.16,
         "diff": 24.96,
@@ -23341,10 +23341,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "Team Unvaxxed (Jared Schneider)",
-        "manager": "Jared Schneider",
-        "opp": "Puka Time (trentan busey)",
-        "opp_manager": "trentan busey",
+        "team": "Team Unvaxxed (Jaredks785)",
+        "manager": "Jaredks785",
+        "opp": "Puka Time (ouman29)",
+        "opp_manager": "ouman29",
         "actual": 38.04,
         "proj": 100.66,
         "diff": -62.62,
@@ -23480,10 +23480,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "Team Freedom (Roman Bayless)",
-        "manager": "Roman Bayless",
-        "opp": "Team Bakesmode (Ron Baker)",
-        "opp_manager": "Ron Baker",
+        "team": "Team Freedom (ESPNFAN8902530024)",
+        "manager": "ESPNFAN8902530024",
+        "opp": "Team Bakesmode (espn18097839)",
+        "opp_manager": "espn18097839",
         "actual": 133.98,
         "proj": 107.75,
         "diff": 26.23,
@@ -23627,10 +23627,10 @@
         "luck_delta": 0.182
       },
       {
-        "team": "Team Bakesmode (Ron Baker)",
-        "manager": "Ron Baker",
-        "opp": "Team Freedom (Roman Bayless)",
-        "opp_manager": "Roman Bayless",
+        "team": "Team Bakesmode (espn18097839)",
+        "manager": "espn18097839",
+        "opp": "Team Freedom (ESPNFAN8902530024)",
+        "opp_manager": "ESPNFAN8902530024",
         "actual": 133.66,
         "proj": 119.32,
         "diff": 14.34,
@@ -23766,10 +23766,10 @@
         "luck_delta": -0.727
       },
       {
-        "team": "Team Draft order (Wes Colson)",
-        "manager": "Wes Colson",
-        "opp": "Rejected Kamala (jeremy bayless)",
-        "opp_manager": "jeremy bayless",
+        "team": "Team Draft order (espn77607341)",
+        "manager": "espn77607341",
+        "opp": "Rejected Kamala (espn20860330)",
+        "opp_manager": "espn20860330",
         "actual": 91.32,
         "proj": 107.27,
         "diff": -15.95,
@@ -23905,10 +23905,10 @@
         "luck_delta": -0.091
       },
       {
-        "team": "Rejected Kamala (jeremy bayless)",
-        "manager": "jeremy bayless",
-        "opp": "Team Draft order (Wes Colson)",
-        "opp_manager": "Wes Colson",
+        "team": "Rejected Kamala (espn20860330)",
+        "manager": "espn20860330",
+        "opp": "Team Draft order (espn77607341)",
+        "opp_manager": "espn77607341",
         "actual": 118.8,
         "proj": 109.95,
         "diff": 8.85,
@@ -24054,10 +24054,10 @@
     ],
     "15": [
       {
-        "team": "Puka Time (trentan busey)",
-        "manager": "trentan busey",
-        "opp": "Team Draft order (Wes Colson)",
-        "opp_manager": "Wes Colson",
+        "team": "Puka Time (ouman29)",
+        "manager": "ouman29",
+        "opp": "Team Draft order (espn77607341)",
+        "opp_manager": "espn77607341",
         "actual": 142.1,
         "proj": 135.12,
         "diff": 6.98,
@@ -24201,10 +24201,10 @@
         "luck_delta": 0.455
       },
       {
-        "team": "Team Draft order (Wes Colson)",
-        "manager": "Wes Colson",
-        "opp": "Puka Time (trentan busey)",
-        "opp_manager": "trentan busey",
+        "team": "Team Draft order (espn77607341)",
+        "manager": "espn77607341",
+        "opp": "Puka Time (ouman29)",
+        "opp_manager": "ouman29",
         "actual": 116.76,
         "proj": 119.55,
         "diff": -2.79,
@@ -24340,10 +24340,10 @@
         "luck_delta": -0.273
       },
       {
-        "team": "THE G-MEN (TRAVIS GIBSON)",
-        "manager": "TRAVIS GIBSON",
-        "opp": "Team Freedom (Roman Bayless)",
-        "opp_manager": "Roman Bayless",
+        "team": "THE G-MEN (espn29925699)",
+        "manager": "espn29925699",
+        "opp": "Team Freedom (ESPNFAN8902530024)",
+        "opp_manager": "ESPNFAN8902530024",
         "actual": 156.92,
         "proj": 128.04,
         "diff": 28.88,
@@ -24479,10 +24479,10 @@
         "luck_delta": 0.091
       },
       {
-        "team": "Team Freedom (Roman Bayless)",
-        "manager": "Roman Bayless",
-        "opp": "THE G-MEN (TRAVIS GIBSON)",
-        "opp_manager": "TRAVIS GIBSON",
+        "team": "Team Freedom (ESPNFAN8902530024)",
+        "manager": "ESPNFAN8902530024",
+        "opp": "THE G-MEN (espn29925699)",
+        "opp_manager": "espn29925699",
         "actual": 152.0,
         "proj": 114.67,
         "diff": 37.33,
@@ -24626,10 +24626,10 @@
         "luck_delta": -0.818
       },
       {
-        "team": "Off In the Corner (Billy Haid)",
-        "manager": "Billy Haid",
-        "opp": "The American Dream (Miles Spainhower)",
-        "opp_manager": "Miles Spainhower",
+        "team": "Off In the Corner (ESPNfan5100958789)",
+        "manager": "ESPNfan5100958789",
+        "opp": "The American Dream (ESPNFAN5802359532)",
+        "opp_manager": "ESPNFAN5802359532",
         "actual": 90.38,
         "proj": 120.94,
         "diff": -30.56,
@@ -24773,10 +24773,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "The American Dream (Miles Spainhower)",
-        "manager": "Miles Spainhower",
-        "opp": "Off In the Corner (Billy Haid)",
-        "opp_manager": "Billy Haid",
+        "team": "The American Dream (ESPNFAN5802359532)",
+        "manager": "ESPNFAN5802359532",
+        "opp": "Off In the Corner (ESPNfan5100958789)",
+        "opp_manager": "ESPNfan5100958789",
         "actual": 120.22,
         "proj": 117.47,
         "diff": 2.75,
@@ -24912,10 +24912,10 @@
         "luck_delta": 0.636
       },
       {
-        "team": "No Punt Intended  (Kurt Claycomb)",
-        "manager": "Kurt Claycomb",
-        "opp": "Team Bakesmode (Ron Baker)",
-        "opp_manager": "Ron Baker",
+        "team": "No Punt Intended  (espn07439906)",
+        "manager": "espn07439906",
+        "opp": "Team Bakesmode (espn18097839)",
+        "opp_manager": "espn18097839",
         "actual": 143.52,
         "proj": 129.68,
         "diff": 13.84,
@@ -25051,10 +25051,10 @@
         "luck_delta": 0.273
       },
       {
-        "team": "Team Bakesmode (Ron Baker)",
-        "manager": "Ron Baker",
-        "opp": "No Punt Intended  (Kurt Claycomb)",
-        "opp_manager": "Kurt Claycomb",
+        "team": "Team Bakesmode (espn18097839)",
+        "manager": "espn18097839",
+        "opp": "No Punt Intended  (espn07439906)",
+        "opp_manager": "espn07439906",
         "actual": 142.6,
         "proj": 121.85,
         "diff": 20.75,
@@ -25190,10 +25190,10 @@
         "luck_delta": -0.636
       },
       {
-        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "manager": "Eric King",
-        "opp": "Rejected Kamala (jeremy bayless)",
-        "opp_manager": "jeremy bayless",
+        "team": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "manager": "espnfan5588026911",
+        "opp": "Rejected Kamala (espn20860330)",
+        "opp_manager": "espn20860330",
         "actual": 121.7,
         "proj": 107.32,
         "diff": 14.38,
@@ -25329,10 +25329,10 @@
         "luck_delta": 0.545
       },
       {
-        "team": "Rejected Kamala (jeremy bayless)",
-        "manager": "jeremy bayless",
-        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "opp_manager": "Eric King",
+        "team": "Rejected Kamala (espn20860330)",
+        "manager": "espn20860330",
+        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "opp_manager": "espnfan5588026911",
         "actual": 96.24,
         "proj": 109.2,
         "diff": -12.96,
@@ -25476,10 +25476,10 @@
         "luck_delta": -0.182
       },
       {
-        "team": "Team Unvaxxed (Jared Schneider)",
-        "manager": "Jared Schneider",
-        "opp": "Team Kendall (Robert Kendall)",
-        "opp_manager": "Robert Kendall",
+        "team": "Team Unvaxxed (Jaredks785)",
+        "manager": "Jaredks785",
+        "opp": "Team Kendall (bobkendall)",
+        "opp_manager": "bobkendall",
         "actual": 185.02,
         "proj": 100.33,
         "diff": 84.69,
@@ -25615,10 +25615,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "Team Kendall (Robert Kendall)",
-        "manager": "Robert Kendall",
-        "opp": "Team Unvaxxed (Jared Schneider)",
-        "opp_manager": "Jared Schneider",
+        "team": "Team Kendall (bobkendall)",
+        "manager": "bobkendall",
+        "opp": "Team Unvaxxed (Jaredks785)",
+        "opp_manager": "Jaredks785",
         "actual": 93.46,
         "proj": 112.75,
         "diff": -19.29,
@@ -25756,10 +25756,10 @@
     ],
     "16": [
       {
-        "team": "Puka Time (trentan busey)",
-        "manager": "trentan busey",
-        "opp": "THE G-MEN (TRAVIS GIBSON)",
-        "opp_manager": "TRAVIS GIBSON",
+        "team": "Puka Time (ouman29)",
+        "manager": "ouman29",
+        "opp": "THE G-MEN (espn29925699)",
+        "opp_manager": "espn29925699",
         "actual": 164.7,
         "proj": 134.08,
         "diff": 30.62,
@@ -25895,10 +25895,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "THE G-MEN (TRAVIS GIBSON)",
-        "manager": "TRAVIS GIBSON",
-        "opp": "Puka Time (trentan busey)",
-        "opp_manager": "trentan busey",
+        "team": "THE G-MEN (espn29925699)",
+        "manager": "espn29925699",
+        "opp": "Puka Time (ouman29)",
+        "opp_manager": "ouman29",
         "actual": 114.86,
         "proj": 136.24,
         "diff": -21.38,
@@ -26034,10 +26034,10 @@
         "luck_delta": -0.545
       },
       {
-        "team": "No Punt Intended  (Kurt Claycomb)",
-        "manager": "Kurt Claycomb",
-        "opp": "The American Dream (Miles Spainhower)",
-        "opp_manager": "Miles Spainhower",
+        "team": "No Punt Intended  (espn07439906)",
+        "manager": "espn07439906",
+        "opp": "The American Dream (ESPNFAN5802359532)",
+        "opp_manager": "ESPNFAN5802359532",
         "actual": 111.3,
         "proj": 140.03,
         "diff": -28.73,
@@ -26173,10 +26173,10 @@
         "luck_delta": -0.364
       },
       {
-        "team": "The American Dream (Miles Spainhower)",
-        "manager": "Miles Spainhower",
-        "opp": "No Punt Intended  (Kurt Claycomb)",
-        "opp_manager": "Kurt Claycomb",
+        "team": "The American Dream (ESPNFAN5802359532)",
+        "manager": "ESPNFAN5802359532",
+        "opp": "No Punt Intended  (espn07439906)",
+        "opp_manager": "espn07439906",
         "actual": 150.38,
         "proj": 112.71,
         "diff": 37.67,
@@ -26312,10 +26312,10 @@
         "luck_delta": 0.182
       },
       {
-        "team": "Off In the Corner (Billy Haid)",
-        "manager": "Billy Haid",
-        "opp": "Team Freedom (Roman Bayless)",
-        "opp_manager": "Roman Bayless",
+        "team": "Off In the Corner (ESPNfan5100958789)",
+        "manager": "ESPNfan5100958789",
+        "opp": "Team Freedom (ESPNFAN8902530024)",
+        "opp_manager": "ESPNFAN8902530024",
         "actual": 87.44,
         "proj": 117.94,
         "diff": -30.5,
@@ -26451,10 +26451,10 @@
         "luck_delta": -0.091
       },
       {
-        "team": "Team Freedom (Roman Bayless)",
-        "manager": "Roman Bayless",
-        "opp": "Off In the Corner (Billy Haid)",
-        "opp_manager": "Billy Haid",
+        "team": "Team Freedom (ESPNFAN8902530024)",
+        "manager": "ESPNFAN8902530024",
+        "opp": "Off In the Corner (ESPNfan5100958789)",
+        "opp_manager": "ESPNfan5100958789",
         "actual": 90.1,
         "proj": 105.02,
         "diff": -14.92,
@@ -26598,10 +26598,10 @@
         "luck_delta": 0.818
       },
       {
-        "team": "Team Bakesmode (Ron Baker)",
-        "manager": "Ron Baker",
-        "opp": "Team Draft order (Wes Colson)",
-        "opp_manager": "Wes Colson",
+        "team": "Team Bakesmode (espn18097839)",
+        "manager": "espn18097839",
+        "opp": "Team Draft order (espn77607341)",
+        "opp_manager": "espn77607341",
         "actual": 114.2,
         "proj": 117.56,
         "diff": -3.36,
@@ -26721,10 +26721,10 @@
         "luck_delta": -0.455
       },
       {
-        "team": "Team Draft order (Wes Colson)",
-        "manager": "Wes Colson",
-        "opp": "Team Bakesmode (Ron Baker)",
-        "opp_manager": "Ron Baker",
+        "team": "Team Draft order (espn77607341)",
+        "manager": "espn77607341",
+        "opp": "Team Bakesmode (espn18097839)",
+        "opp_manager": "espn18097839",
         "actual": 148.08,
         "proj": 111.12,
         "diff": 36.96,
@@ -26860,10 +26860,10 @@
         "luck_delta": 0.273
       },
       {
-        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "manager": "Eric King",
-        "opp": "Team Unvaxxed (Jared Schneider)",
-        "opp_manager": "Jared Schneider",
+        "team": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "manager": "espnfan5588026911",
+        "opp": "Team Unvaxxed (Jaredks785)",
+        "opp_manager": "Jaredks785",
         "actual": 94.5,
         "proj": 112.77,
         "diff": -18.27,
@@ -26999,10 +26999,10 @@
         "luck_delta": -0.273
       },
       {
-        "team": "Team Unvaxxed (Jared Schneider)",
-        "manager": "Jared Schneider",
-        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "opp_manager": "Eric King",
+        "team": "Team Unvaxxed (Jaredks785)",
+        "manager": "Jaredks785",
+        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "opp_manager": "espnfan5588026911",
         "actual": 121.86,
         "proj": 105.73,
         "diff": 16.13,
@@ -27138,10 +27138,10 @@
         "luck_delta": 0.364
       },
       {
-        "team": "Rejected Kamala (jeremy bayless)",
-        "manager": "jeremy bayless",
-        "opp": "Team Kendall (Robert Kendall)",
-        "opp_manager": "Robert Kendall",
+        "team": "Rejected Kamala (espn20860330)",
+        "manager": "espn20860330",
+        "opp": "Team Kendall (bobkendall)",
+        "opp_manager": "bobkendall",
         "actual": 86.82,
         "proj": 94.65,
         "diff": -7.83,
@@ -27285,10 +27285,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "Team Kendall (Robert Kendall)",
-        "manager": "Robert Kendall",
-        "opp": "Rejected Kamala (jeremy bayless)",
-        "opp_manager": "jeremy bayless",
+        "team": "Team Kendall (bobkendall)",
+        "manager": "bobkendall",
+        "opp": "Rejected Kamala (espn20860330)",
+        "opp_manager": "espn20860330",
         "actual": 160.1,
         "proj": 117.39,
         "diff": 42.71,
@@ -27418,10 +27418,10 @@
     ],
     "17": [
       {
-        "team": "Puka Time (trentan busey)",
-        "manager": "trentan busey",
-        "opp": "The American Dream (Miles Spainhower)",
-        "opp_manager": "Miles Spainhower",
+        "team": "Puka Time (ouman29)",
+        "manager": "ouman29",
+        "opp": "The American Dream (ESPNFAN5802359532)",
+        "opp_manager": "ESPNFAN5802359532",
         "actual": 133.92,
         "proj": 136.28,
         "diff": -2.36,
@@ -27557,10 +27557,10 @@
         "luck_delta": -0.818
       },
       {
-        "team": "The American Dream (Miles Spainhower)",
-        "manager": "Miles Spainhower",
-        "opp": "Puka Time (trentan busey)",
-        "opp_manager": "trentan busey",
+        "team": "The American Dream (ESPNFAN5802359532)",
+        "manager": "ESPNFAN5802359532",
+        "opp": "Puka Time (ouman29)",
+        "opp_manager": "ouman29",
         "actual": 135.86,
         "proj": 119.74,
         "diff": 16.12,
@@ -27696,10 +27696,10 @@
         "luck_delta": 0.091
       },
       {
-        "team": "No Punt Intended  (Kurt Claycomb)",
-        "manager": "Kurt Claycomb",
-        "opp": "THE G-MEN (TRAVIS GIBSON)",
-        "opp_manager": "TRAVIS GIBSON",
+        "team": "No Punt Intended  (espn07439906)",
+        "manager": "espn07439906",
+        "opp": "THE G-MEN (espn29925699)",
+        "opp_manager": "espn29925699",
         "actual": 150.94,
         "proj": 136.91,
         "diff": 14.03,
@@ -27835,10 +27835,10 @@
         "luck_delta": 0.0
       },
       {
-        "team": "THE G-MEN (TRAVIS GIBSON)",
-        "manager": "TRAVIS GIBSON",
-        "opp": "No Punt Intended  (Kurt Claycomb)",
-        "opp_manager": "Kurt Claycomb",
+        "team": "THE G-MEN (espn29925699)",
+        "manager": "espn29925699",
+        "opp": "No Punt Intended  (espn07439906)",
+        "opp_manager": "espn07439906",
         "actual": 123.68,
         "proj": 126.99,
         "diff": -3.31,
@@ -27974,10 +27974,10 @@
         "luck_delta": -0.727
       },
       {
-        "team": "Team Freedom (Roman Bayless)",
-        "manager": "Roman Bayless",
-        "opp": "Team Draft order (Wes Colson)",
-        "opp_manager": "Wes Colson",
+        "team": "Team Freedom (ESPNFAN8902530024)",
+        "manager": "ESPNFAN8902530024",
+        "opp": "Team Draft order (espn77607341)",
+        "opp_manager": "espn77607341",
         "actual": 99.5,
         "proj": 105.63,
         "diff": -6.13,
@@ -28121,10 +28121,10 @@
         "luck_delta": -0.364
       },
       {
-        "team": "Team Draft order (Wes Colson)",
-        "manager": "Wes Colson",
-        "opp": "Team Freedom (Roman Bayless)",
-        "opp_manager": "Roman Bayless",
+        "team": "Team Draft order (espn77607341)",
+        "manager": "espn77607341",
+        "opp": "Team Freedom (ESPNFAN8902530024)",
+        "opp_manager": "ESPNFAN8902530024",
         "actual": 107.82,
         "proj": 110.55,
         "diff": -2.73,
@@ -28260,10 +28260,10 @@
         "luck_delta": 0.364
       },
       {
-        "team": "Off In the Corner (Billy Haid)",
-        "manager": "Billy Haid",
-        "opp": "Team Bakesmode (Ron Baker)",
-        "opp_manager": "Ron Baker",
+        "team": "Off In the Corner (ESPNfan5100958789)",
+        "manager": "ESPNfan5100958789",
+        "opp": "Team Bakesmode (espn18097839)",
+        "opp_manager": "espn18097839",
         "actual": 87.7,
         "proj": 99.27,
         "diff": -11.57,
@@ -28399,10 +28399,10 @@
         "luck_delta": -0.182
       },
       {
-        "team": "Team Bakesmode (Ron Baker)",
-        "manager": "Ron Baker",
-        "opp": "Off In the Corner (Billy Haid)",
-        "opp_manager": "Billy Haid",
+        "team": "Team Bakesmode (espn18097839)",
+        "manager": "espn18097839",
+        "opp": "Off In the Corner (ESPNfan5100958789)",
+        "opp_manager": "ESPNfan5100958789",
         "actual": 102.34,
         "proj": 106.96,
         "diff": -4.62,
@@ -28522,10 +28522,10 @@
         "luck_delta": 0.545
       },
       {
-        "team": "Team Unvaxxed (Jared Schneider)",
-        "manager": "Jared Schneider",
-        "opp": "Team Kendall (Robert Kendall)",
-        "opp_manager": "Robert Kendall",
+        "team": "Team Unvaxxed (Jaredks785)",
+        "manager": "Jaredks785",
+        "opp": "Team Kendall (bobkendall)",
+        "opp_manager": "bobkendall",
         "actual": 96.02,
         "proj": 107.95,
         "diff": -11.93,
@@ -28661,10 +28661,10 @@
         "luck_delta": -0.273
       },
       {
-        "team": "Team Kendall (Robert Kendall)",
-        "manager": "Robert Kendall",
-        "opp": "Team Unvaxxed (Jared Schneider)",
-        "opp_manager": "Jared Schneider",
+        "team": "Team Kendall (bobkendall)",
+        "manager": "bobkendall",
+        "opp": "Team Unvaxxed (Jaredks785)",
+        "opp_manager": "Jaredks785",
         "actual": 103.44,
         "proj": 98.34,
         "diff": 5.1,
@@ -28792,10 +28792,10 @@
         "luck_delta": 0.455
       },
       {
-        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "manager": "Eric King",
-        "opp": "Rejected Kamala (jeremy bayless)",
-        "opp_manager": "jeremy bayless",
+        "team": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "manager": "espnfan5588026911",
+        "opp": "Rejected Kamala (espn20860330)",
+        "opp_manager": "espn20860330",
         "actual": 84.98,
         "proj": 106.47,
         "diff": -21.49,
@@ -28923,10 +28923,10 @@
         "luck_delta": 0.909
       },
       {
-        "team": "Rejected Kamala (jeremy bayless)",
-        "manager": "jeremy bayless",
-        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
-        "opp_manager": "Eric King",
+        "team": "Rejected Kamala (espn20860330)",
+        "manager": "espn20860330",
+        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (espnfan5588026911)",
+        "opp_manager": "espnfan5588026911",
         "actual": 79.7,
         "proj": 101.86,
         "diff": -22.16,
