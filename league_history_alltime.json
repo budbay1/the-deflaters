@@ -23,7 +23,7 @@
     "2025_W1_Ron Baker_vs_jeremy bayless": {
       "year": 2025,
       "week": 1,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "jeremy bayless",
       "t1": "Rejected Kamala",
       "s1": 104.22,
@@ -34,7 +34,7 @@
     "2025_W1_Jared Schneider_vs_Robert Kendall": {
       "year": 2025,
       "week": 1,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Jared Schneider",
       "t1": "Team Unvaxxed",
       "s1": 117.84,
@@ -45,7 +45,7 @@
     "2025_W1_Billy Haid_vs_TRAVIS GIBSON": {
       "year": 2025,
       "week": 1,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Billy Haid",
       "t1": "Off In the Corner",
       "s1": 134.56,
@@ -56,7 +56,7 @@
     "2025_W1_Eric King_vs_Miles Spainhower": {
       "year": 2025,
       "week": 1,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Eric King",
       "t1": "55 TDs 55 Punts 55 FGs 55 INTs",
       "s1": 99.98,
@@ -67,7 +67,7 @@
     "2025_W1_Kurt Claycomb_vs_Wes Colson": {
       "year": 2025,
       "week": 1,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Wes Colson",
       "t1": "Team Draft order",
       "s1": 125.42,
@@ -78,7 +78,7 @@
     "2025_W1_Roman Bayless_vs_trentan busey": {
       "year": 2025,
       "week": 1,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Roman Bayless",
       "t1": "Team Freedom",
       "s1": 58.44,
@@ -89,7 +89,7 @@
     "2025_W2_Robert Kendall_vs_Ron Baker": {
       "year": 2025,
       "week": 2,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Ron Baker",
       "t1": "Team Bakesmode",
       "s1": 163.98,
@@ -100,7 +100,7 @@
     "2025_W2_TRAVIS GIBSON_vs_jeremy bayless": {
       "year": 2025,
       "week": 2,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "TRAVIS GIBSON",
       "t1": "THE G-MEN",
       "s1": 131.66,
@@ -111,7 +111,7 @@
     "2025_W2_Billy Haid_vs_Jared Schneider": {
       "year": 2025,
       "week": 2,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Billy Haid",
       "t1": "Off In the Corner",
       "s1": 131.6,
@@ -122,7 +122,7 @@
     "2025_W2_Kurt Claycomb_vs_Miles Spainhower": {
       "year": 2025,
       "week": 2,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Miles Spainhower",
       "t1": "The American Dream",
       "s1": 66.34,
@@ -133,7 +133,7 @@
     "2025_W2_Eric King_vs_trentan busey": {
       "year": 2025,
       "week": 2,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "trentan busey",
       "t1": "Puka Time",
       "s1": 104.24,
@@ -144,7 +144,7 @@
     "2025_W2_Roman Bayless_vs_Wes Colson": {
       "year": 2025,
       "week": 2,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Roman Bayless",
       "t1": "Team Freedom",
       "s1": 163.02,
@@ -155,7 +155,7 @@
     "2025_W3_Ron Baker_vs_TRAVIS GIBSON": {
       "year": 2025,
       "week": 3,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "TRAVIS GIBSON",
       "t1": "THE G-MEN",
       "s1": 74.98,
@@ -166,7 +166,7 @@
     "2025_W3_Billy Haid_vs_Robert Kendall": {
       "year": 2025,
       "week": 3,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Robert Kendall",
       "t1": "Team Kendall",
       "s1": 115.4,
@@ -177,7 +177,7 @@
     "2025_W3_Jared Schneider_vs_jeremy bayless": {
       "year": 2025,
       "week": 3,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "jeremy bayless",
       "t1": "Rejected Kamala",
       "s1": 108.46,
@@ -188,7 +188,7 @@
     "2025_W3_Miles Spainhower_vs_trentan busey": {
       "year": 2025,
       "week": 3,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "trentan busey",
       "t1": "Puka Time",
       "s1": 116.34,
@@ -199,7 +199,7 @@
     "2025_W3_Kurt Claycomb_vs_Roman Bayless": {
       "year": 2025,
       "week": 3,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Kurt Claycomb",
       "t1": "No Punt Intended ",
       "s1": 127.84,
@@ -210,7 +210,7 @@
     "2025_W3_Eric King_vs_Wes Colson": {
       "year": 2025,
       "week": 3,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Eric King",
       "t1": "55 TDs 55 Punts 55 FGs 55 INTs",
       "s1": 135.64,
@@ -221,7 +221,7 @@
     "2025_W4_Billy Haid_vs_Ron Baker": {
       "year": 2025,
       "week": 4,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Ron Baker",
       "t1": "Team Bakesmode",
       "s1": 91.38,
@@ -232,7 +232,7 @@
     "2025_W4_Jared Schneider_vs_TRAVIS GIBSON": {
       "year": 2025,
       "week": 4,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Jared Schneider",
       "t1": "Team Unvaxxed",
       "s1": 119.18,
@@ -243,7 +243,7 @@
     "2025_W4_Robert Kendall_vs_jeremy bayless": {
       "year": 2025,
       "week": 4,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "jeremy bayless",
       "t1": "Rejected Kamala",
       "s1": 133.92,
@@ -254,7 +254,7 @@
     "2025_W4_Miles Spainhower_vs_Roman Bayless": {
       "year": 2025,
       "week": 4,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Miles Spainhower",
       "t1": "The American Dream",
       "s1": 132.36,
@@ -265,7 +265,7 @@
     "2025_W4_Wes Colson_vs_trentan busey": {
       "year": 2025,
       "week": 4,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Wes Colson",
       "t1": "Team Draft order",
       "s1": 129.76,
@@ -276,7 +276,7 @@
     "2025_W4_Eric King_vs_Kurt Claycomb": {
       "year": 2025,
       "week": 4,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Eric King",
       "t1": "55 TDs 55 Punts 55 FGs 55 INTs",
       "s1": 114.5,
@@ -287,7 +287,7 @@
     "2025_W5_Jared Schneider_vs_Ron Baker": {
       "year": 2025,
       "week": 5,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Jared Schneider",
       "t1": "Team Unvaxxed",
       "s1": 116.7,
@@ -298,7 +298,7 @@
     "2025_W5_Billy Haid_vs_jeremy bayless": {
       "year": 2025,
       "week": 5,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Billy Haid",
       "t1": "Off In the Corner",
       "s1": 154.02,
@@ -309,7 +309,7 @@
     "2025_W5_Robert Kendall_vs_TRAVIS GIBSON": {
       "year": 2025,
       "week": 5,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "TRAVIS GIBSON",
       "t1": "THE G-MEN",
       "s1": 119.82,
@@ -320,7 +320,7 @@
     "2025_W5_Miles Spainhower_vs_Wes Colson": {
       "year": 2025,
       "week": 5,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Wes Colson",
       "t1": "Team Draft order",
       "s1": 94.0,
@@ -331,7 +331,7 @@
     "2025_W5_Eric King_vs_Roman Bayless": {
       "year": 2025,
       "week": 5,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Roman Bayless",
       "t1": "Team Freedom",
       "s1": 134.2,
@@ -342,7 +342,7 @@
     "2025_W5_Kurt Claycomb_vs_trentan busey": {
       "year": 2025,
       "week": 5,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "trentan busey",
       "t1": "Puka Time",
       "s1": 185.08,
@@ -353,7 +353,7 @@
     "2025_W6_Miles Spainhower_vs_Ron Baker": {
       "year": 2025,
       "week": 6,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Ron Baker",
       "t1": "Team Bakesmode",
       "s1": 181.62,
@@ -364,7 +364,7 @@
     "2025_W6_Eric King_vs_jeremy bayless": {
       "year": 2025,
       "week": 6,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "jeremy bayless",
       "t1": "Rejected Kamala",
       "s1": 96.0,
@@ -375,7 +375,7 @@
     "2025_W6_Kurt Claycomb_vs_Robert Kendall": {
       "year": 2025,
       "week": 6,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Robert Kendall",
       "t1": "Team Kendall",
       "s1": 100.96,
@@ -386,7 +386,7 @@
     "2025_W6_TRAVIS GIBSON_vs_trentan busey": {
       "year": 2025,
       "week": 6,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "TRAVIS GIBSON",
       "t1": "THE G-MEN",
       "s1": 113.92,
@@ -397,7 +397,7 @@
     "2025_W6_Billy Haid_vs_Roman Bayless": {
       "year": 2025,
       "week": 6,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Billy Haid",
       "t1": "Off In the Corner",
       "s1": 90.5,
@@ -408,7 +408,7 @@
     "2025_W6_Jared Schneider_vs_Wes Colson": {
       "year": 2025,
       "week": 6,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Jared Schneider",
       "t1": "Team Unvaxxed",
       "s1": 80.88,
@@ -419,7 +419,7 @@
     "2025_W7_Miles Spainhower_vs_jeremy bayless": {
       "year": 2025,
       "week": 7,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Miles Spainhower",
       "t1": "The American Dream",
       "s1": 139.28,
@@ -430,7 +430,7 @@
     "2025_W7_Eric King_vs_Robert Kendall": {
       "year": 2025,
       "week": 7,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Eric King",
       "t1": "55 TDs 55 Punts 55 FGs 55 INTs",
       "s1": 130.84,
@@ -441,7 +441,7 @@
     "2025_W7_Kurt Claycomb_vs_TRAVIS GIBSON": {
       "year": 2025,
       "week": 7,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Kurt Claycomb",
       "t1": "No Punt Intended ",
       "s1": 146.48,
@@ -452,7 +452,7 @@
     "2025_W7_Billy Haid_vs_trentan busey": {
       "year": 2025,
       "week": 7,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "trentan busey",
       "t1": "Puka Time",
       "s1": 127.66,
@@ -463,7 +463,7 @@
     "2025_W7_Jared Schneider_vs_Roman Bayless": {
       "year": 2025,
       "week": 7,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Roman Bayless",
       "t1": "Team Freedom",
       "s1": 142.76,
@@ -474,7 +474,7 @@
     "2025_W7_Ron Baker_vs_Wes Colson": {
       "year": 2025,
       "week": 7,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Wes Colson",
       "t1": "Team Draft order",
       "s1": 104.86,
@@ -485,7 +485,7 @@
     "2025_W8_Miles Spainhower_vs_Robert Kendall": {
       "year": 2025,
       "week": 8,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Robert Kendall",
       "t1": "Team Kendall",
       "s1": 129.54,
@@ -496,7 +496,7 @@
     "2025_W8_Eric King_vs_TRAVIS GIBSON": {
       "year": 2025,
       "week": 8,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "TRAVIS GIBSON",
       "t1": "THE G-MEN",
       "s1": 129.2,
@@ -507,7 +507,7 @@
     "2025_W8_Billy Haid_vs_Kurt Claycomb": {
       "year": 2025,
       "week": 8,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Billy Haid",
       "t1": "Off In the Corner",
       "s1": 106.32,
@@ -518,7 +518,7 @@
     "2025_W8_Jared Schneider_vs_trentan busey": {
       "year": 2025,
       "week": 8,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Jared Schneider",
       "t1": "Team Unvaxxed",
       "s1": 87.72,
@@ -529,7 +529,7 @@
     "2025_W8_Roman Bayless_vs_Ron Baker": {
       "year": 2025,
       "week": 8,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Ron Baker",
       "t1": "Team Bakesmode",
       "s1": 122.62,
@@ -540,7 +540,7 @@
     "2025_W8_Wes Colson_vs_jeremy bayless": {
       "year": 2025,
       "week": 8,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "jeremy bayless",
       "t1": "Rejected Kamala",
       "s1": 115.84,
@@ -551,7 +551,7 @@
     "2025_W9_Miles Spainhower_vs_TRAVIS GIBSON": {
       "year": 2025,
       "week": 9,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Miles Spainhower",
       "t1": "The American Dream",
       "s1": 128.2,
@@ -562,7 +562,7 @@
     "2025_W9_Billy Haid_vs_Eric King": {
       "year": 2025,
       "week": 9,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Eric King",
       "t1": "55 TDs 55 Punts 55 FGs 55 INTs",
       "s1": 111.1,
@@ -573,7 +573,7 @@
     "2025_W9_Jared Schneider_vs_Kurt Claycomb": {
       "year": 2025,
       "week": 9,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Kurt Claycomb",
       "t1": "No Punt Intended ",
       "s1": 96.26,
@@ -584,7 +584,7 @@
     "2025_W9_Ron Baker_vs_trentan busey": {
       "year": 2025,
       "week": 9,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "trentan busey",
       "t1": "Puka Time",
       "s1": 124.8,
@@ -595,7 +595,7 @@
     "2025_W9_Roman Bayless_vs_jeremy bayless": {
       "year": 2025,
       "week": 9,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Roman Bayless",
       "t1": "Team Freedom",
       "s1": 113.62,
@@ -606,7 +606,7 @@
     "2025_W9_Robert Kendall_vs_Wes Colson": {
       "year": 2025,
       "week": 9,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Wes Colson",
       "t1": "Team Draft order",
       "s1": 95.28,
@@ -617,7 +617,7 @@
     "2025_W10_Billy Haid_vs_Miles Spainhower": {
       "year": 2025,
       "week": 10,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Billy Haid",
       "t1": "Off In the Corner",
       "s1": 107.84,
@@ -628,7 +628,7 @@
     "2025_W10_Eric King_vs_Jared Schneider": {
       "year": 2025,
       "week": 10,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Jared Schneider",
       "t1": "Team Unvaxxed",
       "s1": 113.7,
@@ -639,7 +639,7 @@
     "2025_W10_Kurt Claycomb_vs_Ron Baker": {
       "year": 2025,
       "week": 10,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Ron Baker",
       "t1": "Team Bakesmode",
       "s1": 116.72,
@@ -650,7 +650,7 @@
     "2025_W10_jeremy bayless_vs_trentan busey": {
       "year": 2025,
       "week": 10,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "jeremy bayless",
       "t1": "Rejected Kamala",
       "s1": 115.02,
@@ -661,7 +661,7 @@
     "2025_W10_Robert Kendall_vs_Roman Bayless": {
       "year": 2025,
       "week": 10,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Robert Kendall",
       "t1": "Team Kendall",
       "s1": 75.0,
@@ -672,7 +672,7 @@
     "2025_W10_TRAVIS GIBSON_vs_Wes Colson": {
       "year": 2025,
       "week": 10,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "TRAVIS GIBSON",
       "t1": "THE G-MEN",
       "s1": 140.2,
@@ -683,7 +683,7 @@
     "2025_W11_Jared Schneider_vs_Miles Spainhower": {
       "year": 2025,
       "week": 11,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Miles Spainhower",
       "t1": "The American Dream",
       "s1": 118.9,
@@ -694,7 +694,7 @@
     "2025_W11_Eric King_vs_Ron Baker": {
       "year": 2025,
       "week": 11,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Eric King",
       "t1": "55 TDs 55 Punts 55 FGs 55 INTs",
       "s1": 90.2,
@@ -705,7 +705,7 @@
     "2025_W11_Kurt Claycomb_vs_jeremy bayless": {
       "year": 2025,
       "week": 11,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Kurt Claycomb",
       "t1": "No Punt Intended ",
       "s1": 126.18,
@@ -716,7 +716,7 @@
     "2025_W11_Robert Kendall_vs_trentan busey": {
       "year": 2025,
       "week": 11,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "trentan busey",
       "t1": "Puka Time",
       "s1": 123.12,
@@ -727,7 +727,7 @@
     "2025_W11_Roman Bayless_vs_TRAVIS GIBSON": {
       "year": 2025,
       "week": 11,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Roman Bayless",
       "t1": "Team Freedom",
       "s1": 80.1,
@@ -738,7 +738,7 @@
     "2025_W11_Billy Haid_vs_Wes Colson": {
       "year": 2025,
       "week": 11,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Wes Colson",
       "t1": "Team Draft order",
       "s1": 92.2,
@@ -749,7 +749,7 @@
     "2025_W12_Miles Spainhower_vs_Ron Baker": {
       "year": 2025,
       "week": 12,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Miles Spainhower",
       "t1": "The American Dream",
       "s1": 113.72,
@@ -760,7 +760,7 @@
     "2025_W12_Eric King_vs_jeremy bayless": {
       "year": 2025,
       "week": 12,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Eric King",
       "t1": "55 TDs 55 Punts 55 FGs 55 INTs",
       "s1": 138.86,
@@ -771,7 +771,7 @@
     "2025_W12_Kurt Claycomb_vs_Robert Kendall": {
       "year": 2025,
       "week": 12,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Kurt Claycomb",
       "t1": "No Punt Intended ",
       "s1": 75.26,
@@ -782,7 +782,7 @@
     "2025_W12_TRAVIS GIBSON_vs_trentan busey": {
       "year": 2025,
       "week": 12,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "trentan busey",
       "t1": "Puka Time",
       "s1": 121.44,
@@ -793,7 +793,7 @@
     "2025_W12_Billy Haid_vs_Roman Bayless": {
       "year": 2025,
       "week": 12,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Roman Bayless",
       "t1": "Team Freedom",
       "s1": 128.78,
@@ -804,7 +804,7 @@
     "2025_W12_Jared Schneider_vs_Wes Colson": {
       "year": 2025,
       "week": 12,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Wes Colson",
       "t1": "Team Draft order",
       "s1": 137.4,
@@ -815,7 +815,7 @@
     "2025_W13_Miles Spainhower_vs_jeremy bayless": {
       "year": 2025,
       "week": 13,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "jeremy bayless",
       "t1": "Rejected Kamala",
       "s1": 91.42,
@@ -826,7 +826,7 @@
     "2025_W13_Eric King_vs_Robert Kendall": {
       "year": 2025,
       "week": 13,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Robert Kendall",
       "t1": "Team Kendall",
       "s1": 84.28,
@@ -837,7 +837,7 @@
     "2025_W13_Kurt Claycomb_vs_TRAVIS GIBSON": {
       "year": 2025,
       "week": 13,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "TRAVIS GIBSON",
       "t1": "THE G-MEN",
       "s1": 142.64,
@@ -848,7 +848,7 @@
     "2025_W13_Billy Haid_vs_trentan busey": {
       "year": 2025,
       "week": 13,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Billy Haid",
       "t1": "Off In the Corner",
       "s1": 78.24,
@@ -859,7 +859,7 @@
     "2025_W13_Jared Schneider_vs_Roman Bayless": {
       "year": 2025,
       "week": 13,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Jared Schneider",
       "t1": "Team Unvaxxed",
       "s1": 91.74,
@@ -870,7 +870,7 @@
     "2025_W13_Ron Baker_vs_Wes Colson": {
       "year": 2025,
       "week": 13,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Ron Baker",
       "t1": "Team Bakesmode",
       "s1": 98.94,
@@ -881,7 +881,7 @@
     "2025_W14_Miles Spainhower_vs_Robert Kendall": {
       "year": 2025,
       "week": 14,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Miles Spainhower",
       "t1": "The American Dream",
       "s1": 122.14,
@@ -892,7 +892,7 @@
     "2025_W14_Eric King_vs_TRAVIS GIBSON": {
       "year": 2025,
       "week": 14,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Eric King",
       "t1": "55 TDs 55 Punts 55 FGs 55 INTs",
       "s1": 99.8,
@@ -903,7 +903,7 @@
     "2025_W14_Billy Haid_vs_Kurt Claycomb": {
       "year": 2025,
       "week": 14,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Kurt Claycomb",
       "t1": "No Punt Intended ",
       "s1": 143.52,
@@ -914,7 +914,7 @@
     "2025_W14_Jared Schneider_vs_trentan busey": {
       "year": 2025,
       "week": 14,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "trentan busey",
       "t1": "Puka Time",
       "s1": 155.12,
@@ -925,7 +925,7 @@
     "2025_W14_Roman Bayless_vs_Ron Baker": {
       "year": 2025,
       "week": 14,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Roman Bayless",
       "t1": "Team Freedom",
       "s1": 133.98,
@@ -936,7 +936,7 @@
     "2025_W14_Wes Colson_vs_jeremy bayless": {
       "year": 2025,
       "week": 14,
-      "is_playoffs": false,
+      "is_playoff": false,
       "m1": "Wes Colson",
       "t1": "Team Draft order",
       "s1": 91.32,
@@ -3167,7 +3167,7 @@
     "2025_W15_Wes Colson_vs_trentan busey": {
       "year": 2025,
       "week": 15,
-      "is_playoffs": true,
+      "is_playoff": true,
       "m1": "trentan busey",
       "t1": "Puka Time",
       "s1": 142.1,
@@ -3178,7 +3178,7 @@
     "2025_W15_Roman Bayless_vs_TRAVIS GIBSON": {
       "year": 2025,
       "week": 15,
-      "is_playoffs": true,
+      "is_playoff": true,
       "m1": "TRAVIS GIBSON",
       "t1": "THE G-MEN",
       "s1": 156.92,
@@ -3189,7 +3189,7 @@
     "2025_W15_Billy Haid_vs_Miles Spainhower": {
       "year": 2025,
       "week": 15,
-      "is_playoffs": true,
+      "is_playoff": true,
       "m1": "Billy Haid",
       "t1": "Off In the Corner",
       "s1": 90.38,
@@ -3200,7 +3200,7 @@
     "2025_W15_Kurt Claycomb_vs_Ron Baker": {
       "year": 2025,
       "week": 15,
-      "is_playoffs": true,
+      "is_playoff": true,
       "m1": "Kurt Claycomb",
       "t1": "No Punt Intended ",
       "s1": 143.52,
@@ -3211,7 +3211,7 @@
     "2025_W15_Eric King_vs_jeremy bayless": {
       "year": 2025,
       "week": 15,
-      "is_playoffs": true,
+      "is_playoff": true,
       "m1": "Eric King",
       "t1": "55 TDs 55 Punts 55 FGs 55 INTs",
       "s1": 121.7,
@@ -3222,7 +3222,7 @@
     "2025_W15_Jared Schneider_vs_Robert Kendall": {
       "year": 2025,
       "week": 15,
-      "is_playoffs": true,
+      "is_playoff": true,
       "m1": "Jared Schneider",
       "t1": "Team Unvaxxed",
       "s1": 185.02,
@@ -3233,7 +3233,7 @@
     "2025_W16_TRAVIS GIBSON_vs_trentan busey": {
       "year": 2025,
       "week": 16,
-      "is_playoffs": true,
+      "is_playoff": true,
       "m1": "trentan busey",
       "t1": "Puka Time",
       "s1": 164.7,
@@ -3244,7 +3244,7 @@
     "2025_W16_Kurt Claycomb_vs_Miles Spainhower": {
       "year": 2025,
       "week": 16,
-      "is_playoffs": true,
+      "is_playoff": true,
       "m1": "Kurt Claycomb",
       "t1": "No Punt Intended ",
       "s1": 111.3,
@@ -3255,7 +3255,7 @@
     "2025_W16_Billy Haid_vs_Roman Bayless": {
       "year": 2025,
       "week": 16,
-      "is_playoffs": true,
+      "is_playoff": true,
       "m1": "Billy Haid",
       "t1": "Off In the Corner",
       "s1": 87.44,
@@ -3266,7 +3266,7 @@
     "2025_W16_Ron Baker_vs_Wes Colson": {
       "year": 2025,
       "week": 16,
-      "is_playoffs": true,
+      "is_playoff": true,
       "m1": "Ron Baker",
       "t1": "Team Bakesmode",
       "s1": 114.2,
@@ -3277,7 +3277,7 @@
     "2025_W16_Eric King_vs_Jared Schneider": {
       "year": 2025,
       "week": 16,
-      "is_playoffs": true,
+      "is_playoff": true,
       "m1": "Eric King",
       "t1": "55 TDs 55 Punts 55 FGs 55 INTs",
       "s1": 94.5,
@@ -3288,7 +3288,7 @@
     "2025_W16_Robert Kendall_vs_jeremy bayless": {
       "year": 2025,
       "week": 16,
-      "is_playoffs": true,
+      "is_playoff": true,
       "m1": "jeremy bayless",
       "t1": "Rejected Kamala",
       "s1": 86.82,
