@@ -139,24 +139,29 @@ def compute_records_and_payouts(weeks_obj, finishes_map=None):
       })
       weekly_anchors.append(min(starters_this_week, key=lambda x: x["pts"]))
 
-  bounty_totals = {}
+  bounty_tracker = {}
   for b in weekly_team_bounties:
     tm = b["team"]
-    if tm not in bounty_totals:
-      bounty_totals[tm] = {"team_wins": 0, "player_wins": 0, "total_cash": 0.0}
-    bounty_totals[tm]["team_wins"] += 1
-    bounty_totals[tm]["total_cash"] += WEEKLY_BOUNTY_TEAM_CASH
+    if tm not in bounty_tracker:
+      bounty_tracker[tm] = {"team_bounties": 0, "player_bounties": 0, "total_cash": 0.0}
+    bounty_tracker[tm]["team_bounties"] += 1
+    bounty_tracker[tm]["total_cash"] += WEEKLY_BOUNTY_TEAM_CASH
 
   for pb in weekly_player_bounties:
     tm = pb["team"]
-    if tm not in bounty_totals:
-      bounty_totals[tm] = {"team_wins": 0, "player_wins": 0, "total_cash": 0.0}
-    bounty_totals[tm]["player_wins"] += 1
-    bounty_totals[tm]["total_cash"] += WEEKLY_BOUNTY_PLAYER_CASH
+    if tm not in bounty_tracker:
+      bounty_tracker[tm] = {"team_bounties": 0, "player_bounties": 0, "total_cash": 0.0}
+    bounty_tracker[tm]["player_bounties"] += 1
+    bounty_tracker[tm]["total_cash"] += WEEKLY_BOUNTY_PLAYER_CASH
 
   sorted_bounty_leaders = sorted(
-      [{"team": tm, "wins": data["team_wins"], "total_cash": round(data["total_cash"], 2)} for tm, data in bounty_totals.items()],
-      key=lambda x: x["wins"], reverse=True
+      [{
+          "team": tm,
+          "team_bounties": data["team_bounties"],
+          "player_bounties": data["player_bounties"],
+          "total_cash": round(data["total_cash"], 2)
+      } for tm, data in bounty_tracker.items()],
+      key=lambda x: x["total_cash"], reverse=True
   )
 
   team_totals = {}
@@ -289,8 +294,7 @@ def compute_all_time_leaderboard(champions, current_managers, finishes_data):
   return sorted(mgr_stats.values(), key=lambda x: (-x["gold"], -x["silver"], -x["bronze"], -x["total_podiums"], x["avg_sort"], x["last"], x["manager"]))
 
 
-def compute_accumulated_money(seasons_data, champions, weekly_bounty_totals, weekly_player_bounties_all, finishes_data, current_year):
-  """Accumulate career money won including 1st ($550), 2nd ($300), 3rd ($150), PF Leader ($100), and weekly team/player bounties ($25 each) starting from 2025 onwards."""
+def compute_accumulated_money(seasons_data, champions, weekly_bounty_totals, weekly_player_bounties_all, current_year):
   accumulated = {}
 
   def add_cash(mgr_label, amount):
@@ -308,26 +312,26 @@ def compute_accumulated_money(seasons_data, champions, weekly_bounty_totals, wee
       if max_wk < 17:
         continue
 
-    # 1. Team Bounties
+    # Team bounties cash
     bounties_list = weekly_bounty_totals.get(yr_str, [])
     for b in bounties_list:
       team_lbl = b.get("team")
       wins = b.get("wins", 0)
       add_cash(team_lbl, wins * WEEKLY_BOUNTY_TEAM_CASH)
 
-    # 2. Player Bounties
+    # Player bounties cash
     player_bounties_list = weekly_player_bounties_all.get(yr_str, [])
     for pb in player_bounties_list:
       team_lbl = pb.get("team")
       add_cash(team_lbl, WEEKLY_BOUNTY_PLAYER_CASH)
 
-    # 3. Podiums (Gold $550, Silver $300, Bronze $150)
+    # Podiums
     yr_champ = champions.get(yr_str, {})
     if yr_champ.get("gold"): add_cash(yr_champ["gold"], PODIUM_PAYOUTS["gold"])
     if yr_champ.get("silver"): add_cash(yr_champ["silver"], PODIUM_PAYOUTS["silver"])
     if yr_champ.get("bronze"): add_cash(yr_champ["bronze"], PODIUM_PAYOUTS["bronze"])
 
-    # 4. Season Points Leader ($100)
+    # PF Leader
     team_season_pf = {}
     for w_str, matchups in weeks_dict.items():
       for m in matchups:
@@ -438,7 +442,7 @@ def main():
     weekly_anchors_all[yr_key] = an
     weekly_bounty_totals_all[yr_key] = b_totals
 
-  accumulated_money = compute_accumulated_money(seasons_data, champions, weekly_bounty_totals_all, weekly_player_bounties_all, finishes_data, YEAR)
+  accumulated_money = compute_accumulated_money(seasons_data, champions, weekly_bounty_totals_all, weekly_player_bounties_all, YEAR)
 
   all_time_high_team = {"team": "None", "pts": 0.0, "opp": "None", "opp_pts": 0.0, "week": 0, "year": 0}
   all_time_high_player = {"player": "None", "team": "None", "pts": 0.0, "week": 0, "year": 0, "pos": ""}
