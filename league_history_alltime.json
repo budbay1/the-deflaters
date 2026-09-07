@@ -1,22 +1,22 @@
 {
   "champions": {
     "2023": {
-      "gold": "Team Draft order (espn77607341)",
-      "silver": "O-Bijan Kenobi (ESPNFAN8902530024)",
-      "bronze": "No Punt Intended  (espn07439906)",
-      "last": "Team Bakesmode (espn18097839)"
+      "gold": "Team Draft order (Wes Colson)",
+      "silver": "O-Bijan Kenobi (Roman Bayless)",
+      "bronze": "No Punt Intended  (Kurt Claycomb)",
+      "last": "Team Bakesmode (Ron Baker)"
     },
     "2024": {
-      "gold": "The American Dream (ESPNFAN5802359532)",
-      "silver": "Team Kendall (bobkendall)",
-      "bronze": "Team Bakesmode (espn18097839)",
-      "last": "Son of a Veach (espnfan5588026911)"
+      "gold": "The American Dream (Miles Spainhower)",
+      "silver": "Team Kendall (Robert Kendall)",
+      "bronze": "Team Bakesmode (Ron Baker)",
+      "last": "Son of a Veach (Eric King)"
     },
     "2025": {
-      "gold": "The American Dream (ESPNFAN5802359532)",
-      "silver": "Puka Time (ouman29)",
-      "bronze": "No Punt Intended  (espn07439906)",
-      "last": "Rejected Kamala (espn20860330)"
+      "gold": "The American Dream (Miles Spainhower)",
+      "silver": "Puka Time (trentan busey)",
+      "bronze": "No Punt Intended  (Kurt Claycomb)",
+      "last": "Rejected Kamala (jeremy bayless)"
     }
   },
   "matchups": {
@@ -6999,46 +6999,46 @@
   ],
   "finishes": {
     "2023": {
-      "espn77607341": 1,
-      "ESPNFAN8902530024": 2,
-      "espn07439906": 3,
-      "espnfan5588026911": 4,
-      "Jaredks785": 5,
-      "espn20860330": 6,
-      "Curtis 104": 7,
-      "espn29925699": 8,
-      "ESPNFAN5802359532": 9,
-      "bobkendall": 10,
-      "ouman29": 11,
-      "espn18097839": 12
+      "Wes Colson": 1,
+      "Roman Bayless": 2,
+      "Kurt Claycomb": 3,
+      "Eric King": 4,
+      "Jared Schneider": 5,
+      "jeremy bayless": 6,
+      "Curtis Thornton": 7,
+      "TRAVIS GIBSON": 8,
+      "Miles Spainhower": 9,
+      "Robert Kendall": 10,
+      "trentan busey": 11,
+      "Ron Baker": 12
     },
     "2024": {
-      "ESPNFAN5802359532": 1,
-      "bobkendall": 2,
-      "espn18097839": 3,
-      "ouman29": 4,
-      "espn29925699": 5,
-      "ESPNFAN8902530024": 6,
-      "Jaredks785": 7,
-      "espn77607341": 8,
-      "Curtis 104": 9,
-      "espn20860330": 10,
-      "espn07439906": 11,
-      "espnfan5588026911": 12
+      "Miles Spainhower": 1,
+      "Robert Kendall": 2,
+      "Ron Baker": 3,
+      "trentan busey": 4,
+      "TRAVIS GIBSON": 5,
+      "Roman Bayless": 6,
+      "Jared Schneider": 7,
+      "Wes Colson": 8,
+      "Curtis Thornton": 9,
+      "jeremy bayless": 10,
+      "Kurt Claycomb": 11,
+      "Eric King": 12
     },
     "2025": {
-      "ESPNFAN5802359532": 1,
-      "ouman29": 2,
-      "espn07439906": 3,
-      "espn29925699": 4,
-      "espn77607341": 5,
-      "ESPNFAN8902530024": 6,
-      "espn18097839": 7,
-      "ESPNfan5100958789": 8,
-      "bobkendall": 9,
-      "Jaredks785": 10,
-      "espnfan5588026911": 11,
-      "espn20860330": 12
+      "Miles Spainhower": 1,
+      "trentan busey": 2,
+      "Kurt Claycomb": 3,
+      "TRAVIS GIBSON": 4,
+      "Wes Colson": 5,
+      "Roman Bayless": 6,
+      "Ron Baker": 7,
+      "Billy Haid": 8,
+      "Robert Kendall": 9,
+      "Jared Schneider": 10,
+      "Eric King": 11,
+      "jeremy bayless": 12
     }
   }
 }
