@@ -204,7 +204,7 @@ def sync_historical_h2h(current_year):
     if y in all_time["h2h_ingested_years"]: continue
     try:
       past_league = League(league_id=LEAGUE_ID, year=y, espn_s2=ESPN_S2, swid=SWID)
-      for w in range(1, 18):  # Strictly cap historical weeks to 17
+      for w in range(1, 18):
         try:
           b_scores = past_league.box_scores(week=w)
           if not b_scores: continue
@@ -358,7 +358,7 @@ def main():
   all_time = load_history(ALL_TIME_FILE, {"champions": {}, "matchups": {}, "finishes": {}, "h2h_ingested_years": []})
   if "matchups" not in all_time: all_time["matchups"] = {}
 
-  for w in range(1, 18):  # Strictly cap to 17 weeks
+  for w in range(1, 18):
     w_str = str(w)
     try:
       box_scores = league.box_scores(week=w)
