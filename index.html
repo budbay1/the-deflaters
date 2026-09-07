@@ -304,7 +304,7 @@
     <!-- Accumulated Career Money Table -->
     <div class="table-container" style="margin-top: 10px;">
       <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
-        💵 All-Time Accumulated Career Money Won (Concluded Past Seasons)
+        💵 All-Time Accumulated Career Money Won ($550 Gold, $200 Silver, $100 Bronze, $100 PF Leader)
       </div>
       <table class="responsive-table">
         <thead>
@@ -474,10 +474,13 @@
   function populateWeeks(yr, targetWk) {
     const weekSel = document.getElementById('weekSelect');
     weekSel.innerHTML = '';
-    const weeksObj = dashboardData.seasons_data[yr] || {};
-    const weeks = Object.keys(weeksObj).map(Number).sort((a, b) => b - a);
     
-    if (weeks.length === 0) weeks.push(1);
+    // Always provide Weeks 1 through 17 to accommodate the full 17-week NFL/Fantasy schedule
+    const weeks = [];
+    for (let i = 1; i <= 17; i++) {
+      weeks.push(i);
+    }
+    
     currentWeek = targetWk ? targetWk.toString() : weeks[0].toString();
 
     weeks.forEach(w => {
@@ -974,9 +977,15 @@
         r.last = g;
       }
 
-      if (actualLeadScore > actualOppScore) r.winsLead++;
-      else if (actualOppScore > actualLeadScore) r.winsOpp++;
-      else r.ties++;
+      if (actualLeadScore > actualOppScore) {
+        if (leadMgr === r.displayLead) r.winsLead++;
+        else r.winsOpp++;
+      } else if (actualOppScore > actualLeadScore) {
+        if (leadMgr === r.displayLead) r.winsOpp++;
+        else r.winsLead++;
+      } else {
+        r.ties++;
+      }
       
       r.pfLead += actualLeadScore;
       r.pfOpp += actualOppScore;
@@ -985,7 +994,7 @@
         selectedManagerPF += actualLeadScore;
         selectedManagerPA += actualOppScore;
         if (actualLeadScore > actualOppScore) selectedManagerWins++;
-        else if (actualOppScore < actualOppScore) selectedManagerLosses++;
+        else if (actualOppScore < actualLeadScore) selectedManagerLosses++;
         else selectedManagerTies++;
       }
     });
