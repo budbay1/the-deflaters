@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9Q6L287H25"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-9Q6L287H25');
+  </script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Deflaters // League Engine</title>
@@ -333,7 +343,7 @@
   let currentYear = '';
   let currentWeek = '';
   let h2hScope = 'current';
-  let h2hType = 'all'; // 'all', 'reg', 'playoffs'
+  let h2hType = 'all';
 
   async function init() {
     try {
@@ -719,7 +729,6 @@
     let selectedManagerPA = 0;
 
     Object.values(matchups).forEach(g => {
-      // Filter by H2H Type (All, Reg Season, Playoffs)
       if (h2hType === 'reg' && g.is_playoffs) return;
       if (h2hType === 'playoffs' && !g.is_playoffs) return;
 
