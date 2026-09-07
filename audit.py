@@ -22,7 +22,7 @@ SEASONS_DATA_FILE = "seasons_data.json"
 GLOBAL_DATA_FILE = "global_dashboard_data.json"
 
 HISTORICAL_CHAMPIONS_OVERRIDE = {}
-WEEKLY_BOUNTY_CASH = 20.0  # Default cash value per weekly high-score bounty
+WEEKLY_BOUNTY_CASH = 25.0  # $25 per weekly high-score bounty
 
 
 def get_manager_name(team):
@@ -106,8 +106,8 @@ def compute_records_and_payouts(weeks_obj, finishes_map=None):
     matchups = weeks_obj[str(w)]
     if not matchups: continue
     
-    # Regular season high scorers qualify for weekly bounties (Weeks 1-14)
-    if w <= 14:
+    # Regular season high team score bounties awarded for Weeks 1-13 (prior to Week 14 playoffs)
+    if w < 14:
       high_match = max(matchups, key=lambda x: x["actual"])
       weekly_team_bounties.append({
           "week": w, "team": high_match["team"], "pts": high_match["actual"],
@@ -122,7 +122,7 @@ def compute_records_and_payouts(weeks_obj, finishes_map=None):
         if p["started"]:
           starters_this_week.append({"week": w, "player": p["name"], "pos": p["pos"], "pts": p["pts"], "team": team_name})
 
-    if starters_this_week and w <= 14:
+    if starters_this_week and w < 14:
       top_player = max(starters_this_week, key=lambda x: x["pts"])
       weekly_player_bounties.append(top_player)
       weekly_anchors.append(min(starters_this_week, key=lambda x: x["pts"]))
@@ -152,7 +152,7 @@ def compute_records_and_payouts(weeks_obj, finishes_map=None):
   season_payout_leaders = {
       "pf_leader_team": season_pf_leader[0],
       "pf_leader_pts": round(season_pf_leader[1], 2),
-      "pf_leader_prize": 100.0,  # Estimated or configurable prize pool amount on the line for season high points
+      "pf_leader_prize": 100.0,
       "high_game_team": season_high_team_game["team"] if season_high_team_game else "None",
       "high_game_pts": season_high_team_game["pts"] if season_high_team_game else 0.0,
       "high_game_week": season_high_team_game["week"] if season_high_team_game else 0,
@@ -185,7 +185,7 @@ def sync_historical_h2h(current_year):
             if h_mgr == "Manager" and a_mgr == "Manager": continue
             pair = sorted([h_mgr, a_mgr])
             m_id = f"{y}_W{w}_{pair[0]}_vs_{pair[1]}"
-            is_playoff = w >= 15
+            is_playoff = w >= 14  # Playoffs start Week 14
             if m_id not in all_time["matchups"]:
               all_time["matchups"][m_id] = {
                   "year": y, "week": w, "is_playoff": is_playoff,
@@ -309,7 +309,7 @@ def main():
       if h_mgr != "Manager" and a_mgr != "Manager" and (h_act > 0 or a_act > 0):
         pair = sorted([h_mgr, a_mgr])
         m_id = f"{YEAR}_W{w}_{pair[0]}_vs_{pair[1]}"
-        is_playoff = w >= 15
+        is_playoff = w >= 14  # Playoffs start Week 14
         all_time["matchups"][m_id] = {
             "year": YEAR, "week": w, "is_playoff": is_playoff,
             "m1": h_mgr, "t1": match.home_team.team_name, "s1": h_act,
