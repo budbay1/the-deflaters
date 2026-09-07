@@ -20,6 +20,7 @@ ROSTER_SLOTS = {
 ALL_TIME_FILE = "league_history_alltime.json"
 SEASONS_DATA_FILE = "seasons_data.json"
 GLOBAL_DATA_FILE = "global_dashboard_data.json"
+ALIASES_FILE = "manager_aliases.json"
 
 HISTORICAL_CHAMPIONS_OVERRIDE = {}
 
@@ -34,17 +35,42 @@ PODIUM_PAYOUTS = {
 }
 
 
+def load_aliases():
+  """Loads manager-to-team aliases from manager_aliases.json if present."""
+  if os.path.exists(ALIASES_FILE):
+    try:
+      with open(ALIASES_FILE, "r") as f:
+        return json.load(f)
+    except Exception as e:
+      print(f"Warning: Could not parse {ALIASES_FILE}: {e}")
+  return {}
+
+
 def get_manager_name(team):
-  """Restored clean common name resolution (e.g., Jeremy Bayless)."""
+  """Resolves manager names using the external configuration file."""
+  aliases = load_aliases()
+  raw_name = "Manager"
+  
   if hasattr(team, "owners") and team.owners:
     owner = team.owners[0]
     if isinstance(owner, dict):
       first = owner.get("firstName", "")
       last = owner.get("lastName", "")
       full = f"{first} {last}".strip()
-      return full if full else owner.get("displayName", "Manager")
-    return str(owner)
-  return getattr(team, "owner", "Manager")
+      raw_name = full if full else owner.get("displayName", "Manager")
+    else:
+      raw_name = str(owner)
+  elif hasattr(team, "owner") and team.owner:
+    raw_name = str(team.owner)
+
+  team_name = getattr(team, "team_name", "")
+
+  # Check aliases (case-insensitive key check)
+  for alias, canonical in aliases.items():
+    if alias.lower() == raw_name.lower() or alias.lower() == team_name.lower():
+      return canonical
+
+  return raw_name
 
 
 def extract_manager_from_label(team_label):
@@ -201,6 +227,7 @@ def sync_historical_h2h(current_year):
   all_time = load_history(ALL_TIME_FILE, {"champions": {}, "matchups": {}, "finishes": {}, "h2h_ingested_years": []})
   if "matchups" not in all_time: all_time["matchups"] = {}
   all_time["h2h_ingested_years"] = []
+  aliases = load_aliases()
 
   for y in range(2023, current_year):
     try:
@@ -212,7 +239,9 @@ def sync_historical_h2h(current_year):
           for match in b_scores:
             h_act, a_act = round(match.home_score, 2), round(match.away_score, 2)
             if h_act == 0.0 and a_act == 0.0: continue
-            h_mgr, a_mgr = get_manager_name(match.home_team), get_manager_name(match.away_team)
+            
+            h_mgr = get_manager_name(match.home_team)
+            a_mgr = get_manager_name(match.away_team)
             if h_mgr == "Manager" and a_mgr == "Manager": continue
             
             pair = sorted([h_mgr, a_mgr])
@@ -227,6 +256,24 @@ def sync_historical_h2h(current_year):
         except Exception: break
       all_time["h2h_ingested_years"].append(y)
     except Exception as e: print(f"Could not backfill Season {y} H2H: {e}")
+  
+  # Normalize all matchup keys/managers in historical storage using alias dictionary
+  cleaned_matchups = {}
+  for m_id, m_data in all_time["matchups"].items():
+    m1, m2 = m_data["m1"], m_data["m2"]
+    for alias, canonical in aliases.items():
+      if alias.lower() == m1.lower(): m1 = canonical
+      if alias.lower() == m2.lower(): m2 = canonical
+    
+    pair = sorted([m1, m2])
+    cleaned_id = f"{m_data['year']}_W{m_data['week']}_{pair[0]}_vs_{pair[1]}"
+    m_data["m1"] = pair[0]
+    m_data["m2"] = pair[1]
+    if pair[0] == m1:
+      m_data["s1"] = m_data["s1"] # keep score aligned
+    cleaned_matchups[cleaned_id] = m_data
+
+  all_time["matchups"] = cleaned_matchups
   save_history(ALL_TIME_FILE, all_time)
   return all_time
 
@@ -269,10 +316,14 @@ def sync_champions_and_finishes(current_year):
 
 def compute_all_time_leaderboard(champions, current_managers, finishes_data):
   mgr_stats = {m: {"manager": m, "is_current": True, "gold": 0, "silver": 0, "bronze": 0, "last": 0, "total_podiums": 0, "most_recent": "No Podiums Yet", "finishes": []} for m in current_managers}
+  aliases = load_aliases()
+
   for y in sorted([int(y) for y in champions.keys()]):
     p = champions[str(y)]
     for m, cat in [(extract_manager_from_label(p.get("gold")), "gold"), (extract_manager_from_label(p.get("silver")), "silver"), (extract_manager_from_label(p.get("bronze")), "bronze"), (extract_manager_from_label(p.get("last")), "last")]:
       if m != "Unknown":
+        for alias, canonical in aliases.items():
+          if alias.lower() == m.lower(): m = canonical
         if m not in mgr_stats: mgr_stats[m] = {"manager": m, "is_current": False, "gold": 0, "silver": 0, "bronze": 0, "last": 0, "total_podiums": 0, "most_recent": "No Podiums Yet", "finishes": []}
         if cat != "last":
           mgr_stats[m][cat] += 1
@@ -284,6 +335,8 @@ def compute_all_time_leaderboard(champions, current_managers, finishes_data):
 
   for y_str, y_finishes in finishes_data.items():
     for m, place in y_finishes.items():
+      for alias, canonical in aliases.items():
+        if alias.lower() == m.lower(): m = canonical
       if m not in mgr_stats: mgr_stats[m] = {"manager": m, "is_current": False, "gold": 0, "silver": 0, "bronze": 0, "last": 0, "total_podiums": 0, "most_recent": "No Podiums Yet", "finishes": []}
       mgr_stats[m]["finishes"].append(place)
 
@@ -300,11 +353,14 @@ def compute_all_time_leaderboard(champions, current_managers, finishes_data):
 
 def compute_accumulated_money(seasons_data, champions, weekly_bounty_totals, weekly_player_bounties_all, current_year):
   accumulated = {}
+  aliases = load_aliases()
 
   def add_cash(mgr_label, amount):
     if not mgr_label or mgr_label == "TBD" or mgr_label == "Unknown": return
     mgr = extract_manager_from_label(mgr_label)
     if mgr == "Unknown": mgr = mgr_label
+    for alias, canonical in aliases.items():
+      if alias.lower() == mgr.lower(): mgr = canonical
     accumulated[mgr] = accumulated.get(mgr, 0.0) + float(amount)
 
   for yr_str, weeks_dict in seasons_data.items():
@@ -360,6 +416,8 @@ def main():
   all_time = load_history(ALL_TIME_FILE, {"champions": {}, "matchups": {}, "finishes": {}, "h2h_ingested_years": []})
   if "matchups" not in all_time: all_time["matchups"] = {}
 
+  aliases = load_aliases()
+
   for w in range(1, 18):
     w_str = str(w)
     try:
@@ -378,7 +436,9 @@ def main():
       h_players, h_opt = audit_roster(match.home_lineup, ROSTER_SLOTS, h_act)
       a_players, a_opt = audit_roster(match.away_lineup, ROSTER_SLOTS, a_act)
 
-      h_mgr, a_mgr = get_manager_name(match.home_team), get_manager_name(match.away_team)
+      h_mgr = get_manager_name(match.home_team)
+      a_mgr = get_manager_name(match.away_team)
+      
       home_label = f"{match.home_team.team_name} ({h_mgr})" if h_mgr != "Manager" else match.home_team.team_name
       away_label = f"{match.away_team.team_name} ({a_mgr})" if a_mgr != "Manager" else match.away_team.team_name
 
