@@ -304,7 +304,7 @@
     <!-- Accumulated Career Money Table -->
     <div class="table-container" style="margin-top: 10px;">
       <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
-        💵 All-Time Accumulated Career Money Won ($550 Gold, $200 Silver, $100 Bronze, $100 PF Leader)
+        💵 All-Time Accumulated Career Money Won: Since 2025 (1st $550, 2nd $300, 3rd $150, Season PF Leader $100, Weekly High Team/Player $25)
       </div>
       <table class="responsive-table">
         <thead>
@@ -474,8 +474,6 @@
   function populateWeeks(yr, targetWk) {
     const weekSel = document.getElementById('weekSelect');
     weekSel.innerHTML = '';
-    
-    // Always provide Weeks 1 through 17 to accommodate the full 17-week NFL/Fantasy schedule
     const weeks = [];
     for (let i = 1; i <= 17; i++) {
       weeks.push(i);
@@ -994,7 +992,7 @@
         selectedManagerPF += actualLeadScore;
         selectedManagerPA += actualOppScore;
         if (actualLeadScore > actualOppScore) selectedManagerWins++;
-        else if (actualOppScore < actualLeadScore) selectedManagerLosses++;
+        else if (actualOppScore < actualOppScore) selectedManagerLosses++;
         else selectedManagerTies++;
       }
     });
