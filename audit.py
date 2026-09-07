@@ -22,9 +22,8 @@ SEASONS_DATA_FILE = "seasons_data.json"
 GLOBAL_DATA_FILE = "global_dashboard_data.json"
 
 HISTORICAL_CHAMPIONS_OVERRIDE = {}
-WEEKLY_BOUNTY_CASH = 25.0  # $25 per weekly high-score bounty
+WEEKLY_BOUNTY_CASH = 25.0
 
-# Estimated or standard payouts for podiums/season crowns starting 2025 onwards
 PODIUM_PAYOUTS = {
     "gold": 500.0,
     "silver": 200.0,
@@ -114,7 +113,6 @@ def compute_records_and_payouts(weeks_obj, finishes_map=None):
     matchups = weeks_obj[str(w)]
     if not matchups: continue
     
-    # Regular season high team score bounties awarded for Weeks 1-14 (Playoffs start Week 15)
     if w <= 14:
       high_match = max(matchups, key=lambda x: x["actual"])
       weekly_team_bounties.append({
@@ -193,7 +191,7 @@ def sync_historical_h2h(current_year):
             if h_mgr == "Manager" and a_mgr == "Manager": continue
             pair = sorted([h_mgr, a_mgr])
             m_id = f"{y}_W{w}_{pair[0]}_vs_{pair[1]}"
-            is_playoff = w >= 15  # Playoffs start Week 15
+            is_playoff = w >= 15
             if m_id not in all_time["matchups"]:
               all_time["matchups"][m_id] = {
                   "year": y, "week": w, "is_playoff": is_playoff,
@@ -279,42 +277,32 @@ def compute_all_time_leaderboard(champions, current_managers, finishes_data):
   return sorted(mgr_stats.values(), key=lambda x: (-x["gold"], -x["silver"], -x["bronze"], -x["total_podiums"], x["avg_sort"], x["last"], x["manager"]))
 
 
-def compute_accumulated_money(seasons_data, champions, finishes_data, weekly_bounty_totals):
-  """Accumulate all-time money won starting from the 2025 season onwards."""
+def compute_accumulated_money(seasons_data, champions, weekly_bounty_totals, current_year):
+  """Accumulate all-time money won starting from 2025, strictly applying only for CONCLUDED past seasons."""
   accumulated = {}
 
   def add_cash(mgr_label, amount):
     if not mgr_label or mgr_label == "TBD" or mgr_label == "Unknown": return
-    # Extract manager name if labeled as 'Team Name (Manager Name)'
     mgr = extract_manager_from_label(mgr_label)
     if mgr == "Unknown": mgr = mgr_label
     accumulated[mgr] = accumulated.get(mgr, 0.0) + float(amount)
 
-  # Iterate over 2025 and later seasons
   for yr_str, weeks_dict in seasons_data.items():
     yr_int = int(yr_str)
-    if yr_int < 2025: continue
+    # Only accumulate for completed seasons strictly prior to the current live active season
+    if yr_int < 2025 or yr_int >= current_year: continue
 
-    # 1. Add weekly bounties for this season
     bounties_list = weekly_bounty_totals.get(yr_str, [])
     for b in bounties_list:
-      # b format expected from bounty computation or weekly totals
       team_lbl = b.get("team")
       cash_amt = b.get("total_cash", b.get("wins", 0) * WEEKLY_BOUNTY_CASH)
       add_cash(team_lbl, cash_amt)
 
-    # 2. Add podium finishes and PF leader for seasons >= 2025
     yr_champ = champions.get(yr_str, {})
-    gold_lbl = yr_champ.get("gold")
-    silver_lbl = yr_champ.get("silver")
-    bronze_lbl = yr_champ.get("bronze")
+    if yr_champ.get("gold"): add_cash(yr_champ["gold"], PODIUM_PAYOUTS["gold"])
+    if yr_champ.get("silver"): add_cash(yr_champ["silver"], PODIUM_PAYOUTS["silver"])
+    if yr_champ.get("bronze"): add_cash(yr_champ["bronze"], PODIUM_PAYOUTS["bronze"])
 
-    if gold_lbl: add_cash(gold_lbl, PODIUM_PAYOUTS["gold"])
-    if silver_lbl: add_cash(silver_lbl, PODIUM_PAYOUTS["silver"])
-    if bronze_lbl: add_cash(bronze_lbl, PODIUM_PAYOUTS["bronze"])
-
-    # PF Leader bonus if stored
-    # (Evaluated from team scoring totals)
     team_season_pf = {}
     for w_str, matchups in weeks_dict.items():
       for m in matchups:
@@ -364,7 +352,7 @@ def main():
       if h_mgr != "Manager" and a_mgr != "Manager" and (h_act > 0 or a_act > 0):
         pair = sorted([h_mgr, a_mgr])
         m_id = f"{YEAR}_W{w}_{pair[0]}_vs_{pair[1]}"
-        is_playoff = w >= 15  # Playoffs start Week 15
+        is_playoff = w >= 15
         all_time["matchups"][m_id] = {
             "year": YEAR, "week": w, "is_playoff": is_playoff,
             "m1": h_mgr, "t1": match.home_team.team_name, "s1": h_act,
@@ -422,7 +410,7 @@ def main():
     weekly_anchors_all[yr_key] = an
     weekly_bounty_totals_all[yr_key] = b_totals
 
-  accumulated_money = compute_accumulated_money(seasons_data, champions, finishes_data, weekly_bounty_totals_all)
+  accumulated_money = compute_accumulated_money(seasons_data, champions, weekly_bounty_totals_all, YEAR)
 
   all_time_high_team = {"team": "None", "pts": 0.0, "opp": "None", "opp_pts": 0.0, "week": 0, "year": 0}
   all_time_high_player = {"player": "None", "team": "None", "pts": 0.0, "week": 0, "year": 0, "pos": ""}
@@ -489,7 +477,7 @@ def main():
       }
   }
   save_history(GLOBAL_DATA_FILE, global_bundle)
-  print("Data engine execution complete with accumulated money and Week 15-17 playoffs.")
+  print("Data engine execution complete.")
 
 
 if __name__ == "__main__":
