@@ -33227,48 +33227,7 @@
       }
     ]
   },
-  "accumulated_money": [
-    {
-      "manager": "Miles Spainhower",
-      "total_cash": 500.0
-    },
-    {
-      "manager": "Kurt Claycomb",
-      "total_cash": 325.0
-    },
-    {
-      "manager": "trentan busey",
-      "total_cash": 250.0
-    },
-    {
-      "manager": "jeremy bayless",
-      "total_cash": 125.0
-    },
-    {
-      "manager": "Ron Baker",
-      "total_cash": 50.0
-    },
-    {
-      "manager": "Roman Bayless",
-      "total_cash": 25.0
-    },
-    {
-      "manager": "Billy Haid",
-      "total_cash": 25.0
-    },
-    {
-      "manager": "Robert Kendall",
-      "total_cash": 25.0
-    },
-    {
-      "manager": "Eric King",
-      "total_cash": 25.0
-    },
-    {
-      "manager": "TRAVIS GIBSON",
-      "total_cash": 25.0
-    }
-  ],
+  "accumulated_money": [],
   "all_time_records": {
     "high_team_game": {
       "team": "Puka Time (trentan busey)",
