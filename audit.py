@@ -197,13 +197,14 @@ def compute_records_and_payouts(weeks_obj, finishes_map=None):
 def sync_historical_h2h(current_year):
   all_time = load_history(ALL_TIME_FILE, {"champions": {}, "matchups": {}, "finishes": {}, "h2h_ingested_years": []})
   if "matchups" not in all_time: all_time["matchups"] = {}
-  if "h2h_ingested_years" not in all_time: all_time["h2h_ingested_years"] = []
+  
+  # Force re-ingestion of historical years 2023 through current_year - 1 to ensure playoff weeks 1-17 are fully captured
+  all_time["h2h_ingested_years"] = []
 
   for y in range(2023, current_year):
-    if y in all_time["h2h_ingested_years"]: continue
     try:
       past_league = League(league_id=LEAGUE_ID, year=y, espn_s2=ESPN_S2, swid=SWID)
-      for w in range(1, 18):
+      for w in range(1, 18):  # Explicitly covering weeks 1 through 17 (Regular + Playoffs)
         try:
           b_scores = past_league.box_scores(week=w)
           if not b_scores: continue
@@ -217,15 +218,18 @@ def sync_historical_h2h(current_year):
             m_id = f"{y}_W{w}_{pair[0]}_vs_{pair[1]}"
             is_playoff = w >= 15
             
-            # Store uniquely to prevent any duplicate insertion
             all_time["matchups"][m_id] = {
                 "year": y, "week": w, "is_playoff": is_playoff,
-                "m1": h_mgr, "t1": match.home_team.team_name, "s1": h_act,
-                "m2": a_mgr, "t2": match.away_team.team_name, "s2": a_act
+                "m1": pair[0], "t1": match.home_team.team_name if h_mgr == pair[0] else match.away_team.team_name, "s1": h_act if h_mgr == pair[0] else a_act,
+                "m2": pair[1], "t2": match.away_team.team_name if a_mgr == pair[1] else match.home_team.team_name, "s2": a_act if a_mgr == pair[1] else h_act
             }
-        except Exception: break
+        except Exception as we:
+          print(f"Skipping Season {y} Week {w}: {we}")
+          continue
       all_time["h2h_ingested_years"].append(y)
-    except Exception as e: print(f"Could not backfill Season {y} H2H: {e}")
+    except Exception as e: 
+      print(f"Could not backfill Season {y} H2H: {e}")
+      
   save_history(ALL_TIME_FILE, all_time)
   return all_time
 
@@ -386,7 +390,6 @@ def main():
         m_id = f"{YEAR}_W{w}_{pair[0]}_vs_{pair[1]}"
         is_playoff = w >= 15
         
-        # Ensure active season matchups are uniquely stored using canonical sorted pair
         all_time["matchups"][m_id] = {
             "year": YEAR, "week": w, "is_playoff": is_playoff,
             "m1": pair[0], "t1": match.home_team.team_name if h_mgr == pair[0] else match.away_team.team_name, "s1": h_act if h_mgr == pair[0] else a_act,
