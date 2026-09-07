@@ -947,10 +947,10 @@
     "2026_W1_Ron Baker_vs_jeremy bayless": {
       "year": 2026,
       "week": 1,
-      "m1": "jeremy bayless",
+      "m1": "Ron Baker",
       "t1": "Make Fantasy Great Again (jeremy bayless)",
       "s1": 0.0,
-      "m2": "Ron Baker",
+      "m2": "jeremy bayless",
       "t2": "Team Bakesmode (Ron Baker)",
       "s2": 0.0
     },
@@ -987,10 +987,10 @@
     "2026_W1_Kurt Claycomb_vs_Wes Colson": {
       "year": 2026,
       "week": 1,
-      "m1": "Wes Colson",
+      "m1": "Kurt Claycomb",
       "t1": "Team Draft order (Wes Colson)",
       "s1": 0.0,
-      "m2": "Kurt Claycomb",
+      "m2": "Wes Colson",
       "t2": "Skatteboo boo (Kurt Claycomb)",
       "s2": 0.0
     },
@@ -2129,30 +2129,30 @@
     "2023_W18_Roman Bayless_vs_Wes Colson": {
       "year": 2023,
       "week": 18,
-      "m1": "Wes Colson",
+      "m1": "Roman Bayless",
       "t1": "Team Draft order",
       "s1": 168.0,
-      "m2": "Roman Bayless",
+      "m2": "Wes Colson",
       "t2": "O-Bijan Kenobi",
       "s2": 94.48
     },
     "2023_W18_Eric King_vs_Kurt Claycomb": {
       "year": 2023,
       "week": 18,
-      "m1": "Kurt Claycomb",
+      "m1": "Eric King",
       "t1": "No Punt Intended ",
       "s1": 134.3,
-      "m2": "Eric King",
+      "m2": "Kurt Claycomb",
       "t2": "Son of a Veach",
       "s2": 92.98
     },
     "2023_W18_Jared Schneider_vs_jeremy bayless": {
       "year": 2023,
       "week": 18,
-      "m1": "jeremy bayless",
+      "m1": "Jared Schneider",
       "t1": "THE B-MEN",
       "s1": 76.84,
-      "m2": "Jared Schneider",
+      "m2": "jeremy bayless",
       "t2": "Team Unvaxxed",
       "s2": 110.5
     },
@@ -2169,20 +2169,20 @@
     "2023_W18_Miles Spainhower_vs_Robert Kendall": {
       "year": 2023,
       "week": 18,
-      "m1": "Robert Kendall",
+      "m1": "Miles Spainhower",
       "t1": "Team Kendall",
       "s1": 136.92,
-      "m2": "Miles Spainhower",
+      "m2": "Robert Kendall",
       "t2": "The American Dream",
       "s2": 150.44
     },
     "2023_W18_Ron Baker_vs_trentan busey": {
       "year": 2023,
       "week": 18,
-      "m1": "trentan busey",
+      "m1": "Ron Baker",
       "t1": "Trading mahomes",
       "s1": 71.7,
-      "m2": "Ron Baker",
+      "m2": "trentan busey",
       "t2": "Team Bakesmode",
       "s2": 55.66
     },
@@ -3331,10 +3331,10 @@
     "2024_W18_Roman Bayless_vs_TRAVIS GIBSON": {
       "year": 2024,
       "week": 18,
-      "m1": "TRAVIS GIBSON",
+      "m1": "Roman Bayless",
       "t1": "THE G-MEN",
       "s1": 162.02,
-      "m2": "Roman Bayless",
+      "m2": "TRAVIS GIBSON",
       "t2": "Team Freedom",
       "s2": 112.48
     },
@@ -3351,20 +3351,20 @@
     "2024_W18_Curtis Thornton_vs_jeremy bayless": {
       "year": 2024,
       "week": 18,
-      "m1": "jeremy bayless",
+      "m1": "Curtis Thornton",
       "t1": "Rejected Kamala",
       "s1": 102.24,
-      "m2": "Curtis Thornton",
+      "m2": "jeremy bayless",
       "t2": "Staley Starch Makers",
       "s2": 123.5
     },
     "2024_W18_Eric King_vs_Kurt Claycomb": {
       "year": 2024,
       "week": 18,
-      "m1": "Kurt Claycomb",
+      "m1": "Eric King",
       "t1": "No Punt Intended ",
       "s1": 120.68,
-      "m2": "Eric King",
+      "m2": "Kurt Claycomb",
       "t2": "Son of a Veach",
       "s2": 60.98
     },
@@ -3569,10 +3569,10 @@
     "2025_W18_Miles Spainhower_vs_trentan busey": {
       "year": 2025,
       "week": 18,
-      "m1": "trentan busey",
+      "m1": "Miles Spainhower",
       "t1": "Puka Time",
       "s1": 133.92,
-      "m2": "Miles Spainhower",
+      "m2": "trentan busey",
       "t2": "The American Dream",
       "s2": 135.86
     },
