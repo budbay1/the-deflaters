@@ -25,7 +25,7 @@ HISTORICAL_CHAMPIONS_OVERRIDE = {}
 WEEKLY_BOUNTY_CASH = 25.0
 
 PODIUM_PAYOUTS = {
-    "gold": 500.0,
+    "gold": 550.0,    # Updated to $550 for 1st place
     "silver": 200.0,
     "bronze": 100.0,
     "pf_leader": 100.0
@@ -113,6 +113,7 @@ def compute_records_and_payouts(weeks_obj, finishes_map=None):
     matchups = weeks_obj[str(w)]
     if not matchups: continue
     
+    # Regular season high team score bounties awarded for Weeks 1-14
     if w <= 14:
       high_match = max(matchups, key=lambda x: x["actual"])
       weekly_team_bounties.append({
@@ -184,7 +185,7 @@ def sync_historical_h2h(current_year):
     if y in all_time["h2h_ingested_years"]: continue
     try:
       past_league = League(league_id=LEAGUE_ID, year=y, espn_s2=ESPN_S2, swid=SWID)
-      for w in range(1, 19):
+      for w in range(1, 18):
         try:
           b_scores = past_league.box_scores(week=w)
           if not b_scores: continue
@@ -277,7 +278,6 @@ def compute_all_time_leaderboard(champions, current_managers, finishes_data):
 
 
 def compute_accumulated_money(seasons_data, champions, weekly_bounty_totals, current_year):
-  """Accumulate career money won starting from 2025 onwards, including 2025 immediately."""
   accumulated = {}
 
   def add_cash(mgr_label, amount):
@@ -289,13 +289,11 @@ def compute_accumulated_money(seasons_data, champions, weekly_bounty_totals, cur
   for yr_str, weeks_dict in seasons_data.items():
     yr_int = int(yr_str)
     if yr_int < 2025: continue
-    
-    # Always include 2025. For 2026+, include only if year < current_year OR if current year is completed
     if yr_int > current_year: continue
     if yr_int == current_year and yr_int != 2025:
       max_wk = max([int(w) for w in weeks_dict.keys()]) if weeks_dict else 0
       if max_wk < 17:
-        continue # Skip live active season until wrapped up
+        continue
 
     bounties_list = weekly_bounty_totals.get(yr_str, [])
     for b in bounties_list:
@@ -325,8 +323,8 @@ def main():
   league = League(league_id=LEAGUE_ID, year=YEAR, espn_s2=ESPN_S2, swid=SWID)
 
   if not WEEK:
-    WEEK = max(1, getattr(league, "current_week", 1) - 1)
-    print(f"Auto-detected completed week: Week {WEEK}")
+    WEEK = max(1, getattr(league, "current_week", 1))
+    print(f"Auto-detected current week: Week {WEEK}")
 
   current_managers = sorted(list(set(get_manager_name(t) for t in league.teams if get_manager_name(t) != "Manager")))
 
@@ -336,9 +334,12 @@ def main():
   all_time = load_history(ALL_TIME_FILE, {"champions": {}, "matchups": {}, "finishes": {}, "h2h_ingested_years": []})
   if "matchups" not in all_time: all_time["matchups"] = {}
 
-  for w in range(1, WEEK + 1):
+  for w in range(1, 18):  # Ensure full 1-17 weeks range is populated/scanned
     w_str = str(w)
-    box_scores = league.box_scores(week=w)
+    try:
+      box_scores = league.box_scores(week=w)
+    except Exception:
+      continue
     if not box_scores: continue
 
     w_teams = []
