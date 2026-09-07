@@ -219,18 +219,17 @@ def sync_champions_and_finishes(current_year):
     y_str = str(y)
     try:
       past_league = League(league_id=LEAGUE_ID, year=y, espn_s2=ESPN_S2, swid=SWID)
-      ranked_teams = sorted(past_league.teams, key=lambda t: (getattr(t, "final_standing", 99) if getattr(t, "final_standing", 0) > 0 else 99, getattr(t, "standing", 99), -getattr(t, "points_for", 0)))
+      
+      # Determine League Bitch: Ultimate loser of the consolation bracket / lowest final standing
+      ranked_teams = sorted(past_league.teams, key=lambda t: (getattr(t, "final_standing", 0) if getattr(t, "final_standing", 0) > 0 else 99, getattr(t, "standing", 99), getattr(t, "points_for", 0)))
       season_finishes = {get_manager_name(t): (getattr(t, "final_standing", 0) if 0 < getattr(t, "final_standing", 0) <= len(past_league.teams) else idx) for idx, t in enumerate(ranked_teams, 1) if get_manager_name(t) != "Manager"}
       all_time["finishes"][y_str] = season_finishes
 
-      gold_team = next((t for t in past_league.teams if getattr(t, "final_standing", 0) == 1), None)
-      silver_team = next((t for t in past_league.teams if getattr(t, "final_standing", 0) == 2), None)
-      bronze_team = next((t for t in past_league.teams if getattr(t, "final_standing", 0) == 3), None)
-
-      if not gold_team and ranked_teams: gold_team = ranked_teams[0]
-      if not silver_team and len(ranked_teams) > 1: silver_team = ranked_teams[1]
-      if not bronze_team and len(ranked_teams) > 2: bronze_team = ranked_teams[2]
-
+      gold_team = next((t for t in past_league.teams if getattr(t, "final_standing", 0) == 1), ranked_teams[0] if ranked_teams else None)
+      silver_team = next((t for t in past_league.teams if getattr(t, "final_standing", 0) == 2), ranked_teams[1] if len(ranked_teams) > 1 else None)
+      bronze_team = next((t for t in past_league.teams if getattr(t, "final_standing", 0) == 3), ranked_teams[2] if len(ranked_teams) > 2 else None)
+      
+      # League Bitch is the absolute last place team (highest final standing or bottom of consolation bracket)
       last_team = ranked_teams[-1] if ranked_teams else None
 
       def format_champ_entry(t):
@@ -282,7 +281,6 @@ def compute_all_time_leaderboard(champions, current_managers, finishes_data):
 
 
 def compute_accumulated_money(seasons_data, champions, weekly_bounty_totals, current_year):
-  """Accumulate all-time money won. Includes 2025 immediately, and adds 2026+ only after each respective season concludes."""
   accumulated = {}
 
   def add_cash(mgr_label, amount):
@@ -293,14 +291,14 @@ def compute_accumulated_money(seasons_data, champions, weekly_bounty_totals, cur
 
   for yr_str, weeks_dict in seasons_data.items():
     yr_int = int(yr_str)
-    # Include 2025 onwards, but for 2026+ require the season year to be strictly less than current_year UNLESS current year is already concluded
     if yr_int < 2025: continue
+    
+    # If it's a past completed season, always include. If it's the current year, check if it's concluded (week >= 17)
     if yr_int > current_year: continue
     if yr_int == current_year:
-      # Check if current live season has concluded (e.g. week >= 17)
       max_wk = max([int(w) for w in weeks_dict.keys()]) if weeks_dict else 0
       if max_wk < 17:
-        continue # Live active season hasn't concluded yet, do not include in historical career totals until finished
+        continue # Skip live active season until wrapped up
 
     bounties_list = weekly_bounty_totals.get(yr_str, [])
     for b in bounties_list:
@@ -422,7 +420,6 @@ def main():
 
   accumulated_money = compute_accumulated_money(seasons_data, champions, weekly_bounty_totals_all, YEAR)
 
-  # Collect All-Time Season Rankings across 2023-Present for records tab expansion
   all_time_high_team = {"team": "None", "pts": 0.0, "opp": "None", "opp_pts": 0.0, "week": 0, "year": 0}
   all_time_high_player = {"player": "None", "team": "None", "pts": 0.0, "week": 0, "year": 0, "pos": ""}
   all_time_high_season_pf = {"team": "None", "pts": 0.0, "year": 0}
