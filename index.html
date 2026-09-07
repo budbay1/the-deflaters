@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Deflaters // League Engine</title>
-  <!-- BUILD VERSION: 2026.09.07-FIX-MGR-MAPPING-V7 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   
@@ -72,7 +71,17 @@
       color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer;
     }
 
-    .build-tag { font-size: 10px; color: var(--dim); background: rgba(0,0,0,0.3); padding: 4px 8px; border-radius: 6px; font-family: monospace; font-weight: bold; }
+    /* VISIBLE ON-SCREEN BUILD BADGE */
+    .visible-build-badge {
+      background: var(--accent);
+      color: #070a13;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 5px 10px;
+      border-radius: 8px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
 
     .awards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
     .award-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
@@ -140,6 +149,8 @@
       <h1 id="headerTitle">LOADING...</h1>
     </div>
     <div class="header-controls">
+      <!-- VISIBLE BUILD BADGE RIGHT IN THE HEADER -->
+      <span class="visible-build-badge">BUILD: v2026.1</span>
       <div class="selector-group">
         <span class="selector-label">Season:</span>
         <select id="seasonSelect" class="dropdown-select" onchange="onSeasonChange(this.value)"></select>
@@ -148,7 +159,6 @@
         <span class="selector-label">Week:</span>
         <select id="weekSelect" class="dropdown-select" onchange="onWeekChange(this.value)"></select>
       </div>
-      <span class="build-tag">Build: 26.09.07-v7</span>
       <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()">☀️ Light Mode</button>
     </div>
   </div>
@@ -956,7 +966,6 @@
       let leadMgr = m1;
       let oppMgr = m2;
 
-      // Handle manager name variations or mappings if necessary
       if (mgrFilter !== 'ALL') {
         if (mgrFilter === m2) {
           leadMgr = m2;
