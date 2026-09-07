@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Deflaters // League Engine</title>
-  <!-- BUILD VERSION: 2026.09.07-FIX-LOSSES-TIES-V5 -->
+  <!-- BUILD VERSION: 2026.09.07-FIX-MGR-MAPPING-V7 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   
@@ -148,7 +148,7 @@
         <span class="selector-label">Week:</span>
         <select id="weekSelect" class="dropdown-select" onchange="onWeekChange(this.value)"></select>
       </div>
-      <span class="build-tag">Build: 26.09.07-v5</span>
+      <span class="build-tag">Build: 26.09.07-v7</span>
       <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()">☀️ Light Mode</button>
     </div>
   </div>
@@ -941,8 +941,6 @@
       if (h2hPhase === 'REG' && g.is_playoff) return;
       if (h2hPhase === 'PLAYOFFS' && !g.is_playoff) return;
       if (g.week > 17) return;
-
-      // Exclude unplayed 0-0 future games
       if (g.s1 === 0 && g.s2 === 0) return;
 
       const m1 = g.m1;
@@ -958,6 +956,7 @@
       let leadMgr = m1;
       let oppMgr = m2;
 
+      // Handle manager name variations or mappings if necessary
       if (mgrFilter !== 'ALL') {
         if (mgrFilter === m2) {
           leadMgr = m2;
@@ -1006,7 +1005,7 @@
         selectedManagerPF += actualLeadScore;
         selectedManagerPA += actualOppScore;
         if (actualLeadScore > actualOppScore) selectedManagerWins++;
-        else if (actualLeadScore < actualOppScore) selectedManagerLosses++;
+        else if (actualOppScore < actualOppScore) selectedManagerLosses++;
         else selectedManagerTies++;
       }
     });
