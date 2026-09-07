@@ -928,6 +928,7 @@
     let selectedManagerTies = 0;
     let selectedManagerPF = 0;
     let selectedManagerPA = 0;
+    let totalGamesCount = 0;
 
     Object.values(matchups).forEach(g => {
       if (seasonFilter !== 'ALL' && String(g.year) !== seasonFilter) return;
@@ -986,10 +987,11 @@
       r.pfOpp += actualOppScore;
 
       if (mgrFilter !== 'ALL' && leadMgr === mgrFilter) {
+        totalGamesCount++;
         selectedManagerPF += actualLeadScore;
         selectedManagerPA += actualOppScore;
         if (actualLeadScore > actualOppScore) selectedManagerWins++;
-        else if (actualLeadScore < actualOppScore) selectedManagerLosses++;
+        else if (actualOppScore < actualOppScore) selectedManagerLosses++;
         else selectedManagerTies++;
       }
     });
@@ -997,7 +999,12 @@
     if (mgrFilter !== 'ALL') {
       summaryBox.style.display = 'block';
       const diff = selectedManagerPF - selectedManagerPA;
-      summaryBox.innerHTML = `📊 All-Time Summary for <b>${mgrFilter}</b>: <span style="color: var(--green);">${selectedManagerWins}W</span>–<span style="color: var(--red);">${selectedManagerLosses}L</span>${selectedManagerTies > 0 ? '–' + selectedManagerTies + 'T' : ''} | Total PF: <b>${selectedManagerPF.toFixed(2)}</b> | Total PA: <b>${selectedManagerPA.toFixed(2)}</b> (Δ <span style="color: ${diff >= 0 ? 'var(--green)' : 'var(--red)'};">${diff >= 0 ? '+' : ''}${diff.toFixed(2)}</span>)`;
+      const seasonText = seasonFilter === 'ALL' ? 'All Seasons (2023–Present)' : `${seasonFilter} Season`;
+      const phaseText = h2hPhase === 'ALL' ? 'All Phases' : (h2hPhase === 'REG' ? 'Regular Season Only' : 'Playoffs Only');
+      const scopeText = h2hScope === 'current' ? 'Current Managers' : 'All-Time (Inc. Former)';
+      
+      summaryBox.innerHTML = `📊 Summary for <b>${mgrFilter}</b> | Filter Context — Season: <b>${seasonText}</b> | Phase: <b>${phaseText}</b> | Scope: <b>${scopeText}</b><br>
+      Record: <span style="color: var(--green);">${selectedManagerWins}W</span>–<span style="color: var(--red);">${selectedManagerLosses}L</span>${selectedManagerTies > 0 ? '–' + selectedManagerTies + 'T' : ''} (${totalGamesCount} Games Tracked) | Total PF: <b>${selectedManagerPF.toFixed(2)}</b> | Total PA: <b>${selectedManagerPA.toFixed(2)}</b> (Δ <span style="color: ${diff >= 0 ? 'var(--green)' : 'var(--red)'};">${diff >= 0 ? '+' : ''}${diff.toFixed(2)}</span>)`;
     } else {
       summaryBox.style.display = 'none';
     }
