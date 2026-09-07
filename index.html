@@ -202,16 +202,30 @@
   <div id="view-h2h" class="table-container" style="display: none;">
     <div class="filter-header">
       <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-        <div style="font-size: 14px; font-weight: 800; color: var(--text);">⚔️ Head-to-Head Rivalry Records (2023–Present)</div>
+        <div style="font-size: 14px; font-weight: 800; color: var(--text);">⚔️ Head-to-Head Rivalry Records</div>
         <div class="h2h-scope-bar">
           <button id="scopeCurrentBtn" class="scope-btn active" onclick="setH2HScope('current')">👥 Current Managers</button>
           <button id="scopeAllBtn" class="scope-btn" onclick="setH2HScope('all')">🌐 All-Time (Inc. Former)</button>
         </div>
       </div>
-      <div class="filter-control">
-        <select id="mgrFilter" class="select-dropdown" onchange="applyH2HFilters()">
-          <option value="ALL">Show All Rivalries / Summary</option>
-        </select>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <div class="filter-control">
+          <select id="h2hSeasonFilter" class="select-dropdown" onchange="applyH2HFilters()">
+            <option value="ALL">All Seasons</option>
+          </select>
+        </div>
+        <div class="filter-control">
+          <select id="h2hPhaseFilter" class="select-dropdown" onchange="applyH2HFilters()">
+            <option value="ALL">All Phases (Reg + Playoffs)</option>
+            <option value="REG">Regular Season Only</option>
+            <option value="PLAYOFFS">Playoffs Only (Wk 15+)</option>
+          </select>
+        </div>
+        <div class="filter-control">
+          <select id="mgrFilter" class="select-dropdown" onchange="applyH2HFilters()">
+            <option value="ALL">All Managers</option>
+          </select>
+        </div>
       </div>
     </div>
     <div id="managerSummaryBox" style="padding: 14px 16px; background: var(--surface); border-bottom: 1px solid var(--border); font-size: 14px; font-weight: 700; display: none;"></div>
@@ -219,7 +233,7 @@
       <thead>
         <tr>
           <th>Rivalry Matchup</th>
-          <th>All-Time Series</th>
+          <th>Series Record</th>
           <th>Total Points (PF vs PA)</th>
           <th>Last Meeting</th>
         </tr>
@@ -239,13 +253,14 @@
     <!-- Weekly Bounty Totals Summary Table -->
     <div class="table-container" style="margin-top: 10px;">
       <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
-        🏆 Weekly High Score Bounty Totals (Season Breakdown)
+        🏆 Weekly High Score Bounty Totals & Total Cash Won
       </div>
       <table class="responsive-table">
         <thead>
           <tr>
             <th>Rank / Team</th>
             <th>Weekly Bounties Won</th>
+            <th>Total Cash Won ($)</th>
           </tr>
         </thead>
         <tbody id="bountyTotalsBody"></tbody>
@@ -574,7 +589,7 @@
       `;
     });
 
-    // 4. Render All-Time Records & Payouts Tab
+    // 4. Render All-Time Records & Payouts Tab (With Season High Points Prize Card)
     const atr = dashboardData.all_time_records || {};
     const atGrid = document.getElementById('allTimeRecordsGrid');
     atGrid.innerHTML = `
@@ -610,9 +625,9 @@
     const sp = seasonPayouts[currentYear] || {};
     pGrid.innerHTML = `
       <div class="award-card gold">
-        <div><div class="award-tag" style="color: var(--gold);">👑 ${currentYear} Points Leader</div>
+        <div><div class="award-tag" style="color: var(--gold);">👑 ${currentYear} Points Leader (On the Line)</div>
         <div class="award-title">${renderBadge(sp.pf_leader_team || 'None')}</div>
-        <div class="award-desc">Pacing the season with <b>${(sp.pf_leader_pts || 0).toFixed(2)} Total PF</b>!</div></div>
+        <div class="award-desc">Pacing with <b>${(sp.pf_leader_pts || 0).toFixed(2)} Total PF</b>. Prize Pool on the line: <b style="color: var(--gold);">$${(sp.pf_leader_prize || 100).toFixed(2)}</b></div></div>
       </div>
       <div class="award-card blue">
         <div><div class="award-tag" style="color: var(--accent);">⚡ ${currentYear} Single-Game Team Record</div>
@@ -626,7 +641,7 @@
       </div>
     `;
 
-    // Render Weekly Bounty Totals Summary Table
+    // Render Weekly Bounty Totals Summary Table (With Financial Totals)
     const bountyTotalsMap = dashboardData.weekly_bounty_totals?.[currentYear] || [];
     const bountyTotalsBody = document.getElementById('bountyTotalsBody');
     bountyTotalsBody.innerHTML = '';
@@ -634,7 +649,8 @@
       bountyTotalsBody.innerHTML += `
         <tr>
           <td class="team-cell"><span class="rank-num">#${idx + 1}</span> ${renderBadge(bt.team)}</td>
-          <td><span class="badge badge-gold"><b>${bt.wins}</b> Bounties Won</span></td>
+          <td><span class="badge badge-gold"><b>${bt.wins}</b> Bounties</span></td>
+          <td style="color: var(--green); font-weight: 800;">$${bt.total_cash.toFixed(2)}</td>
         </tr>
       `;
     });
@@ -652,7 +668,7 @@
       ledgerBody.innerHTML += `
         <tr>
           <td class="team-cell" style="color: var(--accent);">Week ${b.week}</td>
-          <td><b>${renderBadge(b.team)}</b> <span style="color: var(--green); font-size: 12px;">(${b.pts.toFixed(2)} pts)</span></td>
+          <td><b>${renderBadge(b.team)}</b> <span style="color: var(--green); font-size: 12px;">(${b.pts.toFixed(2)} pts)</span> <span style="color: var(--gold); font-size: 11px; margin-left: 6px;">+$${(b.cash || 20).toFixed(2)}</span></td>
           <td><b>${pBounty.player}</b> (${pBounty.pos}) — <span style="color: var(--accent);">${pBounty.pts.toFixed(2)} pts</span> <span style="color: var(--muted); font-size: 11px;">(${renderBadge(pBounty.team || '')})</span></td>
         </tr>
       `;
@@ -727,13 +743,22 @@
     const matchups = dashboardData.matchups || {};
     const currentManagers = dashboardData.current_managers || [];
     const select = document.getElementById('mgrFilter');
+    const seasonSelect = document.getElementById('h2hSeasonFilter');
     
     let managersSet = new Set();
+    let seasonsSet = new Set();
+
     Object.values(matchups).forEach(m => {
       managersSet.add(m.m1); managersSet.add(m.m2);
+      if (m.year) seasonsSet.add(m.year);
     });
 
-    select.innerHTML = '<option value="ALL">Show All Rivalries / Summary</option>';
+    seasonSelect.innerHTML = '<option value="ALL">All Seasons</option>';
+    Array.from(seasonsSet).sort((a, b) => b - a).forEach(yr => {
+      seasonSelect.innerHTML += `<option value="${yr}">${yr} Season</option>`;
+    });
+
+    select.innerHTML = '<option value="ALL">All Managers</option>';
     Array.from(managersSet).sort().forEach(mgr => {
       const isCur = currentManagers.includes(mgr);
       select.innerHTML += `<option value="${mgr}" data-is-current="${isCur}">${mgr}${isCur ? '' : ' (Former)'}</option>`;
@@ -746,6 +771,8 @@
     const matchups = dashboardData.matchups || {};
     const currentManagers = dashboardData.current_managers || [];
     const mgrFilter = document.getElementById('mgrFilter').value;
+    const seasonFilter = document.getElementById('h2hSeasonFilter').value;
+    const phaseFilter = document.getElementById('h2hPhaseFilter').value;
     const h2hBody = document.getElementById('h2hTableBody');
     const summaryBox = document.getElementById('managerSummaryBox');
     h2hBody.innerHTML = '';
@@ -758,6 +785,12 @@
     let selectedManagerPA = 0;
 
     Object.values(matchups).forEach(g => {
+      // Apply Season Filter
+      if (seasonFilter !== 'ALL' && String(g.year) !== seasonFilter) return;
+      // Apply Phase Filter
+      if (phaseFilter === 'REG' && g.is_playoff) return;
+      if (phaseFilter === 'PLAYOFFS' && !g.is_playoff) return;
+
       const pair = [g.m1, g.m2].sort();
       const key = pair[0] + '_vs_' + pair[1];
       if (!rivalries[key]) {
@@ -787,7 +820,7 @@
     if (mgrFilter !== 'ALL') {
       summaryBox.style.display = 'block';
       const diff = selectedManagerPF - selectedManagerPA;
-      summaryBox.innerHTML = `📊 All-Time Summary for <b>${mgrFilter}</b>: <span style="color: var(--green);">${selectedManagerWins}W</span>–<span style="color: var(--red);">${selectedManagerLosses}L</span>${selectedManagerTies > 0 ? '–' + selectedManagerTies + 'T' : ''} | Total PF: <b>${selectedManagerPF.toFixed(2)}</b> | Total PA: <b>${selectedManagerPA.toFixed(2)}</b> (Δ <span style="color: ${diff >= 0 ? 'var(--green)' : 'var(--red)'};">${diff >= 0 ? '+' : ''}${diff.toFixed(2)}</span>)`;
+      summaryBox.innerHTML = `📊 Filtered Summary for <b>${mgrFilter}</b>: <span style="color: var(--green);">${selectedManagerWins}W</span>–<span style="color: var(--red);">${selectedManagerLosses}L</span>${selectedManagerTies > 0 ? '–' + selectedManagerTies + 'T' : ''} | Total PF: <b>${selectedManagerPF.toFixed(2)}</b> | Total PA: <b>${selectedManagerPA.toFixed(2)}</b> (Δ <span style="color: ${diff >= 0 ? 'var(--green)' : 'var(--red)'};">${diff >= 0 ? '+' : ''}${diff.toFixed(2)}</span>)`;
     } else {
       summaryBox.style.display = 'none';
     }
