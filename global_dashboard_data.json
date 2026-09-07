@@ -30264,7 +30264,7 @@
     "2025_W14_Miles Spainhower_vs_Robert Kendall": {
       "year": 2025,
       "week": 14,
-      "is_playoff": false,
+      "is_playoff": true,
       "m1": "Miles Spainhower",
       "t1": "The American Dream",
       "s1": 122.14,
@@ -30275,7 +30275,7 @@
     "2025_W14_Eric King_vs_TRAVIS GIBSON": {
       "year": 2025,
       "week": 14,
-      "is_playoff": false,
+      "is_playoff": true,
       "m1": "Eric King",
       "t1": "55 TDs 55 Punts 55 FGs 55 INTs",
       "s1": 99.8,
@@ -30286,7 +30286,7 @@
     "2025_W14_Billy Haid_vs_Kurt Claycomb": {
       "year": 2025,
       "week": 14,
-      "is_playoff": false,
+      "is_playoff": true,
       "m1": "Kurt Claycomb",
       "t1": "No Punt Intended ",
       "s1": 143.52,
@@ -30297,7 +30297,7 @@
     "2025_W14_Jared Schneider_vs_trentan busey": {
       "year": 2025,
       "week": 14,
-      "is_playoff": false,
+      "is_playoff": true,
       "m1": "trentan busey",
       "t1": "Puka Time",
       "s1": 155.12,
@@ -30308,7 +30308,7 @@
     "2025_W14_Roman Bayless_vs_Ron Baker": {
       "year": 2025,
       "week": 14,
-      "is_playoff": false,
+      "is_playoff": true,
       "m1": "Roman Bayless",
       "t1": "Team Freedom",
       "s1": 133.98,
@@ -30319,7 +30319,7 @@
     "2025_W14_Wes Colson_vs_jeremy bayless": {
       "year": 2025,
       "week": 14,
-      "is_playoff": false,
+      "is_playoff": true,
       "m1": "Wes Colson",
       "t1": "Team Draft order",
       "s1": 91.32,
@@ -32836,7 +32836,7 @@
         "pts": 150.36,
         "opp": "Team Draft order (Wes Colson)",
         "opp_pts": 125.42,
-        "cash": 20.0
+        "cash": 25.0
       },
       {
         "week": 2,
@@ -32844,7 +32844,7 @@
         "pts": 163.98,
         "opp": "Team Kendall (Robert Kendall)",
         "opp_pts": 105.98,
-        "cash": 20.0
+        "cash": 25.0
       },
       {
         "week": 3,
@@ -32852,7 +32852,7 @@
         "pts": 158.42,
         "opp": "No Punt Intended  (Kurt Claycomb)",
         "opp_pts": 127.84,
-        "cash": 20.0
+        "cash": 25.0
       },
       {
         "week": 4,
@@ -32860,7 +32860,7 @@
         "pts": 147.26,
         "opp": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
         "opp_pts": 114.5,
-        "cash": 20.0
+        "cash": 25.0
       },
       {
         "week": 5,
@@ -32868,7 +32868,7 @@
         "pts": 185.08,
         "opp": "No Punt Intended  (Kurt Claycomb)",
         "opp_pts": 140.32,
-        "cash": 20.0
+        "cash": 25.0
       },
       {
         "week": 6,
@@ -32876,7 +32876,7 @@
         "pts": 181.62,
         "opp": "The American Dream (Miles Spainhower)",
         "opp_pts": 85.24,
-        "cash": 20.0
+        "cash": 25.0
       },
       {
         "week": 7,
@@ -32884,7 +32884,7 @@
         "pts": 158.68,
         "opp": "Puka Time (trentan busey)",
         "opp_pts": 127.66,
-        "cash": 20.0
+        "cash": 25.0
       },
       {
         "week": 8,
@@ -32892,7 +32892,7 @@
         "pts": 157.22,
         "opp": "Off In the Corner (Billy Haid)",
         "opp_pts": 106.32,
-        "cash": 20.0
+        "cash": 25.0
       },
       {
         "week": 9,
@@ -32900,7 +32900,7 @@
         "pts": 181.58,
         "opp": "Team Draft order (Wes Colson)",
         "opp_pts": 95.28,
-        "cash": 20.0
+        "cash": 25.0
       },
       {
         "week": 10,
@@ -32908,7 +32908,7 @@
         "pts": 179.02,
         "opp": "Team Bakesmode (Ron Baker)",
         "opp_pts": 116.72,
-        "cash": 20.0
+        "cash": 25.0
       },
       {
         "week": 11,
@@ -32916,7 +32916,7 @@
         "pts": 126.18,
         "opp": "Rejected Kamala (jeremy bayless)",
         "opp_pts": 89.14,
-        "cash": 20.0
+        "cash": 25.0
       },
       {
         "week": 12,
@@ -32924,7 +32924,7 @@
         "pts": 138.86,
         "opp": "Rejected Kamala (jeremy bayless)",
         "opp_pts": 134.68,
-        "cash": 20.0
+        "cash": 25.0
       },
       {
         "week": 13,
@@ -32932,15 +32932,7 @@
         "pts": 142.64,
         "opp": "No Punt Intended  (Kurt Claycomb)",
         "opp_pts": 141.68,
-        "cash": 20.0
-      },
-      {
-        "week": 14,
-        "team": "Puka Time (trentan busey)",
-        "pts": 155.12,
-        "opp": "Team Unvaxxed (Jared Schneider)",
-        "opp_pts": 38.04,
-        "cash": 20.0
+        "cash": 25.0
       }
     ],
     "2026": [
@@ -32950,7 +32942,7 @@
         "pts": 0.0,
         "opp": "Team Bakesmode (Ron Baker)",
         "opp_pts": 0.0,
-        "cash": 20.0
+        "cash": 25.0
       }
     ]
   },
@@ -33046,13 +33038,6 @@
         "pos": "QB",
         "pts": 37.44,
         "team": "Team Draft order (Wes Colson)"
-      },
-      {
-        "week": 14,
-        "player": "Josh Allen",
-        "pos": "QB",
-        "pts": 43.84,
-        "team": "No Punt Intended  (Kurt Claycomb)"
       }
     ],
     "2026": [
@@ -33157,13 +33142,6 @@
         "pos": "D/ST",
         "pts": -2.0,
         "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)"
-      },
-      {
-        "week": 14,
-        "player": "Ravens D/ST",
-        "pos": "D/ST",
-        "pts": 0.0,
-        "team": "Team Unvaxxed (Jared Schneider)"
       }
     ],
     "2026": [
@@ -33181,49 +33159,49 @@
       {
         "team": "No Punt Intended  (Kurt Claycomb)",
         "wins": 5,
-        "total_cash": 100.0
+        "total_cash": 125.0
       },
       {
         "team": "Team Bakesmode (Ron Baker)",
         "wins": 2,
-        "total_cash": 40.0
-      },
-      {
-        "team": "Puka Time (trentan busey)",
-        "wins": 2,
-        "total_cash": 40.0
+        "total_cash": 50.0
       },
       {
         "team": "Team Freedom (Roman Bayless)",
         "wins": 1,
-        "total_cash": 20.0
+        "total_cash": 25.0
+      },
+      {
+        "team": "Puka Time (trentan busey)",
+        "wins": 1,
+        "total_cash": 25.0
       },
       {
         "team": "Off In the Corner (Billy Haid)",
         "wins": 1,
-        "total_cash": 20.0
+        "total_cash": 25.0
       },
       {
         "team": "Team Kendall (Robert Kendall)",
         "wins": 1,
-        "total_cash": 20.0
+        "total_cash": 25.0
       },
       {
         "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
         "wins": 1,
-        "total_cash": 20.0
+        "total_cash": 25.0
       },
       {
         "team": "THE G-MEN (TRAVIS GIBSON)",
         "wins": 1,
-        "total_cash": 20.0
+        "total_cash": 25.0
       }
     ],
     "2026": [
       {
         "team": "Make Fantasy Great Again (jeremy bayless)",
         "wins": 1,
-        "total_cash": 20.0
+        "total_cash": 25.0
       }
     ]
   },
