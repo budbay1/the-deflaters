@@ -71,7 +71,6 @@
       color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer;
     }
 
-    /* VISIBLE ON-SCREEN BUILD BADGE */
     .visible-build-badge {
       background: var(--accent);
       color: #070a13;
@@ -149,8 +148,7 @@
       <h1 id="headerTitle">LOADING...</h1>
     </div>
     <div class="header-controls">
-      <!-- VISIBLE BUILD BADGE RIGHT IN THE HEADER -->
-      <span class="visible-build-badge">BUILD: v2026.1</span>
+      <span class="visible-build-badge">v2026.11</span>
       <div class="selector-group">
         <span class="selector-label">Season:</span>
         <select id="seasonSelect" class="dropdown-select" onchange="onSeasonChange(this.value)"></select>
@@ -955,6 +953,11 @@
 
       const m1 = g.m1;
       const m2 = g.m2;
+
+      // Enforce Current Managers scope filter globally so summary counts match the displayed table
+      const isBothCurrent = currentManagers.includes(m1) && currentManagers.includes(m2);
+      if (h2hScope === 'current' && !isBothCurrent) return;
+
       const s1 = g.s1;
       const s2 = g.s2;
 
@@ -1013,9 +1016,13 @@
         totalGamesCount++;
         selectedManagerPF += actualLeadScore;
         selectedManagerPA += actualOppScore;
-        if (actualLeadScore > actualOppScore) selectedManagerWins++;
-        else if (actualOppScore < actualOppScore) selectedManagerLosses++;
-        else selectedManagerTies++;
+        if (actualLeadScore > actualOppScore) {
+          selectedManagerWins++;
+        } else if (actualLeadScore < actualOppScore) {
+          selectedManagerLosses++;
+        } else {
+          selectedManagerTies++;
+        }
       }
     });
 
