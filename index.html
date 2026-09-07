@@ -236,6 +236,22 @@
     <div style="font-size: 16px; font-weight: 800; color: var(--text); margin-top: 10px;">👑 Season Cash Bounties & Highlights</div>
     <div class="awards-grid" id="payoutsGrid"></div>
 
+    <!-- Weekly Bounty Totals Summary Table -->
+    <div class="table-container" style="margin-top: 10px;">
+      <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
+        🏆 Weekly High Score Bounty Totals (Season Breakdown)
+      </div>
+      <table class="responsive-table">
+        <thead>
+          <tr>
+            <th>Rank / Team</th>
+            <th>Weekly Bounties Won</th>
+          </tr>
+        </thead>
+        <tbody id="bountyTotalsBody"></tbody>
+      </table>
+    </div>
+
     <div class="table-container" style="margin-top: 10px;">
       <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
         📅 Week-by-Week High Scorer & Starters Ledger
@@ -609,6 +625,19 @@
         <div class="award-desc">Erupted for <b>${(sp.high_player_pts || 0).toFixed(2)} pts</b> for ${renderBadge(sp.high_player_team || 'None')} in Week ${sp.high_player_week || 0}.</div></div>
       </div>
     `;
+
+    // Render Weekly Bounty Totals Summary Table
+    const bountyTotalsMap = dashboardData.weekly_bounty_totals?.[currentYear] || [];
+    const bountyTotalsBody = document.getElementById('bountyTotalsBody');
+    bountyTotalsBody.innerHTML = '';
+    bountyTotalsMap.forEach((bt, idx) => {
+      bountyTotalsBody.innerHTML += `
+        <tr>
+          <td class="team-cell"><span class="rank-num">#${idx + 1}</span> ${renderBadge(bt.team)}</td>
+          <td><span class="badge badge-gold"><b>${bt.wins}</b> Bounties Won</span></td>
+        </tr>
+      `;
+    });
 
     // Render Week-by-Week Ledger Table
     const weeklyBounties = dashboardData.weekly_bounties || {};
