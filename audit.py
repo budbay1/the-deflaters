@@ -203,8 +203,8 @@ def sync_historical_h2h(current_year):
 
   for y in range(2023, current_year):
     try:
-      past_league = League(league_id=LEAGUE_ID, year=y, espn_s2=ESPN_S2, swid=SWID}
-      for w in range(1, 18):  # Strictly capped at Week 17 max
+      past_league = League(league_id=LEAGUE_ID, year=y, espn_s2=ESPN_S2, swid=SWID)
+      for w in range(1, 18):
         try:
           b_scores = past_league.box_scores(week=w)
           if not b_scores: continue
@@ -359,7 +359,7 @@ def main():
   all_time = load_history(ALL_TIME_FILE, {"champions": {}, "matchups": {}, "finishes": {}, "h2h_ingested_years": []})
   if "matchups" not in all_time: all_time["matchups"] = {}
 
-  for w in range(1, 18):  # Strictly capped at Week 17
+  for w in range(1, 18):
     w_str = str(w)
     try:
       box_scores = league.box_scores(week=w)
