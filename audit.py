@@ -159,6 +159,7 @@ def compute_records_and_payouts(weeks_obj, finishes_map=None):
           "team": tm,
           "team_bounties": data["team_bounties"],
           "player_bounties": data["player_bounties"],
+          "total_bounties": data["team_bounties"] + data["player_bounties"],
           "total_cash": round(data["total_cash"], 2)
       } for tm, data in bounty_tracker.items()],
       key=lambda x: x["total_cash"], reverse=True
@@ -312,26 +313,22 @@ def compute_accumulated_money(seasons_data, champions, weekly_bounty_totals, wee
       if max_wk < 17:
         continue
 
-    # Team bounties cash
     bounties_list = weekly_bounty_totals.get(yr_str, [])
     for b in bounties_list:
       team_lbl = b.get("team")
-      wins = b.get("wins", 0)
+      wins = b.get("team_bounties", b.get("wins", 0))
       add_cash(team_lbl, wins * WEEKLY_BOUNTY_TEAM_CASH)
 
-    # Player bounties cash
     player_bounties_list = weekly_player_bounties_all.get(yr_str, [])
     for pb in player_bounties_list:
       team_lbl = pb.get("team")
       add_cash(team_lbl, WEEKLY_BOUNTY_PLAYER_CASH)
 
-    # Podiums
     yr_champ = champions.get(yr_str, {})
     if yr_champ.get("gold"): add_cash(yr_champ["gold"], PODIUM_PAYOUTS["gold"])
     if yr_champ.get("silver"): add_cash(yr_champ["silver"], PODIUM_PAYOUTS["silver"])
     if yr_champ.get("bronze"): add_cash(yr_champ["bronze"], PODIUM_PAYOUTS["bronze"])
 
-    # PF Leader
     team_season_pf = {}
     for w_str, matchups in weeks_dict.items():
       for m in matchups:
@@ -340,7 +337,8 @@ def compute_accumulated_money(seasons_data, champions, weekly_bounty_totals, wee
       top_pf_team = max(team_season_pf.items(), key=lambda x: x[1])[0]
       add_cash(top_pf_team, PODIUM_PAYOUTS["pf_leader"])
 
-  return sorted([{"manager": mgr, "total_cash": round(amt, 2)} for mgr, amt in accumulated.items()], key=lambda x: x["total_cash"], reverse=True)
+  # Filter out $0 managers so dead/zero rosters don't show up in career standings
+  return sorted([{"manager": mgr, "total_cash": round(amt, 2)} for mgr, amt in accumulated.items() if amt > 0], key=lambda x: x["total_cash"], reverse=True)
 
 
 def main():
@@ -404,7 +402,7 @@ def main():
           "actual": a_act, "proj": a_proj, "diff": round(a_act - a_proj, 2),
           "opp_actual": h_act, "opp_proj": h_proj, "optimal": a_opt,
           "result": "W" if a_act > h_act else ("L" if a_act < h_act else "T"),
-          "coach_eff": round((a_act / a_opt) * 100, 1) if a_opt > 0 else 100.0,
+          "coach_eff": round((a_act / a_opt) * 100, 1) if a_act > 0 else 100.0,
           "players": a_players,
       })
 
