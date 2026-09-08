@@ -165,21 +165,6 @@ def compute_records_and_payouts(weeks_obj, finishes_map=None):
         })
         weekly_anchors.append(min(starters_this_week, key=lambda x: x["pts"]))
 
-  bounty_tracker = {}
-  for b in weekly_team_bounties:
-    tm = b["team"]
-    if tm not in bounty_tracker:
-      bounty_tracker[tm] = {"team_bounties": 0, "player_bounties": 0, "total_cash": 0.0}
-    bounty_tracker[tm]["team_bounties"] += 1
-    bounty_tracker[tm]["total_cash"] += WEEKLY_BOUNTY_TEAM_CASH
-
-  for pb in weekly_player_bounties:
-    tm = pb["team"]
-    if tm not in bounty_tracker:
-      bounty_tracker[tm] = {"team_bounties": 0, "player_bounties": 0, "total_cash": 0.0}
-    bounty_tracker[tm]["player_bounties"] += 1
-    bounty_tracker[tm]["total_cash"] += WEEKLY_BOUNTY_PLAYER_CASH
-
   team_totals = {}
   for w in sorted_weeks:
     for m in weeks_obj[str(w)]:
@@ -210,7 +195,6 @@ def compute_records_and_payouts(weeks_obj, finishes_map=None):
 
 
 def process_season_weeks(league_obj, season_yr):
-  """Extracts full week-by-week matchups, rosters, and scores for any given season."""
   aliases = load_aliases()
   season_weeks = {}
   all_time_matchups = {}
@@ -264,7 +248,7 @@ def process_season_weeks(league_obj, season_yr):
       w_teams.append({
           "team": away_label, "manager": a_mgr, "opp": home_label, "opp_manager": h_mgr,
           "actual": a_act, "proj": a_proj, "diff": round(a_act - a_proj, 2),
-          "opp_actual": h_act, "opp_proj": a_proj, "optimal": a_opt,
+          "opp_actual": h_act, "opp_proj": h_proj, "optimal": a_opt,
           "result": "W" if a_act > h_act else ("L" if a_act < h_act else "T"),
           "coach_eff": round((a_act / a_opt) * 100, 1) if a_opt > 0 else 100.0,
           "players": a_players,
@@ -370,12 +354,8 @@ def compute_accumulated_money(seasons_data, champions, weekly_bounty_totals, wee
 
   for yr_str, weeks_dict in seasons_data.items():
     yr_int = int(yr_str)
-    if yr_int < 2025: continue
+    if yr_int < 2023: continue  # Updated to track money back to 2023
     if yr_int > current_year: continue
-    if yr_int == current_year and yr_int != 2025:
-      max_wk = max([int(w) for w in weeks_dict.keys()]) if weeks_dict else 0
-      if max_wk < 17:
-        continue
 
     bounties_list = weekly_bounty_totals.get(yr_str, [])
     for b in bounties_list:
@@ -420,7 +400,6 @@ def main():
 
   seasons_data = load_history(SEASONS_DATA_FILE, {})
 
-  # Process current season and all historical seasons (2023 onwards) fully with rosters/box scores
   for y in range(2023, YEAR + 1):
     print(f"Processing season data for {y}...")
     if y == YEAR:
@@ -454,6 +433,33 @@ def main():
     weekly_bounties_all[yr_key] = tb
     weekly_player_bounties_all[yr_key] = pb
     weekly_anchors_all[yr_key] = an
+
+    # Build weekly bounty totals breakdown map for each year
+    bounty_tracker = {}
+    for b in tb:
+      tm = b["team"]
+      if tm not in bounty_tracker:
+        bounty_tracker[tm] = {"team_bounties": 0, "player_bounties": 0, "total_cash": 0.0}
+      bounty_tracker[tm]["team_bounties"] += 1
+      bounty_tracker[tm]["total_cash"] += WEEKLY_BOUNTY_TEAM_CASH
+
+    for pb_item in pb:
+      tm = pb_item["team"]
+      if tm not in bounty_tracker:
+        bounty_tracker[tm] = {"team_bounties": 0, "player_bounties": 0, "total_cash": 0.0}
+      bounty_tracker[tm]["player_bounties"] += 1
+      bounty_tracker[tm]["total_cash"] += WEEKLY_BOUNTY_PLAYER_CASH
+
+    weekly_bounty_totals_all[yr_key] = sorted(
+        [{
+            "team": tm,
+            "team_bounties": data["team_bounties"],
+            "player_bounties": data["player_bounties"],
+            "total_bounties": data["team_bounties"] + data["player_bounties"],
+            "total_cash": round(data["total_cash"], 2)
+        } for tm, data in bounty_tracker.items()],
+        key=lambda x: x["total_cash"], reverse=True
+    )
 
   accumulated_money = compute_accumulated_money(seasons_data, champions, weekly_bounty_totals_all, weekly_player_bounties_all, YEAR)
 
