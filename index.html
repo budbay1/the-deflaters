@@ -148,7 +148,7 @@
       <h1 id="headerTitle">LOADING...</h1>
     </div>
     <div class="header-controls">
-      <span class="visible-build-badge">v2026.16</span>
+      <span class="visible-build-badge">v2026.17</span>
       <div class="selector-group">
         <span class="selector-label">Season:</span>
         <select id="seasonSelect" class="dropdown-select" onchange="onSeasonChange(this.value)"></select>
@@ -412,14 +412,14 @@
   <div id="view-draft" class="table-container" style="display: none;">
     <div style="padding: 16px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 12px; background: var(--surface);">
       <div style="font-size: 15px; font-weight: 800; color: var(--text);">🎯 Draft Class Analytics & Performance Tracker</div>
-      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <select id="draftSeasonSelect" class="select-dropdown" onchange="renderDraftHistoryTab()" style="flex: 1; min-width: 140px; padding: 10px 12px; font-size: 13px;">
+      <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
+        <select id="draftSeasonSelect" class="select-dropdown" onchange="renderDraftHistoryTab()" style="width: 100%; padding: 12px; font-size: 14px;">
           <option value="2026">2026 Season</option>
           <option value="2025">2025 Season</option>
           <option value="2024">2024 Season</option>
           <option value="2023">2023 Season</option>
         </select>
-        <div class="h2h-scope-bar" style="flex: 1; min-width: 200px;">
+        <div class="h2h-scope-bar" style="display: flex; width: 100%;">
           <button id="draftModeR1Btn" class="scope-btn active" style="flex: 1;" onclick="setDraftMode('r1')">👑 Round 1 Picks</button>
           <button id="draftModeGemsBtn" class="scope-btn" style="flex: 1;" onclick="setDraftMode('gems')">💎 Draft Gems</button>
         </div>
@@ -434,6 +434,10 @@
       📖 The Deflaters Analytics Handbook
     </div>
     <div class="glossary-grid">
+      <div class="glossary-card">
+        <div class="glossary-title">💎 Draft Gems & Surplus Value (VOE)</div>
+        <div class="glossary-desc">Measures how many points a player scored above the historical scoring expectation for their exact draft slot. A player with <b>+150 surplus</b> didn't just beat their preseason projection—they drastically outperformed what an average player drafted in that same round is expected to produce over a full season, highlighting true draft day steals.</div>
+      </div>
       <div class="glossary-card">
         <div class="glossary-title">🫀 The Cardiac Index</div>
         <div class="glossary-desc">Tracks a team's record in nail-biting games decided by <b>5.00 points or fewer</b>. Highlights which managers thrive under pressure and which ones repeatedly melt down in crunch time.</div>
@@ -453,10 +457,6 @@
       <div class="glossary-card">
         <div class="glossary-title">💸 The Pine Tax</div>
         <div class="glossary-desc">Total actual points left sitting on the bench instead of in optimal starting slots due to manager overthinking or misjudged start/sit decisions.</div>
-      </div>
-      <div class="glossary-card">
-        <div class="glossary-title">💎 Draft Gems & Surplus Value (VOE)</div>
-        <div class="glossary-desc">Measures how many points a player scored above the historical scoring expectation for their exact draft slot. A player with <b>+150 surplus</b> didn't just beat their preseason projection—they drastically outperformed what an average player drafted in that same round is expected to produce over a full season, highlighting true draft day steals.</div>
       </div>
       <div class="glossary-card">
         <div class="glossary-title">⚓ The Anchor Award</div>
@@ -832,7 +832,6 @@
     }
 
     if (draftMode === 'gems') {
-      // Sort by Surplus Value descending to show the biggest draft gems/steals
       const sortedGems = seasonDraft.slice().sort((a, b) => b.surplus_value - a.surplus_value);
       const topGem = sortedGems.length > 0 ? sortedGems[0] : null;
       const otherGems = sortedGems.slice(1, 15);
@@ -890,7 +889,6 @@
       return;
     }
 
-    // Default R1 View
     const round1Picks = seasonDraft.filter(p => p.round === 1).sort((a, b) => a.overall - b.overall);
     const overallNum1 = round1Picks.length > 0 ? round1Picks[0] : null;
     const remainingPicks = round1Picks.slice(1);
