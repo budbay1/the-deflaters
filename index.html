@@ -148,7 +148,7 @@
       <h1 id="headerTitle">LOADING...</h1>
     </div>
     <div class="header-controls">
-      <span class="visible-build-badge">v2026.13</span>
+      <span class="visible-build-badge">v2026.14</span>
       <div class="selector-group">
         <span class="selector-label">Season:</span>
         <select id="seasonSelect" class="dropdown-select" onchange="onSeasonChange(this.value)"></select>
@@ -410,10 +410,10 @@
 
   <!-- TAB 8: DRAFT HISTORY -->
   <div id="view-draft" class="table-container" style="display: none;">
-    <div class="filter-header">
+    <div style="padding: 16px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px; background: var(--surface);">
       <div style="font-size: 15px; font-weight: 800; color: var(--text);">🎯 Draft Class & Round 1 Performance Tracker</div>
-      <div class="filter-control">
-        <select id="draftSeasonSelect" class="select-dropdown" onchange="renderDraftHistoryTab()">
+      <div style="width: 100%; max-width: 100%;">
+        <select id="draftSeasonSelect" class="select-dropdown" onchange="renderDraftHistoryTab()" style="width: 100%; padding: 10px 12px;">
           <option value="2026">2026 Season</option>
           <option value="2025">2025 Season</option>
           <option value="2024">2024 Season</option>
@@ -822,16 +822,16 @@
     let overallHtml = '';
     if (overallNum1) {
       overallHtml = `
-        <div style="background: linear-gradient(135deg, rgba(56, 189, 248, 0.15) 0%, var(--card) 100%); border: 2px solid var(--accent); border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15);">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px;">
+        <div style="background: linear-gradient(135deg, rgba(56, 189, 248, 0.15) 0%, var(--card) 100%); border: 2px solid var(--accent); border-radius: 16px; padding: 16px; margin-bottom: 16px; box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15);">
+          <div style="display: flex; flex-direction: column; gap: 12px;">
             <div>
               <div class="award-tag" style="color: var(--accent);">👑 Overall #1 Pick (${selYear})</div>
-              <div class="award-title" style="font-size: 22px; margin-top: 4px;">${overallNum1.player}</div>
+              <div class="award-title" style="font-size: 20px; margin-top: 4px; word-break: break-word;">${overallNum1.player}</div>
               <div style="font-size: 13px; color: var(--muted); margin-top: 4px;">
                 <span class="badge badge-neutral">${overallNum1.position || '—'}</span> Drafted by <b>${overallNum1.manager}</b>
               </div>
             </div>
-            <div style="background: rgba(56, 189, 248, 0.1); border: 1px dashed var(--accent); border-radius: 10px; padding: 10px 16px; text-align: right;">
+            <div style="background: rgba(56, 189, 248, 0.1); border: 1px dashed var(--accent); border-radius: 10px; padding: 10px; text-align: center;">
               <div style="font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--accent);">Season Total Points</div>
               <div style="font-size: 22px; font-weight: 800; color: var(--text);">${overallNum1.total_points.toFixed(2)} pts</div>
             </div>
@@ -847,17 +847,14 @@
       let cardsRows = '';
       remainingPicks.forEach(p => {
         cardsRows += `
-          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
-            <div style="display: flex; align-items: center; gap: 12px; min-width: 0;">
-              <span class="badge badge-neutral" style="flex-shrink: 0;">Pick #${p.overall}</span>
-              <div style="min-width: 0;">
-                <div style="font-weight: 800; color: var(--text); font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${p.player} <span style="font-size: 11px; color: var(--muted); font-weight: normal;">(${p.position || '—'})</span></div>
-                <div style="font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Manager: <b>${p.manager}</b></div>
-              </div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="badge badge-neutral">Pick #${p.overall}</span>
+              <span style="font-size: 12px; font-weight: 800; color: var(--green);">${p.total_points.toFixed(2)} pts</span>
             </div>
-            <div style="text-align: right; flex-shrink: 0;">
-              <div style="font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--muted);">Points</div>
-              <div style="font-size: 15px; font-weight: 800; color: var(--green);">${p.total_points.toFixed(2)} pts</div>
+            <div>
+              <div style="font-weight: 800; color: var(--text); font-size: 14px; word-break: break-word;">${p.player} <span style="font-size: 11px; color: var(--muted); font-weight: normal;">(${p.position || '—'})</span></div>
+              <div style="font-size: 12px; color: var(--muted); word-break: break-word;">Manager: <b>${p.manager}</b></div>
             </div>
           </div>
         `;
@@ -866,7 +863,7 @@
       gridHtml = `
         <div>
           <div style="font-weight: 800; font-size: 14px; margin-bottom: 12px; color: var(--text);">Round 1 Selections (Picks 2 – 12)</div>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px;">
             ${cardsRows}
           </div>
         </div>
