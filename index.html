@@ -148,7 +148,7 @@
       <h1 id="headerTitle">LOADING...</h1>
     </div>
     <div class="header-controls">
-      <span class="visible-build-badge">v2026.17</span>
+      <span class="visible-build-badge">v2026.18</span>
       <div class="selector-group">
         <span class="selector-label">Season:</span>
         <select id="seasonSelect" class="dropdown-select" onchange="onSeasonChange(this.value)"></select>
@@ -409,9 +409,9 @@
   </div>
 
   <!-- TAB 8: DRAFT HISTORY -->
-  <div id="view-draft" class="table-container" style="display: none;">
-    <div style="padding: 16px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 12px; background: var(--surface);">
-      <div style="font-size: 15px; font-weight: 800; color: var(--text);">🎯 Draft Class Analytics & Performance Tracker</div>
+  <div id="view-draft" style="display: none; display: flex; flex-direction: column; gap: 16px;">
+    <div style="background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.04);">
+      <div style="font-size: 15px; font-weight: 800; color: var(--text); text-align: center;">🎯 Draft Class Analytics & Performance Tracker</div>
       <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
         <select id="draftSeasonSelect" class="select-dropdown" onchange="renderDraftHistoryTab()" style="width: 100%; padding: 12px; font-size: 14px;">
           <option value="2026">2026 Season</option>
@@ -425,7 +425,7 @@
         </div>
       </div>
     </div>
-    <div id="draftContentContainer" style="padding: 16px;"></div>
+    <div id="draftContentContainer" style="display: flex; flex-direction: column; gap: 12px;"></div>
   </div>
 
   <!-- TAB 9: STAT DECODERS -->
@@ -839,7 +839,7 @@
       let gemHtml = '';
       if (topGem) {
         gemHtml = `
-          <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, var(--card) 100%); border: 2px solid var(--green); border-radius: 16px; padding: 16px; margin-bottom: 16px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);">
+          <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, var(--card) 100%); border: 2px solid var(--green); border-radius: 16px; padding: 16px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);">
             <div style="display: flex; flex-direction: column; gap: 12px;">
               <div>
                 <div class="award-tag" style="color: var(--green);">💎 Top Draft Gem / Hero Pick (${selYear})</div>
@@ -881,7 +881,7 @@
 
       container.innerHTML = `
         ${gemHtml}
-        <div style="font-weight: 800; font-size: 14px; margin-bottom: 12px; color: var(--text);">Top Value Over Expected Finds</div>
+        <div style="font-weight: 800; font-size: 14px; margin-top: 4px; color: var(--text);">Top Value Over Expected Finds</div>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px;">
           ${gemRows}
         </div>
@@ -896,7 +896,7 @@
     let overallHtml = '';
     if (overallNum1) {
       overallHtml = `
-        <div style="background: linear-gradient(135deg, rgba(56, 189, 248, 0.15) 0%, var(--card) 100%); border: 2px solid var(--accent); border-radius: 16px; padding: 16px; margin-bottom: 16px; box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15);">
+        <div style="background: linear-gradient(135deg, rgba(56, 189, 248, 0.15) 0%, var(--card) 100%); border: 2px solid var(--accent); border-radius: 16px; padding: 16px; box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15);">
           <div style="display: flex; flex-direction: column; gap: 12px;">
             <div>
               <div class="award-tag" style="color: var(--accent);">👑 Overall #1 Pick (${selYear})</div>
@@ -936,7 +936,7 @@
 
       gridHtml = `
         <div>
-          <div style="font-weight: 800; font-size: 14px; margin-bottom: 12px; color: var(--text);">Round 1 Selections (Picks 2 – 12)</div>
+          <div style="font-weight: 800; font-size: 14px; margin-bottom: 4px; color: var(--text);">Round 1 Selections (Picks 2 – 12)</div>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px;">
             ${cardsRows}
           </div>
