@@ -148,7 +148,7 @@
       <h1 id="headerTitle">LOADING...</h1>
     </div>
     <div class="header-controls">
-      <span class="visible-build-badge">v2026.15</span>
+      <span class="visible-build-badge">v2026.16</span>
       <div class="selector-group">
         <span class="selector-label">Season:</span>
         <select id="seasonSelect" class="dropdown-select" onchange="onSeasonChange(this.value)"></select>
@@ -411,14 +411,18 @@
   <!-- TAB 8: DRAFT HISTORY -->
   <div id="view-draft" class="table-container" style="display: none;">
     <div style="padding: 16px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 12px; background: var(--surface);">
-      <div style="font-size: 15px; font-weight: 800; color: var(--text);">🎯 Draft Class & Round 1 Performance Tracker</div>
-      <div style="width: 100%;">
-        <select id="draftSeasonSelect" class="select-dropdown" onchange="renderDraftHistoryTab()" style="width: 100%; padding: 12px; font-size: 14px;">
+      <div style="font-size: 15px; font-weight: 800; color: var(--text);">🎯 Draft Class Analytics & Performance Tracker</div>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <select id="draftSeasonSelect" class="select-dropdown" onchange="renderDraftHistoryTab()" style="flex: 1; min-width: 140px; padding: 10px 12px; font-size: 13px;">
           <option value="2026">2026 Season</option>
           <option value="2025">2025 Season</option>
           <option value="2024">2024 Season</option>
           <option value="2023">2023 Season</option>
         </select>
+        <div class="h2h-scope-bar" style="flex: 1; min-width: 200px;">
+          <button id="draftModeR1Btn" class="scope-btn active" style="flex: 1;" onclick="setDraftMode('r1')">👑 Round 1 Picks</button>
+          <button id="draftModeGemsBtn" class="scope-btn" style="flex: 1;" onclick="setDraftMode('gems')">💎 Draft Gems</button>
+        </div>
       </div>
     </div>
     <div id="draftContentContainer" style="padding: 16px;"></div>
@@ -465,6 +469,7 @@
   let currentWeek = '';
   let h2hScope = 'current';
   let h2hPhase = 'ALL';
+  let draftMode = 'r1';
 
   async function init() {
     try {
@@ -804,6 +809,13 @@
     });
   }
 
+  function setDraftMode(mode) {
+    draftMode = mode;
+    document.getElementById('draftModeR1Btn').classList.toggle('active', mode === 'r1');
+    document.getElementById('draftModeGemsBtn').classList.toggle('active', mode === 'gems');
+    renderDraftHistoryTab();
+  }
+
   function renderDraftHistoryTab() {
     const selYear = document.getElementById('draftSeasonSelect').value;
     const container = document.getElementById('draftContentContainer');
@@ -815,6 +827,66 @@
       return;
     }
 
+    if (draftMode === 'gems') {
+      // Sort by Surplus Value descending to show the biggest draft gems/steals
+      const sortedGems = seasonDraft.slice().sort((a, b) => b.surplus_value - a.surplus_value);
+      const topGem = sortedGems.length > 0 ? sortedGems[0] : null;
+      const otherGems = sortedGems.slice(1, 15);
+
+      let gemHtml = '';
+      if (topGem) {
+        gemHtml = `
+          <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, var(--card) 100%); border: 2px solid var(--green); border-radius: 16px; padding: 16px; margin-bottom: 16px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);">
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div>
+                <div class="award-tag" style="color: var(--green);">💎 Top Draft Gem / Hero Pick (${selYear})</div>
+                <div class="award-title" style="font-size: 20px; margin-top: 4px; word-break: break-word;">${topGem.player}</div>
+                <div style="font-size: 13px; color: var(--muted); margin-top: 4px;">
+                  <span class="badge badge-neutral">${topGem.position || '—'}</span> Pick #${topGem.overall} (Round ${topGem.round}) • Drafted by <b>${topGem.manager}</b>
+                </div>
+              </div>
+              <div style="display: flex; gap: 10px;">
+                <div style="flex: 1; background: rgba(16, 185, 129, 0.1); border: 1px dashed var(--green); border-radius: 10px; padding: 10px; text-align: center;">
+                  <div style="font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--green);">Surplus Value</div>
+                  <div style="font-size: 20px; font-weight: 800; color: var(--green);">+${topGem.surplus_value.toFixed(2)}</div>
+                </div>
+                <div style="flex: 1; background: rgba(56, 189, 248, 0.1); border: 1px dashed var(--accent); border-radius: 10px; padding: 10px; text-align: center;">
+                  <div style="font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--accent);">Total Pts</div>
+                  <div style="font-size: 20px; font-weight: 800; color: var(--text);">${topGem.total_points.toFixed(2)}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      let gemRows = '';
+      otherGems.forEach((p, idx) => {
+        gemRows += `
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="badge badge-neutral">Pick #${p.overall} (Rd ${p.round})</span>
+              <span style="font-size: 12px; font-weight: 800; color: var(--green);">+${p.surplus_value.toFixed(2)} Surplus</span>
+            </div>
+            <div>
+              <div style="font-weight: 800; color: var(--text); font-size: 14px; word-break: break-word;">${p.player} <span style="font-size: 11px; color: var(--muted); font-weight: normal;">(${p.position || '—'})</span></div>
+              <div style="font-size: 12px; color: var(--muted); word-break: break-word;">Manager: <b>${p.manager}</b> • Pts: <b>${p.total_points.toFixed(2)}</b></div>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = `
+        ${gemHtml}
+        <div style="font-weight: 800; font-size: 14px; margin-bottom: 12px; color: var(--text);">Top Value Over Expected Finds</div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px;">
+          ${gemRows}
+        </div>
+      `;
+      return;
+    }
+
+    // Default R1 View
     const round1Picks = seasonDraft.filter(p => p.round === 1).sort((a, b) => a.overall - b.overall);
     const overallNum1 = round1Picks.length > 0 ? round1Picks[0] : null;
     const remainingPicks = round1Picks.slice(1);
