@@ -95,7 +95,7 @@
 
     .tab-bar { display: flex; flex-wrap: wrap; gap: 6px; background: var(--surface); padding: 6px; border-radius: 14px; border: 1px solid var(--border); }
     .tab-btn {
-      flex: 1 1 auto; min-width: 120px; padding: 10px 14px; background: transparent; border: 1px solid transparent;
+      flex: 1 1 auto; min-width: 100px; padding: 10px 12px; background: transparent; border: 1px solid transparent;
       border-radius: 10px; color: var(--muted); font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer; text-align: center;
     }
     .tab-btn.active { background: var(--card); color: var(--text); border-color: var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
@@ -137,6 +137,35 @@
     .h2h-scope-bar { display: inline-flex; background: var(--surface); padding: 3px; border-radius: 10px; border: 1px solid var(--border); }
     .scope-btn { background: transparent; border: 1px solid transparent; color: var(--muted); padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
     .scope-btn.active { background: var(--card); color: var(--text); border-color: var(--border); box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
+
+    /* Draft History Horizontal Carousel UI */
+    .draft-container { display: flex; flex-direction: column; gap: 20px; padding: 16px; }
+    .draft-layout { display: grid; grid-template-columns: 320px 1fr; gap: 20px; align-items: stretch; }
+    @media (max-width: 900px) { .draft-layout { grid-template-columns: 1fr; } }
+    
+    .overall-pick-card {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.15) 0%, var(--card) 100%);
+      border: 2px solid var(--accent); border-radius: 16px; padding: 20px;
+      display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15);
+    }
+    .carousel-section {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px;
+      display: flex; flex-direction: column; justify-content: space-between; position: relative;
+    }
+    .carousel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .carousel-track-wrapper { overflow: hidden; width: 100%; position: relative; }
+    .carousel-track { display: flex; gap: 14px; transition: transform 0.3s ease; }
+    .draft-item-card {
+      min-width: 220px; flex: 0 0 220px; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .carousel-nav-btns { display: flex; gap: 8px; }
+    .nav-btn {
+      background: var(--card); border: 1px solid var(--border); color: var(--text); width: 34px; height: 34px;
+      border-radius: 8px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .nav-btn:hover { background: var(--accent); color: #070a13; border-color: var(--accent); }
   </style>
 </head>
 <body>
@@ -148,7 +177,7 @@
       <h1 id="headerTitle">LOADING...</h1>
     </div>
     <div class="header-controls">
-      <span class="visible-build-badge">v2026.11</span>
+      <span class="visible-build-badge">v2026.12</span>
       <div class="selector-group">
         <span class="selector-label">Season:</span>
         <select id="seasonSelect" class="dropdown-select" onchange="onSeasonChange(this.value)"></select>
@@ -172,6 +201,7 @@
     <button class="tab-btn" onclick="switchTab('payouts')">💰 Payouts & Money</button>
     <button class="tab-btn" onclick="switchTab('halloffame')">🏆 Hall of Champions</button>
     <button class="tab-btn" onclick="switchTab('blunders')">🤡 Bench Blunders</button>
+    <button class="tab-btn" onclick="switchTab('draft')">🎯 Draft History</button>
     <button class="tab-btn" onclick="switchTab('glossary')">📖 Stat Decoders</button>
   </div>
 
@@ -221,7 +251,7 @@
           <button id="scopeAllBtn" class="scope-btn" onclick="setH2HScope('all')">🌐 All-Time</button>
         </div>
         <div class="h2h-scope-bar">
-          <button id="phaseAllBtn" class="scope-btn active" onclick="setH2HPhase('ALL')">All Phases</button>
+          <button id="phaseAllBtn" class="scope-btn active" onclick="setH2HPhase('ALL')">All Games</button>
           <button id="phaseRegBtn" class="scope-btn" onclick="setH2HPhase('REG')">Regular Season</button>
           <button id="phasePlayoffsBtn" class="scope-btn" onclick="setH2HPhase('PLAYOFFS')">Playoffs (Wk 15+)</button>
         </div>
@@ -313,7 +343,6 @@
     <div style="font-size: 16px; font-weight: 800; color: var(--text);">👑 Season Cash Bounties & Points Tracker</div>
     <div class="awards-grid" id="payoutsGrid"></div>
 
-    <!-- Accumulated Career Money Table -->
     <div class="table-container" style="margin-top: 10px;">
       <div style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
         💵 All-Time Accumulated Career Money Won: Since 2023 (1st $550, 2nd $300, 3rd $150, Season PF Leader $100, Weekly High Team/Player $25)
@@ -329,7 +358,6 @@
       </table>
     </div>
 
-    <!-- Weekly Bounty Totals Summary Table -->
     <div class="table-container" style="margin-top: 10px;">
       <div id="bountyTableHeader" style="padding: 14px 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
         🏆 Weekly High Score Bounty Totals ($25 / Bounty)
@@ -409,7 +437,23 @@
     </table>
   </div>
 
-  <!-- TAB 8: STAT DECODERS -->
+  <!-- TAB 8: DRAFT HISTORY -->
+  <div id="view-draft" class="table-container" style="display: none;">
+    <div class="filter-header">
+      <div style="font-size: 15px; font-weight: 800; color: var(--text);">🎯 Draft Class & Round 1 Performance Tracker</div>
+      <div class="filter-control">
+        <select id="draftSeasonSelect" class="select-dropdown" onchange="renderDraftHistoryTab()">
+          <option value="2026">2026 Season</option>
+          <option value="2025">2025 Season</option>
+          <option value="2024">2024 Season</option>
+          <option value="2023">2023 Season</option>
+        </select>
+      </div>
+    </div>
+    <div class="draft-container" id="draftContentContainer"></div>
+  </div>
+
+  <!-- TAB 9: STAT DECODERS -->
   <div id="view-glossary" class="table-container" style="display: none;">
     <div style="padding: 16px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--text); font-size: 15px;">
       📖 The Deflaters Analytics Handbook
@@ -450,6 +494,7 @@
   let currentWeek = '';
   let h2hScope = 'current';
   let h2hPhase = 'ALL';
+  let carouselScrollPos = 0;
 
   async function init() {
     try {
@@ -464,6 +509,7 @@
         renderHallOfFame();
         setupH2HFilters();
         renderRecordsTab();
+        renderDraftHistoryTab();
       }
     } catch (err) {
       console.error('Failed to load dashboard data:', err);
@@ -788,6 +834,105 @@
     });
   }
 
+  function renderDraftHistoryTab() {
+    const selYear = document.getElementById('draftSeasonSelect').value;
+    const container = document.getElementById('draftContentContainer');
+    const draftAll = dashboardData.draft_history || {};
+    const seasonDraft = draftAll[selYear] || [];
+
+    if (seasonDraft.length === 0) {
+      container.innerHTML = `<div style="text-align: center; color: var(--muted); padding: 30px;">No draft data recorded for the ${selYear} season.</div>`;
+      return;
+    }
+
+    // Filter round 1 picks to find overall #1 and picks 2-12
+    const round1Picks = seasonDraft.filter(p => p.round === 1).sort((a, b) => a.overall - b.overall);
+    const overallNum1 = round1Picks.length > 0 ? round1Picks[0] : null;
+    const carouselPicks = round1Picks.slice(1);
+
+    let overallHtml = '';
+    if (overallNum1) {
+      overallHtml = `
+        <div class="overall-pick-card">
+          <div>
+            <div class="award-tag" style="color: var(--accent);">👑 Overall #1 Pick (${selYear})</div>
+            <div class="award-title" style="font-size: 20px; margin-top: 6px;">${overallNum1.player}</div>
+            <div style="font-size: 13px; color: var(--muted); margin-bottom: 12px;">
+              <span class="badge badge-neutral">${overallNum1.position}</span> Drafted by <b>${overallNum1.manager}</b>
+            </div>
+          </div>
+          <div style="background: rgba(56, 189, 248, 0.1); border: 1px dashed var(--accent); border-radius: 10px; padding: 12px; text-align: center;">
+            <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--accent);">Season Total Points</div>
+            <div style="font-size: 24px; font-weight: 800; color: var(--text);">${overallNum1.total_points.toFixed(2)} pts</div>
+          </div>
+        </div>
+      `;
+    } else {
+      overallHtml = `<div class="overall-pick-card"><div>Overall #1 pick data unavailable.</div></div>`;
+    }
+
+    let carouselHtml = '';
+    if (carouselPicks.length > 0) {
+      let cardsInner = '';
+      carouselPicks.forEach(p => {
+        cardsInner += `
+          <div class="draft-item-card">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <span class="badge badge-neutral">Pick #${p.overall}</span>
+                <span style="font-size: 11px; color: var(--muted);">${p.position}</span>
+              </div>
+              <div class="award-title" style="font-size: 15px;">${p.player}</div>
+              <div style="font-size: 12px; color: var(--muted); margin-bottom: 10px;">Manager: <b>${p.manager}</b></div>
+            </div>
+            <div style="background: rgba(125,125,125,0.06); border-radius: 8px; padding: 8px; text-align: center;">
+              <div style="font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--muted);">Season Points</div>
+              <div style="font-size: 16px; font-weight: 800; color: var(--green);">${p.total_points.toFixed(2)} pts</div>
+            </div>
+          </div>
+        `;
+      });
+
+      carouselHtml = `
+        <div class="carousel-section">
+          <div class="carousel-header">
+            <div style="font-weight: 800; font-size: 14px;">Round 1 Selections (Picks 2 – 12)</div>
+            <div class="carousel-nav-btns">
+              <button class="nav-btn" onclick="scrollCarousel(-1)">&#10094;</button>
+              <button class="nav-btn" onclick="scrollCarousel(1)">&#10095;</button>
+            </div>
+          </div>
+          <div class="carousel-track-wrapper" id="carouselWrapper">
+            <div class="carousel-track" id="carouselTrack" style="transform: translateX(0px);">
+              ${cardsInner}
+            </div>
+          </div>
+        </div>
+      `;
+    } else {
+      carouselHtml = `<div class="carousel-section"><div style="color: var(--muted);">No additional Round 1 picks available.</div></div>`;
+    }
+
+    container.innerHTML = `
+      <div class="draft-layout">
+        ${overallHtml}
+        ${carouselHtml}
+      </div>
+    `;
+    carouselScrollPos = 0;
+  }
+
+  function scrollCarousel(direction) {
+    const track = document.getElementById('carouselTrack');
+    if (!track) return;
+    const cardWidth = 234; // card width (220) + gap (14)
+    carouselScrollPos += direction * cardWidth;
+    const maxScroll = Math.max(0, track.scrollWidth - track.parentElement.clientWidth);
+    if (carouselScrollPos < 0) carouselScrollPos = 0;
+    if (carouselScrollPos > maxScroll) carouselScrollPos = maxScroll;
+    track.style.transform = `translateX(-${carouselScrollPos}px)`;
+  }
+
   function renderRecordsTab() {
     const atr = dashboardData.all_time_records || {};
     const atGrid = document.getElementById('allTimeRecordsGrid');
@@ -954,7 +1099,6 @@
       const m1 = g.m1;
       const m2 = g.m2;
 
-      // Enforce Current Managers scope filter globally so summary counts match the displayed table
       const isBothCurrent = currentManagers.includes(m1) && currentManagers.includes(m2);
       if (h2hScope === 'current' && !isBothCurrent) return;
 
@@ -1030,7 +1174,7 @@
       summaryBox.style.display = 'block';
       const diff = selectedManagerPF - selectedManagerPA;
       const seasonText = seasonFilter === 'ALL' ? 'All Seasons (2023–Present)' : `${seasonFilter} Season`;
-      const phaseText = h2hPhase === 'ALL' ? 'All Phases' : (h2hPhase === 'REG' ? 'Regular Season Only' : 'Playoffs Only');
+      const phaseText = h2hPhase === 'ALL' ? 'All Games' : (h2hPhase === 'REG' ? 'Regular Season Only' : 'Playoffs Only');
       const scopeText = h2hScope === 'current' ? 'Current Managers' : 'All-Time (Inc. Former)';
       
       summaryBox.innerHTML = `📊 Summary for <b>${mgrFilter}</b> | Filter Context — Season: <b>${seasonText}</b> | Phase: <b>${phaseText}</b> | Scope: <b>${scopeText}</b><br>
@@ -1079,9 +1223,9 @@
   }
 
   function switchTab(viewName) {
-    ['week', 'season', 'h2h', 'records', 'payouts', 'halloffame', 'blunders', 'glossary'].forEach(tab => {
+    ['week', 'season', 'h2h', 'records', 'payouts', 'halloffame', 'blunders', 'draft', 'glossary'].forEach(tab => {
       const el = document.getElementById('view-' + tab);
-      if (el) el.style.display = tab === viewName ? (viewName === 'payouts' || viewName === 'records' ? 'flex' : 'block') : 'none';
+      if (el) el.style.display = tab === viewName ? (viewName === 'payouts' || viewName === 'records' || viewName === 'draft' ? 'flex' : 'block') : 'none';
     });
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
     event.target.classList.add('active');
