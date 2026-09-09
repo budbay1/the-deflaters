@@ -195,7 +195,7 @@ def compute_records_and_payouts(weeks_obj, finishes_map=None):
 
 
 def extract_draft_info(league_obj, seasons_data_obj):
-  """Extracts draft picks and calculates total season points for each drafted player."""
+  """Extracts draft picks, computes total season points, and evaluates Value Over Expected (Surplus Value / Gem)."""
   draft_picks = []
   try:
     raw_picks = getattr(league_obj, "draft", [])
@@ -241,6 +241,10 @@ def extract_draft_info(league_obj, seasons_data_obj):
 
       tot_pts = player_total_pts.get(player_id, 0.0)
 
+      # Expected points baseline formula based on draft slot (graduated curve from ~280 down to ~50 pts)
+      expected_pts = max(40.0, 300.0 - (float(overall) * 1.5))
+      surplus_value = round(tot_pts - expected_pts, 2)
+
       draft_picks.append({
           "overall": int(overall),
           "round": int(round_num),
@@ -248,7 +252,8 @@ def extract_draft_info(league_obj, seasons_data_obj):
           "playerId": player_id,
           "position": str(pos),
           "manager": str(mgr),
-          "total_points": round(tot_pts, 2)
+          "total_points": round(tot_pts, 2),
+          "surplus_value": surplus_value
       })
   except Exception as e:
     print(f"Draft extraction error: {e}")
@@ -296,7 +301,7 @@ def process_season_weeks(league_obj, season_yr):
         all_time_matchups[m_id] = {
             "year": season_yr, "week": w, "is_playoff": is_playoff,
             "m1": pair[0], "t1": h_team_name if h_mgr == pair[0] else a_team_name, "s1": h_act if h_mgr == pair[0] else a_act,
-            "m2": pair[1], "t2": a_team_name if a_mgr == pair[1] else h_team_name, "s2": a_act if a_mgr == pair[1] else h_act
+            "m2": pair[1], "t2": a_team_name if h_mgr == pair[1] else h_team_name, "s2": a_act if h_mgr == pair[1] else h_act
         }
 
       w_teams.append({
@@ -310,7 +315,7 @@ def process_season_weeks(league_obj, season_yr):
       w_teams.append({
           "team": away_label, "manager": a_mgr, "opp": home_label, "opp_manager": h_mgr,
           "actual": a_act, "proj": a_proj, "diff": round(a_act - a_proj, 2),
-          "opp_actual": h_act, "opp_proj": a_proj, "optimal": a_opt,
+          "opp_actual": h_act, "opp_proj": h_proj, "optimal": a_opt,
           "result": "W" if a_act > h_act else ("L" if a_act < h_act else "T"),
           "coach_eff": round((a_act / a_opt) * 100, 1) if a_opt > 0 else 100.0,
           "players": a_players,
