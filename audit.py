@@ -296,10 +296,18 @@ def process_season_weeks(league_obj, season_yr):
         m_id = f"{season_yr}_W{w}_{pair[0]}_vs_{pair[1]}"
         is_playoff = w >= 15
         
+        # FIX: Ensure proper assignment of s1 and s2 corresponding to sorted pair members (pair[0] and pair[1])
+        if h_mgr == pair[0]:
+          s1_val, s2_val = h_act, a_act
+          t1_val, t2_val = h_team_name, a_team_name
+        else:
+          s1_val, s2_val = a_act, h_act
+          t1_val, t2_val = a_team_name, h_team_name
+
         all_time_matchups[m_id] = {
             "year": season_yr, "week": w, "is_playoff": is_playoff,
-            "m1": pair[0], "t1": h_team_name if h_mgr == pair[0] else a_team_name, "s1": h_act if h_mgr == pair[0] else a_act,
-            "m2": pair[1], "t2": a_team_name if h_mgr == pair[1] else h_team_name, "s2": a_act if h_mgr == pair[1] else h_act
+            "m1": pair[0], "t1": t1_val, "s1": s1_val,
+            "m2": pair[1], "t2": t2_val, "s2": s2_val
         }
 
       w_teams.append({
