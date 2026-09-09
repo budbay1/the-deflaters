@@ -215,7 +215,6 @@ def extract_draft_info(league_obj, seasons_data_obj):
             player_total_pts[pid] = player_total_pts.get(pid, 0.0) + pts
 
     for idx, pick in enumerate(raw_picks):
-      # Fallback chain for overall pick numbers to prevent 0 or null bugs
       overall = getattr(pick, "overall_pick", None) or getattr(pick, "pick_num", None) or getattr(pick, "overallPickNumber", None)
       if not overall and isinstance(pick, dict):
         overall = pick.get("overallPickNumber") or pick.get("pickNum") or pick.get("overall")
@@ -297,7 +296,7 @@ def process_season_weeks(league_obj, season_yr):
         all_time_matchups[m_id] = {
             "year": season_yr, "week": w, "is_playoff": is_playoff,
             "m1": pair[0], "t1": h_team_name if h_mgr == pair[0] else a_team_name, "s1": h_act if h_mgr == pair[0] else a_act,
-            "m2": pair[1], "t2": a_team_name if h_mgr == pair[1] else h_team_name, "s2": a_act if h_mgr == pair[1] else h_act
+            "m2": pair[1], "t2": a_team_name if a_mgr == pair[1] else h_team_name, "s2": a_act if a_mgr == pair[1] else h_act
         }
 
       w_teams.append({
