@@ -199,7 +199,12 @@ def extract_draft_info(league_obj, seasons_data_obj):
   draft_picks = []
   try:
     raw_picks = getattr(league_obj, "draft", [])
-    
+    if not raw_picks and hasattr(league_obj, "get_draft"):
+      try:
+        raw_picks = league_obj.get_draft()
+      except Exception:
+        pass
+
     player_total_pts = {}
     for w_str, matchups in seasons_data_obj.items():
       for m in matchups:
@@ -210,34 +215,44 @@ def extract_draft_info(league_obj, seasons_data_obj):
             player_total_pts[pid] = player_total_pts.get(pid, 0.0) + pts
 
     for idx, pick in enumerate(raw_picks):
-      # Accurately resolve pick numbers across varied ESPN object formats and fall back to sequential index if needed
-      overall = getattr(pick, "overall_pick", None) or getattr(pick, "pick_num", None) or getattr(pick, "overallPickNumber", None) or pick.get("overallPickNumber") or pick.get("pickNum") or (idx + 1)
-      round_num = getattr(pick, "round_num", None) or getattr(pick, "roundId", None) or pick.get("roundNum") or pick.get("roundId") or 1
-      round_pick = getattr(pick, "round_pick", None) or getattr(pick, "roundPickNumber", None) or pick.get("roundPickNumber") or pick.get("roundPick") or (overall)
+      # Fallback chain for overall pick numbers to prevent 0 or null bugs
+      overall = getattr(pick, "overall_pick", None) or getattr(pick, "pick_num", None) or getattr(pick, "overallPickNumber", None)
+      if not overall and isinstance(pick, dict):
+        overall = pick.get("overallPickNumber") or pick.get("pickNum") or pick.get("overall")
+      if not overall:
+        overall = idx + 1
+
+      round_num = getattr(pick, "round_num", None) or getattr(pick, "roundId", None)
+      if not round_num and isinstance(pick, dict):
+        round_num = pick.get("roundNum") or pick.get("roundId") or pick.get("round")
+      if not round_num:
+        round_num = 1
+
+      player_name = getattr(pick, "playerName", None) or (pick.get("playerName") if isinstance(pick, dict) else None)
+      if not player_name and hasattr(pick, "player"):
+        player_name = getattr(pick.player, "name", "Unknown Player")
+      if not player_name:
+        player_name = "Unknown Player"
+
+      player_id = getattr(pick, "playerId", None) or (pick.get("playerId") if isinstance(pick, dict) else 0)
+      pos = getattr(pick, "position", None) or (pick.get("position") if isinstance(pick, dict) else "")
       
-      player_name = getattr(pick, "playerName", None) or pick.get("playerName", "Unknown Player")
-      player_id = getattr(pick, "playerId", None) or pick.get("playerId", 0)
-      pos = getattr(pick, "position", None) or pick.get("position", "")
-      
-      team_obj = getattr(pick, "team", None) or pick.get("team", None)
+      team_obj = getattr(pick, "team", None) or (pick.get("team") if isinstance(pick, dict) else None)
       mgr = get_manager_name(team_obj) if team_obj else "Unknown Manager"
-      team_name = getattr(team_obj, "team_name", "Team") if team_obj else "Team"
 
       tot_pts = player_total_pts.get(player_id, 0.0)
 
       draft_picks.append({
           "overall": int(overall),
           "round": int(round_num),
-          "round_pick": int(round_pick),
-          "player": player_name,
+          "player": str(player_name),
           "playerId": player_id,
-          "position": pos,
-          "manager": mgr,
-          "team_name": team_name,
+          "position": str(pos),
+          "manager": str(mgr),
           "total_points": round(tot_pts, 2)
       })
   except Exception as e:
-    print(f"Draft extraction note: {e}")
+    print(f"Draft extraction error: {e}")
   
   return sorted(draft_picks, key=lambda x: x["overall"])
 
