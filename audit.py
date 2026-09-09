@@ -210,7 +210,7 @@ def extract_draft_info(league_obj, seasons_data_obj):
             player_total_pts[pid] = player_total_pts.get(pid, 0.0) + pts
 
     for pick in raw_picks:
-      overall = getattr(pick, "pick_num", None) or getattr(pick, "overallPickNumber", 0)
+      overall = getattr(pick, "overall_pick", None) or getattr(pick, "pick_num", None) or pick.get("overallPickNumber", 0)
       round_num = getattr(pick, "round_num", None) or getattr(pick, "roundId", 0)
       round_pick = getattr(pick, "round_pick", None) or getattr(pick, "roundPickNumber", 0)
       
