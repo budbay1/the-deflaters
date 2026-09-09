@@ -198,21 +198,8 @@ def extract_draft_info(league_obj, seasons_data_obj):
   """Extracts draft picks and calculates total season points for each drafted player."""
   draft_picks = []
   try:
-    # Force-load draft details if the wrapper supports a refresh method
-    if hasattr(league_obj, "refresh_draft"):
-      try:
-        league_obj.refresh_draft()
-      except Exception:
-        pass
-
     raw_picks = getattr(league_obj, "draft", [])
-    if not raw_picks and hasattr(league_obj, "_fetch_draft"):
-      try:
-        league_obj._fetch_draft()
-        raw_picks = getattr(league_obj, "draft", [])
-      except Exception:
-        pass
-
+    
     player_total_pts = {}
     for w_str, matchups in seasons_data_obj.items():
       for m in matchups:
@@ -223,15 +210,15 @@ def extract_draft_info(league_obj, seasons_data_obj):
             player_total_pts[pid] = player_total_pts.get(pid, 0.0) + pts
 
     for pick in raw_picks:
-      overall = getattr(pick, "pick_num", None) or pick.get("pickNum", 0)
-      round_num = getattr(pick, "round_num", None) or pick.get("roundNum", 0)
-      round_pick = getattr(pick, "round_pick", None) or pick.get("roundPick", 0)
+      overall = getattr(pick, "pick_num", None) or getattr(pick, "overallPickNumber", 0)
+      round_num = getattr(pick, "round_num", None) or getattr(pick, "roundId", 0)
+      round_pick = getattr(pick, "round_pick", None) or getattr(pick, "roundPickNumber", 0)
       
-      player_name = getattr(pick, "playerName", None) or pick.get("playerName", "Unknown Player")
-      player_id = getattr(pick, "playerId", None) or pick.get("playerId", 0)
-      pos = getattr(pick, "position", None) or pick.get("position", "")
+      player_name = getattr(pick, "playerName", None) or "Unknown Player"
+      player_id = getattr(pick, "playerId", None) or 0
+      pos = getattr(pick, "position", None) or ""
       
-      team_obj = getattr(pick, "team", None) or pick.get("team", None)
+      team_obj = getattr(pick, "team", None)
       mgr = get_manager_name(team_obj) if team_obj else "Unknown Manager"
       team_name = getattr(team_obj, "team_name", "Team") if team_obj else "Team"
 
