@@ -113,7 +113,7 @@ def audit_roster(lineup, slots, actual_score):
     elif not started and is_optimal: audit = "Costly Bench"
     else: audit = "Starter Bust"
 
-    players_data.append({"name": p.name, "pos": pos_clean, "started": started, "audit": audit, "pts": pts, "proj": proj})
+    players_data.append({"name": p.name, "pos": pos_clean, "started": started, "audit": audit, "pts": pts, "proj": proj, "playerId": p.playerId})
 
   calc_optimal = round(sum(p.points for p in lineup if p.playerId in optimal_ids), 2)
   return players_data, max(actual_score, calc_optimal)
@@ -194,6 +194,54 @@ def compute_records_and_payouts(weeks_obj, finishes_map=None):
   return weekly_team_bounties, weekly_player_bounties, weekly_anchors, season_payout_leaders
 
 
+def extract_draft_info(league_obj, seasons_data_obj):
+  """Extracts draft picks and calculates total season points for each drafted player."""
+  draft_picks = []
+  try:
+    raw_picks = getattr(league_obj, "draft", [])
+    # Build a lookup of total player points accumulated across the season weeks
+    player_total_pts = {}
+    for w_str, matchups in seasons_data_obj.items():
+      for m in matchups:
+        for p in m.get("players", []):
+          pid = p.get("playerId")
+          pts = p.get("pts", 0.0)
+          if pid:
+            player_total_pts[pid] = player_total_pts.get(pid, 0.0) + pts
+
+    for pick in raw_picks:
+      # Handle object or dict attribute access safely
+      overall = getattr(pick, "pick_num", None) or pick.get("pickNum", 0)
+      round_num = getattr(pick, "round_num", None) or pick.get("roundNum", 0)
+      round_pick = getattr(pick, "round_pick", None) or pick.get("roundPick", 0)
+      
+      player_name = getattr(pick, "playerName", None) or pick.get("playerName", "Unknown Player")
+      player_id = getattr(pick, "playerId", None) or pick.get("playerId", 0)
+      pos = getattr(pick, "position", None) or pick.get("position", "")
+      
+      team_obj = getattr(pick, "team", None) or pick.get("team", None)
+      mgr = get_manager_name(team_obj) if team_obj else "Unknown Manager"
+      team_name = getattr(team_obj, "team_name", "Team") if team_obj else "Team"
+
+      tot_pts = player_total_pts.get(player_id, 0.0)
+
+      draft_picks.append({
+          "overall": overall,
+          "round": round_num,
+          "round_pick": round_pick,
+          "player": player_name,
+          "playerId": player_id,
+          "position": pos,
+          "manager": mgr,
+          "team_name": team_name,
+          "total_points": round(tot_pts, 2)
+      })
+  except Exception as e:
+    print(f"Draft extraction note: {e}")
+  
+  return sorted(draft_picks, key=lambda x: x["overall"])
+
+
 def process_season_weeks(league_obj, season_yr):
   aliases = load_aliases()
   season_weeks = {}
@@ -234,7 +282,7 @@ def process_season_weeks(league_obj, season_yr):
         all_time_matchups[m_id] = {
             "year": season_yr, "week": w, "is_playoff": is_playoff,
             "m1": pair[0], "t1": h_team_name if h_mgr == pair[0] else a_team_name, "s1": h_act if h_mgr == pair[0] else a_act,
-            "m2": pair[1], "t2": a_team_name if a_mgr == pair[1] else h_team_name, "s2": a_act if a_mgr == pair[1] else h_act
+            "m2": pair[1], "t2": a_team_name if h_mgr == pair[1] else h_team_name, "s2": a_act if h_mgr == pair[1] else h_act
         }
 
       w_teams.append({
@@ -354,7 +402,7 @@ def compute_accumulated_money(seasons_data, champions, weekly_bounty_totals, wee
 
   for yr_str, weeks_dict in seasons_data.items():
     yr_int = int(yr_str)
-    if yr_int < 2023: continue  # Updated to track money back to 2023
+    if yr_int < 2023: continue
     if yr_int > current_year: continue
 
     bounties_list = weekly_bounty_totals.get(yr_str, [])
@@ -399,15 +447,18 @@ def main():
   if "matchups" not in all_time: all_time["matchups"] = {}
 
   seasons_data = load_history(SEASONS_DATA_FILE, {})
+  draft_history_all = {}
 
   for y in range(2023, YEAR + 1):
     print(f"Processing season data for {y}...")
     if y == YEAR:
       season_weeks, yr_matchups = process_season_weeks(league, y)
+      draft_history_all[str(y)] = extract_draft_info(league, season_weeks)
     else:
       try:
         past_league = League(league_id=LEAGUE_ID, year=y, espn_s2=ESPN_S2, swid=SWID)
         season_weeks, yr_matchups = process_season_weeks(past_league, y)
+        draft_history_all[str(y)] = extract_draft_info(past_league, season_weeks)
       except Exception as e:
         print(f"Could not load season {y}: {e}")
         continue
@@ -434,7 +485,6 @@ def main():
     weekly_player_bounties_all[yr_key] = pb
     weekly_anchors_all[yr_key] = an
 
-    # Build weekly bounty totals breakdown map for each year
     bounty_tracker = {}
     for b in tb:
       tm = b["team"]
@@ -536,6 +586,7 @@ def main():
       "weekly_anchors": weekly_anchors_all,
       "weekly_bounty_totals": weekly_bounty_totals_all,
       "accumulated_money": accumulated_money,
+      "draft_history": draft_history_all,
       "career_rankings": {
           "season_pf": career_season_pf_list[:10],
           "game_teams": career_game_teams_list[:10],
