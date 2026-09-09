@@ -240,8 +240,6 @@ def extract_draft_info(league_obj, seasons_data_obj):
       mgr = get_manager_name(team_obj) if team_obj else "Unknown Manager"
 
       tot_pts = player_total_pts.get(player_id, 0.0)
-
-      # Expected points baseline formula based on draft slot (graduated curve from ~280 down to ~50 pts)
       expected_pts = max(40.0, 300.0 - (float(overall) * 1.5))
       surplus_value = round(tot_pts - expected_pts, 2)
 
@@ -315,7 +313,7 @@ def process_season_weeks(league_obj, season_yr):
       w_teams.append({
           "team": away_label, "manager": a_mgr, "opp": home_label, "opp_manager": h_mgr,
           "actual": a_act, "proj": a_proj, "diff": round(a_act - a_proj, 2),
-          "opp_actual": h_act, "opp_proj": h_proj, "optimal": a_opt,
+          "opp_actual": h_act, "opp_proj": a_proj, "optimal": a_opt,
           "result": "W" if a_act > h_act else ("L" if a_act < h_act else "T"),
           "coach_eff": round((a_act / a_opt) * 100, 1) if a_opt > 0 else 100.0,
           "players": a_players,
