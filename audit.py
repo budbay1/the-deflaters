@@ -209,25 +209,26 @@ def extract_draft_info(league_obj, seasons_data_obj):
           if pid:
             player_total_pts[pid] = player_total_pts.get(pid, 0.0) + pts
 
-    for pick in raw_picks:
-      overall = getattr(pick, "overall_pick", None) or getattr(pick, "pick_num", None) or pick.get("overallPickNumber", 0)
-      round_num = getattr(pick, "round_num", None) or getattr(pick, "roundId", 0)
-      round_pick = getattr(pick, "round_pick", None) or getattr(pick, "roundPickNumber", 0)
+    for idx, pick in enumerate(raw_picks):
+      # Accurately resolve pick numbers across varied ESPN object formats and fall back to sequential index if needed
+      overall = getattr(pick, "overall_pick", None) or getattr(pick, "pick_num", None) or getattr(pick, "overallPickNumber", None) or pick.get("overallPickNumber") or pick.get("pickNum") or (idx + 1)
+      round_num = getattr(pick, "round_num", None) or getattr(pick, "roundId", None) or pick.get("roundNum") or pick.get("roundId") or 1
+      round_pick = getattr(pick, "round_pick", None) or getattr(pick, "roundPickNumber", None) or pick.get("roundPickNumber") or pick.get("roundPick") or (overall)
       
-      player_name = getattr(pick, "playerName", None) or "Unknown Player"
-      player_id = getattr(pick, "playerId", None) or 0
-      pos = getattr(pick, "position", None) or ""
+      player_name = getattr(pick, "playerName", None) or pick.get("playerName", "Unknown Player")
+      player_id = getattr(pick, "playerId", None) or pick.get("playerId", 0)
+      pos = getattr(pick, "position", None) or pick.get("position", "")
       
-      team_obj = getattr(pick, "team", None)
+      team_obj = getattr(pick, "team", None) or pick.get("team", None)
       mgr = get_manager_name(team_obj) if team_obj else "Unknown Manager"
       team_name = getattr(team_obj, "team_name", "Team") if team_obj else "Team"
 
       tot_pts = player_total_pts.get(player_id, 0.0)
 
       draft_picks.append({
-          "overall": overall,
-          "round": round_num,
-          "round_pick": round_pick,
+          "overall": int(overall),
+          "round": int(round_num),
+          "round_pick": int(round_pick),
           "player": player_name,
           "playerId": player_id,
           "position": pos,
@@ -295,7 +296,7 @@ def process_season_weeks(league_obj, season_yr):
       w_teams.append({
           "team": away_label, "manager": a_mgr, "opp": home_label, "opp_manager": h_mgr,
           "actual": a_act, "proj": a_proj, "diff": round(a_act - a_proj, 2),
-          "opp_actual": h_act, "opp_proj": h_proj, "optimal": a_opt,
+          "opp_actual": h_act, "opp_proj": a_proj, "optimal": a_opt,
           "result": "W" if a_act > h_act else ("L" if a_act < h_act else "T"),
           "coach_eff": round((a_act / a_opt) * 100, 1) if a_opt > 0 else 100.0,
           "players": a_players,
@@ -455,12 +456,18 @@ def main():
       draft_history_all[str(y)] = extract_draft_info(league, season_weeks)
     else:
       try:
-        past_league = League(league_id=LEAGUE_ID, year=y, espn_s2=ESPN_S2, swid=SWID)
+        past_league = League(league_id=LEAGUE_ID, year=y, espn_s2=ESPN_S2, swid=SWID, fetch_options=['mDraftDetail'])
         season_weeks, yr_matchups = process_season_weeks(past_league, y)
         draft_history_all[str(y)] = extract_draft_info(past_league, season_weeks)
       except Exception as e:
-        print(f"Could not load season {y}: {e}")
-        continue
+        print(f"Could not load season {y} draft with options: {e}")
+        try:
+          past_league = League(league_id=LEAGUE_ID, year=y, espn_s2=ESPN_S2, swid=SWID)
+          season_weeks, yr_matchups = process_season_weeks(past_league, y)
+          draft_history_all[str(y)] = extract_draft_info(past_league, season_weeks)
+        except Exception as e2:
+          print(f"Fallback season {y} draft failed: {e2}")
+          continue
 
     seasons_data[str(y)] = season_weeks
     all_time["matchups"].update(yr_matchups)
