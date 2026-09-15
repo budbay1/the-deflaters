@@ -35,7 +35,7 @@ jobs:
           LEAGUE_ID: ${{ secrets.LEAGUE_ID }}
           SWID: ${{ secrets.SWID }}
           ESPN_S2: ${{ secrets.ESPN_S2 }}
-          YEAR: '2025'
+          YEAR: '2026'
           WEEK: ${{ github.event.inputs.week }}
         run: |
           python audit.py
