@@ -20,8 +20,8 @@
     },
     "2026": {
       "gold": "Make Fantasy Great Again (jeremy bayless)",
-      "silver": "Team Kendall (Robert Kendall)",
-      "bronze": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
+      "silver": "Injured Reserve (Billy Haid)",
+      "bronze": "Team Draft order (Wes Colson)",
       "last": "THE G-MEN (TRAVIS GIBSON)"
     }
   },
@@ -3455,7 +3455,7 @@
       "t1": "Team Freedom",
       "s1": 148.52,
       "m2": "trentan busey",
-      "t2": "Nacua Matata ",
+      "t2": "Purdy Golden ",
       "s2": 116.2
     },
     "2026_W2_Robert Kendall_vs_Ron Baker": {
@@ -3510,7 +3510,7 @@
       "t1": "55 TDs 55 Punts 55 FGs 55 INTs",
       "s1": 127.42,
       "m2": "trentan busey",
-      "t2": "Nacua Matata ",
+      "t2": "Purdy Golden ",
       "s2": 114.88
     },
     "2026_W2_Roman Bayless_vs_Wes Colson": {
@@ -3523,6 +3523,72 @@
       "m2": "Wes Colson",
       "t2": "Team Draft order",
       "s2": 167.48
+    },
+    "2026_W3_Ron Baker_vs_TRAVIS GIBSON": {
+      "year": 2026,
+      "week": 3,
+      "is_playoff": false,
+      "m1": "Ron Baker",
+      "t1": "This team is f'ng \ud83d\udca9!",
+      "s1": 133.58,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN",
+      "s2": 131.28
+    },
+    "2026_W3_Billy Haid_vs_Robert Kendall": {
+      "year": 2026,
+      "week": 3,
+      "is_playoff": false,
+      "m1": "Billy Haid",
+      "t1": "Injured Reserve",
+      "s1": 129.76,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 101.16
+    },
+    "2026_W3_Jared Schneider_vs_jeremy bayless": {
+      "year": 2026,
+      "week": 3,
+      "is_playoff": false,
+      "m1": "Jared Schneider",
+      "t1": "Flock Around and Find Out",
+      "s1": 140.94,
+      "m2": "jeremy bayless",
+      "t2": "Make Fantasy Great Again",
+      "s2": 178.5
+    },
+    "2026_W3_Miles Spainhower_vs_trentan busey": {
+      "year": 2026,
+      "week": 3,
+      "is_playoff": false,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream",
+      "s1": 101.94,
+      "m2": "trentan busey",
+      "t2": "Purdy Golden ",
+      "s2": 144.68
+    },
+    "2026_W3_Kurt Claycomb_vs_Roman Bayless": {
+      "year": 2026,
+      "week": 3,
+      "is_playoff": false,
+      "m1": "Kurt Claycomb",
+      "t1": "Skatteboo boo",
+      "s1": 107.28,
+      "m2": "Roman Bayless",
+      "t2": "Team Freedom",
+      "s2": 121.12
+    },
+    "2026_W3_Eric King_vs_Wes Colson": {
+      "year": 2026,
+      "week": 3,
+      "is_playoff": false,
+      "m1": "Eric King",
+      "t1": "55 TDs 55 Punts 55 FGs 55 INTs",
+      "s1": 123.6,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order",
+      "s2": 180.98
     }
   },
   "finishes": {
@@ -3570,15 +3636,15 @@
     },
     "2026": {
       "jeremy bayless": 1,
-      "Robert Kendall": 2,
-      "Eric King": 3,
-      "Billy Haid": 4,
-      "Wes Colson": 5,
-      "Roman Bayless": 6,
-      "Miles Spainhower": 7,
-      "Kurt Claycomb": 8,
-      "Ron Baker": 9,
-      "trentan busey": 10,
+      "Billy Haid": 2,
+      "Wes Colson": 3,
+      "Robert Kendall": 4,
+      "Roman Bayless": 5,
+      "Eric King": 6,
+      "Ron Baker": 7,
+      "trentan busey": 8,
+      "Miles Spainhower": 9,
+      "Kurt Claycomb": 10,
       "Jared Schneider": 11,
       "TRAVIS GIBSON": 12
     }
