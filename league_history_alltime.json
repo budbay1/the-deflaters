@@ -19,10 +19,10 @@
       "last": "Rejected Kamala (jeremy bayless)"
     },
     "2026": {
-      "gold": "Make Fantasy Great Again (jeremy bayless)",
-      "silver": "Injured Reserve (Billy Haid)",
-      "bronze": "Team Draft order (Wes Colson)",
-      "last": "THE G-MEN (TRAVIS GIBSON)"
+      "gold": "Injured Reserve (Billy Haid)",
+      "silver": "Make Fantasy Great Again (jeremy bayless)",
+      "bronze": "Team Kendall (Robert Kendall)",
+      "last": "Flock Around and Find Out (Jared Schneider)"
     }
   },
   "matchups": {
@@ -3589,6 +3589,72 @@
       "m2": "Wes Colson",
       "t2": "Team Draft order",
       "s2": 180.98
+    },
+    "2026_W4_Billy Haid_vs_Ron Baker": {
+      "year": 2026,
+      "week": 4,
+      "is_playoff": false,
+      "m1": "Billy Haid",
+      "t1": "Injured Reserve",
+      "s1": 151.38,
+      "m2": "Ron Baker",
+      "t2": "This team is f'ng \ud83d\udca9!",
+      "s2": 124.48
+    },
+    "2026_W4_Jared Schneider_vs_TRAVIS GIBSON": {
+      "year": 2026,
+      "week": 4,
+      "is_playoff": false,
+      "m1": "Jared Schneider",
+      "t1": "Flock Around and Find Out",
+      "s1": 112.52,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN",
+      "s2": 155.82
+    },
+    "2026_W4_Robert Kendall_vs_jeremy bayless": {
+      "year": 2026,
+      "week": 4,
+      "is_playoff": false,
+      "m1": "Robert Kendall",
+      "t1": "Team Kendall",
+      "s1": 162.62,
+      "m2": "jeremy bayless",
+      "t2": "Make Fantasy Great Again",
+      "s2": 155.18
+    },
+    "2026_W4_Miles Spainhower_vs_Roman Bayless": {
+      "year": 2026,
+      "week": 4,
+      "is_playoff": false,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream",
+      "s1": 102.98,
+      "m2": "Roman Bayless",
+      "t2": "Team Freedom",
+      "s2": 106.2
+    },
+    "2026_W4_Wes Colson_vs_trentan busey": {
+      "year": 2026,
+      "week": 4,
+      "is_playoff": false,
+      "m1": "Wes Colson",
+      "t1": "Team Draft order",
+      "s1": 105.82,
+      "m2": "trentan busey",
+      "t2": "Purdy Golden ",
+      "s2": 130.52
+    },
+    "2026_W4_Eric King_vs_Kurt Claycomb": {
+      "year": 2026,
+      "week": 4,
+      "is_playoff": false,
+      "m1": "Eric King",
+      "t1": "55 TDs 55 Punts 55 FGs 55 INTs",
+      "s1": 103.14,
+      "m2": "Kurt Claycomb",
+      "t2": "Skatteboo boo",
+      "s2": 161.08
     }
   },
   "finishes": {
@@ -3635,18 +3701,18 @@
       "jeremy bayless": 12
     },
     "2026": {
-      "jeremy bayless": 1,
-      "Billy Haid": 2,
-      "Wes Colson": 3,
-      "Robert Kendall": 4,
-      "Roman Bayless": 5,
-      "Eric King": 6,
-      "Ron Baker": 7,
-      "trentan busey": 8,
-      "Miles Spainhower": 9,
-      "Kurt Claycomb": 10,
-      "Jared Schneider": 11,
-      "TRAVIS GIBSON": 12
+      "Billy Haid": 1,
+      "jeremy bayless": 2,
+      "Robert Kendall": 3,
+      "Roman Bayless": 4,
+      "Wes Colson": 5,
+      "trentan busey": 6,
+      "Eric King": 7,
+      "Kurt Claycomb": 8,
+      "Ron Baker": 9,
+      "TRAVIS GIBSON": 10,
+      "Miles Spainhower": 11,
+      "Jared Schneider": 12
     }
   },
   "h2h_ingested_years": [
