@@ -106298,7 +106298,1928 @@
           "luck_delta": -0.364
         }
       ],
-      "6": [],
+      "6": [
+        {
+          "team": "This team is no longer f'ng \ud83d\udca9! (Ron Baker)",
+          "manager": "Ron Baker",
+          "opp": "The American Dream (Miles Spainhower)",
+          "opp_manager": "Miles Spainhower",
+          "actual": 120.14,
+          "proj": 149.41,
+          "diff": -29.27,
+          "opp_actual": 117.42,
+          "opp_proj": 112.22,
+          "optimal": 142.1,
+          "result": "W",
+          "coach_eff": 84.5,
+          "players": [
+            {
+              "name": "Kenneth Walker III",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 27.9,
+              "proj": 23.31,
+              "playerId": 4567048
+            },
+            {
+              "name": "George Pickens",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 13.3,
+              "proj": 13.55,
+              "playerId": 4426354
+            },
+            {
+              "name": "Travis Etienne Jr.",
+              "pos": "RB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0.0,
+              "proj": 0.0,
+              "playerId": 4239996
+            },
+            {
+              "name": "Jayden Daniels",
+              "pos": "QB",
+              "started": false,
+              "audit": "Costly Bench",
+              "pts": 25.0,
+              "proj": 22.14,
+              "playerId": 4426348
+            },
+            {
+              "name": "Tony Pollard",
+              "pos": "RB",
+              "started": true,
+              "audit": "Starter Bust",
+              "pts": 7.6,
+              "proj": 14.22,
+              "playerId": 3916148
+            },
+            {
+              "name": "Harold Fannin Jr.",
+              "pos": "TE",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 1.9,
+              "proj": 10.26,
+              "playerId": 5083076
+            },
+            {
+              "name": "Christian Watson",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 9.4,
+              "proj": 16.33,
+              "playerId": 4248528
+            },
+            {
+              "name": "Denzel Boston",
+              "pos": "WR",
+              "started": true,
+              "audit": "Starter Bust",
+              "pts": 2.5,
+              "proj": 14.02,
+              "playerId": 4832800
+            },
+            {
+              "name": "Cam Little",
+              "pos": "K",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 10.0,
+              "proj": 7.41,
+              "playerId": 4686361
+            },
+            {
+              "name": "Jameson Williams",
+              "pos": "WR",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0,
+              "proj": 0.0,
+              "playerId": 4426388
+            },
+            {
+              "name": "Jordan Love",
+              "pos": "QB",
+              "started": true,
+              "audit": "Starter Bust",
+              "pts": 22.24,
+              "proj": 25.71,
+              "playerId": 4036378
+            },
+            {
+              "name": "Khalil Shakir",
+              "pos": "WR",
+              "started": false,
+              "audit": "Costly Bench",
+              "pts": 13.4,
+              "proj": 11.55,
+              "playerId": 4373678
+            },
+            {
+              "name": "Keon Coleman",
+              "pos": "WR",
+              "started": false,
+              "audit": "Costly Bench",
+              "pts": 15.9,
+              "proj": 10.72,
+              "playerId": 4635008
+            },
+            {
+              "name": "James Cook III",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 24.3,
+              "proj": 19.31,
+              "playerId": 4379399
+            },
+            {
+              "name": "Deebo Samuel Sr.",
+              "pos": "WR",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0.0,
+              "proj": 0.0,
+              "playerId": 3126486
+            },
+            {
+              "name": "Giants D/ST",
+              "pos": "D/ST",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 1.0,
+              "proj": 5.29,
+              "playerId": -16019
+            }
+          ],
+          "all_play_w": 5,
+          "all_play_l": 6,
+          "luck_delta": 0.545
+        },
+        {
+          "team": "The American Dream (Miles Spainhower)",
+          "manager": "Miles Spainhower",
+          "opp": "This team is no longer f'ng \ud83d\udca9! (Ron Baker)",
+          "opp_manager": "Ron Baker",
+          "actual": 117.42,
+          "proj": 112.22,
+          "diff": 5.2,
+          "opp_actual": 120.14,
+          "opp_proj": 112.22,
+          "optimal": 117.42,
+          "result": "L",
+          "coach_eff": 100.0,
+          "players": [
+            {
+              "name": "Ja'Marr Chase",
+              "pos": "WR",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0,
+              "proj": 0.0,
+              "playerId": 4362628
+            },
+            {
+              "name": "Josh Jacobs",
+              "pos": "RB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0.0,
+              "proj": 0.0,
+              "playerId": 4047365
+            },
+            {
+              "name": "Bucky Irving",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 6.9,
+              "proj": 16.06,
+              "playerId": 4596448
+            },
+            {
+              "name": "Lamar Jackson",
+              "pos": "QB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0.0,
+              "proj": 0.0,
+              "playerId": 3916387
+            },
+            {
+              "name": "Alvin Kamara",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 14.9,
+              "proj": 10.08,
+              "playerId": 3054850
+            },
+            {
+              "name": "Xavier Worthy",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 14.3,
+              "proj": 11.06,
+              "playerId": 4683062
+            },
+            {
+              "name": "Travis Kelce",
+              "pos": "TE",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 9.3,
+              "proj": 11.44,
+              "playerId": 15847
+            },
+            {
+              "name": "James Conner",
+              "pos": "RB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0.0,
+              "proj": 0.0,
+              "playerId": 3045147
+            },
+            {
+              "name": "Mike Washington Jr.",
+              "pos": "RB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 6.0,
+              "proj": 4.03,
+              "playerId": 4686658
+            },
+            {
+              "name": "Kaelon Black",
+              "pos": "RB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 4.7,
+              "proj": 5.65,
+              "playerId": 4696044
+            },
+            {
+              "name": "Dontayvion Wicks",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 4.4,
+              "proj": 8.66,
+              "playerId": 4428850
+            },
+            {
+              "name": "Brenton Strange",
+              "pos": "TE",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 9.4,
+              "proj": 9.82,
+              "playerId": 4430539
+            },
+            {
+              "name": "Kirk Cousins",
+              "pos": "QB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 22.52,
+              "proj": 22.72,
+              "playerId": 14880
+            },
+            {
+              "name": "Chiefs D/ST",
+              "pos": "D/ST",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 14.0,
+              "proj": 7.26,
+              "playerId": -16012
+            },
+            {
+              "name": "Tyler Bass",
+              "pos": "K",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 17.0,
+              "proj": 9.09,
+              "playerId": 3917232
+            },
+            {
+              "name": "Cyrus Allen",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 4.7,
+              "proj": 6.03,
+              "playerId": 4912218
+            }
+          ],
+          "all_play_w": 3,
+          "all_play_l": 8,
+          "luck_delta": -0.273
+        },
+        {
+          "team": "Make Fantasy Great Again (jeremy bayless)",
+          "manager": "jeremy bayless",
+          "opp": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
+          "opp_manager": "Eric King",
+          "actual": 163.0,
+          "proj": 138.08,
+          "diff": 24.92,
+          "opp_actual": 111.78,
+          "opp_proj": 131.21,
+          "optimal": 163.0,
+          "result": "W",
+          "coach_eff": 100.0,
+          "players": [
+            {
+              "name": "Jaxon Smith-Njigba",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 25.4,
+              "proj": 19.76,
+              "playerId": 4430878
+            },
+            {
+              "name": "Breece Hall",
+              "pos": "RB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0.0,
+              "proj": 0.0,
+              "playerId": 4427366
+            },
+            {
+              "name": "DeVonta Smith",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 20.5,
+              "proj": 13.5,
+              "playerId": 4241478
+            },
+            {
+              "name": "Tee Higgins",
+              "pos": "WR",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0,
+              "proj": 0.0,
+              "playerId": 4239993
+            },
+            {
+              "name": "D'Andre Swift",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 23.0,
+              "proj": 15.0,
+              "playerId": 4259545
+            },
+            {
+              "name": "Marvin Harrison Jr.",
+              "pos": "WR",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 6.4,
+              "proj": 3.58,
+              "playerId": 4432708
+            },
+            {
+              "name": "DK Metcalf",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 20.3,
+              "proj": 11.58,
+              "playerId": 4047650
+            },
+            {
+              "name": "Caleb Williams",
+              "pos": "QB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 18.5,
+              "proj": 19.16,
+              "playerId": 4431611
+            },
+            {
+              "name": "George Kittle",
+              "pos": "TE",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 17.9,
+              "proj": 14.91,
+              "playerId": 3040151
+            },
+            {
+              "name": "Jordan Mason",
+              "pos": "RB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0,
+              "proj": 0.0,
+              "playerId": 4360569
+            },
+            {
+              "name": "Zach Charbonnet",
+              "pos": "RB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0.0,
+              "proj": 0.0,
+              "playerId": 4426385
+            },
+            {
+              "name": "Seahawks D/ST",
+              "pos": "D/ST",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 6.0,
+              "proj": 6.05,
+              "playerId": -16026
+            },
+            {
+              "name": "Braelon Allen",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 12.4,
+              "proj": 14.49,
+              "playerId": 4685247
+            },
+            {
+              "name": "Blake Grupe",
+              "pos": "K",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 4.0,
+              "proj": 9.86,
+              "playerId": 4259619
+            },
+            {
+              "name": "Dameon Pierce",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 15.0,
+              "proj": 13.77,
+              "playerId": 4360238
+            }
+          ],
+          "all_play_w": 11,
+          "all_play_l": 0,
+          "luck_delta": 0.0
+        },
+        {
+          "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
+          "manager": "Eric King",
+          "opp": "Make Fantasy Great Again (jeremy bayless)",
+          "opp_manager": "jeremy bayless",
+          "actual": 111.78,
+          "proj": 131.21,
+          "diff": -19.43,
+          "opp_actual": 163.0,
+          "opp_proj": 131.21,
+          "optimal": 123.86,
+          "result": "L",
+          "coach_eff": 90.2,
+          "players": [
+            {
+              "name": "Ashton Jeanty",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 15.8,
+              "proj": 19.17,
+              "playerId": 4890973
+            },
+            {
+              "name": "Saquon Barkley",
+              "pos": "RB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0.0,
+              "proj": 0.0,
+              "playerId": 3929630
+            },
+            {
+              "name": "Zay Flowers",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 12.7,
+              "proj": 14.06,
+              "playerId": 4429615
+            },
+            {
+              "name": "Emeka Egbuka",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 17.8,
+              "proj": 10.98,
+              "playerId": 4567750
+            },
+            {
+              "name": "Luther Burden III",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 17.5,
+              "proj": 12.46,
+              "playerId": 4685278
+            },
+            {
+              "name": "David Montgomery",
+              "pos": "RB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0.0,
+              "proj": 0.0,
+              "playerId": 4035538
+            },
+            {
+              "name": "Michael Wilson",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 7.2,
+              "proj": 14.01,
+              "playerId": 4360761
+            },
+            {
+              "name": "Matthew Stafford",
+              "pos": "QB",
+              "started": true,
+              "audit": "Starter Bust",
+              "pts": 20.88,
+              "proj": 24.39,
+              "playerId": 12483
+            },
+            {
+              "name": "Texans D/ST",
+              "pos": "D/ST",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": -2.0,
+              "proj": 5.36,
+              "playerId": -16034
+            },
+            {
+              "name": "Brandon Aubrey",
+              "pos": "K",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 1.0,
+              "proj": 10.21,
+              "playerId": 3953687
+            },
+            {
+              "name": "Dalton Kincaid",
+              "pos": "TE",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 10.8,
+              "proj": 8.64,
+              "playerId": 4385690
+            },
+            {
+              "name": "Woody Marks",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 10.1,
+              "proj": 11.93,
+              "playerId": 4429059
+            },
+            {
+              "name": "Tank Dell",
+              "pos": "WR",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0.0,
+              "proj": 0.0,
+              "playerId": 4366031
+            },
+            {
+              "name": "Malik Washington",
+              "pos": "WR",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0,
+              "proj": 0.0,
+              "playerId": 4569603
+            },
+            {
+              "name": "Tyler Shough",
+              "pos": "QB",
+              "started": false,
+              "audit": "Costly Bench",
+              "pts": 32.96,
+              "proj": 19.97,
+              "playerId": 4360689
+            },
+            {
+              "name": "Tyreek Hill",
+              "pos": "WR",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0,
+              "proj": 0,
+              "playerId": 3116406
+            }
+          ],
+          "all_play_w": 2,
+          "all_play_l": 9,
+          "luck_delta": -0.182
+        },
+        {
+          "team": "Team Kendall (Robert Kendall)",
+          "manager": "Robert Kendall",
+          "opp": "Skatteboo boo (Kurt Claycomb)",
+          "opp_manager": "Kurt Claycomb",
+          "actual": 140.2,
+          "proj": 136.19,
+          "diff": 4.01,
+          "opp_actual": 118.92,
+          "opp_proj": 126.12,
+          "optimal": 145.0,
+          "result": "W",
+          "coach_eff": 96.7,
+          "players": [
+            {
+              "name": "CeeDee Lamb",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 16.0,
+              "proj": 18.61,
+              "playerId": 4241389
+            },
+            {
+              "name": "Justin Jefferson",
+              "pos": "WR",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0,
+              "proj": 0.0,
+              "playerId": 4262921
+            },
+            {
+              "name": "Josh Allen",
+              "pos": "QB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 22.3,
+              "proj": 28.46,
+              "playerId": 3918298
+            },
+            {
+              "name": "Kyren Williams",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 9.7,
+              "proj": 21.02,
+              "playerId": 4430737
+            },
+            {
+              "name": "Tyler Warren",
+              "pos": "TE",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0.0,
+              "proj": 0.0,
+              "playerId": 4431459
+            },
+            {
+              "name": "Jadarian Price",
+              "pos": "RB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0.0,
+              "proj": 0.0,
+              "playerId": 4685512
+            },
+            {
+              "name": "Dak Prescott",
+              "pos": "QB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 13.02,
+              "proj": 20.4,
+              "playerId": 2577417
+            },
+            {
+              "name": "Rico Dowdle",
+              "pos": "RB",
+              "started": false,
+              "audit": "Costly Bench",
+              "pts": 7.9,
+              "proj": 6.37,
+              "playerId": 4038815
+            },
+            {
+              "name": "Steelers D/ST",
+              "pos": "D/ST",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 11.0,
+              "proj": 6.95,
+              "playerId": -16023
+            },
+            {
+              "name": "Jason Myers",
+              "pos": "K",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 7.0,
+              "proj": 6.77,
+              "playerId": 2473037
+            },
+            {
+              "name": "Tre Tucker",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 26.7,
+              "proj": 10.29,
+              "playerId": 4428718
+            },
+            {
+              "name": "Emanuel Wilson",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 5.2,
+              "proj": 14.87,
+              "playerId": 4887558
+            },
+            {
+              "name": "Brian Robinson Jr.",
+              "pos": "RB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 3.56,
+              "proj": 8.84,
+              "playerId": 4241474
+            },
+            {
+              "name": "Keenan Allen",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 16.2,
+              "proj": 9.42,
+              "playerId": 15818
+            },
+            {
+              "name": "Pat Freiermuth",
+              "pos": "TE",
+              "started": true,
+              "audit": "Starter Bust",
+              "pts": 3.1,
+              "proj": 11.11,
+              "playerId": 4361411
+            },
+            {
+              "name": "Kyle Pitts Sr.",
+              "pos": "TE",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 23.0,
+              "proj": 8.69,
+              "playerId": 4360248
+            }
+          ],
+          "all_play_w": 9,
+          "all_play_l": 2,
+          "luck_delta": 0.182
+        },
+        {
+          "team": "Skatteboo boo (Kurt Claycomb)",
+          "manager": "Kurt Claycomb",
+          "opp": "Team Kendall (Robert Kendall)",
+          "opp_manager": "Robert Kendall",
+          "actual": 118.92,
+          "proj": 126.12,
+          "diff": -7.2,
+          "opp_actual": 140.2,
+          "opp_proj": 126.12,
+          "optimal": 141.9,
+          "result": "L",
+          "coach_eff": 83.8,
+          "players": [
+            {
+              "name": "Jonathan Taylor",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 21.1,
+              "proj": 19.56,
+              "playerId": 4242335
+            },
+            {
+              "name": "Drake London",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 12.2,
+              "proj": 15.76,
+              "playerId": 4426502
+            },
+            {
+              "name": "Nico Collins",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 10.9,
+              "proj": 16.94,
+              "playerId": 4258173
+            },
+            {
+              "name": "Cam Skattebo",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 0.0,
+              "proj": 8.99,
+              "playerId": 4696981
+            },
+            {
+              "name": "Drake Maye",
+              "pos": "QB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 29.8,
+              "proj": 24.2,
+              "playerId": 4431452
+            },
+            {
+              "name": "Alec Pierce",
+              "pos": "WR",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0.0,
+              "proj": 0.0,
+              "playerId": 4360078
+            },
+            {
+              "name": "Sam LaPorta",
+              "pos": "TE",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0,
+              "proj": 0.0,
+              "playerId": 4430027
+            },
+            {
+              "name": "Patrick Mahomes",
+              "pos": "QB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 10.48,
+              "proj": 22.62,
+              "playerId": 3139477
+            },
+            {
+              "name": "Dallas Goedert",
+              "pos": "TE",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 12.1,
+              "proj": 10.11,
+              "playerId": 3121023
+            },
+            {
+              "name": "Jacory Croskey-Merritt",
+              "pos": "RB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0.0,
+              "proj": 0.0,
+              "playerId": 4575131
+            },
+            {
+              "name": "KC Concepcion",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 8.42,
+              "proj": 8.21,
+              "playerId": 4870653
+            },
+            {
+              "name": "Jaylin Noel",
+              "pos": "WR",
+              "started": false,
+              "audit": "Costly Bench",
+              "pts": 23.38,
+              "proj": 7.26,
+              "playerId": 4586312
+            },
+            {
+              "name": "Isaiah Williams",
+              "pos": "WR",
+              "started": true,
+              "audit": "Starter Bust",
+              "pts": 0.4,
+              "proj": 9.07,
+              "playerId": 4569371
+            },
+            {
+              "name": "Dohnte Meyers",
+              "pos": "WR",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0,
+              "proj": 0.0,
+              "playerId": 4384852
+            },
+            {
+              "name": "Patriots D/ST",
+              "pos": "D/ST",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 5.0,
+              "proj": 6.78,
+              "playerId": -16017
+            },
+            {
+              "name": "Chad Ryland",
+              "pos": "K",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 19.0,
+              "proj": 6.5,
+              "playerId": 4363538
+            }
+          ],
+          "all_play_w": 4,
+          "all_play_l": 7,
+          "luck_delta": -0.364
+        },
+        {
+          "team": "THE G-MEN (TRAVIS GIBSON)",
+          "manager": "TRAVIS GIBSON",
+          "opp": "Master Shrader (trentan busey)",
+          "opp_manager": "trentan busey",
+          "actual": 129.68,
+          "proj": 123.84,
+          "diff": 5.84,
+          "opp_actual": 138.26,
+          "opp_proj": 136.64,
+          "optimal": 132.48,
+          "result": "L",
+          "coach_eff": 97.9,
+          "players": [
+            {
+              "name": "Jeremiyah Love",
+              "pos": "RB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0.0,
+              "proj": 0.0,
+              "playerId": 4870808
+            },
+            {
+              "name": "Tetairoa McMillan",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 14.6,
+              "proj": 15.93,
+              "playerId": 4685472
+            },
+            {
+              "name": "Terry McLaurin",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 3.7,
+              "proj": 12.34,
+              "playerId": 3121422
+            },
+            {
+              "name": "Aaron Jones Sr.",
+              "pos": "RB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0,
+              "proj": 0.0,
+              "playerId": 3042519
+            },
+            {
+              "name": "Rhamondre Stevenson",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 3.6,
+              "proj": 13.33,
+              "playerId": 4569173
+            },
+            {
+              "name": "Evan McPherson",
+              "pos": "K",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0,
+              "proj": 0.0,
+              "playerId": 4360234
+            },
+            {
+              "name": "Ravens D/ST",
+              "pos": "D/ST",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 10.0,
+              "proj": 7.12,
+              "playerId": -16033
+            },
+            {
+              "name": "Isaiah Likely",
+              "pos": "TE",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 23.9,
+              "proj": 14.74,
+              "playerId": 4361050
+            },
+            {
+              "name": "Stefon Diggs",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 16.4,
+              "proj": 10.61,
+              "playerId": 2976212
+            },
+            {
+              "name": "Bryce Young",
+              "pos": "QB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 23.84,
+              "proj": 21.8,
+              "playerId": 4685720
+            },
+            {
+              "name": "Rashid Shaheed",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 16.44,
+              "proj": 12.26,
+              "playerId": 4032473
+            },
+            {
+              "name": "Ollie Gordon II",
+              "pos": "RB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0,
+              "proj": 0.0,
+              "playerId": 4711533
+            },
+            {
+              "name": "Amon-Ra St. Brown",
+              "pos": "WR",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0,
+              "proj": 0.0,
+              "playerId": 4374302
+            },
+            {
+              "name": "TreVeyon Henderson",
+              "pos": "RB",
+              "started": false,
+              "audit": "Costly Bench",
+              "pts": 3.0,
+              "proj": 8.7,
+              "playerId": 4432710
+            },
+            {
+              "name": "Chris Boswell",
+              "pos": "K",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 17.0,
+              "proj": 8.76,
+              "playerId": 17372
+            },
+            {
+              "name": "Najee Harris",
+              "pos": "RB",
+              "started": true,
+              "audit": "Starter Bust",
+              "pts": 0.2,
+              "proj": 6.95,
+              "playerId": 4241457
+            }
+          ],
+          "all_play_w": 6,
+          "all_play_l": 5,
+          "luck_delta": -0.545
+        },
+        {
+          "team": "Master Shrader (trentan busey)",
+          "manager": "trentan busey",
+          "opp": "THE G-MEN (TRAVIS GIBSON)",
+          "opp_manager": "TRAVIS GIBSON",
+          "actual": 138.26,
+          "proj": 136.64,
+          "diff": 1.62,
+          "opp_actual": 129.68,
+          "opp_proj": 136.64,
+          "optimal": 154.86,
+          "result": "W",
+          "coach_eff": 89.3,
+          "players": [
+            {
+              "name": "Omarion Hampton",
+              "pos": "RB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 7.9,
+              "proj": 8.98,
+              "playerId": 4685382
+            },
+            {
+              "name": "Javonte Williams",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 13.0,
+              "proj": 16.89,
+              "playerId": 4361579
+            },
+            {
+              "name": "Bhayshul Tuten",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 24.7,
+              "proj": 12.64,
+              "playerId": 4882093
+            },
+            {
+              "name": "Rome Odunze",
+              "pos": "WR",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 6.9,
+              "proj": 10.35,
+              "playerId": 4431299
+            },
+            {
+              "name": "Matthew Golden",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 22.4,
+              "proj": 16.13,
+              "playerId": 4701936
+            },
+            {
+              "name": "Brock Purdy",
+              "pos": "QB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 19.36,
+              "proj": 25.85,
+              "playerId": 4361741
+            },
+            {
+              "name": "Juwan Johnson",
+              "pos": "TE",
+              "started": true,
+              "audit": "Starter Bust",
+              "pts": 0.0,
+              "proj": 10.79,
+              "playerId": 3929645
+            },
+            {
+              "name": "Vikings D/ST",
+              "pos": "D/ST",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0,
+              "proj": 0.0,
+              "playerId": -16016
+            },
+            {
+              "name": "Mike Evans",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 12.4,
+              "proj": 14.86,
+              "playerId": 16737
+            },
+            {
+              "name": "Tucker Kraft",
+              "pos": "TE",
+              "started": false,
+              "audit": "Costly Bench",
+              "pts": 8.7,
+              "proj": 12.11,
+              "playerId": 4572680
+            },
+            {
+              "name": "A.J. Brown",
+              "pos": "WR",
+              "started": true,
+              "audit": "Starter Bust",
+              "pts": 5.7,
+              "proj": 12.71,
+              "playerId": 4047646
+            },
+            {
+              "name": "Spencer Shrader",
+              "pos": "K",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 9.0,
+              "proj": 10.99,
+              "playerId": 4571557
+            },
+            {
+              "name": "Jonah Coleman",
+              "pos": "RB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0.0,
+              "proj": 0.0,
+              "playerId": 4702555
+            },
+            {
+              "name": "J.K. Dobbins",
+              "pos": "RB",
+              "started": false,
+              "audit": "Costly Bench",
+              "pts": 13.6,
+              "proj": 10.27,
+              "playerId": 4241985
+            },
+            {
+              "name": "Germie Bernard",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 25.7,
+              "proj": 9.89,
+              "playerId": 4685261
+            },
+            {
+              "name": "Panthers D/ST",
+              "pos": "D/ST",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 6.0,
+              "proj": 5.89,
+              "playerId": -16029
+            }
+          ],
+          "all_play_w": 8,
+          "all_play_l": 3,
+          "luck_delta": 0.273
+        },
+        {
+          "team": "Injured Reserve (Billy Haid)",
+          "manager": "Billy Haid",
+          "opp": "Team Freedom (Roman Bayless)",
+          "opp_manager": "Roman Bayless",
+          "actual": 83.18,
+          "proj": 148.66,
+          "diff": -65.48,
+          "opp_actual": 96.9,
+          "opp_proj": 124.15,
+          "optimal": 83.18,
+          "result": "L",
+          "coach_eff": 100.0,
+          "players": [
+            {
+              "name": "Bijan Robinson",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 7.3,
+              "proj": 22.99,
+              "playerId": 4430807
+            },
+            {
+              "name": "Brock Bowers",
+              "pos": "TE",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 11.0,
+              "proj": 19.77,
+              "playerId": 4432665
+            },
+            {
+              "name": "Quinshon Judkins",
+              "pos": "RB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0.0,
+              "proj": 0.0,
+              "playerId": 4685702
+            },
+            {
+              "name": "DJ Moore",
+              "pos": "WR",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0.0,
+              "proj": 0.0,
+              "playerId": 3915416
+            },
+            {
+              "name": "Jared Goff",
+              "pos": "QB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0,
+              "proj": 0.0,
+              "playerId": 3046779
+            },
+            {
+              "name": "Kyle Monangai",
+              "pos": "RB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0.0,
+              "proj": 0.0,
+              "playerId": 4608686
+            },
+            {
+              "name": "Jalen Coker",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 15.7,
+              "proj": 14.48,
+              "playerId": 4695883
+            },
+            {
+              "name": "Devaughn Vele",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 7.2,
+              "proj": 11.18,
+              "playerId": 4569559
+            },
+            {
+              "name": "Adonai Mitchell",
+              "pos": "WR",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0.0,
+              "proj": 0.0,
+              "playerId": 4597500
+            },
+            {
+              "name": "Puka Nacua",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 14.0,
+              "proj": 22.78,
+              "playerId": 4426515
+            },
+            {
+              "name": "Jaguars D/ST",
+              "pos": "D/ST",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": -2.0,
+              "proj": 5.59,
+              "playerId": -16030
+            },
+            {
+              "name": "Jordyn Tyson",
+              "pos": "WR",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0.0,
+              "proj": 0.0,
+              "playerId": 4880281
+            },
+            {
+              "name": "Ka'imi Fairbairn",
+              "pos": "K",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 11.0,
+              "proj": 8.34,
+              "playerId": 2971573
+            },
+            {
+              "name": "Jameis Winston",
+              "pos": "QB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 8.48,
+              "proj": 22.04,
+              "playerId": 2969939
+            },
+            {
+              "name": "MarShawn Lloyd",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 1.0,
+              "proj": 10.95,
+              "playerId": 4429023
+            },
+            {
+              "name": "Jaleel McLaughlin",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 9.5,
+              "proj": 10.54,
+              "playerId": 4722893
+            }
+          ],
+          "all_play_w": 0,
+          "all_play_l": 11,
+          "luck_delta": 0.0
+        },
+        {
+          "team": "Team Freedom (Roman Bayless)",
+          "manager": "Roman Bayless",
+          "opp": "Injured Reserve (Billy Haid)",
+          "opp_manager": "Billy Haid",
+          "actual": 96.9,
+          "proj": 124.15,
+          "diff": -27.25,
+          "opp_actual": 83.18,
+          "opp_proj": 124.15,
+          "optimal": 111.4,
+          "result": "W",
+          "coach_eff": 87.0,
+          "players": [
+            {
+              "name": "Chase Brown",
+              "pos": "RB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0,
+              "proj": 0.0,
+              "playerId": 4362238
+            },
+            {
+              "name": "Garrett Wilson",
+              "pos": "WR",
+              "started": true,
+              "audit": "Starter Bust",
+              "pts": 8.4,
+              "proj": 14.8,
+              "playerId": 4569618
+            },
+            {
+              "name": "Chris Olave",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 14.3,
+              "proj": 17.28,
+              "playerId": 4361370
+            },
+            {
+              "name": "Colston Loveland",
+              "pos": "TE",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 18.5,
+              "proj": 8.62,
+              "playerId": 4723086
+            },
+            {
+              "name": "Jalen Hurts",
+              "pos": "QB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0.0,
+              "proj": 0.0,
+              "playerId": 4040715
+            },
+            {
+              "name": "Parker Washington",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 10.68,
+              "proj": 16.23,
+              "playerId": 4432620
+            },
+            {
+              "name": "Jakobi Meyers",
+              "pos": "WR",
+              "started": false,
+              "audit": "Costly Bench",
+              "pts": 13.3,
+              "proj": 9.6,
+              "playerId": 3916433
+            },
+            {
+              "name": "Wan'Dale Robinson",
+              "pos": "WR",
+              "started": true,
+              "audit": "Starter Bust",
+              "pts": 5.2,
+              "proj": 9.37,
+              "playerId": 4569587
+            },
+            {
+              "name": "Jordan Addison",
+              "pos": "WR",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0,
+              "proj": 0.0,
+              "playerId": 4429205
+            },
+            {
+              "name": "Rams D/ST",
+              "pos": "D/ST",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 2.0,
+              "proj": 7.26,
+              "playerId": -16014
+            },
+            {
+              "name": "Tyler Allgeier",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 5.8,
+              "proj": 12.35,
+              "playerId": 4373626
+            },
+            {
+              "name": "Hunter Henry",
+              "pos": "TE",
+              "started": false,
+              "audit": "Costly Bench",
+              "pts": 14.8,
+              "proj": 7.77,
+              "playerId": 3046439
+            },
+            {
+              "name": "Tyler Loop",
+              "pos": "K",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 3.0,
+              "proj": 9.14,
+              "playerId": 4697745
+            },
+            {
+              "name": "Kendre Miller",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 9.0,
+              "proj": 11.14,
+              "playerId": 4599739
+            },
+            {
+              "name": "Aaron Rodgers",
+              "pos": "QB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 20.02,
+              "proj": 17.96,
+              "playerId": 8439
+            }
+          ],
+          "all_play_w": 1,
+          "all_play_l": 10,
+          "luck_delta": 0.909
+        },
+        {
+          "team": "Flock Around and Find Out (Jared Schneider)",
+          "manager": "Jared Schneider",
+          "opp": "Team Draft order (Wes Colson)",
+          "opp_manager": "Wes Colson",
+          "actual": 140.22,
+          "proj": 122.9,
+          "diff": 17.32,
+          "opp_actual": 132.24,
+          "opp_proj": 126.62,
+          "optimal": 149.22,
+          "result": "W",
+          "coach_eff": 94.0,
+          "players": [
+            {
+              "name": "Christian McCaffrey",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 30.7,
+              "proj": 21.22,
+              "playerId": 3117251
+            },
+            {
+              "name": "Derrick Henry",
+              "pos": "RB",
+              "started": true,
+              "audit": "Starter Bust",
+              "pts": 5.0,
+              "proj": 18.3,
+              "playerId": 3043078
+            },
+            {
+              "name": "Malik Nabers",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 28.5,
+              "proj": 17.36,
+              "playerId": 4595348
+            },
+            {
+              "name": "Ladd McConkey",
+              "pos": "WR",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 2.7,
+              "proj": 10.42,
+              "playerId": 4612826
+            },
+            {
+              "name": "Carnell Tate",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 19.0,
+              "proj": 10.86,
+              "playerId": 4871023
+            },
+            {
+              "name": "RJ Harvey",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 14.6,
+              "proj": 11.37,
+              "playerId": 4568490
+            },
+            {
+              "name": "Bo Nix",
+              "pos": "QB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 4.48,
+              "proj": 14.68,
+              "playerId": 4426338
+            },
+            {
+              "name": "Josh Downs",
+              "pos": "WR",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 8.7,
+              "proj": 9.95,
+              "playerId": 4688813
+            },
+            {
+              "name": "Kenyon Sadiq",
+              "pos": "TE",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 2.2,
+              "proj": 6.34,
+              "playerId": 5083315
+            },
+            {
+              "name": "Blake Corum",
+              "pos": "RB",
+              "started": false,
+              "audit": "Costly Bench",
+              "pts": 14.0,
+              "proj": 8.97,
+              "playerId": 4429096
+            },
+            {
+              "name": "Romeo Doubs",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 11.2,
+              "proj": 9.34,
+              "playerId": 4361432
+            },
+            {
+              "name": "Eddy Pineiro",
+              "pos": "K",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 5.0,
+              "proj": 8.97,
+              "playerId": 4034949
+            },
+            {
+              "name": "Emmett Johnson",
+              "pos": "RB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 6.4,
+              "proj": 5.8,
+              "playerId": 4832955
+            },
+            {
+              "name": "Sam Darnold",
+              "pos": "QB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 11.02,
+              "proj": 16.49,
+              "playerId": 3912547
+            },
+            {
+              "name": "Bears D/ST",
+              "pos": "D/ST",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 13.0,
+              "proj": 2.65,
+              "playerId": -16003
+            }
+          ],
+          "all_play_w": 10,
+          "all_play_l": 1,
+          "luck_delta": 0.091
+        },
+        {
+          "team": "Team Draft order (Wes Colson)",
+          "manager": "Wes Colson",
+          "opp": "Flock Around and Find Out (Jared Schneider)",
+          "opp_manager": "Jared Schneider",
+          "actual": 132.24,
+          "proj": 126.62,
+          "diff": 5.62,
+          "opp_actual": 140.22,
+          "opp_proj": 126.62,
+          "optimal": 132.24,
+          "result": "L",
+          "coach_eff": 100.0,
+          "players": [
+            {
+              "name": "Jahmyr Gibbs",
+              "pos": "RB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0,
+              "proj": 0.0,
+              "playerId": 4429795
+            },
+            {
+              "name": "Rashee Rice",
+              "pos": "WR",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0.0,
+              "proj": 0.0,
+              "playerId": 4428331
+            },
+            {
+              "name": "Trey McBride",
+              "pos": "TE",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 12.3,
+              "proj": 17.09,
+              "playerId": 4361307
+            },
+            {
+              "name": "Davante Adams",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 6.9,
+              "proj": 16.04,
+              "playerId": 16800
+            },
+            {
+              "name": "Jaylen Waddle",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 6.4,
+              "proj": 9.46,
+              "playerId": 4372016
+            },
+            {
+              "name": "Joe Burrow",
+              "pos": "QB",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0,
+              "proj": 0.0,
+              "playerId": 3915511
+            },
+            {
+              "name": "Jaylen Warren",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 9.8,
+              "proj": 14.98,
+              "playerId": 4569987
+            },
+            {
+              "name": "Trevor Lawrence",
+              "pos": "QB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 35.34,
+              "proj": 21.31,
+              "playerId": 4360310
+            },
+            {
+              "name": "Chuba Hubbard",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 19.1,
+              "proj": 14.76,
+              "playerId": 4241416
+            },
+            {
+              "name": "Rachaad White",
+              "pos": "RB",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 15.7,
+              "proj": 12.77,
+              "playerId": 4697815
+            },
+            {
+              "name": "T.J. Hockenson",
+              "pos": "TE",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 0,
+              "proj": 0.0,
+              "playerId": 4036133
+            },
+            {
+              "name": "Kalif Raymond",
+              "pos": "WR",
+              "started": false,
+              "audit": "Correct Bench",
+              "pts": 5.96,
+              "proj": 7.94,
+              "playerId": 2973405
+            },
+            {
+              "name": "49ers D/ST",
+              "pos": "D/ST",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 5.0,
+              "proj": 4.95,
+              "playerId": -16025
+            },
+            {
+              "name": "Harrison Butker",
+              "pos": "K",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 12.0,
+              "proj": 9.55,
+              "playerId": 3055899
+            },
+            {
+              "name": "Kendrick Bourne",
+              "pos": "WR",
+              "started": true,
+              "audit": "Smart Start",
+              "pts": 9.7,
+              "proj": 5.71,
+              "playerId": 3045523
+            }
+          ],
+          "all_play_w": 7,
+          "all_play_l": 4,
+          "luck_delta": -0.636
+        }
+      ],
       "7": [],
       "8": [],
       "9": [],
@@ -106332,10 +108253,10 @@
       "last": "Rejected Kamala (jeremy bayless)"
     },
     "2026": {
-      "gold": "Injured Reserve (Billy Haid)",
-      "silver": "Team Kendall (Robert Kendall)",
+      "gold": "Team Kendall (Robert Kendall)",
+      "silver": "Injured Reserve (Billy Haid)",
       "bronze": "Make Fantasy Great Again (jeremy bayless)",
-      "last": "Flock Around and Find Out (Jared Schneider)"
+      "last": "The American Dream (Miles Spainhower)"
     }
   },
   "leaderboard": [
@@ -106345,35 +108266,37 @@
       "gold": 2,
       "silver": 0,
       "bronze": 0,
-      "last": 0,
+      "last": 1,
       "total_podiums": 2,
-      "most_recent": "\ud83e\udd47 Gold (2025)",
+      "most_recent": "\ud83d\udca9 League Bitch (2026)",
       "finishes": [
         9,
         1,
         1,
-        11
+        12
+      ],
+      "avg_finish": 5.8,
+      "seasons_count": 4,
+      "avg_sort": 5.8
+    },
+    {
+      "manager": "Robert Kendall",
+      "is_current": true,
+      "gold": 1,
+      "silver": 1,
+      "bronze": 0,
+      "last": 0,
+      "total_podiums": 2,
+      "most_recent": "\ud83e\udd47 Gold (2026)",
+      "finishes": [
+        10,
+        2,
+        9,
+        1
       ],
       "avg_finish": 5.5,
       "seasons_count": 4,
       "avg_sort": 5.5
-    },
-    {
-      "manager": "Billy Haid",
-      "is_current": true,
-      "gold": 1,
-      "silver": 0,
-      "bronze": 0,
-      "last": 0,
-      "total_podiums": 1,
-      "most_recent": "\ud83e\udd47 Gold (2026)",
-      "finishes": [
-        8,
-        1
-      ],
-      "avg_finish": 4.5,
-      "seasons_count": 2,
-      "avg_sort": 4.5
     },
     {
       "manager": "Wes Colson",
@@ -106388,30 +108311,11 @@
         1,
         8,
         5,
-        4
+        6
       ],
-      "avg_finish": 4.5,
+      "avg_finish": 5.0,
       "seasons_count": 4,
-      "avg_sort": 4.5
-    },
-    {
-      "manager": "Robert Kendall",
-      "is_current": true,
-      "gold": 0,
-      "silver": 2,
-      "bronze": 0,
-      "last": 0,
-      "total_podiums": 2,
-      "most_recent": "\ud83e\udd48 Silver (2026)",
-      "finishes": [
-        10,
-        2,
-        9,
-        2
-      ],
-      "avg_finish": 5.8,
-      "seasons_count": 4,
-      "avg_sort": 5.8
+      "avg_sort": 5.0
     },
     {
       "manager": "Roman Bayless",
@@ -106426,11 +108330,28 @@
         2,
         6,
         6,
-        7
+        5
       ],
-      "avg_finish": 5.2,
+      "avg_finish": 4.8,
       "seasons_count": 4,
-      "avg_sort": 5.2
+      "avg_sort": 4.8
+    },
+    {
+      "manager": "Billy Haid",
+      "is_current": true,
+      "gold": 0,
+      "silver": 1,
+      "bronze": 0,
+      "last": 0,
+      "total_podiums": 1,
+      "most_recent": "\ud83e\udd48 Silver (2026)",
+      "finishes": [
+        8,
+        2
+      ],
+      "avg_finish": 5.0,
+      "seasons_count": 2,
+      "avg_sort": 5.0
     },
     {
       "manager": "trentan busey",
@@ -106445,11 +108366,11 @@
         11,
         4,
         2,
-        5
+        4
       ],
-      "avg_finish": 5.5,
+      "avg_finish": 5.2,
       "seasons_count": 4,
-      "avg_sort": 5.5
+      "avg_sort": 5.2
     },
     {
       "manager": "Kurt Claycomb",
@@ -106483,11 +108404,11 @@
         12,
         3,
         7,
-        8
+        7
       ],
-      "avg_finish": 7.5,
+      "avg_finish": 7.2,
       "seasons_count": 4,
-      "avg_sort": 7.5
+      "avg_sort": 7.2
     },
     {
       "manager": "jeremy bayless",
@@ -106545,6 +108466,25 @@
       "avg_sort": 8.0
     },
     {
+      "manager": "Jared Schneider",
+      "is_current": true,
+      "gold": 0,
+      "silver": 0,
+      "bronze": 0,
+      "last": 0,
+      "total_podiums": 0,
+      "most_recent": "No Podiums Yet",
+      "finishes": [
+        5,
+        7,
+        10,
+        11
+      ],
+      "avg_finish": 8.2,
+      "seasons_count": 4,
+      "avg_sort": 8.2
+    },
+    {
       "manager": "Eric King",
       "is_current": true,
       "gold": 0,
@@ -106557,30 +108497,11 @@
         4,
         12,
         11,
-        6
+        8
       ],
-      "avg_finish": 8.2,
+      "avg_finish": 8.8,
       "seasons_count": 4,
-      "avg_sort": 8.2
-    },
-    {
-      "manager": "Jared Schneider",
-      "is_current": true,
-      "gold": 0,
-      "silver": 0,
-      "bronze": 0,
-      "last": 1,
-      "total_podiums": 0,
-      "most_recent": "\ud83d\udca9 League Bitch (2026)",
-      "finishes": [
-        5,
-        7,
-        10,
-        12
-      ],
-      "avg_finish": 8.5,
-      "seasons_count": 4,
-      "avg_sort": 8.5
+      "avg_sort": 8.8
     }
   ],
   "reigning_by_season": {
@@ -106603,10 +108524,10 @@
       "last": "Rejected Kamala (jeremy bayless)"
     },
     "2026": {
-      "gold": "Injured Reserve (Billy Haid)",
-      "silver": "Team Kendall (Robert Kendall)",
+      "gold": "Team Kendall (Robert Kendall)",
+      "silver": "Injured Reserve (Billy Haid)",
       "bronze": "Make Fantasy Great Again (jeremy bayless)",
-      "last": "Flock Around and Find Out (Jared Schneider)"
+      "last": "The American Dream (Miles Spainhower)"
     }
   },
   "current_managers": [
@@ -110319,6 +112240,72 @@
       "m2": "trentan busey",
       "t2": "Master Shrader",
       "s2": 146.58
+    },
+    "2026_W6_Miles Spainhower_vs_Ron Baker": {
+      "year": 2026,
+      "week": 6,
+      "is_playoff": false,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream",
+      "s1": 117.42,
+      "m2": "Ron Baker",
+      "t2": "This team is no longer f'ng \ud83d\udca9!",
+      "s2": 120.14
+    },
+    "2026_W6_Eric King_vs_jeremy bayless": {
+      "year": 2026,
+      "week": 6,
+      "is_playoff": false,
+      "m1": "Eric King",
+      "t1": "55 TDs 55 Punts 55 FGs 55 INTs",
+      "s1": 111.78,
+      "m2": "jeremy bayless",
+      "t2": "Make Fantasy Great Again",
+      "s2": 163.0
+    },
+    "2026_W6_Kurt Claycomb_vs_Robert Kendall": {
+      "year": 2026,
+      "week": 6,
+      "is_playoff": false,
+      "m1": "Kurt Claycomb",
+      "t1": "Skatteboo boo",
+      "s1": 118.92,
+      "m2": "Robert Kendall",
+      "t2": "Team Kendall",
+      "s2": 140.2
+    },
+    "2026_W6_TRAVIS GIBSON_vs_trentan busey": {
+      "year": 2026,
+      "week": 6,
+      "is_playoff": false,
+      "m1": "TRAVIS GIBSON",
+      "t1": "THE G-MEN",
+      "s1": 129.68,
+      "m2": "trentan busey",
+      "t2": "Master Shrader",
+      "s2": 138.26
+    },
+    "2026_W6_Billy Haid_vs_Roman Bayless": {
+      "year": 2026,
+      "week": 6,
+      "is_playoff": false,
+      "m1": "Billy Haid",
+      "t1": "Injured Reserve",
+      "s1": 83.18,
+      "m2": "Roman Bayless",
+      "t2": "Team Freedom",
+      "s2": 96.9
+    },
+    "2026_W6_Jared Schneider_vs_Wes Colson": {
+      "year": 2026,
+      "week": 6,
+      "is_playoff": false,
+      "m1": "Jared Schneider",
+      "t1": "Flock Around and Find Out",
+      "s1": 140.22,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order",
+      "s2": 132.24
     }
   },
   "season_payouts": {
@@ -110405,20 +112392,20 @@
     },
     "2026": {
       "pf_leader_team": "Make Fantasy Great Again (jeremy bayless)",
-      "pf_leader_pts": 807.9,
+      "pf_leader_pts": 970.9,
       "pf_leader_prize": 100.0,
       "top_three_pf": [
         {
           "team": "Make Fantasy Great Again (jeremy bayless)",
-          "pts": 807.9
+          "pts": 970.9
         },
         {
           "team": "Team Draft order (Wes Colson)",
-          "pts": 742.7
+          "pts": 874.94
         },
         {
           "team": "Team Kendall (Robert Kendall)",
-          "pts": 715.1
+          "pts": 855.3
         }
       ],
       "high_game_team": "Team Draft order (Wes Colson)",
@@ -110814,6 +112801,14 @@
         "opp": "The American Dream (Miles Spainhower)",
         "opp_pts": 115.62,
         "cash": 25.0
+      },
+      {
+        "week": 6,
+        "team": "Make Fantasy Great Again (jeremy bayless)",
+        "pts": 163.0,
+        "opp": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)",
+        "opp_pts": 111.78,
+        "cash": 25.0
       }
     ]
   },
@@ -111200,6 +113195,14 @@
         "pts": 47.46,
         "team": "Skatteboo boo (Kurt Claycomb)",
         "cash": 25.0
+      },
+      {
+        "week": 6,
+        "player": "Trevor Lawrence",
+        "pos": "QB",
+        "pts": 35.34,
+        "team": "Team Draft order (Wes Colson)",
+        "cash": 25.0
       }
     ]
   },
@@ -111539,6 +113542,13 @@
         "pos": "D/ST",
         "pts": -6.0,
         "team": "THE G-MEN (TRAVIS GIBSON)"
+      },
+      {
+        "week": 6,
+        "player": "Texans D/ST",
+        "pos": "D/ST",
+        "pts": -2.0,
+        "team": "55 TDs 55 Punts 55 FGs 55 INTs (Eric King)"
       }
     ]
   },
@@ -111756,16 +113766,16 @@
       {
         "team": "Team Draft order (Wes Colson)",
         "team_bounties": 3,
-        "player_bounties": 1,
-        "total_bounties": 4,
-        "total_cash": 100.0
+        "player_bounties": 2,
+        "total_bounties": 5,
+        "total_cash": 125.0
       },
       {
         "team": "Make Fantasy Great Again (jeremy bayless)",
-        "team_bounties": 1,
+        "team_bounties": 2,
         "player_bounties": 1,
-        "total_bounties": 2,
-        "total_cash": 50.0
+        "total_bounties": 3,
+        "total_cash": 75.0
       },
       {
         "team": "Team Kendall (Robert Kendall)",
@@ -111796,20 +113806,16 @@
       "total_cash": 1250.0
     },
     {
+      "manager": "Robert Kendall",
+      "total_cash": 1025.0
+    },
+    {
       "manager": "Wes Colson",
-      "total_cash": 950.0
+      "total_cash": 975.0
     },
     {
       "manager": "Kurt Claycomb",
       "total_cash": 875.0
-    },
-    {
-      "manager": "Robert Kendall",
-      "total_cash": 775.0
-    },
-    {
-      "manager": "Billy Haid",
-      "total_cash": 575.0
     },
     {
       "manager": "trentan busey",
@@ -111824,12 +113830,16 @@
       "total_cash": 375.0
     },
     {
+      "manager": "jeremy bayless",
+      "total_cash": 375.0
+    },
+    {
       "manager": "Ron Baker",
       "total_cash": 350.0
     },
     {
-      "manager": "jeremy bayless",
-      "total_cash": 350.0
+      "manager": "Billy Haid",
+      "total_cash": 325.0
     },
     {
       "manager": "Jared Schneider",
@@ -117269,8 +119279,8 @@
         "playerId": 4430807,
         "position": "",
         "manager": "Billy Haid",
-        "total_points": 121.2,
-        "surplus_value": -175.8
+        "total_points": 128.5,
+        "surplus_value": -168.5
       },
       {
         "overall": 3,
@@ -117279,8 +119289,8 @@
         "playerId": 4426515,
         "position": "",
         "manager": "trentan busey",
-        "total_points": 77.8,
-        "surplus_value": -217.7
+        "total_points": 91.8,
+        "surplus_value": -203.7
       },
       {
         "overall": 4,
@@ -117289,8 +119299,8 @@
         "playerId": 4242335,
         "position": "",
         "manager": "Kurt Claycomb",
-        "total_points": 97.4,
-        "surplus_value": -196.6
+        "total_points": 118.5,
+        "surplus_value": -175.5
       },
       {
         "overall": 5,
@@ -117309,8 +119319,8 @@
         "playerId": 4430878,
         "position": "",
         "manager": "jeremy bayless",
-        "total_points": 139.46,
-        "surplus_value": -151.54
+        "total_points": 164.86,
+        "surplus_value": -126.14
       },
       {
         "overall": 7,
@@ -117319,8 +119329,8 @@
         "playerId": 3117251,
         "position": "",
         "manager": "Jared Schneider",
-        "total_points": 91.3,
-        "surplus_value": -198.2
+        "total_points": 122.0,
+        "surplus_value": -167.5
       },
       {
         "overall": 8,
@@ -117339,8 +119349,8 @@
         "playerId": 4241389,
         "position": "",
         "manager": "Robert Kendall",
-        "total_points": 115.1,
-        "surplus_value": -171.4
+        "total_points": 131.1,
+        "surplus_value": -155.4
       },
       {
         "overall": 10,
@@ -117359,8 +119369,8 @@
         "playerId": 4379399,
         "position": "",
         "manager": "TRAVIS GIBSON",
-        "total_points": 89.3,
-        "surplus_value": -194.2
+        "total_points": 113.6,
+        "surplus_value": -169.9
       },
       {
         "overall": 12,
@@ -117369,8 +119379,8 @@
         "playerId": 4890973,
         "position": "",
         "manager": "Eric King",
-        "total_points": 84.6,
-        "surplus_value": -197.4
+        "total_points": 100.4,
+        "surplus_value": -181.6
       },
       {
         "overall": 13,
@@ -117419,8 +119429,8 @@
         "playerId": 4567048,
         "position": "",
         "manager": "Ron Baker",
-        "total_points": 110.1,
-        "surplus_value": -164.4
+        "total_points": 138.0,
+        "surplus_value": -136.5
       },
       {
         "overall": 18,
@@ -117429,8 +119439,8 @@
         "playerId": 3043078,
         "position": "",
         "manager": "Jared Schneider",
-        "total_points": 111.8,
-        "surplus_value": -161.2
+        "total_points": 116.8,
+        "surplus_value": -156.2
       },
       {
         "overall": 19,
@@ -117459,8 +119469,8 @@
         "playerId": 4426502,
         "position": "",
         "manager": "Kurt Claycomb",
-        "total_points": 76.2,
-        "surplus_value": -192.3
+        "total_points": 88.4,
+        "surplus_value": -180.1
       },
       {
         "overall": 22,
@@ -117469,8 +119479,8 @@
         "playerId": 4685382,
         "position": "",
         "manager": "trentan busey",
-        "total_points": 49.6,
-        "surplus_value": -217.4
+        "total_points": 57.5,
+        "surplus_value": -209.5
       },
       {
         "overall": 23,
@@ -117479,8 +119489,8 @@
         "playerId": 4432665,
         "position": "",
         "manager": "Billy Haid",
-        "total_points": 71.2,
-        "surplus_value": -194.3
+        "total_points": 82.2,
+        "surplus_value": -183.3
       },
       {
         "overall": 24,
@@ -117499,8 +119509,8 @@
         "playerId": 4361307,
         "position": "",
         "manager": "Wes Colson",
-        "total_points": 90.8,
-        "surplus_value": -171.7
+        "total_points": 103.1,
+        "surplus_value": -159.4
       },
       {
         "overall": 26,
@@ -117509,8 +119519,8 @@
         "playerId": 4047646,
         "position": "",
         "manager": "Billy Haid",
-        "total_points": 5.6,
-        "surplus_value": -255.4
+        "total_points": 11.3,
+        "surplus_value": -249.7
       },
       {
         "overall": 27,
@@ -117519,8 +119529,8 @@
         "playerId": 4361579,
         "position": "",
         "manager": "trentan busey",
-        "total_points": 96.0,
-        "surplus_value": -163.5
+        "total_points": 109.0,
+        "surplus_value": -150.5
       },
       {
         "overall": 28,
@@ -117529,8 +119539,8 @@
         "playerId": 4258173,
         "position": "",
         "manager": "Kurt Claycomb",
-        "total_points": 62.6,
-        "surplus_value": -195.4
+        "total_points": 73.5,
+        "surplus_value": -184.5
       },
       {
         "overall": 29,
@@ -117539,8 +119549,8 @@
         "playerId": 4596448,
         "position": "",
         "manager": "Miles Spainhower",
-        "total_points": 78.7,
-        "surplus_value": -177.8
+        "total_points": 85.6,
+        "surplus_value": -170.9
       },
       {
         "overall": 30,
@@ -117549,8 +119559,8 @@
         "playerId": 4241478,
         "position": "",
         "manager": "jeremy bayless",
-        "total_points": 48.5,
-        "surplus_value": -206.5
+        "total_points": 69.0,
+        "surplus_value": -186.0
       },
       {
         "overall": 31,
@@ -117559,8 +119569,8 @@
         "playerId": 4595348,
         "position": "",
         "manager": "Jared Schneider",
-        "total_points": 73.9,
-        "surplus_value": -179.6
+        "total_points": 102.4,
+        "surplus_value": -151.1
       },
       {
         "overall": 32,
@@ -117569,8 +119579,8 @@
         "playerId": 4426354,
         "position": "",
         "manager": "Ron Baker",
-        "total_points": 68.5,
-        "surplus_value": -183.5
+        "total_points": 81.8,
+        "surplus_value": -170.2
       },
       {
         "overall": 33,
@@ -117579,8 +119589,8 @@
         "playerId": 3918298,
         "position": "",
         "manager": "Robert Kendall",
-        "total_points": 156.96,
-        "surplus_value": -93.54
+        "total_points": 179.26,
+        "surplus_value": -71.24
       },
       {
         "overall": 34,
@@ -117589,8 +119599,8 @@
         "playerId": 4569618,
         "position": "",
         "manager": "Roman Bayless",
-        "total_points": 86.4,
-        "surplus_value": -162.6
+        "total_points": 94.8,
+        "surplus_value": -154.2
       },
       {
         "overall": 35,
@@ -117599,8 +119609,8 @@
         "playerId": 4685472,
         "position": "",
         "manager": "TRAVIS GIBSON",
-        "total_points": 74.5,
-        "surplus_value": -173.0
+        "total_points": 89.1,
+        "surplus_value": -158.4
       },
       {
         "overall": 36,
@@ -117609,8 +119619,8 @@
         "playerId": 4429615,
         "position": "",
         "manager": "Eric King",
-        "total_points": 81.8,
-        "surplus_value": -164.2
+        "total_points": 94.5,
+        "surplus_value": -151.5
       },
       {
         "overall": 37,
@@ -117619,8 +119629,8 @@
         "playerId": 4567750,
         "position": "",
         "manager": "Eric King",
-        "total_points": 53.3,
-        "surplus_value": -191.2
+        "total_points": 71.1,
+        "surplus_value": -173.4
       },
       {
         "overall": 38,
@@ -117629,8 +119639,8 @@
         "playerId": 3121422,
         "position": "",
         "manager": "TRAVIS GIBSON",
-        "total_points": 42.3,
-        "surplus_value": -200.7
+        "total_points": 46.0,
+        "surplus_value": -197.0
       },
       {
         "overall": 39,
@@ -117639,8 +119649,8 @@
         "playerId": 4361370,
         "position": "",
         "manager": "Roman Bayless",
-        "total_points": 98.7,
-        "surplus_value": -142.8
+        "total_points": 113.0,
+        "surplus_value": -128.5
       },
       {
         "overall": 40,
@@ -117649,8 +119659,8 @@
         "playerId": 4430737,
         "position": "",
         "manager": "Robert Kendall",
-        "total_points": 109.3,
-        "surplus_value": -130.7
+        "total_points": 119.0,
+        "surplus_value": -121.0
       },
       {
         "overall": 41,
@@ -117669,8 +119679,8 @@
         "playerId": 4612826,
         "position": "",
         "manager": "Jared Schneider",
-        "total_points": 36.3,
-        "surplus_value": -200.7
+        "total_points": 39.0,
+        "surplus_value": -198.0
       },
       {
         "overall": 43,
@@ -117709,8 +119719,8 @@
         "playerId": 4882093,
         "position": "",
         "manager": "trentan busey",
-        "total_points": 63.7,
-        "surplus_value": -167.3
+        "total_points": 88.4,
+        "surplus_value": -142.6
       },
       {
         "overall": 47,
@@ -117729,8 +119739,8 @@
         "playerId": 16800,
         "position": "",
         "manager": "Wes Colson",
-        "total_points": 95.1,
-        "surplus_value": -132.9
+        "total_points": 102.0,
+        "surplus_value": -126.0
       },
       {
         "overall": 49,
@@ -117739,8 +119749,8 @@
         "playerId": 4372016,
         "position": "",
         "manager": "Wes Colson",
-        "total_points": 48.7,
-        "surplus_value": -177.8
+        "total_points": 55.1,
+        "surplus_value": -171.4
       },
       {
         "overall": 50,
@@ -117759,8 +119769,8 @@
         "playerId": 4431299,
         "position": "",
         "manager": "trentan busey",
-        "total_points": 42.3,
-        "surplus_value": -181.2
+        "total_points": 49.2,
+        "surplus_value": -174.3
       },
       {
         "overall": 52,
@@ -117769,8 +119779,8 @@
         "playerId": 4431452,
         "position": "",
         "manager": "Kurt Claycomb",
-        "total_points": 103.22,
-        "surplus_value": -118.78
+        "total_points": 133.02,
+        "surplus_value": -88.98
       },
       {
         "overall": 53,
@@ -117789,8 +119799,8 @@
         "playerId": 4259545,
         "position": "",
         "manager": "jeremy bayless",
-        "total_points": 80.8,
-        "surplus_value": -138.2
+        "total_points": 103.8,
+        "surplus_value": -115.2
       },
       {
         "overall": 55,
@@ -117799,8 +119809,8 @@
         "playerId": 4871023,
         "position": "",
         "manager": "Jared Schneider",
-        "total_points": 48.4,
-        "surplus_value": -169.1
+        "total_points": 67.4,
+        "surplus_value": -150.1
       },
       {
         "overall": 56,
@@ -117809,8 +119819,8 @@
         "playerId": 4426348,
         "position": "",
         "manager": "Ron Baker",
-        "total_points": 70.66,
-        "surplus_value": -145.34
+        "total_points": 95.66,
+        "surplus_value": -120.34
       },
       {
         "overall": 57,
@@ -117829,8 +119839,8 @@
         "playerId": 4723086,
         "position": "",
         "manager": "Roman Bayless",
-        "total_points": 24.0,
-        "surplus_value": -189.0
+        "total_points": 42.5,
+        "surplus_value": -170.5
       },
       {
         "overall": 59,
@@ -117849,8 +119859,8 @@
         "playerId": 4685278,
         "position": "",
         "manager": "Eric King",
-        "total_points": 55.8,
-        "surplus_value": -154.2
+        "total_points": 73.3,
+        "surplus_value": -136.7
       },
       {
         "overall": 61,
@@ -117869,8 +119879,8 @@
         "playerId": 4432710,
         "position": "",
         "manager": "TRAVIS GIBSON",
-        "total_points": 26.5,
-        "surplus_value": -180.5
+        "total_points": 29.5,
+        "surplus_value": -177.5
       },
       {
         "overall": 63,
@@ -117899,8 +119909,8 @@
         "playerId": 3916148,
         "position": "",
         "manager": "Ron Baker",
-        "total_points": 43.7,
-        "surplus_value": -158.8
+        "total_points": 51.3,
+        "surplus_value": -151.2
       },
       {
         "overall": 66,
@@ -117909,8 +119919,8 @@
         "playerId": 4568490,
         "position": "",
         "manager": "Jared Schneider",
-        "total_points": 45.8,
-        "surplus_value": -155.2
+        "total_points": 60.4,
+        "surplus_value": -140.6
       },
       {
         "overall": 67,
@@ -117919,8 +119929,8 @@
         "playerId": 4432708,
         "position": "",
         "manager": "jeremy bayless",
-        "total_points": 19.5,
-        "surplus_value": -180.0
+        "total_points": 25.9,
+        "surplus_value": -173.6
       },
       {
         "overall": 68,
@@ -117929,8 +119939,8 @@
         "playerId": 3054850,
         "position": "",
         "manager": "Miles Spainhower",
-        "total_points": 37.7,
-        "surplus_value": -160.3
+        "total_points": 52.6,
+        "surplus_value": -145.4
       },
       {
         "overall": 69,
@@ -117959,8 +119969,8 @@
         "playerId": 16737,
         "position": "",
         "manager": "Billy Haid",
-        "total_points": 76.6,
-        "surplus_value": -116.9
+        "total_points": 89.0,
+        "surplus_value": -104.5
       },
       {
         "overall": 72,
@@ -117999,8 +120009,8 @@
         "playerId": 4701936,
         "position": "",
         "manager": "trentan busey",
-        "total_points": 79.38,
-        "surplus_value": -108.12
+        "total_points": 101.78,
+        "surplus_value": -85.72
       },
       {
         "overall": 76,
@@ -118019,8 +120029,8 @@
         "playerId": 4683062,
         "position": "",
         "manager": "Miles Spainhower",
-        "total_points": 33.3,
-        "surplus_value": -151.2
+        "total_points": 47.6,
+        "surplus_value": -136.9
       },
       {
         "overall": 78,
@@ -118029,8 +120039,8 @@
         "playerId": 4047650,
         "position": "",
         "manager": "jeremy bayless",
-        "total_points": 48.6,
-        "surplus_value": -134.4
+        "total_points": 68.9,
+        "surplus_value": -114.1
       },
       {
         "overall": 79,
@@ -118039,8 +120049,8 @@
         "playerId": 4426338,
         "position": "",
         "manager": "Jared Schneider",
-        "total_points": 77.18,
-        "surplus_value": -104.32
+        "total_points": 81.66,
+        "surplus_value": -99.84
       },
       {
         "overall": 80,
@@ -118049,8 +120059,8 @@
         "playerId": 5083076,
         "position": "",
         "manager": "Ron Baker",
-        "total_points": 51.7,
-        "surplus_value": -128.3
+        "total_points": 53.6,
+        "surplus_value": -126.4
       },
       {
         "overall": 81,
@@ -118059,8 +120069,8 @@
         "playerId": 4360248,
         "position": "",
         "manager": "Robert Kendall",
-        "total_points": 4.0,
-        "surplus_value": -174.5
+        "total_points": 27.0,
+        "surplus_value": -151.5
       },
       {
         "overall": 82,
@@ -118069,8 +120079,8 @@
         "playerId": 4432620,
         "position": "",
         "manager": "Roman Bayless",
-        "total_points": 82.34,
-        "surplus_value": -94.66
+        "total_points": 93.02,
+        "surplus_value": -83.98
       },
       {
         "overall": 83,
@@ -118089,8 +120099,8 @@
         "playerId": 4360761,
         "position": "",
         "manager": "Eric King",
-        "total_points": 64.08,
-        "surplus_value": -109.92
+        "total_points": 71.28,
+        "surplus_value": -102.72
       },
       {
         "overall": 85,
@@ -118099,8 +120109,8 @@
         "playerId": 12483,
         "position": "",
         "manager": "Eric King",
-        "total_points": 106.98,
-        "surplus_value": -65.52
+        "total_points": 127.86,
+        "surplus_value": -44.64
       },
       {
         "overall": 86,
@@ -118119,8 +120129,8 @@
         "playerId": 3916433,
         "position": "",
         "manager": "Roman Bayless",
-        "total_points": 47.4,
-        "surplus_value": -122.1
+        "total_points": 60.7,
+        "surplus_value": -108.8
       },
       {
         "overall": 88,
@@ -118129,8 +120139,8 @@
         "playerId": 4373678,
         "position": "",
         "manager": "Robert Kendall",
-        "total_points": 42.04,
-        "surplus_value": -125.96
+        "total_points": 55.44,
+        "surplus_value": -112.56
       },
       {
         "overall": 89,
@@ -118139,8 +120149,8 @@
         "playerId": 4248528,
         "position": "",
         "manager": "Ron Baker",
-        "total_points": 109.4,
-        "surplus_value": -57.1
+        "total_points": 118.8,
+        "surplus_value": -47.7
       },
       {
         "overall": 90,
@@ -118149,8 +120159,8 @@
         "playerId": 4688813,
         "position": "",
         "manager": "Jared Schneider",
-        "total_points": 44.9,
-        "surplus_value": -120.1
+        "total_points": 53.6,
+        "surplus_value": -111.4
       },
       {
         "overall": 91,
@@ -118159,8 +120169,8 @@
         "playerId": 4431611,
         "position": "",
         "manager": "jeremy bayless",
-        "total_points": 48.98,
-        "surplus_value": -114.52
+        "total_points": 67.48,
+        "surplus_value": -96.02
       },
       {
         "overall": 92,
@@ -118169,8 +120179,8 @@
         "playerId": 15847,
         "position": "",
         "manager": "Miles Spainhower",
-        "total_points": 52.6,
-        "surplus_value": -109.4
+        "total_points": 61.9,
+        "surplus_value": -100.1
       },
       {
         "overall": 93,
@@ -118209,8 +120219,8 @@
         "playerId": 4569987,
         "position": "",
         "manager": "Wes Colson",
-        "total_points": 93.0,
-        "surplus_value": -63.0
+        "total_points": 102.8,
+        "surplus_value": -53.2
       },
       {
         "overall": 97,
@@ -118219,8 +120229,8 @@
         "playerId": 4360310,
         "position": "",
         "manager": "Wes Colson",
-        "total_points": 106.86,
-        "surplus_value": -47.64
+        "total_points": 142.2,
+        "surplus_value": -12.3
       },
       {
         "overall": 98,
@@ -118229,8 +120239,8 @@
         "playerId": 4572680,
         "position": "",
         "manager": "Billy Haid",
-        "total_points": 47.7,
-        "surplus_value": -105.3
+        "total_points": 56.4,
+        "surplus_value": -96.6
       },
       {
         "overall": 99,
@@ -118239,8 +120249,8 @@
         "playerId": 4361741,
         "position": "",
         "manager": "trentan busey",
-        "total_points": 142.64,
-        "surplus_value": -8.86
+        "total_points": 162.0,
+        "surplus_value": 10.5
       },
       {
         "overall": 100,
@@ -118249,8 +120259,8 @@
         "playerId": 3139477,
         "position": "",
         "manager": "Kurt Claycomb",
-        "total_points": 101.58,
-        "surplus_value": -48.42
+        "total_points": 112.06,
+        "surplus_value": -37.94
       },
       {
         "overall": 101,
@@ -118269,8 +120279,8 @@
         "playerId": 3040151,
         "position": "",
         "manager": "jeremy bayless",
-        "total_points": 71.8,
-        "surplus_value": -75.2
+        "total_points": 89.7,
+        "surplus_value": -57.3
       },
       {
         "overall": 103,
@@ -118279,8 +120289,8 @@
         "playerId": 5083315,
         "position": "",
         "manager": "Jared Schneider",
-        "total_points": 38.9,
-        "surplus_value": -106.6
+        "total_points": 41.1,
+        "surplus_value": -104.4
       },
       {
         "overall": 104,
@@ -118299,8 +120309,8 @@
         "playerId": 2577417,
         "position": "",
         "manager": "Robert Kendall",
-        "total_points": 111.84,
-        "surplus_value": -30.66
+        "total_points": 124.86,
+        "surplus_value": -17.64
       },
       {
         "overall": 106,
@@ -118309,8 +120319,8 @@
         "playerId": 4569587,
         "position": "",
         "manager": "Roman Bayless",
-        "total_points": 51.7,
-        "surplus_value": -89.3
+        "total_points": 56.9,
+        "surplus_value": -84.1
       },
       {
         "overall": 107,
@@ -118319,8 +120329,8 @@
         "playerId": 4569173,
         "position": "",
         "manager": "TRAVIS GIBSON",
-        "total_points": 60.8,
-        "surplus_value": -78.7
+        "total_points": 64.4,
+        "surplus_value": -75.1
       },
       {
         "overall": 108,
@@ -118329,8 +120339,8 @@
         "playerId": -16034,
         "position": "",
         "manager": "Eric King",
-        "total_points": 31.0,
-        "surplus_value": -107.0
+        "total_points": 29.0,
+        "surplus_value": -109.0
       },
       {
         "overall": 109,
@@ -118339,8 +120349,8 @@
         "playerId": 3953687,
         "position": "",
         "manager": "Eric King",
-        "total_points": 44.0,
-        "surplus_value": -92.5
+        "total_points": 45.0,
+        "surplus_value": -91.5
       },
       {
         "overall": 110,
@@ -118369,8 +120379,8 @@
         "playerId": 4038815,
         "position": "",
         "manager": "Robert Kendall",
-        "total_points": 10.5,
-        "surplus_value": -121.5
+        "total_points": 18.4,
+        "surplus_value": -113.6
       },
       {
         "overall": 113,
@@ -118379,8 +120389,8 @@
         "playerId": 2976212,
         "position": "",
         "manager": "Ron Baker",
-        "total_points": 53.0,
-        "surplus_value": -77.5
+        "total_points": 69.4,
+        "surplus_value": -61.1
       },
       {
         "overall": 114,
@@ -118419,8 +120429,8 @@
         "playerId": 3121023,
         "position": "",
         "manager": "Kurt Claycomb",
-        "total_points": 34.9,
-        "surplus_value": -89.6
+        "total_points": 47.0,
+        "surplus_value": -77.5
       },
       {
         "overall": 118,
@@ -118429,8 +120439,8 @@
         "playerId": 4241985,
         "position": "",
         "manager": "trentan busey",
-        "total_points": 36.1,
-        "surplus_value": -86.9
+        "total_points": 49.7,
+        "surplus_value": -73.3
       },
       {
         "overall": 119,
@@ -118449,8 +120459,8 @@
         "playerId": 4241416,
         "position": "",
         "manager": "Wes Colson",
-        "total_points": 79.0,
-        "surplus_value": -41.0
+        "total_points": 98.1,
+        "surplus_value": -21.9
       },
       {
         "overall": 121,
@@ -118459,8 +120469,8 @@
         "playerId": 4697815,
         "position": "",
         "manager": "Wes Colson",
-        "total_points": 40.98,
-        "surplus_value": -77.52
+        "total_points": 56.68,
+        "surplus_value": -61.82
       },
       {
         "overall": 122,
@@ -118519,8 +120529,8 @@
         "playerId": 4429096,
         "position": "",
         "manager": "Jared Schneider",
-        "total_points": 38.4,
-        "surplus_value": -71.1
+        "total_points": 52.4,
+        "surplus_value": -57.1
       },
       {
         "overall": 128,
@@ -118529,8 +120539,8 @@
         "playerId": 4361050,
         "position": "",
         "manager": "Ron Baker",
-        "total_points": 85.4,
-        "surplus_value": -22.6
+        "total_points": 109.3,
+        "surplus_value": 1.3
       },
       {
         "overall": 129,
@@ -118549,8 +120559,8 @@
         "playerId": -16014,
         "position": "",
         "manager": "Roman Bayless",
-        "total_points": 23.0,
-        "surplus_value": -82.0
+        "total_points": 25.0,
+        "surplus_value": -80.0
       },
       {
         "overall": 131,
@@ -118569,8 +120579,8 @@
         "playerId": 4385690,
         "position": "",
         "manager": "Eric King",
-        "total_points": 49.7,
-        "surplus_value": -52.3
+        "total_points": 60.5,
+        "surplus_value": -41.5
       },
       {
         "overall": 133,
@@ -118599,8 +120609,8 @@
         "playerId": 4373626,
         "position": "",
         "manager": "Roman Bayless",
-        "total_points": 34.3,
-        "surplus_value": -63.2
+        "total_points": 40.1,
+        "surplus_value": -57.4
       },
       {
         "overall": 136,
@@ -118609,8 +120619,8 @@
         "playerId": -16023,
         "position": "",
         "manager": "Robert Kendall",
-        "total_points": 37.0,
-        "surplus_value": -59.0
+        "total_points": 48.0,
+        "surplus_value": -48.0
       },
       {
         "overall": 137,
@@ -118619,8 +120629,8 @@
         "playerId": 4032473,
         "position": "",
         "manager": "Ron Baker",
-        "total_points": 35.88,
-        "surplus_value": -58.62
+        "total_points": 52.32,
+        "surplus_value": -42.18
       },
       {
         "overall": 138,
@@ -118629,8 +120639,8 @@
         "playerId": 4361432,
         "position": "",
         "manager": "Jared Schneider",
-        "total_points": 46.9,
-        "surplus_value": -46.1
+        "total_points": 58.1,
+        "surplus_value": -34.9
       },
       {
         "overall": 139,
@@ -118639,8 +120649,8 @@
         "playerId": -16026,
         "position": "",
         "manager": "jeremy bayless",
-        "total_points": 51.0,
-        "surplus_value": -40.5
+        "total_points": 57.0,
+        "surplus_value": -34.5
       },
       {
         "overall": 140,
@@ -118659,8 +120669,8 @@
         "playerId": 4870653,
         "position": "",
         "manager": "Kurt Claycomb",
-        "total_points": 32.64,
-        "surplus_value": -55.86
+        "total_points": 41.06,
+        "surplus_value": -47.44
       },
       {
         "overall": 142,
@@ -118709,8 +120719,8 @@
         "playerId": 4695883,
         "position": "",
         "manager": "Billy Haid",
-        "total_points": 54.16,
-        "surplus_value": -26.84
+        "total_points": 69.86,
+        "surplus_value": -11.14
       },
       {
         "overall": 147,
@@ -118749,8 +120759,8 @@
         "playerId": 4685247,
         "position": "",
         "manager": "jeremy bayless",
-        "total_points": 44.5,
-        "surplus_value": -30.5
+        "total_points": 56.9,
+        "surplus_value": -18.1
       },
       {
         "overall": 151,
@@ -118769,8 +120779,8 @@
         "playerId": -16033,
         "position": "",
         "manager": "Ron Baker",
-        "total_points": 26.0,
-        "surplus_value": -46.0
+        "total_points": 36.0,
+        "surplus_value": -36.0
       },
       {
         "overall": 153,
@@ -118789,8 +120799,8 @@
         "playerId": 3046439,
         "position": "",
         "manager": "Roman Bayless",
-        "total_points": 38.7,
-        "surplus_value": -30.3
+        "total_points": 53.5,
+        "surplus_value": -15.5
       },
       {
         "overall": 155,
@@ -118809,8 +120819,8 @@
         "playerId": 4429059,
         "position": "",
         "manager": "Eric King",
-        "total_points": 50.1,
-        "surplus_value": -15.9
+        "total_points": 60.2,
+        "surplus_value": -5.8
       },
       {
         "overall": 157,
@@ -118849,8 +120859,8 @@
         "playerId": 2473037,
         "position": "",
         "manager": "Robert Kendall",
-        "total_points": 52.0,
-        "surplus_value": -8.0
+        "total_points": 59.0,
+        "surplus_value": -1.0
       },
       {
         "overall": 161,
@@ -118859,8 +120869,8 @@
         "playerId": 4832800,
         "position": "",
         "manager": "Ron Baker",
-        "total_points": 69.52,
-        "surplus_value": 11.02
+        "total_points": 72.02,
+        "surplus_value": 13.52
       },
       {
         "overall": 162,
@@ -118879,8 +120889,8 @@
         "playerId": 4430539,
         "position": "",
         "manager": "jeremy bayless",
-        "total_points": 50.5,
-        "surplus_value": -5.0
+        "total_points": 59.9,
+        "surplus_value": 4.4
       },
       {
         "overall": 164,
@@ -118889,8 +120899,8 @@
         "playerId": -16012,
         "position": "",
         "manager": "Miles Spainhower",
-        "total_points": 23.0,
-        "surplus_value": -31.0
+        "total_points": 37.0,
+        "surplus_value": -17.0
       },
       {
         "overall": 165,
@@ -118919,8 +120929,8 @@
         "playerId": -16017,
         "position": "",
         "manager": "Billy Haid",
-        "total_points": 33.0,
-        "surplus_value": -16.5
+        "total_points": 38.0,
+        "surplus_value": -11.5
       },
       {
         "overall": 168,
@@ -118949,8 +120959,8 @@
         "playerId": 2971573,
         "position": "",
         "manager": "Billy Haid",
-        "total_points": 37.0,
-        "surplus_value": -8.0
+        "total_points": 48.0,
+        "surplus_value": 3.0
       },
       {
         "overall": 171,
@@ -118969,8 +120979,8 @@
         "playerId": 3055899,
         "position": "",
         "manager": "Kurt Claycomb",
-        "total_points": 34.0,
-        "surplus_value": -8.0
+        "total_points": 46.0,
+        "surplus_value": 4.0
       },
       {
         "overall": 173,
@@ -118999,8 +121009,8 @@
         "playerId": 4034949,
         "position": "",
         "manager": "Jared Schneider",
-        "total_points": 34.0,
-        "surplus_value": -6.0
+        "total_points": 39.0,
+        "surplus_value": -1.0
       },
       {
         "overall": 176,
@@ -119009,8 +121019,8 @@
         "playerId": 4686361,
         "position": "",
         "manager": "Ron Baker",
-        "total_points": 46.0,
-        "surplus_value": 6.0
+        "total_points": 56.0,
+        "surplus_value": 16.0
       },
       {
         "overall": 177,
@@ -119019,8 +121029,8 @@
         "playerId": 4428718,
         "position": "",
         "manager": "Robert Kendall",
-        "total_points": 51.8,
-        "surplus_value": 11.8
+        "total_points": 78.5,
+        "surplus_value": 38.5
       },
       {
         "overall": 178,
@@ -119029,8 +121039,8 @@
         "playerId": 4697745,
         "position": "",
         "manager": "Roman Bayless",
-        "total_points": 53.0,
-        "surplus_value": 13.0
+        "total_points": 56.0,
+        "surplus_value": 16.0
       },
       {
         "overall": 179,
