@@ -20,8 +20,8 @@
     },
     "2026": {
       "gold": "Injured Reserve (Billy Haid)",
-      "silver": "Team Kendall (Robert Kendall)",
-      "bronze": "Make Fantasy Great Again (jeremy bayless)",
+      "silver": "Just please don't get hurt!! \ud83d\ude4f (Ron Baker)",
+      "bronze": "Team Kendall (Robert Kendall)",
       "last": "THE G-MEN (TRAVIS GIBSON)"
     }
   },
@@ -3397,7 +3397,7 @@
       "week": 1,
       "is_playoff": false,
       "m1": "Ron Baker",
-      "t1": "This team is no longer f'ng \ud83d\udca9!",
+      "t1": "Just please don't get hurt!! \ud83d\ude4f",
       "s1": 148.06,
       "m2": "jeremy bayless",
       "t2": "Make Fantasy Great Again",
@@ -3466,7 +3466,7 @@
       "t1": "Team Kendall",
       "s1": 156.76,
       "m2": "Ron Baker",
-      "t2": "This team is no longer f'ng \ud83d\udca9!",
+      "t2": "Just please don't get hurt!! \ud83d\ude4f",
       "s2": 136.64
     },
     "2026_W2_TRAVIS GIBSON_vs_jeremy bayless": {
@@ -3529,7 +3529,7 @@
       "week": 3,
       "is_playoff": false,
       "m1": "Ron Baker",
-      "t1": "This team is no longer f'ng \ud83d\udca9!",
+      "t1": "Just please don't get hurt!! \ud83d\ude4f",
       "s1": 133.58,
       "m2": "TRAVIS GIBSON",
       "t2": "THE G-MEN",
@@ -3598,7 +3598,7 @@
       "t1": "Injured Reserve",
       "s1": 151.38,
       "m2": "Ron Baker",
-      "t2": "This team is no longer f'ng \ud83d\udca9!",
+      "t2": "Just please don't get hurt!! \ud83d\ude4f",
       "s2": 124.48
     },
     "2026_W4_Jared Schneider_vs_TRAVIS GIBSON": {
@@ -3664,7 +3664,7 @@
       "t1": "Show me them TDs",
       "s1": 86.9,
       "m2": "Ron Baker",
-      "t2": "This team is no longer f'ng \ud83d\udca9!",
+      "t2": "Just please don't get hurt!! \ud83d\ude4f",
       "s2": 169.18
     },
     "2026_W5_Billy Haid_vs_jeremy bayless": {
@@ -3730,7 +3730,7 @@
       "t1": "The American Dream",
       "s1": 117.42,
       "m2": "Ron Baker",
-      "t2": "This team is no longer f'ng \ud83d\udca9!",
+      "t2": "Just please don't get hurt!! \ud83d\ude4f",
       "s2": 120.14
     },
     "2026_W6_Eric King_vs_jeremy bayless": {
@@ -3848,7 +3848,7 @@
       "week": 7,
       "is_playoff": false,
       "m1": "Ron Baker",
-      "t1": "This team is no longer f'ng \ud83d\udca9!",
+      "t1": "Just please don't get hurt!! \ud83d\ude4f",
       "s1": 149.46,
       "m2": "Wes Colson",
       "t2": "Team Draft order",
@@ -3906,7 +3906,7 @@
       "t1": "Team Freedom",
       "s1": 147.38,
       "m2": "Ron Baker",
-      "t2": "This team is no longer f'ng \ud83d\udca9!",
+      "t2": "Just please don't get hurt!! \ud83d\ude4f",
       "s2": 151.68
     },
     "2026_W8_Wes Colson_vs_jeremy bayless": {
@@ -3919,6 +3919,72 @@
       "m2": "jeremy bayless",
       "t2": "Make Fantasy Great Again",
       "s2": 137.78
+    },
+    "2026_W9_Miles Spainhower_vs_TRAVIS GIBSON": {
+      "year": 2026,
+      "week": 9,
+      "is_playoff": false,
+      "m1": "Miles Spainhower",
+      "t1": "The American Dream",
+      "s1": 128.82,
+      "m2": "TRAVIS GIBSON",
+      "t2": "THE G-MEN",
+      "s2": 114.18
+    },
+    "2026_W9_Billy Haid_vs_Eric King": {
+      "year": 2026,
+      "week": 9,
+      "is_playoff": false,
+      "m1": "Billy Haid",
+      "t1": "Injured Reserve",
+      "s1": 142.5,
+      "m2": "Eric King",
+      "t2": "55 TDs 55 Punts 55 FGs 55 INTs",
+      "s2": 99.52
+    },
+    "2026_W9_Jared Schneider_vs_Kurt Claycomb": {
+      "year": 2026,
+      "week": 9,
+      "is_playoff": false,
+      "m1": "Jared Schneider",
+      "t1": "Show me them TDs",
+      "s1": 100.36,
+      "m2": "Kurt Claycomb",
+      "t2": "Skatteboo boo",
+      "s2": 107.86
+    },
+    "2026_W9_Ron Baker_vs_trentan busey": {
+      "year": 2026,
+      "week": 9,
+      "is_playoff": false,
+      "m1": "Ron Baker",
+      "t1": "Just please don't get hurt!! \ud83d\ude4f",
+      "s1": 184.28,
+      "m2": "trentan busey",
+      "t2": "Master Shrader",
+      "s2": 151.18
+    },
+    "2026_W9_Roman Bayless_vs_jeremy bayless": {
+      "year": 2026,
+      "week": 9,
+      "is_playoff": false,
+      "m1": "Roman Bayless",
+      "t1": "Team Freedom",
+      "s1": 113.78,
+      "m2": "jeremy bayless",
+      "t2": "Make Fantasy Great Again",
+      "s2": 107.46
+    },
+    "2026_W9_Robert Kendall_vs_Wes Colson": {
+      "year": 2026,
+      "week": 9,
+      "is_playoff": false,
+      "m1": "Robert Kendall",
+      "t1": "Team Kendall",
+      "s1": 118.6,
+      "m2": "Wes Colson",
+      "t2": "Team Draft order",
+      "s2": 134.12
     }
   },
   "finishes": {
@@ -3966,13 +4032,13 @@
     },
     "2026": {
       "Billy Haid": 1,
-      "Robert Kendall": 2,
-      "jeremy bayless": 3,
-      "Ron Baker": 4,
-      "trentan busey": 5,
-      "Wes Colson": 6,
-      "Eric King": 7,
-      "Roman Bayless": 8,
+      "Ron Baker": 2,
+      "Robert Kendall": 3,
+      "jeremy bayless": 4,
+      "Wes Colson": 5,
+      "trentan busey": 6,
+      "Roman Bayless": 7,
+      "Eric King": 8,
       "Kurt Claycomb": 9,
       "Miles Spainhower": 10,
       "Jared Schneider": 11,
